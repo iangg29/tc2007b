@@ -1,0 +1,23 @@
+{
+  "name": "tc2007b-api",
+  "version": "1.0.0",
+  "description": "Application's API server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "tc2007"
+  },
+  "keywords": [
+    "api",
+    "graphql",
+    "database",
+    "apollo",
+    "mobile",
+    "app"
+  ],
+  "author": "Ian Garcia, Erick Garcia, Fermin Mendez, Jose Angel",
+  "license": "ISC"
+}
