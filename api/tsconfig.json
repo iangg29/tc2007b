@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "outDir": "./build",
+    "rootDir": "./source",
+    "target": "ES2018",
+    "skipLibCheck": true,
+    "strict": true,
+    "sourceMap": true
+  },
+  "include": [
+    "source/**/*.ts",
+    "source/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
+}

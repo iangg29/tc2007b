@@ -2,9 +2,12 @@
   "name": "tc2007b-api",
   "version": "1.0.0",
   "description": "Application's API server",
-  "main": "server.js",
+  "main": "source/server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon source/server.ts",
+    "build": "rm -rf build/ && prettier --write source/ && tsc",
+    "lint": "eslint source/*",
+    "format": "eslint source/* --fix"
   },
   "repository": {
     "type": "git",
@@ -19,5 +22,42 @@
     "app"
   ],
   "author": "Ian Garcia, Erick Garcia, Fermin Mendez, Jose Angel",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3",
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "@typescript-eslint/parser": "^5.35.1",
+    "apollo-server-core": "^3.10.2",
+    "apollo-server-express": "^3.10.2",
+    "axios": "^0.27.2",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "eslint": "^8.23.0",
+    "express": "^4.18.1",
+    "express-rate-limit": "^6.5.2",
+    "graphql": "^16.6.0",
+    "helmet": "^6.0.0",
+    "knex": "^2.2.0",
+    "knex-paginate": "^3.0.1",
+    "lint-staged": "^13.0.3",
+    "morgan": "^1.10.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.2",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "husky": "^8.0.1",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1"
+  },
+  "lint-staged": {
+    "*": "prettier --write --ignore-unknown"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
+  }
 }
