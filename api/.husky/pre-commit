@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-cd ./api && prettier --write --ignore-unknown && npm run format
+cd ./api && npx lint-staged && npm run format
