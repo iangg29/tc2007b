@@ -7,7 +7,8 @@
     "dev": "nodemon source/server.ts",
     "build": "rm -rf build/ && prettier --write source/ && tsc",
     "lint": "eslint source/*",
-    "format": "eslint source/* --fix"
+    "format": "eslint source/* --fix",
+    "prepare": "cd .. && husky install ./api/.husky"
   },
   "repository": {
     "type": "git",
@@ -54,10 +55,5 @@
   },
   "lint-staged": {
     "*": "prettier --write --ignore-unknown"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npx lint-staged"
-    }
   }
 }
