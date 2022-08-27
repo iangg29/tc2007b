@@ -145,7 +145,7 @@
 				5B7EB9410499542E8C5724F5 /* Pods-client-clientTests.debug.xcconfig */,
 				89C6BE57DB24E9ADA2F236DE /* Pods-client-clientTests.release.xcconfig */,
 			);
-			path = Pods;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
