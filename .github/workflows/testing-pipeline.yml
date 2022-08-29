@@ -39,7 +39,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install dependencies
         run: npm ci --force
+      - name: Build
+        run: npm run build  
       - name: Start server
-        run: npm start        
+        run: npm run start        
       - name: Run test
         run: npm test

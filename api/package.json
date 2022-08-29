@@ -4,6 +4,7 @@
   "description": "Application's API server",
   "main": "source/server.ts",
   "scripts": {
+    "start": "cd build && node server.js",
     "dev": "nodemon source/server.ts",
     "build": "rm -rf build/ && prettier --write source/ && tsc",
     "lint": "eslint source/*",
