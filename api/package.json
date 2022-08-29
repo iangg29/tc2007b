@@ -7,7 +7,7 @@
     "dev": "nodemon source/server.ts",
     "build": "rm -rf build/ && prettier --write source/ && tsc",
     "lint": "eslint source/*",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "format": "eslint source/* --fix",
     "prepare": "cd .. && husky install ./api/.husky"
   },
