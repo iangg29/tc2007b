@@ -1,6 +1,6 @@
 # (c) Tecnologico de Monterrey 2022
 
-name: Testing pipeline
+name: Testing
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  test-web:
+  web:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -19,7 +19,7 @@ jobs:
         run: npm ci
       - name: Run test
         run: npm test
-  test-client:
+  client:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -30,7 +30,7 @@ jobs:
         run: npm ci
       - name: Run test
         run: npm test
-  test-api:
+  api:
     runs-on: ubuntu-latest
     defaults:
       run:
