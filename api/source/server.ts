@@ -1,25 +1,28 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { ApolloServer } from "apollo-server-express";
-import express from "express";
-import http from "http";
-import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
+const dotenv = require("dotenv");
 
-const genApolloServer = async (typeDefs: any, resolvers: any) => {
-  const app = express();
-  const httpServer = http.createServer(app);
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    csrfPrevention: true,
-    cache: "bounded",
-    plugins: [
-      ApolloServerPluginDrainHttpServer({ httpServer }),
-      ApolloServerPluginLandingPageLocalDefault({ embed: true }),
-    ],
+dotenv.config({ path: "../.env" });
+
+process.on("uncaughtException", (error: Error) => {
+  console.error("[!][API] UNCAUGHT_EXCEPTION :: SHUTTING DOWN!");
+  console.error("[!][API]", error.name, error.message);
+  console.error("[!][API]", error);
+  process.exit(1);
+});
+
+const application = require("./app");
+const PORT = process.env.PORT || 5050;
+
+const server = application.listen(PORT, () => {
+  console.log(`🚀 [API] Listening on port ${PORT}`);
+});
+
+process.on("unhandledRejection", (error: Error) => {
+  console.error("[!][API] UNCAUGHT_EXCEPTION :: SHUTTING DOWN!");
+  console.error("[!][API]", error.name, error.message);
+  console.error("[!][API]", error);
+  server.close(() => {
+    process.exit(1);
   });
-  await server.start();
-  server.applyMiddleware({ app });
-  await new Promise<void>((resolve) => httpServer.listen({ port: 4000 }, resolve));
-  console.log(`🚀 [API] Server ready at http://localhost:4000${server.graphqlPath}`);
-};
+});
