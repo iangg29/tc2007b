@@ -24,7 +24,7 @@
   "scripts": {
     "start": "npm run build-relay && react-scripts start",
     "build": "npm run build-relay && react-scripts build",
-    "test": "npm run build-relay && react-scripts test",
+    "test": "npm run build-relay && react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
