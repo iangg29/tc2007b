@@ -1,6 +1,20 @@
 import React from "react";
+import { useLazyLoadQuery } from "react-relay";
+import graphql from "babel-plugin-relay/macro";
+import { AppQuery, AppQuery$data } from "./__generated__/AppQuery.graphql";
 
 function App(): JSX.Element {
+  const data: AppQuery$data = useLazyLoadQuery<AppQuery>(
+    graphql`
+      query AppQuery {
+        ping
+      }
+    `,
+    {},
+  );
+
+  console.log(data);
+
   return (
     <div className="App">
       <header className="App-header">
