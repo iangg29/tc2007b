@@ -31,6 +31,7 @@ const root = {
 
 app.use(
   "/graphql",
+  cors(),
   graphqlHTTP({
     schema,
     rootValue: root,
