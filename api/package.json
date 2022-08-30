@@ -27,6 +27,7 @@
   "author": "Ian Garcia, Erick Garcia, Fermin Mendez, Jose Angel",
   "license": "ISC",
   "dependencies": {
+    "@graphql-tools/schema": "^9.0.2",
     "@types/axios": "^0.14.0",
     "@types/express": "^4.17.13",
     "@types/morgan": "^1.9.3",
@@ -47,6 +48,7 @@
     "knex-paginate": "^3.0.1",
     "lint-staged": "^13.0.3",
     "morgan": "^1.10.0",
+    "pg": "^8.8.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.2",
     "xss-clean": "^0.1.1"
