@@ -8,10 +8,12 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --passWithNoTests",
-    "prepare": "cd .. && husky install ./client/.husky"
+    "prepare": "cd .. && husky install ./client/.husky",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.json",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.json --fix",
+    "prettier-format": "prettier --config .prettierrc '**/*.{json,js,jsx,ts,tsx,css,scss,md}' --write"
   },
   "dependencies": {
-    "@types/react": "~18.0.0",
     "@types/react-native": "~0.69.1",
     "expo": "~46.0.9",
     "expo-status-bar": "~1.4.0",
@@ -25,7 +27,18 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/jest": "^29.0.0",
+    "@types/react": "^18.0.18",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-universe": "^11.1.0",
+    "eslint-plugin-jest": "^27.0.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.1",
     "husky": "^8.0.1",
+    "prettier": "^2.7.1",
     "tailwindcss": "^3.1.8"
   },
   "private": true,
