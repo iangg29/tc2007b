@@ -13,7 +13,7 @@ process.on("uncaughtException", (error: Error) => {
 });
 
 const application = require("./app");
-const PORT = process.env.PORT || 5050;
+const PORT = process.env.PORT || 9090;
 
 const server = application.listen(PORT, () => {
   console.log(`🚀 [API] Listening on port ${PORT}`);
