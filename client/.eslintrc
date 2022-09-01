@@ -30,7 +30,8 @@
     "react": {
       "pragma": "React",
       "version": "detect"
-    }
+    },
+    "import/ignore": ["react-native"],
   },
   "env": {
     "jest/globals": true
