@@ -1,6 +1,10 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { NextFunction, Request, Response } from "express";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import { getSchema } from "./graphql/schema";
+import { getResolvers } from "./graphql/resolvers";
+import { handleGraphQLError } from "./graphql/graphqlErrorHandler";
 
 const express = require("express");
 const morgan = require("morgan");
@@ -10,32 +14,22 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const xss = require("xss-clean");
 const { graphqlHTTP } = require("express-graphql");
-const { buildSchema } = require("graphql");
 
 const ServerError = require("./utils/serverError");
 const serverErrorHandler = require("./controllers/errorController");
 
 const app = express();
 
-const schema = buildSchema(`
-  type Query {
-    ping: String
-  }
-`);
-
-const root = {
-  ping: () => {
-    return "pong";
-  },
-};
-
 app.use(
   "/graphql",
   cors(),
   graphqlHTTP({
-    schema,
-    rootValue: root,
+    schema: makeExecutableSchema({
+      typeDefs: getSchema(),
+      resolvers: getResolvers(),
+    }),
     graphiql: true,
+    customFormatErrorFn: handleGraphQLError,
   }),
 );
 
