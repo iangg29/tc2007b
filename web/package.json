@@ -28,7 +28,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
-    "format": "prettier --config .prettierrc --write src",
+    "format": "prettier --write .",
     "prepare": "cd .. && husky install ./web/.husky",
     "build-relay": "relay-compiler relay.config.json",
     "fetch-graphql": "npx get-graphql-schema http://localhost:5050/graphql > ./src/relay/schema.graphql"
