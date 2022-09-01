@@ -5,10 +5,11 @@ const { attachPaginate } = require("knex-paginate");
 
 attachPaginate();
 
-const db = knex({
+export const db = knex({
   client: "pg",
-  connection: process.env.PG_CONNECTION_STRING,
+  connection: {
+    connectString: process.env.PG_CONNECTION_STRING,
+    ssl: true,
+  },
   searchPath: ["knex", "public"],
 });
-
-module.exports = db;
