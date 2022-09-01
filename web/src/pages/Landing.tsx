@@ -8,7 +8,11 @@ const Landing = (): JSX.Element => {
   const data: LandingQuery$data = useLazyLoadQuery<LandingQuery>(
     graphql`
       query LandingQuery {
-        ping
+        users {
+          first_lastname
+          second_lastname
+          email
+        }
       }
     `,
     {},

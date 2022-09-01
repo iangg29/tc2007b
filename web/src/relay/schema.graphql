@@ -1,13 +1,24 @@
-"""
-Exposes a URL that specifies the behavior of this scalar.
-"""
+"""Exposes a URL that specifies the behaviour of this scalar."""
 directive @specifiedBy(
-  """
-  The URL that specifies the behavior of this scalar.
-  """
+  """The URL that specifies the behaviour of this scalar."""
   url: String!
 ) on SCALAR
 
 type Query {
-  ping: String
+  users: [User]
 }
+
+type User {
+  id: ID
+  role_id: ID
+  name: String
+  first_lastname: String
+  second_lastname: String
+  password: String
+  cellphone: String
+  email: String
+  status: Int
+  created_at: String
+  updated_at: String
+}
+
