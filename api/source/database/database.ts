@@ -24,7 +24,7 @@ export const getConnectionConfig = () => {
     };
   } else {
     return {
-      connectString: process.env.PG_CONNECTION_STRING,
+      connection: process.env.PG_CONNECTION_STRING,
       ssl: false,
       debug: true,
     };
@@ -33,6 +33,6 @@ export const getConnectionConfig = () => {
 
 export const db = knex({
   client: "pg",
-  connection: getConnectionConfig(),
+  ...getConnectionConfig(),
   searchPath: ["knex", "public"],
 });
