@@ -64,5 +64,5 @@ jobs:
         with:
           name: $SERVICE_NAME
           runtime: nodejs14
-          project: $PROJECT_ID
+          source_dir: ./build
           credentials: $GOOGLE_APPLICATION_CREDENTIALS
