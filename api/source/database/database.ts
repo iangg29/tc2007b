@@ -17,7 +17,7 @@ export const getConnectionConfig = () => {
       },
       ssl: {
         require: true,
-        rejectUnauthorized: false,
+        rejectUnauthorized: true,
         ca: process.env.PG_CA_CERTIFICATE,
       },
       debug: process.env.NODE_ENV === "development",
