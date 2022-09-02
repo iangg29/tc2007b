@@ -60,7 +60,7 @@ jobs:
           export_default_credentials: true
       - name: Deploy a Cloud Function
         id: deploy-function
-        uses: google-github-actions/deploy-cloud-functions
+        uses: google-github-actions/deploy-cloud-functions@latest
         with:
           name: tc2007b-api-development
           runtime: nodejs14
