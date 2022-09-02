@@ -5,6 +5,7 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import { getSchema } from "./graphql/schema";
 import { getResolvers } from "./graphql/resolvers";
 import { handleGraphQLError } from "./graphql/graphqlErrorHandler";
+import { getConnectionConfig } from "./database/database";
 
 const express = require("express");
 const morgan = require("morgan");
@@ -84,6 +85,7 @@ if (process.env.NODE_ENV === "development") {
       pg_connection: process.env.PG_CONNECTION_STRING,
       pg_ca_certificate: process.env.PG_CA_CERTIFICATE,
       port: process.env.PORT,
+      details: getConnectionConfig(),
     });
   });
 }
