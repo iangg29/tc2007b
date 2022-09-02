@@ -76,6 +76,17 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
+if (process.env.NODE_ENV === "development") {
+  app.get("/details", (req: Request, res: Response) => {
+    res.status(200).json({
+      message: "[DEBUG][!!] WARNING, THESE VARIABLES ARE SENSITIVE. ONLY USE IN DEVELOPMENT",
+      success: true,
+      pg_connection: process.env.PG_CONNECTION_STRING,
+      port: process.env.PORT,
+    });
+  });
+}
+
 app.get("/health", (req: Request, res: Response) => {
   res.status(200).json({
     success: true,
