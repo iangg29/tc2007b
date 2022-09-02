@@ -6,6 +6,7 @@ declare global {
       NODE_ENV: string;
       BASE_URL: string;
       PG_CONNECTION_STRING: string;
+      PG_CA_CERTIFICATE: string;
       PORT: number;
     }
   }

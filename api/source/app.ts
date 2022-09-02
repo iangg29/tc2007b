@@ -82,6 +82,7 @@ if (process.env.NODE_ENV === "development") {
       message: "[DEBUG][!!] WARNING, THESE VARIABLES ARE SENSITIVE. ONLY USE IN DEVELOPMENT",
       success: true,
       pg_connection: process.env.PG_CONNECTION_STRING,
+      pg_ca_certificate: process.env.PG_CA_CERTIFICATE,
       port: process.env.PORT,
     });
   });
