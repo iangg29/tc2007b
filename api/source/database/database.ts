@@ -11,7 +11,7 @@ const getConnectionConfig = () => {
       connectString: process.env.PG_CONNECTION_STRING,
       ssl: {
         require: true,
-        rejectUnauthorized: true,
+        rejectUnauthorized: false,
         ca: process.env.PG_CA_CERTIFICATE,
       },
       debug: false,
