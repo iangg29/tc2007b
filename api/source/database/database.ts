@@ -5,6 +5,8 @@ const { attachPaginate } = require("knex-paginate");
 
 attachPaginate();
 
+const TIMEZONE: string = "America/Mexico_City";
+
 export const getConnectionConfig = () => {
   if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "development") {
     return {
@@ -14,6 +16,7 @@ export const getConnectionConfig = () => {
         user: process.env.PG_USER,
         password: process.env.PG_PASSWORD,
         database: process.env.PG_DATABASE,
+        timezone: TIMEZONE,
       },
       ssl: {
         require: true,
@@ -24,7 +27,10 @@ export const getConnectionConfig = () => {
     };
   } else {
     return {
-      connection: process.env.PG_CONNECTION_STRING,
+      connection: {
+        connectionString: process.env.PG_CONNECTION_STRING,
+        timezone: TIMEZONE,
+      },
       ssl: false,
       debug: true,
     };
