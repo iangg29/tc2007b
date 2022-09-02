@@ -61,5 +61,4 @@ jobs:
         uses: google-github-actions/deploy-cloud-functions@v0.10.1
         with:
           name: tc2007b-api-development
-          runtime: nodejs14
-          source_dir: ./build
+          runtime: nodejs16
