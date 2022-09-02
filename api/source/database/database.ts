@@ -6,12 +6,12 @@ const { attachPaginate } = require("knex-paginate");
 attachPaginate();
 
 const getConnectionConfig = () => {
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "development") {
     return {
       connectString: process.env.PG_CONNECTION_STRING,
       ssl: {
         require: true,
-        rejectUnauthorized: false,
+        rejectUnauthorized: true,
         ca: process.env.PG_CA_CERTIFICATE,
       },
       debug: false,
