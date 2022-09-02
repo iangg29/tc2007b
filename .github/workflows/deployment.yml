@@ -52,12 +52,10 @@ jobs:
         run: npm run build    
       - name: Run test
         run: npm test
-      - name: Set up gcloud Cloud SDK environment
-        uses: google-github-actions/setup-gcloud@v0.6.0
+      - name: GCP Authentication
+        uses: 'google-github-actions/auth@v0'
         with:
-          service_account_email: ${{ secrets.GCP_EMAIL }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          export_default_credentials: true
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
       - name: Deploy a Cloud Function
         id: deploy-function
         uses: google-github-actions/deploy-cloud-functions@v0.10.1
@@ -65,4 +63,3 @@ jobs:
           name: tc2007b-api-development
           runtime: nodejs14
           source_dir: ./build
-          credentials: $GOOGLE_APPLICATION_CREDENTIALS
