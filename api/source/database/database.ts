@@ -9,7 +9,7 @@ export const db = knex({
   client: "pg",
   connection: {
     connectString: process.env.PG_CONNECTION_STRING,
-    ssl: process.env.NODE_ENV === "production",
+    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
   },
   searchPath: ["knex", "public"],
 });
