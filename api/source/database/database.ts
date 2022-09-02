@@ -7,6 +7,9 @@ attachPaginate();
 
 const TIMEZONE: string = "America/Mexico_City";
 
+/**
+ * Generate connection details for PG connection.
+ */
 export const getConnectionConfig = () => {
   if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "development") {
     return {
@@ -20,7 +23,7 @@ export const getConnectionConfig = () => {
       },
       ssl: {
         require: true,
-        rejectUnauthorized: true,
+        rejectUnauthorized: false,
         ca: process.env.PG_CA_CERTIFICATE,
       },
       debug: process.env.NODE_ENV === "development",
