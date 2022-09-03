@@ -1,23 +1,22 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { NextFunction, Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { getSchema } from "./graphql/schema";
 import { getResolvers } from "./graphql/resolvers";
 import { handleGraphQLError } from "./graphql/graphqlErrorHandler";
 import { getConnectionConfig } from "./database/database";
+import morgan from "morgan";
 
-const express = require("express");
-const morgan = require("morgan");
-const rateLimit = require("express-rate-limit");
-const helmet = require("helmet");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const xss = require("xss-clean");
-const { graphqlHTTP } = require("express-graphql");
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
-const ServerError = require("./utils/serverError");
-const serverErrorHandler = require("./controllers/errorController");
+import { graphqlHTTP } from "express-graphql";
+
+import { ServerError } from "./utils/serverError";
+import serverErrorHandler from "./controllers/errorController";
 
 const app = express();
 
@@ -37,11 +36,11 @@ app.use(
 app.enable("trust proxy");
 app.use(cors());
 app.options("*", cors());
-app.use(xss());
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+app.use(express.static(`${__dirname}/public`));
 
 app.use(
   helmet.contentSecurityPolicy({
@@ -101,6 +100,6 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(error);
 });
 
-app.use(serverErrorHandler);
+app.use(serverErrorHandler as unknown as express.RequestHandler);
 
 module.exports = app;

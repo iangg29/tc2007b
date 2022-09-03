@@ -7,4 +7,4 @@ const serverAxios = axios.create({
   baseURL: process.env.BASE_URL,
 });
 
-module.exports = serverAxios;
+export default serverAxios;
