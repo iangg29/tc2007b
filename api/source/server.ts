@@ -1,7 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { resolve } from "path";
-
-const dotenv = require("dotenv");
+import * as dotenv from "dotenv";
 
 dotenv.config({ path: resolve(__dirname, "../.env") });
 
@@ -27,3 +26,5 @@ process.on("unhandledRejection", (error: Error) => {
     process.exit(1);
   });
 });
+
+export {};

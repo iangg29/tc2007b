@@ -1,6 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { NextFunction, Request } from "express";
+import { NextFunction, Request, Response } from "express";
+import { ServerError, STATUS_TYPE } from "../utils/serverError";
 
 /**
  * Development Error JSON generator.
@@ -9,7 +10,6 @@ import { NextFunction, Request } from "express";
  * @param res HTTP Response
  */
 const sendErrorDev = (error: ServerError, req: Request, res: Response): void => {
-  // @ts-ignore
   res.status(error.statusCode).json({
     status: error.statusType,
     error: error,
@@ -28,14 +28,12 @@ const sendErrorDev = (error: ServerError, req: Request, res: Response): void => 
  */
 const sendErrorProduction = (error: ServerError, req: Request, res: Response) => {
   if (error.isOperational) {
-    // @ts-ignore
     return res.status(error.statusCode).json({
       status: error.statusType,
       message: error.message,
     });
   } else {
     console.error("[!][ERROR]", error);
-    // @ts-ignore
     res.status(500).json({
       status: error.statusType,
       error: "[!!] Something went very wrong.",
@@ -43,8 +41,7 @@ const sendErrorProduction = (error: ServerError, req: Request, res: Response) =>
   }
 };
 
-module.exports = (error: ServerError, req: Request, res: Response, next: NextFunction) => {
-  // @ts-ignore
+export default (error: ServerError, req: Request, res: Response, next: NextFunction) => {
   res.locals.error = error;
   error.statusType = error.statusType || STATUS_TYPE.ERROR;
   error.statusCode = error.statusCode || 500;
