@@ -54,6 +54,8 @@
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.12",
     "@types/jest": "^28.1.8",
     "husky": "^8.0.1",
     "jest": "^28.0.0",
