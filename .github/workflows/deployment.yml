@@ -52,23 +52,8 @@ jobs:
         run: npm run build    
       - name: Run test
         run: npm test
-      - name: GCP Authentication
-        uses: 'google-github-actions/auth@v0'
-        with:
-          credentials_json: '${{ secrets.GCP_SA_KEY }}'
-      - name: Configure Docker
-        run: |
-          gcloud auth configure-docker
-      - name: Build & Push
-        run: |
-          gcloud config set project $PROJECT_ID
-          gcloud builds submit --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
-          gcloud config set run/region $RUN_REGION
-      - name: Image deploy
-        run: |-
-          gcloud run deploy "$SERVICE_NAME" \
-            --quiet \
-            --region "$RUN_REGION" \
-            --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
-            --platform "managed" \
-            --allow-unauthenticated
+
+
+
+
+
