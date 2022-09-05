@@ -12,30 +12,30 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
 import { graphqlHTTP } from "express-graphql";
 
 import { ServerError } from "./utils/serverError";
 import serverErrorHandler from "./controllers/errorController";
 
+const xss = require("xss-clean");
 const app = express();
+
+app.enable("trust proxy");
+app.use(cors());
+app.options("*", cors());
+app.use(xss());
 
 app.use(
   "/graphql",
-  cors(),
   graphqlHTTP({
     schema: makeExecutableSchema({
       typeDefs: getSchema(),
       resolvers: getResolvers(),
     }),
-    graphiql: true,
+    graphiql: process.env.NODE_ENV !== "production",
     customFormatErrorFn: handleGraphQLError,
   }),
 );
-
-app.enable("trust proxy");
-app.use(cors());
-app.options("*", cors());
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
@@ -76,7 +76,7 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "local") {
   app.get("/details", (req: Request, res: Response) => {
     res.status(200).json({
       message: "[DEBUG] WARNING, THESE VARIABLES ARE SENSITIVE. ONLY USE IN DEVELOPMENT",

@@ -8,19 +8,19 @@ import { buildSchema, GraphQLSchema } from "graphql";
 export const getSchema = (): GraphQLSchema => {
   return buildSchema(`
   type User {
-        id: ID,
-        role_id: ID,
-        name: String,
-        first_lastname: String,
-        second_lastname: String,
-        password: String,
-        cellphone: String,
-        email: String,
-        status: Int,
-        created_at: String,
-        updated_at: String
-      }
-  
+      id: ID,
+      role_id: ID,
+      name: String,
+      first_lastname: String,
+      second_lastname: String,
+      password: String,
+      cellphone: String,
+      email: String,
+      status: Int,
+      created_at: String,
+      updated_at: String
+    }
+    
   type Query {
     users: [User]
   }
