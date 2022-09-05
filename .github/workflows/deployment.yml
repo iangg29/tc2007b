@@ -64,8 +64,6 @@ jobs:
           gcloud config set project $PROJECT_ID
           gcloud builds submit --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA"
           gcloud config set run/region $RUN_REGION
-        working-directory: server
-
       - name: Image deploy
         run: |-
           gcloud run deploy "$SERVICE_NAME" \
