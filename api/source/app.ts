@@ -5,7 +5,7 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import { getSchema } from "./graphql/schema";
 import { getResolvers } from "./graphql/resolvers";
 import { handleGraphQLError } from "./graphql/graphqlErrorHandler";
-import { getConnectionConfig } from "./database/database";
+import config from "./database/databaseConfig";
 import morgan from "morgan";
 
 import rateLimit from "express-rate-limit";
@@ -83,7 +83,7 @@ if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "local") 
       success: true,
       pg_connection: process.env.PG_CONNECTION_STRING,
       app_port: process.env.PORT,
-      database_info: getConnectionConfig(),
+      database_info: config[process.env.NODE_ENV as string],
     });
   });
 }
