@@ -23,9 +23,13 @@ export const getConnectionConfig = () => {
         timezone: TIMEZONE,
       },
       ssl: {
-        require: true,
+        require: false,
         rejectUnauthorized: false,
         ca: process.env.PG_CA_CERTIFICATE,
+      },
+      pool: {
+        min: 0,
+        max: 7,
       },
       debug: process.env.NODE_ENV === "development",
     };
