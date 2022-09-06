@@ -1,10 +1,53 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
+import knex, { Knex } from "knex";
 import { attachPaginate } from "knex-paginate";
-import databaseConfig from "./databaseConfig";
+import path from "path";
+import Config = Knex.Config;
 
 attachPaginate();
-
-const env: string = process.env.NODE_ENV || "local";
-const db = require("knex")(databaseConfig[env]);
-export default db;
+const TIMEZONE: string = "America/Mexico_City";
+/**
+ * Generate connection details for PG connection.
+ */
+export const getConnectionConfig = () => {
+  if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "development") {
+    return {
+      connection: {
+        host: process.env.PG_HOST,
+        port: process.env.PG_PORT as string,
+        user: process.env.PG_USER,
+        password: process.env.PG_PASSWORD,
+        database: process.env.PG_DATABASE,
+        timezone: TIMEZONE,
+      },
+      pool: {
+        min: 2,
+        max: 7,
+      },
+      debug: process.env.NODE_ENV === "development",
+    };
+  } else {
+    return {
+      client: "sqlite3",
+      connection: {
+        filename: path.resolve(__dirname, "dev.sqlite3"),
+        timezone: TIMEZONE,
+      },
+      debug: true,
+      useNullAsDefault: true,
+      migrations: {
+        tableName: "app_migrations",
+        directory: path.resolve(__dirname, "source", "database", "migrations"),
+      },
+      seeds: {
+        directory: path.resolve(__dirname, "source", "database", "seeds"),
+      },
+    };
+  }
+};
+export const db = knex({
+  client: "pg",
+  ...getConnectionConfig(),
+  searchPath: ["knex", "public"],
+} as Config);
