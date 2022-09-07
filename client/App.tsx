@@ -1,13 +1,15 @@
-import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Landing from "./screens/general/Landing";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <SafeAreaView className="bg-gray-50 dark:bg-gray-900 h-screen">
-      <View className="items-center p-10 bg-cyan-100 dark:bg-cyan-800">
-        <Text className="font-black text-3xl">Open up App.js to start working on your app!</Text>
-      </View>
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Landing" component={Landing} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
