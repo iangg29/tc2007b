@@ -16,6 +16,7 @@ import { graphqlHTTP } from "express-graphql";
 
 import { ServerError } from "./utils/serverError";
 import serverErrorHandler from "./controllers/errorController";
+import path from "path";
 
 const xss = require("xss-clean");
 const app = express();
@@ -40,7 +41,7 @@ app.use(
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(path.resolve(__dirname, "../public")));
 
 app.use(
   helmet.contentSecurityPolicy({
