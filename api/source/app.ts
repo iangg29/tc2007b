@@ -1,9 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import express, { NextFunction, Request, Response } from "express";
-import { makeExecutableSchema } from "@graphql-tools/schema";
-import { getSchema } from "./graphql/schema";
-import { getResolvers } from "./graphql/resolvers";
+import schema from "./graphql/schema";
 import { handleGraphQLError } from "./graphql/graphqlErrorHandler";
 import { getConnectionConfig } from "./database/database";
 import morgan from "morgan";
@@ -29,10 +27,7 @@ app.use(xss());
 app.use(
   "/graphql",
   graphqlHTTP({
-    schema: makeExecutableSchema({
-      typeDefs: getSchema(),
-      resolvers: getResolvers(),
-    }),
+    schema,
     graphiql: process.env.NODE_ENV !== "production",
     customFormatErrorFn: handleGraphQLError,
   }),
