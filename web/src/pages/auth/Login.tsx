@@ -18,9 +18,7 @@ const Login = (): JSX.Element => {
     setForm(newForm);
   };
 
-  const login = (): void => {
-    console.log("tas logiado");
-  };
+  const login = (): void => {};
 
   return (
     <>
