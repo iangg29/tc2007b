@@ -13,3 +13,5 @@ web-build/
 .vscode
 # macOS
 .DS_Store
+.env
+__generated__

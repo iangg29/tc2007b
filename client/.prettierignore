@@ -1,7 +1,7 @@
 .expo
 .expo-shared
 .husky
-assets
+source/assets
 node_modules
 .eslintignore
 .eslintrc

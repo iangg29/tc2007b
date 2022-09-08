@@ -1,0 +1,114 @@
+schema {
+  query: RootQuery
+  mutation: RootMutation
+}
+
+"""
+Exposes a URL that specifies the behaviour of this scalar.
+"""
+directive @specifiedBy(
+  """
+  The URL that specifies the behaviour of this scalar.
+  """
+  url: String!
+) on SCALAR
+
+"""
+Assignable role to users.
+"""
+type Role {
+  """
+  Role ID
+  """
+  id: ID!
+
+  """
+  Role name
+  """
+  name: String!
+
+  """
+  Role description
+  """
+  description: String!
+
+  """
+  Role creation date
+  """
+  created_at: String!
+
+  """
+  Last time role was updated.
+  """
+  updated_at: String!
+}
+
+"""
+Application's GraphQL root mutations
+"""
+type RootMutation {
+  createRole(name: String, description: String): Role
+}
+
+"""
+Application's GraphQL root query.
+"""
+type RootQuery {
+  users: [User]
+  roles: [Role]
+}
+
+"""
+Main application user model, contains all user information w/it's relations.
+"""
+type User {
+  """
+  User's ID
+  """
+  id: ID!
+
+  """
+  User's name
+  """
+  name: String!
+
+  """
+  User's first lastname
+  """
+  first_lastname: String!
+
+  """
+  User's second lastname
+  """
+  second_lastname: String!
+
+  """
+  User's phone
+  """
+  cellphone: String!
+
+  """
+  User's email
+  """
+  email: String!
+
+  """
+  User status
+  """
+  status: Int!
+
+  """
+  User's active status
+  """
+  active: Boolean!
+
+  """
+  User's profile creation date.
+  """
+  created_at: String!
+
+  """
+  Last time user profile got updated
+  """
+  updated_at: String!
+}
