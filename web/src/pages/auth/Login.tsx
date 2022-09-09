@@ -1,7 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import React, { useState } from "react";
 import logo from "../../assets/logos/logoColorSC.png";
-
 import back from "../../assets/background/login.png";
 
 const Login = (): JSX.Element => {
