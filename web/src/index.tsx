@@ -4,7 +4,7 @@ import "./assets/css/main.css";
 import { RelayEnvironmentProvider } from "react-relay";
 import relayEnvironment from "./relay/RelayEnvironment";
 import App from "./App";
-import "flowbite-react"
+import "flowbite-react";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
