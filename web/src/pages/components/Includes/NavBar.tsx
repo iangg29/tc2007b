@@ -1,8 +1,8 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
-import logoQRO from "../../assets/logos/logoColorSC.png";
-import profileIcon from "../../assets/icons/profileIcon.png";
+import logoQRO from "../../../assets/logos/logoColorSC.png";
+import profileIcon from "../../../assets/icons/profileIcon.png";
 import { Link } from "react-router-dom";
 
 const NavBar = (): JSX.Element => {
