@@ -5,6 +5,7 @@ const Login = lazy(async () => await import("./pages/auth/Login"));
 const SignUp = lazy(async () => await import("./pages/auth/SignUp"));
 const Layout = lazy(async () => await import("./containers/Layout"));
 const Home = lazy(async () => await import("./pages/home/Home"));
+const Request = lazy(async () => await import("./pages/Request"));
 
 function App(): JSX.Element {
   return (
@@ -15,6 +16,7 @@ function App(): JSX.Element {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/Home" element={<Home />} />
+          <Route path="/Request" element={<Request />} />
           <Route path="/app/*" element={<Layout />} />
         </Routes>
       </Router>
