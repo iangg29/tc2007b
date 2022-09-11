@@ -1,9 +1,9 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import logo from "../../assets/logos/logoColorSC.png";
 import back from "../../assets/background/login.png";
 
-interface StateLogin {
+interface Form {
   email?: string;
   password?: string;
 }
@@ -12,19 +12,13 @@ const LoginForm = (): JSX.Element => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const [form, setForm] = useState<StateLogin>({
-    email: "",
-    password: "",
-  });
-
-  const handle = (): void => {
-    const newForm: StateLogin = { ...form };
-    newForm.email = emailRef.current?.value;
-    newForm.password = passwordRef.current?.value;
-    setForm(newForm);
+  const login = (): void => {
+    const form: Form = {
+      email: emailRef.current?.value,
+      password: passwordRef.current?.value,
+    };
+    alert(`${form.email ?? ""} + ${form.password ?? ""}`);
   };
-
-  const login = (): void => {};
 
   return (
     <>
@@ -39,14 +33,7 @@ const LoginForm = (): JSX.Element => {
             </div>
             <div className=" flex flex-col -ml-24">
               <label className="labelLogin">Correo Electronico</label>
-              <input
-                className="inputLogin"
-                placeholder="example@qro.gob.mx"
-                type="email"
-                id="email"
-                ref={emailRef}
-                onChange={handle}
-              />
+              <input className="inputLogin" placeholder="example@qro.gob.mx" type="email" id="email" ref={emailRef} />
               <label className="labelLogin">Contraseña</label>
               <input
                 className="inputLogin"
@@ -54,7 +41,6 @@ const LoginForm = (): JSX.Element => {
                 type="password"
                 id="password"
                 ref={passwordRef}
-                onChange={handle}
               />
               <label className="self-end text-xs text-main-100 py-1 hover:underline">
                 ¿Has olvidado la contraseña?
