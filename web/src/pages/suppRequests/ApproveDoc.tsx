@@ -16,6 +16,7 @@ const ApproveDoc = (): JSX.Element => {
           announcement="Convocatoria noche mexicana"
           user="Susana Horia"
           label={exampleLabels}
+          color="button-100"
         />
         <RequestCard
           image={back}
@@ -23,6 +24,7 @@ const ApproveDoc = (): JSX.Element => {
           announcement="Convocatoria Querétaro Mágico"
           user="Susana Horia"
           label={exampleLabels}
+          color="button-200"
         />
         <RequestCard
           image={back}
@@ -30,6 +32,7 @@ const ApproveDoc = (): JSX.Element => {
           announcement="Convocatoria dulce o truco"
           user="Susana Horia"
           label={exampleLabels}
+          color="button-300"
         />
       </div>
     </>

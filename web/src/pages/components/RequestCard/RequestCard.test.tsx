@@ -1,7 +1,7 @@
-import SingleTag from "./RequestCard"
+import SingleTag from "./RequestCard";
 
 describe("Test RequestCard component", () => {
-    it("render component", () => {
-        //Code test
-    });
+  it("render component", () => {
+    //Code test
+  });
 });

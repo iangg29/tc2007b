@@ -32,7 +32,6 @@ const Login = (): JSX.Element => {
             <div className="place-self-center border-r-2 border-black/30">
               <img src={logo} className="w-full " />
             </div>
-            {/* <div className=" border-l-black/30 border-2 h-96"></div> */}
             <div className=" flex flex-col -ml-24">
               <label className="labelLogin">Correo Electronico</label>
               <input

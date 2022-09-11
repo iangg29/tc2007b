@@ -15,6 +15,18 @@ module.exports = {
           200: "#252d53",
           //Blue Button
           500: "#2d64a3",
+          //Dark Aqua Button
+          600: "#244b5c",
+          //Dark purple Button
+          700: "#50245c",
+        },
+        button: {
+          //Dark Aqua Button
+          100: "#244B5C",
+          //Dark purple Button
+          200: "#50245C",
+          //Dark Blue Button
+          300: "#252d53",
         },
       },
     },

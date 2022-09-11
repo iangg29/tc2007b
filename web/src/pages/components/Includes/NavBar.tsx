@@ -18,7 +18,7 @@ const NavBar = (): JSX.Element => {
             // backgroundColor: "#C4D0DB"
           }}
         >
-          <Navbar.Brand href="">
+          <Navbar.Brand>
             <img src={logoQRO} className="mr-3 h-20 sm:h-28" alt="Foto perfil" />
             <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
               Tramita La Cultura Qro
@@ -61,8 +61,13 @@ const NavBar = (): JSX.Element => {
               </div>
             </Navbar.Link>
 
-            <Navbar.Link href="/analitica">Analíticas</Navbar.Link>
-            <Navbar.Link href="/chat">Chat</Navbar.Link>
+            <Navbar.Link>
+              <Link to={""}>Analíticas</Link>
+            </Navbar.Link>
+
+            <Navbar.Link>
+              <Link to={""}>Chat</Link>
+            </Navbar.Link>
           </Navbar.Collapse>
         </Navbar>
       </div>

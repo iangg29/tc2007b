@@ -1,7 +1,7 @@
-import SingleTag from "./Footer"
+import SingleTag from "./Footer";
 
 describe("Test Footer component", () => {
-    it("render component", () => {
-        //Code test
-    });
+  it("render component", () => {
+    //Code test
+  });
 });
