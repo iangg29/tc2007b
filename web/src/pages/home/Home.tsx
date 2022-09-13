@@ -6,7 +6,7 @@ const Home = (): JSX.Element => {
   return (
     <div>
       <NavBar />
-      <Foot/>
+      <Foot />
     </div>
   );
 };
