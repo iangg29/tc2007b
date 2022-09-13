@@ -28,6 +28,14 @@ module.exports = {
           //Dark Blue Button
           300: "#252d53",
         },
+        hover: {
+          //Hover Aqua Button
+          100: "#3A7792",
+          //Dark purple Button
+          200: "#8B3DA0",
+          //Hover Blue Button
+          300: "#4353A1",
+        },
       },
     },
   },

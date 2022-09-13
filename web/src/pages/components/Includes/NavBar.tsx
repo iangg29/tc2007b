@@ -15,7 +15,6 @@ const NavBar = (): JSX.Element => {
           style={{
             borderBottomWidth: 3,
             borderColor: "#6694c1",
-            // backgroundColor: "#C4D0DB"
           }}
         >
           <Navbar.Brand>
@@ -24,6 +23,7 @@ const NavBar = (): JSX.Element => {
               Tramita La Cultura Qro
             </span>
           </Navbar.Brand>
+          {/* Image Dropdown  */}
           <div className="flex md:order-2 mr-32">
             <Dropdown
               arrowIcon={false}
@@ -34,40 +34,66 @@ const NavBar = (): JSX.Element => {
                 <span className="block text-sm">User Name</span>
                 <span className="block truncate text-sm font-medium">example@qro.gob.mx</span>
               </Dropdown.Header>
-              <Dropdown.Item>Mi Perfil</Dropdown.Item>
+
+              <Dropdown.Item>
+                <Link to={""} className="text-gray-700 hover:text-blue-600">
+                  Mi perfil
+                </Link>
+              </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item>Cerrar Sesión</Dropdown.Item>
+
+              <Dropdown.Item>
+                <Link to={""} className="text-gray-700 hover:text-blue-600">
+                  Cerrar Sesión
+                </Link>
+              </Dropdown.Item>
             </Dropdown>
             <Navbar.Toggle />
           </div>
+
+          {/* NavBar normal items */}
           <Navbar.Collapse>
-            <Navbar.Link>
-              <Link to={"Home"}>Home</Link>
-            </Navbar.Link>
+            <Link to={"/app/Home"} className="text-gray-700 hover:text-blue-600">
+              Home
+            </Link>
+
             {/* Dropdown  */}
             <Navbar.Link active={false}>
               <div className="flex md:order-2">
                 <Dropdown arrowIcon={true} inline={true} label="Solicitudes">
                   <Dropdown.Divider />
+
                   <Dropdown.Item>
-                    <Navbar.Link>
-                      <Link to={"Solicitudes/RevisarDocumentos"}>Pendientes sin documentos aprobados</Link>
-                    </Navbar.Link>
+                    <Link to={"Solicitudes/RevisarDocumentos"} className="text-gray-700 hover:text-blue-600">
+                      Pendientes sin documentos aprobados
+                    </Link>
                   </Dropdown.Item>
-                  <Dropdown.Item>Pendientes a revisón de propuesta</Dropdown.Item>
-                  <Dropdown.Item>Aprobadas</Dropdown.Item>
+
+                  <Dropdown.Item>
+                    <Link to={""} className="text-gray-700 hover:text-blue-600">
+                      Pendientes a revisón de propuesta
+                    </Link>
+                  </Dropdown.Item>
+
+                  <Dropdown.Item>
+                    <Link to={""} className="text-gray-700 hover:text-blue-600">
+                      Aprobadas
+                    </Link>
+                  </Dropdown.Item>
+
                   <Dropdown.Divider />
                 </Dropdown>
               </div>
             </Navbar.Link>
 
-            <Navbar.Link>
-              <Link to={""}>Analíticas</Link>
-            </Navbar.Link>
+            {/* NavBar normal items */}
+            <Link to={""} className="text-gray-700 hover:text-blue-600">
+              Analíticas
+            </Link>
 
-            <Navbar.Link>
-              <Link to={""}>Chat</Link>
-            </Navbar.Link>
+            <Link to={""} className="text-gray-700 hover:text-blue-600">
+              Chat
+            </Link>
           </Navbar.Collapse>
         </Navbar>
       </div>

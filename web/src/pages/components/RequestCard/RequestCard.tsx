@@ -5,16 +5,24 @@ import { Link } from "react-router-dom";
 import SingleTag from "./SingleTag";
 
 interface Props {
-  image: any;
+  image: string;
   proyectTile: string;
   announcement: string;
   user: string;
-  label: any[];
-  color: string;
+  label: object[];
+  buttonText: String;
 }
 
-const RequestCard = ({ image, proyectTile, announcement, user, label, color }: Props): JSX.Element => {
-  var switchBottonColor = "bg-" + color;
+const RequestCard = ({ image, proyectTile, announcement, user, label, buttonText }: Props): JSX.Element => {
+  let button;
+
+  buttonText === "Revisar"
+    ? (button = "bg-button-300 rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-hover-300 ")
+    : buttonText === "Dar seguimiento"
+    ? (button = "bg-button-200 rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-hover-200 ")
+    : buttonText === "Revisar nuevamente"
+    ? (button = "bg-button-100 rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-hover-100 ")
+    : (button = "bg-main-500 rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-main-50 ");
 
   return (
     <>
@@ -36,13 +44,8 @@ const RequestCard = ({ image, proyectTile, announcement, user, label, color }: P
               ))}
 
               <br />
-              <a
-                className={
-                  switchBottonColor +
-                  " rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                }
-              >
-                <Link to={""}>Revisar</Link>
+              <a className={button}>
+                <Link to={""}>{buttonText}</Link>
               </a>
             </div>
           </div>
