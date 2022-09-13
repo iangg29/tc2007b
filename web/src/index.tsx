@@ -8,7 +8,7 @@ import App from "./App";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
-  <RelayEnvironmentProvider environment={relayEnvironment}>
+  <RelayEnvironmentProvider environment={relayEnvironment.getEnvironment()}>
     <StrictMode>
       <Suspense fallback={<h1>Loading...</h1>}>
         <App />
