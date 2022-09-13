@@ -25,6 +25,9 @@ const fetchFunction = async (
 
 export type RelayEnvironmentProps = Environment;
 
+/**
+ * Relay environment helper class.
+ */
 class RelayEnvironment {
   config = {
     network: Network.create(fetchFunction),
@@ -37,10 +40,17 @@ class RelayEnvironment {
     this.resetEnvironment();
   }
 
+  /**
+   * @return {RelayEnvironmentProps} Current relay environment.
+   */
   getEnvironment(): RelayEnvironmentProps {
     return this.environment;
   }
 
+  /**
+   * Resets current relay environment.
+   * @return {RelayEnvironmentProps} New relay environment
+   */
   resetEnvironment(): RelayEnvironmentProps {
     if (_DEV_) console.debug("[RELAY] Environment instance initialized.");
     this.environment = new Environment(this.config);
