@@ -9,7 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(USER_TABLE_NAME, (table: CreateTableBuilder) => {
       // COLUMNS
       table.string("id").primary().unique();
-      table.string("role_id").unsigned();
+      table.string("role_id").notNullable();
       table.string("name").notNullable();
       table.string("first_lastname").notNullable();
       table.string("second_lastname").notNullable();

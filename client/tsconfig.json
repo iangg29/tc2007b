@@ -1,4 +1,9 @@
 {
   "compilerOptions": {},
-  "extends": "expo/tsconfig.base"
+  "extends": "expo/tsconfig.base",
+  "exclude": [
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "__generated__/"
+  ]
 }
