@@ -1,7 +1,15 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import React from "react";
 
-const SingleTag = ({ element }: any): JSX.Element => {
+interface Props {
+  element: {
+    label: String;
+  };
+  key: Number;
+}
+
+const SingleTag = ({ element }: Props): JSX.Element => {
+  console.log(element);
+
   return (
     <div>
       <a

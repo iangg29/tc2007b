@@ -4,26 +4,21 @@ import { Card } from "flowbite-react";
 import { Link } from "react-router-dom";
 import SingleTag from "./SingleTag";
 
+interface Labels {
+  label: String;
+}
+
 interface Props {
   image: string;
   proyectTile: string;
   announcement: string;
   user: string;
-  label: object[];
+  label: Labels[];
   buttonText: String;
+  color: string;
 }
 
-const RequestCard = ({ image, proyectTile, announcement, user, label, buttonText }: Props): JSX.Element => {
-  let button;
-
-  buttonText === "Revisar"
-    ? (button = "bg-button-300 rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-hover-300 ")
-    : buttonText === "Dar seguimiento"
-    ? (button = "bg-button-200 rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-hover-200 ")
-    : buttonText === "Revisar nuevamente"
-    ? (button = "bg-button-100 rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-hover-100 ")
-    : (button = "bg-main-500 rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-main-50 ");
-
+const RequestCard = ({ image, proyectTile, announcement, user, label, buttonText, color }: Props): JSX.Element => {
   return (
     <>
       <div className="max-w-sm py-5">
@@ -44,9 +39,12 @@ const RequestCard = ({ image, proyectTile, announcement, user, label, buttonText
               ))}
 
               <br />
-              <a className={button}>
+              <button
+                className="rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:scale-110"
+                style={{ backgroundColor: color }}
+              >
                 <Link to={""}>{buttonText}</Link>
-              </a>
+              </button>
             </div>
           </div>
         </Card>

@@ -17,6 +17,7 @@ const ApproveDoc = (): JSX.Element => {
           user="Susana Horia"
           label={exampleLabels}
           buttonText="Revisar nuevamente"
+          color="#244B5C"
         />
         <RequestCard
           image={back}
@@ -25,6 +26,7 @@ const ApproveDoc = (): JSX.Element => {
           user="Susana Horia"
           label={exampleLabels}
           buttonText="Dar seguimiento"
+          color="#50245C"
         />
         <RequestCard
           image={back}
@@ -33,6 +35,7 @@ const ApproveDoc = (): JSX.Element => {
           user="Susana Horia"
           label={exampleLabels}
           buttonText="Revisar"
+          color="#252d53"
         />
       </div>
     </>
