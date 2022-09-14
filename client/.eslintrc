@@ -17,7 +17,16 @@
     "plugin:jest/recommended"
   ],
   "rules": {
-    "no-console": 1,
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "error",
+          "warn",
+          "debug"
+        ]
+      }
+    ],
     "prettier/prettier": 2,
     "react/react-in-jsx-scope": "off",
     "jest/no-disabled-tests": "warn",
@@ -31,7 +40,9 @@
       "pragma": "React",
       "version": "detect"
     },
-    "import/ignore": ["react-native"],
+    "import/ignore": [
+      "react-native"
+    ]
   },
   "env": {
     "jest/globals": true
