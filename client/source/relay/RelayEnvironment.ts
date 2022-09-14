@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   CacheConfig,
   Environment,
@@ -8,7 +9,7 @@ import {
   Store,
   Variables,
 } from "relay-runtime";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import fetchGraphQL from "./fetchGraphQL";
 
 const __DEV__ = process.env.NODE_ENV !== "production";
