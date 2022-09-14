@@ -14,6 +14,51 @@ directive @specifiedBy(
 ) on SCALAR
 
 """
+Assignable Application Status
+"""
+type ApplicationStatus {
+  """
+  ApplicationStatus ID
+  """
+  id: ID!
+
+  """
+  ApplicationStatus name
+  """
+  name: String!
+
+  """
+  ApplicationStatus creation date
+  """
+  created_at: String!
+
+  """
+  Last time applicationStatus was updated.
+  """
+  updated_at: String!
+}
+
+"""
+Login authentication response.
+"""
+type LoginResponse {
+  """
+  Is authentication successful.
+  """
+  success: Boolean!
+
+  """
+  Authentication error message.
+  """
+  error: String
+
+  """
+  Authenticated user
+  """
+  user: User
+}
+
+"""
 Assignable role to users.
 """
 type Role {
@@ -47,7 +92,17 @@ type Role {
 Application's GraphQL root mutations
 """
 type RootMutation {
-  createRole(name: String, description: String): Role
+  createRole(name: String!, description: String!): Role
+  login(email: String!, password: String!): LoginResponse
+  register(
+    name: String!
+    first_lastname: String!
+    second_lastname: String!
+    cellphone: String!
+    email: String!
+    password: String!
+    confirm_password: String!
+  ): Boolean
 }
 
 """
@@ -56,6 +111,7 @@ Application's GraphQL root query.
 type RootQuery {
   users: [User]
   roles: [Role]
+  applicationStatus: [ApplicationStatus]
 }
 
 """
@@ -66,6 +122,11 @@ type User {
   User's ID
   """
   id: ID!
+
+  """
+  User's role
+  """
+  role: Role
 
   """
   User's name
