@@ -1,6 +1,10 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-const Label = () => {
+interface Props {
+  label: string;
+}
+
+const Label = ( { label }: Props ) => {
   return (
     <div className="space-y-4">
       <div>
@@ -15,7 +19,7 @@ const Label = () => {
             <div className="flex-grow h-full -ml-px bg-gray-300 rounded-md rounded-l-none" />
           </div>
           <span className="relative uppercase font-semibold pr-px">
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Label<span>&nbsp;</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>{ label }<span>&nbsp;</span>
           </span>
         </div>
       </div>
