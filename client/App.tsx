@@ -1,10 +1,11 @@
-import { RelayEnvironmentProvider } from "react-relay/hooks";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Landing from "./source/screens/general/Landing";
-import relayEnvironment from "./source/relay/RelayEnvironment";
 import React, { Suspense } from "react";
 import { Text } from "react-native";
+import { RelayEnvironmentProvider } from "react-relay/hooks";
+
+import relayEnvironment from "./source/relay/RelayEnvironment";
+import { iRoute, Routes } from "./source/routes";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +15,9 @@ export default function App() {
       <Suspense fallback={<Text>Loading application...</Text>}>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Landing" component={Landing} />
+            {Routes.map((route: iRoute, idx: number) => (
+              <Stack.Screen key={idx} name={route.name} component={route.component} />
+            ))}
           </Stack.Navigator>
         </NavigationContainer>
       </Suspense>
