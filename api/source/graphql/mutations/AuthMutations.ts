@@ -1,7 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { LoginResponseType } from "../../types/AuthTypes";
-import { GraphQLBoolean, GraphQLError, GraphQLNonNull, GraphQLString } from "graphql";
+import { GraphQLBoolean, GraphQLNonNull, GraphQLString } from "graphql";
 import { ROLE_TABLE_NAME, USER_TABLE_NAME } from "../../database/utils/database_constants";
 import { db } from "../../database/database";
 
@@ -18,7 +18,12 @@ export default {
     },
     resolve: async (_: any, { email, password }: any) => {
       const users = await db.select().from(USER_TABLE_NAME).where("email", email);
-      if (users.length <= 0) throw new GraphQLError("The credentials do not match any of our records.");
+      if (users.length <= 0)
+        return {
+          success: false,
+          error: "Por favor, revisa las credenciales.",
+          user: null,
+        };
       const user = users[0];
       const role = await db.select().from(ROLE_TABLE_NAME).where("id", user.role_id);
 
