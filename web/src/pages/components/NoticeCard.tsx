@@ -3,7 +3,13 @@ import { FiEdit } from "react-icons/fi";
 import { BsFillTrashFill } from "react-icons/bs";
 import SvgButton from "./SvgButton";
 
-const NoticeCard = ({ img, name, date }: any): JSX.Element => {
+interface params {
+  img: string;
+  name: string;
+  date: string;
+}
+
+const NoticeCard = ({ img, name, date }: params): JSX.Element => {
   const alertaEditar = (): any => {
     alert("Se está editando");
   };
