@@ -4,10 +4,10 @@ import NavBar from "./includes/NavBar";
 import Label from "../components/Label";
 import Document from "../components/Doc_Review";
 import Req_Button from "../components/Req_Button";
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack, IoMdArrowDropdownCircle, IoMdArrowDropupCircle } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 
-const Req_Detail = () => {
+const Req_Evidence = () => {
   // Navigation - Go back to Req_Revision
   const navigate = useNavigate();
 
@@ -25,11 +25,11 @@ const Req_Detail = () => {
   const exampleDetail = {
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    filename: "Formato_Solicitud.pdf",
+    impact:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    filename: "Evidencia.pdf",
     link: "https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf",
-    update_at: "06/10/2022",
-    requested_support:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    update_at: "06/09/2022",
   };
 
   return (
@@ -57,26 +57,27 @@ const Req_Detail = () => {
             })}
           </div>
         </div>
-        {/* REQUEST - DETAIL */}
+        {/* REQUEST - EVIDENCE */}
         <div className="w-full pt-8 pr-8 md:pr-0 lg:pr-8 md:pt-2 md:pl-12">
           <div className="w-fit">
             <h2 className="text-xl text-[#396FB1] font-bold pb-2">Descripción</h2>
             <p className="text-justify">{exampleDetail.description}</p>
 
-            <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Formato de solicitud</h2>
-            <Document filename={exampleDetail.filename} update_at={exampleDetail.update_at} link={exampleDetail.link} />
-
-            <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Apoyo Solicitado</h2>
-            <p className="text-justify">{exampleDetail.requested_support}</p>
-
-            <div className="w-full justify-center flex flex-wrap pt-8 gap-4 md:gap-2 lg:gap-4">
-              <Link to={""}>
-                <Req_Button text="Aprobar" />
-              </Link>
-              <Link to={""}>
-                <Req_Button text="Rechazar" />
-              </Link>
+            <div className="w-fit flex gap-x-2 pb-2 pt-8">
+              <h2 className="text-xl text-[#396FB1] font-bold">Documentación</h2>
+              <button className="bottom-0 right-0"><IoMdArrowDropdownCircle size={15} color="#396FB1" /></button>
             </div>
+            <div className="w-fit">
+              {/* {exampleDocs.map((elem) => {
+              return <Document filename={elem.filename} update_at={elem.update_at} link={elem.link} />;
+            })} */}
+            </div>
+
+            <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Impacto</h2>
+            <p className="text-justify">{exampleDetail.impact}</p>
+
+            <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Evidencia</h2>
+            <Document filename={exampleDetail.filename} update_at={exampleDetail.update_at} link={exampleDetail.link} />
           </div>
         </div>
       </div>
@@ -85,4 +86,4 @@ const Req_Detail = () => {
   );
 };
 
-export default Req_Detail;
+export default Req_Evidence;

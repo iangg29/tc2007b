@@ -23,8 +23,16 @@ const Req_Documentation = (): JSX.Element => {
 
   // Request - Documents
   const exampleDocs = [
-    { filename: "INE.jpg", update_at: "14/09/2022", link: "https://www.protocolo.com.mx/wp-content/uploads/ine-01.jpg" },
-    { filename: "CURP.jpg", update_at: "01/02/2021", link: "https://sandiegoleisure.com/files/CURP_FOR_FOREIGNERS.jpg" },
+    {
+      filename: "INE.jpg",
+      update_at: "14/09/2022",
+      link: "https://www.protocolo.com.mx/wp-content/uploads/ine-01.jpg",
+    },
+    {
+      filename: "CURP.jpg",
+      update_at: "01/02/2021",
+      link: "https://sandiegoleisure.com/files/CURP_FOR_FOREIGNERS.jpg",
+    },
     {
       filename: "Domicilio.pdf",
       update_at: "21/05/2022",
@@ -70,8 +78,12 @@ const Req_Documentation = (): JSX.Element => {
               return <Document filename={elem.filename} update_at={elem.update_at} link={elem.link} />;
             })}
             <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
-              <Link to={"../Detail"}><Req_Button text="Aprobar documentos" /></Link>
-              <Link to={""}><Req_Button text="Enviar a correción" /></Link>
+              <Link to={"../Detail"}>
+                <Req_Button text="Aprobar documentos" />
+              </Link>
+              <Link to={""}>
+                <Req_Button text="Enviar a correción" />
+              </Link>
             </div>
           </div>
         </div>

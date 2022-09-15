@@ -7,6 +7,7 @@ const Layout = lazy(async () => await import("./containers/Layout"));
 const Home = lazy(async () => await import("./pages/home/Home"));
 const Documentation = lazy(async () => await import("./pages/Req_Documentation"));
 const Detail = lazy(async () => await import("./pages/Req_Detail"));
+const Evidence = lazy(async () => await import("./pages/Req_Evidence"));
 
 function App(): JSX.Element {
   return (
@@ -19,6 +20,7 @@ function App(): JSX.Element {
           <Route path="/Home" element={<Home />} />
           <Route path="/Documentation" element={<Documentation />} />
           <Route path="/Detail" element={<Detail />} />
+          <Route path="/Evidence" element={<Evidence />} />
           <Route path="/app/*" element={<Layout />} />
         </Routes>
       </Router>
