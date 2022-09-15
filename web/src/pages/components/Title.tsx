@@ -3,10 +3,10 @@ import Button from "./Button";
 import { MouseEventHandler } from "react";
 
 interface params {
-    text: string;
-    method: MouseEventHandler;
+  text: string;
+  method: MouseEventHandler;
 }
-  
+
 const Title = ({ text, method }: params): JSX.Element => {
   return (
     <>

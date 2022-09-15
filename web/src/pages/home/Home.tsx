@@ -5,7 +5,7 @@ import NoticeCard from "../components/NoticeCard";
 import Title from "../components/Title";
 
 const Home = (): JSX.Element => {
-  const nuevaConvocatoria = (): any => {
+  const nuevaConvocatoria = (): void => {
     alert("Se está creando nueva convocatoria");
   };
 
@@ -14,7 +14,7 @@ const Home = (): JSX.Element => {
       <div>
         <NavBar />
         <div className="flex w-full h-screen">
-          <div className="grid grid-rows-6">
+          <div>
             <Title text={"Convocatoria"} method={nuevaConvocatoria} />
             <div className="flex flex-row">
               <div className="flex flex-col">
