@@ -7,8 +7,8 @@ import Req_Button from "../components/Req_Button";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 
-const Req_Documentation = (): JSX.Element => {
-  // Navigation - Go back
+const Req_Detail = () => {
+  // Navigation - Go back to Req_Revision
   const navigate = useNavigate();
 
   // Request - Info
@@ -21,21 +21,16 @@ const Req_Documentation = (): JSX.Element => {
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
 
-  // Request - Documents
-  const exampleDocs = [
-    { filename: "INE.jpg", update_at: "14/09/2022", link: "https://www.protocolo.com.mx/wp-content/uploads/ine-01.jpg" },
-    { filename: "CURP.jpg", update_at: "01/02/2021", link: "https://sandiegoleisure.com/files/CURP_FOR_FOREIGNERS.jpg" },
-    {
-      filename: "Domicilio.pdf",
-      update_at: "21/05/2022",
-      link: "https://es.scribd.com/document/360818376/Comprobante-Domicilio",
-    },
-    {
-      filename: "Pasaporte.pdf",
-      update_at: "06/12/2020",
-      link: "https://as1.ftcdn.net/v2/jpg/01/41/33/80/1000_F_141338053_EoksmBImK7aaJanhLPYYkI8AdWzNrX8v.jpg",
-    },
-  ];
+  // Request - Detail
+  const exampleDetail = {
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    filename: "Formato_Solcitud.pdf",
+    link: "https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf",
+    update_at: "06/09/2022",
+    requested_support:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+  };
 
   return (
     <div>
@@ -62,16 +57,25 @@ const Req_Documentation = (): JSX.Element => {
             })}
           </div>
         </div>
-        {/* REQUEST - DOCUMENTATION */}
-        <div className="w-full pt-8 md:pt-2 md:pl-12">
-          <h2 className="text-xl text-[#396FB1] font-bold pb-2">Documentos</h2>
+        {/* REQUEST - DETAIL */}
+        <div className="w-full pt-8 pr-8 md:pr-0 lg:pr-8 md:pt-2 md:pl-12">
           <div className="w-fit">
-            {exampleDocs.map((elem) => {
-              return <Document filename={elem.filename} update_at={elem.update_at} link={elem.link} />;
-            })}
-            <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
-              <Link to={"../Detail"}><Req_Button text="Aprobar documentos" /></Link>
-              <Link to={""}><Req_Button text="Enviar a correción" /></Link>
+            <h2 className="text-xl text-[#396FB1] font-bold pb-2">Descripción</h2>
+            <p className="text-justify">{exampleDetail.description}</p>
+
+            <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Formato de solicitud</h2>
+            <Document filename={exampleDetail.filename} update_at={exampleDetail.update_at} link={exampleDetail.link} />
+
+            <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Apoyo Solicitado</h2>
+            <p className="text-justify">{exampleDetail.requested_support}</p>
+
+            <div className="w-full justify-center flex flex-wrap pt-8 gap-4 md:gap-2 lg:gap-4">
+              <Link to={""}>
+                <Req_Button text="Aprobar" />
+              </Link>
+              <Link to={""}>
+                <Req_Button text="Rechazar" />
+              </Link>
             </div>
           </div>
         </div>
@@ -81,4 +85,4 @@ const Req_Documentation = (): JSX.Element => {
   );
 };
 
-export default Req_Documentation;
+export default Req_Detail;
