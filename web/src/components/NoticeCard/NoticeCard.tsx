@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { BsFillTrashFill } from "react-icons/bs";
-import SvgButton from "./SvgButton";
-import EditModal from "./EditModal";
+import SvgButton from "../SvgButton/SvgButton";
+import EditModal from "../EditModal/EditModal";
 
 interface params {
   img: string;
@@ -35,7 +35,7 @@ const NoticeCard = ({ img, name, date }: params): JSX.Element => {
           </div>
         </div>
       </div>
-      <EditModal show={show} onClose={onClose} />
+      <EditModal show={show} onClose={onClose} props={{ name: name, date: date }} />
     </>
   );
 };
