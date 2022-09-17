@@ -1,7 +1,7 @@
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 
 export const DocumentTypeType = new GraphQLObjectType({
-  name: "Document Type",
+  name: "DocumentType",
   description: "Type of document uploaded",
   fields: {
     id: {
