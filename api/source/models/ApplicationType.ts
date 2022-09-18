@@ -3,10 +3,12 @@
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import { UserType } from "./UserModel";
 import { ApplicationStatusType } from "./ApplicationStatusType";
+import { CitationType } from "./CitationType";
 
 export const ApplicationType = new GraphQLObjectType({
   name: "Application",
-  description: "Main application model, contains all the information related with the applications of the users into the system",
+  description:
+    "Main application model, contains all the information related with the applications of the users into the system",
   fields: {
     id: {
       type: GraphQLNonNull(GraphQLID),
@@ -44,10 +46,10 @@ export const ApplicationType = new GraphQLObjectType({
       type: ApplicationStatusType,
       description: "Application status",
     },
-    /*citation_id: {
-      type: ,
-      description: "",
-    },*/
+    citation: {
+      type: CitationType,
+      description: "Citation of the application",
+    },
     created_at: {
       type: GraphQLNonNull(GraphQLString),
       description: "Application creation date",
