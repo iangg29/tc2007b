@@ -9,6 +9,7 @@ import DocumentTypeQueries from "./queries/DocumentTypeQueries";
 import DocumentQueries from "./queries/DocumentQueries";
 import CitationQueries from "./queries/CitationQueries";
 import LabelQueries from "./queries/LabelQueries";
+import ApplicationLabelQueries from "./queries/ApplicationLabelQueries";
 
 /**
  * GraphQLObject that unifies every query that the application uses.
@@ -24,6 +25,7 @@ const RootQuery = new GraphQLObjectType({
     ...DocumentQueries,
     ...CitationQueries,
     ...LabelQueries,
+    ...ApplicationLabelQueries,
   },
 });
 
