@@ -1,8 +1,9 @@
-import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useState } from "react";
+import { Alert, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useMutation } from "react-relay";
-import { LoginMutation, LoginMutation$data } from "./__generated__/LoginMutation.graphql";
 import { graphql } from "react-relay/hooks";
+
+import { LoginMutation, LoginMutation$data } from "./__generated__/LoginMutation.graphql";
 
 const Login = (): JSX.Element => {
   const [email, setEmail] = useState<string>("");
@@ -33,6 +34,16 @@ const Login = (): JSX.Element => {
         // await AsyncStorage.setItem("token", "Bearer TOKEN");
         // TODO: Set authenticated user in state w/Redux.
         console.debug(data);
+        if (data.login.success) {
+          console.debug("LOGIN SUCCESSFUL");
+        } else {
+          console.error("LOGIN FAILED");
+          Alert.alert("Error", data.login.error ?? "No se ha podido iniciar sesión.", null, {
+            onDismiss: () => {
+              setPassword("");
+            },
+          });
+        }
       },
     });
   };
@@ -60,7 +71,7 @@ const Login = (): JSX.Element => {
             autoCapitalize="none"
             autoComplete="password"
             spellCheck={false}
-            secureTextEntry={true}
+            secureTextEntry
             className="bg-gray-100 px-5 py-4 rounded-lg"
           />
         </View>
