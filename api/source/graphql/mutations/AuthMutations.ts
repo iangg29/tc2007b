@@ -1,13 +1,14 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { LoginResponseType } from "../../types/AuthTypes";
-import { GraphQLBoolean, GraphQLNonNull, GraphQLString } from "graphql";
+import { AuthResponseType } from "../../types/AuthTypes";
+import { GraphQLNonNull, GraphQLString } from "graphql";
 import { ROLE_TABLE_NAME, USER_TABLE_NAME } from "../../database/utils/database_constants";
 import { db } from "../../database/database";
+import { v4 as uuid } from "uuid";
 
 export default {
   login: {
-    type: LoginResponseType,
+    type: AuthResponseType,
     args: {
       email: {
         type: GraphQLNonNull(GraphQLString),
@@ -37,8 +38,8 @@ export default {
       };
     },
   },
-  register: {
-    type: GraphQLBoolean,
+  signup: {
+    type: AuthResponseType,
     args: {
       name: {
         type: GraphQLNonNull(GraphQLString),
@@ -55,6 +56,9 @@ export default {
       email: {
         type: GraphQLNonNull(GraphQLString),
       },
+      gender: {
+        type: GraphQLNonNull(GraphQLString),
+      },
       password: {
         type: GraphQLNonNull(GraphQLString),
       },
@@ -62,9 +66,70 @@ export default {
         type: GraphQLNonNull(GraphQLString),
       },
     },
-    resolve: (_: any, args: any) => {
-      const { name, first_lastname, second_lastname, cellphone, email, password, confirm_password } = args;
-      return true;
+    resolve: async (_: any, args: any) => {
+      let role = undefined;
+      let finalPassword = undefined;
+      const roles = await db.select(["id"]).from(ROLE_TABLE_NAME).where("default", true);
+      if (roles.length <= 0) {
+        const fallback = await db.select(["id"]).from(ROLE_TABLE_NAME);
+        if (fallback.length <= 0) {
+          return {
+            success: false,
+            error: "El sistema no cuenta con ningún rol registrado.",
+            user: null,
+          };
+        } else {
+          role = fallback[0];
+        }
+      } else {
+        role = roles[0];
+      }
+
+      if (role === undefined)
+        return {
+          success: false,
+          error: "Error cargando roles.",
+          user: null,
+        };
+
+      const { name, first_lastname, second_lastname, cellphone, email, gender, password, confirm_password } = args;
+      if (password !== confirm_password)
+        return {
+          success: false,
+          error: "Las contraseñas no coinciden.",
+          user: null,
+        };
+
+      finalPassword = password;
+
+      try {
+        const id = uuid();
+        // TODO: Hash password.
+        await db(USER_TABLE_NAME).insert({
+          id,
+          role_id: role.id,
+          name,
+          first_lastname,
+          second_lastname,
+          password: finalPassword,
+          cellphone,
+          email,
+          gender,
+        });
+        const newUser = await db(USER_TABLE_NAME).select().where("id", id);
+
+        return {
+          success: true,
+          error: null,
+          user: newUser[0],
+        };
+      } catch (error: any) {
+        return {
+          success: false,
+          error: error.message,
+          user: null,
+        };
+      }
     },
   },
 };
