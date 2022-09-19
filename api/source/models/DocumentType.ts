@@ -13,7 +13,7 @@ export const DocumentType = new GraphQLObjectType({
       description: "Document's ID",
     },
     user: {
-      type: UserType,
+      type: GraphQLNonNull(UserType),
       description: "User that uploaded the document",
     },
     name: {
@@ -21,7 +21,7 @@ export const DocumentType = new GraphQLObjectType({
       description: "Document's name",
     },
     documentType: {
-      type: DocumentTypeType,
+      type: GraphQLNonNull(DocumentTypeType),
       description: "Document's type",
     },
     created_at: {
