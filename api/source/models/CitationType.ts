@@ -19,7 +19,7 @@ export const CitationType = new GraphQLObjectType({
       description: "Citation's description",
     },
     document: {
-      type: DocumentType,
+      type: GraphQLNonNull(DocumentType),
       description: "Citation's document",
     },
     created_at: {
