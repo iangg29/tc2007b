@@ -9,6 +9,33 @@ directive @specifiedBy(
   url: String!
 ) on SCALAR
 
+"""Assignable Application Status"""
+type ApplicationStatus {
+  """ApplicationStatus ID"""
+  id: ID!
+
+  """ApplicationStatus name"""
+  name: String!
+
+  """ApplicationStatus creation date"""
+  created_at: String!
+
+  """Last time applicationStatus was updated."""
+  updated_at: String!
+}
+
+"""Authentication response."""
+type AuthenticationResponse {
+  """Is authentication successful."""
+  success: Boolean!
+
+  """Authentication error message."""
+  error: String
+
+  """Authenticated user"""
+  user: User
+}
+
 """Assignable role to users."""
 type Role {
   """Role ID"""
@@ -20,6 +47,9 @@ type Role {
   """Role description"""
   description: String!
 
+  """Is role default."""
+  default: Boolean!
+
   """Role creation date"""
   created_at: String!
 
@@ -29,13 +59,16 @@ type Role {
 
 """Application's GraphQL root mutations"""
 type RootMutation {
-  createRole(name: String, description: String): Role
+  createRole(name: String!, description: String!, is_default: Boolean): Role
+  login(email: String!, password: String!): AuthenticationResponse
+  signup(name: String!, first_lastname: String!, second_lastname: String!, cellphone: String!, email: String!, gender: String!, password: String!, confirm_password: String!): AuthenticationResponse
 }
 
 """Application's GraphQL root query."""
 type RootQuery {
   users: [User]
   roles: [Role]
+  applicationStatus: [ApplicationStatus]
 }
 
 """
@@ -44,6 +77,9 @@ Main application user model, contains all user information w/it's relations.
 type User {
   """User's ID"""
   id: ID!
+
+  """User's role"""
+  role: Role
 
   """User's name"""
   name: String!
