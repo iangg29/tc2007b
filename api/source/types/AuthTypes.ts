@@ -3,9 +3,9 @@
 import { GraphQLBoolean, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import { UserType } from "./UserType";
 
-export const LoginResponseType = new GraphQLObjectType({
-  name: "LoginResponse",
-  description: "Login authentication response.",
+export const AuthResponseType = new GraphQLObjectType({
+  name: "AuthenticationResponse",
+  description: "Authentication response.",
   fields: {
     success: {
       type: GraphQLNonNull(GraphQLBoolean),
