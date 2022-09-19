@@ -11,6 +11,7 @@ export async function up(knex: Knex): Promise<void> {
       table.string("id").primary().unique();
       table.string("name").notNullable().unique();
       table.text("description").notNullable();
+      table.boolean("default").defaultTo(false);
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());
     });
