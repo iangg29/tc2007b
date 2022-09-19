@@ -15,7 +15,7 @@ export const ApplicationType = new GraphQLObjectType({
       description: "Application ID",
     },
     user: {
-      type: UserType,
+      type: GraphQLNonNull(UserType),
       description: "User that uploaded the request",
     },
     title: {
@@ -24,15 +24,15 @@ export const ApplicationType = new GraphQLObjectType({
     },
     deadline: {
       type: GraphQLString,
-      description: "",
+      description: "Date at which the project will be erased from consideration",
     },
     start_time: {
       type: GraphQLString,
-      description: "",
+      description: "Date at which the user compromises to start their project",
     },
     end_time: {
       type: GraphQLString,
-      description: "",
+      description: "Date at which the user compromises to finish their project",
     },
     emission_date: {
       type: GraphQLNonNull(GraphQLString),
@@ -43,11 +43,11 @@ export const ApplicationType = new GraphQLObjectType({
       description: "Application response date",
     },
     applicationStatus: {
-      type: ApplicationStatusType,
+      type: GraphQLNonNull(ApplicationStatusType),
       description: "Application status",
     },
     citation: {
-      type: CitationType,
+      type: GraphQLNonNull(CitationType),
       description: "Citation of the application",
     },
     created_at: {
