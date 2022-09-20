@@ -24,7 +24,7 @@ const NoticeCard = ({ img, name, date }: params): JSX.Element => {
 
   return (
     <>
-      <div className="mx-8 my-8 flex w-96 flex-col bg-white rounded-2xl shadow-xl shadow-slate-300/60 border border-b-slate-300">
+      <div className="mr-16 my-8 flex w-96 flex-col bg-white rounded-2xl shadow-xl shadow-slate-300/60 border border-b-slate-300">
         <img className="aspect-video w-96 rounded-t-2xl object-cover object-center" src={img} />
         <div className="p-4 border border-transparent border-t-slate-300/60">
           <h1 className="text-2xl font-medium text-slate-600 pb-2">{name}</h1>

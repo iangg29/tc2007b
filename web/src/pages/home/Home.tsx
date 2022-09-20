@@ -1,7 +1,5 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { useState } from "react";
-import Foot from "../includes/Footer";
-import NavBar from "../includes/NavBar";
 import NoticeCard from "../../components/NoticeCard/NoticeCard";
 import EditModal from "../../components/EditModal/EditModal";
 import EditForm from "../../components/EditForm/EditForm";
@@ -19,7 +17,7 @@ const Home = (): JSX.Element => {
         <div className="flex w-full">
           <div>
             <div className="flex row-span-1">
-              <div className="mx-7 my-5 flex flex-col">
+              <div className="my-5 flex flex-col">
                 <h1 className="text-4xl font-semibold text-main-500">Convocatorias</h1>
               </div>
               <div className="mx-7 my-1 flex flex-col">
