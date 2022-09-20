@@ -1,6 +1,4 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import Foot from "./includes/Footer";
-import NavBar from "./includes/NavBar";
 import Label from "../components/Label";
 import Document from "../components/Doc_Review";
 import Req_Button from "../components/Req_Button";
@@ -47,8 +45,7 @@ const ReqDocumentation = (): JSX.Element => {
 
   return (
     <div>
-      <NavBar />
-      {/* RETURN - LAST PAGE*/}
+      {/* RETURN - LAST PAGE */}
       <div className="w-fit pb-4 gap-2 pt-8 pl-8 pr-8 md:pl-24 md:pr-24">
         <button className="flex items-center content-center gap-x-1" onClick={() => navigate(-1)}>
           <IoIosArrowBack size={15} color="#252d53" />
@@ -65,8 +62,8 @@ const ReqDocumentation = (): JSX.Element => {
           <p className="text-lg font-semibold tracking-tight text-gray-900">Realizado por: {exampleRequest.autor}</p>
           <div className="w-[450px] md:w-[280px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
-            {exampleLabels.map((elem) => {
-              return <Label label={elem.label} />;
+            {exampleLabels.map((elem, index) => {
+              return <Label key={index} label={elem.label} />;
             })}
           </div>
         </div>
@@ -74,21 +71,20 @@ const ReqDocumentation = (): JSX.Element => {
         <div className="w-full pt-8 md:pt-2 md:pl-12">
           <h2 className="text-xl text-[#396FB1] font-bold pb-2">Documentos</h2>
           <div className="w-fit">
-            {exampleDocs.map((elem) => {
-              return <Document filename={elem.filename} update_at={elem.update_at} link={elem.link} />;
+            {exampleDocs.map((elem, index) => {
+              return <Document key={index} filename={elem.filename} updated={elem.update_at} link={elem.link} />;
             })}
             <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
-              <Link to={"../Detail"}>
+              <Link to={"../Solicitudes/RevisarDocumentos/Detalle"}>
                 <Req_Button text="Aprobar documentos" />
               </Link>
-              <Link to={""}>
+              <Link to={"../Solicitudes/RevisarDocumentos"}>
                 <Req_Button text="Enviar a correción" />
               </Link>
             </div>
           </div>
         </div>
       </div>
-      <Foot />
     </div>
   );
 };

@@ -4,7 +4,7 @@ interface Props {
   text: string;
 }
 
-const Req_Button = ({ text }: Props) => {
+const ReqButton = ({ text }: Props): JSX.Element => {
   return (
     <div>
       <button className="px-4 py-2 drop-shadow-md rounded-full bg-main-500 text-sm md:text-xs lg:text-sm text-white">
@@ -14,4 +14,4 @@ const Req_Button = ({ text }: Props) => {
   );
 };
 
-export default Req_Button;
+export default ReqButton;

@@ -1,6 +1,4 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import Foot from "./includes/Footer";
-import NavBar from "./includes/NavBar";
 import Label from "../components/Label";
 import Document from "../components/Doc_Review";
 import { IoIosArrowBack, IoMdArrowDropdownCircle } from "react-icons/io";
@@ -24,22 +22,22 @@ const ReqEvidence = (): JSX.Element => {
   const exampleDocs = [
     {
       filename: "INE.jpg",
-      update_at: "14/09/2022",
+      updated: "14/09/2022",
       link: "https://www.protocolo.com.mx/wp-content/uploads/ine-01.jpg",
     },
     {
       filename: "CURP.jpg",
-      update_at: "01/02/2021",
+      updated: "01/02/2021",
       link: "https://sandiegoleisure.com/files/CURP_FOR_FOREIGNERS.jpg",
     },
     {
       filename: "Domicilio.pdf",
-      update_at: "21/05/2022",
+      updated: "21/05/2022",
       link: "https://es.scribd.com/document/360818376/Comprobante-Domicilio",
     },
     {
       filename: "Pasaporte.pdf",
-      update_at: "06/12/2020",
+      updated: "06/12/2020",
       link: "https://as1.ftcdn.net/v2/jpg/01/41/33/80/1000_F_141338053_EoksmBImK7aaJanhLPYYkI8AdWzNrX8v.jpg",
     },
   ];
@@ -52,12 +50,11 @@ const ReqEvidence = (): JSX.Element => {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     filename: "Evidencia.pdf",
     link: "https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf",
-    update_at: "06/09/2022",
+    updated: "06/09/2022",
   };
 
   return (
     <div>
-      <NavBar />
       {/* RETURN - LAST PAGE */}
       <div className="w-fit pb-4 gap-2 pt-8 pl-8 pr-8 md:pl-24 md:pr-24">
         <button className="flex items-center content-center gap-x-1" onClick={() => navigate(-1)}>
@@ -94,7 +91,7 @@ const ReqEvidence = (): JSX.Element => {
             </div>
             <div className="w-fit">
               {exampleDocs.map((elem, index) => {
-                return <Document key={index} filename={elem.filename} update_at={elem.update_at} link={elem.link} />;
+                return <Document key={index} filename={elem.filename} updated={elem.updated} link={elem.link} />;
               })}
             </div>
 
@@ -102,11 +99,10 @@ const ReqEvidence = (): JSX.Element => {
             <p className="text-justify">{exampleDetail.impact}</p>
 
             <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Evidencia</h2>
-            <Document filename={exampleDetail.filename} update_at={exampleDetail.update_at} link={exampleDetail.link} />
+            <Document filename={exampleDetail.filename} updated={exampleDetail.updated} link={exampleDetail.link} />
           </div>
         </div>
       </div>
-      <Foot />
     </div>
   );
 };

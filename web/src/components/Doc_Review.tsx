@@ -3,11 +3,11 @@ import { AiFillFile, AiFillEye } from "react-icons/ai";
 
 interface Props {
   filename: string;
-  update_at: string;
+  updated: string;
   link: string;
 }
 
-const Document_Review = ({ filename, update_at, link }: Props) => {
+const DocumentReview = ({ filename, updated, link }: Props): JSX.Element => {
   return (
     <div className="w-fit flex flex-row space-x-4 pt-4 pb-4 border-b-2">
       <div className="w-[300px] md:w-[250px] lg:w-[250px] flex items-center gap-2">
@@ -17,9 +17,9 @@ const Document_Review = ({ filename, update_at, link }: Props) => {
         <p className="text-base">{filename}</p>
       </div>
       <div className="w-fit flex items-center gap-2 justify-start lg:justify-center bg-white">
-        <p className="hidden lg:block font-light text-xs">{update_at}</p>
+        <p className="hidden lg:block font-light text-xs">{updated}</p>
         <div className="w-[35px] pl-1">
-          <a href={link} target="_blank">
+          <a href={link} target="noopener">
             <AiFillEye size={30} color="#252d53" />
           </a>
         </div>
@@ -28,4 +28,4 @@ const Document_Review = ({ filename, update_at, link }: Props) => {
   );
 };
 
-export default Document_Review;
+export default DocumentReview;

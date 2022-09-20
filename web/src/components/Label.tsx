@@ -4,7 +4,7 @@ interface Props {
   label: string;
 }
 
-const Label = ({ label }: Props) => {
+const Label = ({ label }: Props): JSX.Element => {
   return (
     <div className="space-y-4">
       <div>
