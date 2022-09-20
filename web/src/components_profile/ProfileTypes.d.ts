@@ -5,7 +5,9 @@ export interface profileInfo {
   cellphone: String;
   email: String;
   status: Number;
-  }
+}
 
-
-  export interface fieldValue { field: string; value: any }
+export interface fieldValue {
+  field: string;
+  value: any;
+}

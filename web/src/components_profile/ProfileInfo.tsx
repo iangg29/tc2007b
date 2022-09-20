@@ -23,7 +23,7 @@ const ProfileInfo = ({ info, image }: ProfileProps): JSX.Element => {
 
   useEffect(() => {
     setData(objectToList(info));
-  }, []);
+  }, [data]);
 
   return (
     <div className="w-11/12 mt-10 mx-auto">
