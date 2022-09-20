@@ -1,12 +1,17 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
+import { useState } from "react";
 import Foot from "../includes/Footer";
 import NavBar from "../includes/NavBar";
 import NoticeCard from "../../components/NoticeCard/NoticeCard";
+import EditModal from "../../components/EditModal/EditModal";
+import EditForm from "../../components/EditForm/EditForm";
+import notice1 from "../../assets/images/notice1.png";
+import notice2 from "../../assets/images/notice2.png";
 
 const Home = (): JSX.Element => {
-  const nuevaConvocatoria = (): void => {
-    alert("Se está creando nueva convocatoria");
-  };
+  const [show, setShow] = useState(false);
+  const handleShow = (): void => setShow(true);
+  const onClose = (): void => setShow(false);
 
   return (
     <>
@@ -20,7 +25,7 @@ const Home = (): JSX.Element => {
               </div>
               <div className="mx-7 my-1 flex flex-col">
                 <button
-                  onClick={nuevaConvocatoria}
+                  onClick={handleShow}
                   className="bg-main-500 hover:bg-main-500/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm mt-5"
                 >
                   + Nueva Página
@@ -29,24 +34,20 @@ const Home = (): JSX.Element => {
             </div>
             <div className="flex flex-row">
               <div className="flex flex-col">
-                <NoticeCard
-                  img={"https://images.wallpaperscraft.com/image/single/cat_kitten_glance_177552_1600x900.jpg"}
-                  name={"Convocatoria1"}
-                  date={"2022-10-12"}
-                />
+                <NoticeCard img={notice1} name={"Convocatoria1"} date={"2022-10-12"} />
               </div>
               <div className="flex flex-col">
-                <NoticeCard
-                  img={
-                    "https://media.wired.co.uk/photos/60c8730fa81eb7f50b44037e/3:2/w_3329,h_2219,c_limit/1521-WIRED-Cat.jpeg"
-                  }
-                  name={"Convocatoria2"}
-                  date={"2022-11-26"}
-                />
+                <NoticeCard img={notice2} name={"Convocatoria2"} date={"2022-11-26"} />
               </div>
             </div>
           </div>
         </div>
+        <EditModal
+          show={show}
+          onClose={onClose}
+          header={"Crear convocatoria"}
+          props={<EditForm name={undefined} date={undefined} image={undefined} />}
+        />
         <Foot />
       </div>
     </>
