@@ -16,8 +16,7 @@ const Home = (): JSX.Element => {
   return (
     <>
       <div>
-        <NavBar />
-        <div className="flex w-full h-screen">
+        <div className="flex w-full">
           <div>
             <div className="flex row-span-1">
               <div className="mx-7 my-5 flex flex-col">
@@ -28,7 +27,7 @@ const Home = (): JSX.Element => {
                   onClick={handleShow}
                   className="bg-main-500 hover:bg-main-500/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm mt-5"
                 >
-                  + Nueva Página
+                  + Nueva Convocatoria
                 </button>
               </div>
             </div>
@@ -48,7 +47,6 @@ const Home = (): JSX.Element => {
           header={"Crear convocatoria"}
           props={<EditForm name={undefined} date={undefined} image={undefined} />}
         />
-        <Foot />
       </div>
     </>
   );
