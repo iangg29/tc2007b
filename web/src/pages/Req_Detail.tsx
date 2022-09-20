@@ -7,7 +7,7 @@ import Req_Button from "../components/Req_Button";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 
-const Req_Detail = () => {
+const ReqDetail = (): JSX.Element => {
   // Navigation - Go back to Req_Revision
   const navigate = useNavigate();
 
@@ -85,4 +85,4 @@ const Req_Detail = () => {
   );
 };
 
-export default Req_Detail;
+export default ReqDetail;

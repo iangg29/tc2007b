@@ -5,8 +5,8 @@ const Login = lazy(async () => await import("./pages/auth/Login"));
 const SignUp = lazy(async () => await import("./pages/auth/SignUp"));
 const Layout = lazy(async () => await import("./containers/Layout"));
 const Home = lazy(async () => await import("./pages/home/Home"));
-const Documentation = lazy(async () => await import("./pages/Req_Documentation"));
 const Detail = lazy(async () => await import("./pages/Req_Detail"));
+const Documentation = lazy(async () => await import("./pages/Req_Documentation"));
 const Evidence = lazy(async () => await import("./pages/Req_Evidence"));
 
 function App(): JSX.Element {

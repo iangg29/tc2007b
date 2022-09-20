@@ -3,11 +3,10 @@ import Foot from "./includes/Footer";
 import NavBar from "./includes/NavBar";
 import Label from "../components/Label";
 import Document from "../components/Doc_Review";
-import Req_Button from "../components/Req_Button";
-import { IoIosArrowBack, IoMdArrowDropdownCircle, IoMdArrowDropupCircle } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { IoIosArrowBack, IoMdArrowDropdownCircle } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
-const Req_Evidence = () => {
+const ReqEvidence = (): JSX.Element => {
   // Navigation - Go back to Req_Revision
   const navigate = useNavigate();
 
@@ -21,7 +20,31 @@ const Req_Evidence = () => {
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
 
-  // Request - Detail
+  // Request - Documents
+  const exampleDocs = [
+    {
+      filename: "INE.jpg",
+      update_at: "14/09/2022",
+      link: "https://www.protocolo.com.mx/wp-content/uploads/ine-01.jpg",
+    },
+    {
+      filename: "CURP.jpg",
+      update_at: "01/02/2021",
+      link: "https://sandiegoleisure.com/files/CURP_FOR_FOREIGNERS.jpg",
+    },
+    {
+      filename: "Domicilio.pdf",
+      update_at: "21/05/2022",
+      link: "https://es.scribd.com/document/360818376/Comprobante-Domicilio",
+    },
+    {
+      filename: "Pasaporte.pdf",
+      update_at: "06/12/2020",
+      link: "https://as1.ftcdn.net/v2/jpg/01/41/33/80/1000_F_141338053_EoksmBImK7aaJanhLPYYkI8AdWzNrX8v.jpg",
+    },
+  ];
+
+  // Request - Evidence
   const exampleDetail = {
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
@@ -35,7 +58,7 @@ const Req_Evidence = () => {
   return (
     <div>
       <NavBar />
-      {/* RETURN - LAST PAGE*/}
+      {/* RETURN - LAST PAGE */}
       <div className="w-fit pb-4 gap-2 pt-8 pl-8 pr-8 md:pl-24 md:pr-24">
         <button className="flex items-center content-center gap-x-1" onClick={() => navigate(-1)}>
           <IoIosArrowBack size={15} color="#252d53" />
@@ -52,8 +75,8 @@ const Req_Evidence = () => {
           <p className="text-lg font-semibold tracking-tight text-gray-900">Realizado por: {exampleRequest.autor}</p>
           <div className="w-[450px] md:w-[280px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
-            {exampleLabels.map((elem) => {
-              return <Label label={elem.label} />;
+            {exampleLabels.map((elem, index) => {
+              return <Label key={index} label={elem.label} />;
             })}
           </div>
         </div>
@@ -65,12 +88,14 @@ const Req_Evidence = () => {
 
             <div className="w-fit flex gap-x-2 pb-2 pt-8">
               <h2 className="text-xl text-[#396FB1] font-bold">Documentación</h2>
-              <button className="bottom-0 right-0"><IoMdArrowDropdownCircle size={15} color="#396FB1" /></button>
+              <button className="bottom-0 right-0">
+                <IoMdArrowDropdownCircle size={15} color="#396FB1" />
+              </button>
             </div>
             <div className="w-fit">
-              {/* {exampleDocs.map((elem) => {
-              return <Document filename={elem.filename} update_at={elem.update_at} link={elem.link} />;
-            })} */}
+              {exampleDocs.map((elem, index) => {
+                return <Document key={index} filename={elem.filename} update_at={elem.update_at} link={elem.link} />;
+              })}
             </div>
 
             <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Impacto</h2>
@@ -86,4 +111,4 @@ const Req_Evidence = () => {
   );
 };
 
-export default Req_Evidence;
+export default ReqEvidence;
