@@ -14,7 +14,7 @@ interface params {
 }
 
 const NoticeCard = ({ img, name, date }: params): JSX.Element => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
   const handleShow = (): void => setShow(true);
   const onClose = (): void => setShow(false);
 

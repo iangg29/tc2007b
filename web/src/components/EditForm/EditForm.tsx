@@ -14,23 +14,20 @@ const EditForm = ({ name, date, image }: params): JSX.Element => {
     if (image !== undefined) {
       setState(true);
     }
-  });
+  }, [image]);
 
   return (
     <>
       <form>
         <div className="mb-6">
           {state && (
-            <>
-              <img
-                className="container relative mx-auto max-w-xs h-auto rounded-lg"
-                src={image}
-                alt="image description"
-              />
-              <br />
-            </>
+            <img
+              className="container relative mx-auto max-w-xs h-auto rounded-lg"
+              src={image}
+              alt="image description"
+            />
           )}
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Imagen</label>
+          <label className="block mb-2 py-2 text-sm font-medium text-gray-900 dark:text-gray-300">Imagen</label>
           <input
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={image}

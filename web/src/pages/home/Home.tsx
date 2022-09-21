@@ -7,7 +7,7 @@ import notice1 from "../../assets/images/notice1.png";
 import notice2 from "../../assets/images/notice2.png";
 
 const Home = (): JSX.Element => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
   const handleShow = (): void => setShow(true);
   const onClose = (): void => setShow(false);
 
