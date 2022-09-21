@@ -3,7 +3,7 @@ import Label from "../components/Label";
 import Document from "../components/Doc_Review";
 import Req_Button from "../components/Req_Button";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ReqDocumentation = (): JSX.Element => {
   // Navigation - Go back
@@ -75,12 +75,8 @@ const ReqDocumentation = (): JSX.Element => {
               return <Document key={index} filename={elem.filename} updated={elem.update_at} link={elem.link} />;
             })}
             <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
-              <Link to={"../Solicitudes/RevisarDocumentos/Detalle"}>
-                <Req_Button text="Aprobar documentos" />
-              </Link>
-              <Link to={"../Solicitudes/RevisarDocumentos"}>
-                <Req_Button text="Enviar a correción" />
-              </Link>
+              <Req_Button text="Aprobar documentos" navigate="../Solicitudes/RevisarDocumentos/Detalle" />
+              <Req_Button text="Enviar a correción" navigate="../Solicitudes/RevisarDocumentos" />
             </div>
           </div>
         </div>

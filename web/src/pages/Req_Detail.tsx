@@ -3,7 +3,7 @@ import Label from "../components/Label";
 import Document from "../components/Doc_Review";
 import Req_Button from "../components/Req_Button";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ReqDetail = (): JSX.Element => {
   // Navigation - Go back to Req_Revision
@@ -67,12 +67,8 @@ const ReqDetail = (): JSX.Element => {
             <p className="text-justify">{exampleDetail.requested_support}</p>
 
             <div className="w-full justify-center flex flex-wrap pt-8 gap-4 md:gap-2 lg:gap-4">
-              <Link to={"/app/Solicitudes/RevisarDocumentos"}>
-                <Req_Button text="Aprobar" />
-              </Link>
-              <Link to={"/app/Solicitudes/RevisarDocumentos"}>
-                <Req_Button text="Rechazar" />
-              </Link>
+              <Req_Button text="Aprobar" navigate="/app/Solicitudes/RevisarDocumentos" />
+              <Req_Button text="Rechazar" navigate="/app/Solicitudes/RevisarDocumentos" />
             </div>
           </div>
         </div>
