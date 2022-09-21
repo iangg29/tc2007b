@@ -1,26 +1,17 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import { useEffect, useState } from "react";
 
 interface params {
   name?: string;
   date?: string;
-  image?: string;
+  image?: string | undefined;
 }
 
 const EditForm = ({ name, date, image }: params): JSX.Element => {
-  const [state, setState] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (image !== undefined) {
-      setState(true);
-    }
-  }, [image]);
-
   return (
     <>
       <form>
         <div className="mb-6">
-          {state && (
+          {image !== undefined && (
             <img
               className="container relative mx-auto max-w-xs h-auto rounded-lg"
               src={image}
