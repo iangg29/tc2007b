@@ -42,8 +42,8 @@ const LoginForm = (): JSX.Element => {
       onCompleted: (response: LoginFormMutation$data) => {
         if (response.login === null) return;
         const { error, success, user } = response.login;
-        if (error !== null && !success) {
-          alert(error);
+        if (!success) {
+          alert(error ?? "ERROR");
         } else {
           dispatch(setUser(user as any));
           dispatch(setIsLoggedIn(true));
