@@ -8,7 +8,7 @@ interface params {
 }
 
 const EditForm = ({ name, date, image }: params): JSX.Element => {
-  const [state, setState] = useState(false);
+  const [state, setState] = useState<boolean>(false);
 
   useEffect(() => {
     if (image !== undefined) {
