@@ -10,7 +10,7 @@ interface Labels {
 
 interface Props {
   image: string;
-  proyectTile: string;
+  proyectTile?: string;
   announcement: string;
   user: string;
   label: Labels[];

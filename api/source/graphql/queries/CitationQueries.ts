@@ -1,5 +1,5 @@
 import { GraphQLList } from "graphql";
-import { CitationType } from "../../models/CitationType";
+import { CitationType } from "../../types/CitationType";
 import { db } from "../../database/database";
 import { CITATION_TABLE_NAME } from "../../database/utils/database_constants";
 

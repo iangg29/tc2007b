@@ -1,7 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
-import { UserType } from "./UserModel";
+import { UserType } from "./UserType";
 import { ApplicationStatusType } from "./ApplicationStatusType";
 import { CitationType } from "./CitationType";
 
@@ -58,5 +58,18 @@ export const ApplicationType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "Last time application was updated",
     },
+    // Foreign keys
+    application_status_id: {
+      type: GraphQLNonNull(GraphQLID),
+      description: "Aplication status ID",
+    },
+    user_id: {
+      type: GraphQLNonNull(GraphQLID),
+      description: "User ID",
+    },
+    citation_id : {
+      type: GraphQLNonNull(GraphQLID),
+      description: "Citation ID",
+    }
   },
 });

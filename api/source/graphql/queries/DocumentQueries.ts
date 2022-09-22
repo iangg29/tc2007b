@@ -1,5 +1,5 @@
 import { GraphQLList } from "graphql";
-import { DocumentType } from "../../models/DocumentType";
+import { DocumentType } from "../../types/DocumentType";
 import { db } from "../../database/database";
 import { DOCUMENT_TABLE_NAME } from "../../database/utils/database_constants";
 

@@ -18,7 +18,7 @@ const ArrowDrop = (): JSX.Element => {
 
             <Dropdown.Item>
               <Link to={""} className="navBarLink">
-                Pendientes a revisón de propuesta
+                Pendientes a revisión de propuesta
               </Link>
             </Dropdown.Item>
 

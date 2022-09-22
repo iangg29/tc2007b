@@ -1,6 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
+import { RoleType } from "./RoleType";
 
 export const UserType = new GraphQLObjectType({
   name: "User",
@@ -9,6 +10,10 @@ export const UserType = new GraphQLObjectType({
     id: {
       type: GraphQLNonNull(GraphQLID),
       description: "User's ID",
+    },
+    role: {
+      type: RoleType,
+      description: "User's role",
     },
     name: {
       type: GraphQLNonNull(GraphQLString),
