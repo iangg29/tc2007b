@@ -14,6 +14,11 @@ declare global {
       PG_CA_CERTIFICATE: string;
       PORT: number;
       USE_AUTH: boolean;
+      SECRET_KEY: string;
+      JWT_EXPIRES: string;
+      JWT_COOKIE_EXPIRES_IN: number;
     }
   }
 }
+
+export {};
