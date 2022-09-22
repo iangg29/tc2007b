@@ -17,7 +17,7 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
   if (IS_AUTH_ENABLED) {
     console.debug("[API] [AUTH] [MIDDLEWARE] Auth enabled.");
     let token;
-    if (req.cookies.jwt !== undefined) {
+    if (req.cookies.jwt) {
       token = req.cookies.jwt;
     } else if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
       token = req.headers.authorization.split(" ")[1];
@@ -31,11 +31,13 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
     const decoded = await promisify(jwt.verify)(token, process.env.SECRET_KEY);
     // @ts-ignore
     const user = await db(USER_TABLE_NAME).select().where("email", decoded.email).limit(1);
-    console.log(user);
-    if (!user) {
+    console.log("USER", user[0]);
+    if (!user[0]) {
       return next(new ServerError("No se ha podido encontrar este usuario.", 401));
     }
-    //req.user = user;
+
+    // @ts-ignore
+    req.user = user[0];
     next();
   } else {
     return next();
