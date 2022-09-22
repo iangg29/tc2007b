@@ -15,6 +15,8 @@ import { graphqlHTTP } from "express-graphql";
 import { ServerError } from "./utils/serverError";
 import serverErrorHandler from "./controllers/errorController";
 import path from "path";
+import { validateToken } from "./utils/authentication";
+import authRoutes from "./routes/auth.routes";
 
 const xss = require("xss-clean");
 const app = express();
@@ -26,6 +28,7 @@ app.use(xss());
 
 app.use(
   "/graphql",
+  validateToken,
   graphqlHTTP({
     schema,
     graphiql: process.env.NODE_ENV !== "production",
@@ -83,6 +86,8 @@ if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "local") 
     });
   });
 }
+
+app.use("/auth", authRoutes);
 
 app.get("/health", (req: Request, res: Response) => {
   res.status(200).json({
