@@ -3,6 +3,8 @@ import { GraphQLError, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
 import { db } from "../../database/database";
 import { CITATION_TABLE_NAME } from "../../database/utils/database_constants";
+import { DOCUMENT_TABLE_NAME } from "../../database/utils/database_constants";
+
 
 export default {
   createCitation: {
@@ -36,8 +38,13 @@ export default {
           throw new GraphQLError(error.name);
         });
 
-        const newCitation = await db.select().from(CITATION_TABLE_NAME).where({ id });
-        return newCitation[0];
+      const newCitation = await db.select().from(CITATION_TABLE_NAME).where({ id });
+      const myDocument = await db.select().from(DOCUMENT_TABLE_NAME).where({ id: document_id });
+
+      return {
+        ...newCitation[0],
+        document: myDocument[0], 
+    };
     },
   },
 };
