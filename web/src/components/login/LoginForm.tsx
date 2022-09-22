@@ -2,59 +2,30 @@
 import { useRef } from "react";
 import logo from "../../assets/logos/logoColorSC.png";
 import back from "../../assets/background/login.png";
-import graphql from "babel-plugin-relay/macro";
-import { useMutation } from "react-relay";
-import { LoginFormMutation, LoginFormMutation$data } from "./__generated__/LoginFormMutation.graphql";
-import { useAppDispatch } from "../../store/hooks";
-import { setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginForm = (): JSX.Element => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useAppDispatch();
+  // const navigate = useNavigate();
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const [sendLogin, isLoginMutationInFlight] = useMutation<LoginFormMutation>(graphql`
-    mutation LoginFormMutation($email: String!, $password: String!) {
-      login(email: $email, password: $password) {
-        success
-        error
-        user {
-          id
-          name
-          first_lastname
-          second_lastname
-          email
-          cellphone
-        }
-      }
-    }
-  `);
+  const genLoginToken = async ({ email, password }: { email: string; password: string }): Promise<any> => {
+    const token = await axios.post((process.env.REACT_APP_API_URL as string) + "/auth/login", {
+      email,
+      password,
+    });
+    return token.data.token;
+  };
 
   const login = (): void => {
-    sendLogin({
-      variables: {
-        email: emailRef.current?.value ?? "",
-        password: passwordRef.current?.value ?? "",
-      },
-      onCompleted: (response: LoginFormMutation$data) => {
-        if (response.login === null) return;
-        const { error, success, user } = response.login;
-        if (!success) {
-          alert(error ?? "ERROR");
-        } else {
-          dispatch(setUser(user as any));
-          dispatch(setIsLoggedIn(true));
-          dispatch(setToken("TOKEN BITCH"));
-          navigate("/app/");
-        }
-      },
-      onError: (error: Error) => {
-        console.error(error);
-      },
+    const token = genLoginToken({
+      email: emailRef.current?.value as string,
+      password: passwordRef.current?.value as string,
     });
+
+    console.log("[DEBUG] [TOKEN]", token);
   };
 
   return (
@@ -87,7 +58,7 @@ const LoginForm = (): JSX.Element => {
                   className="w-36 bg-main-500 hover:bg-main-500/70  hover:scale-105 transition-all ease-in-out duration-500 active:scale-95 font-bold text-white rounded-3xl py-2 text-sm mt-5"
                   onClick={login}
                 >
-                  {isLoginMutationInFlight ? "Loading..." : "Iniciar sesión"}
+                  Iniciar sesión
                 </button>
               </div>
             </div>
