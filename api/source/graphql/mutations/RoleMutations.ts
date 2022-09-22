@@ -1,6 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { RoleType } from "../../models/RoleModel";
+import { RoleType } from "../../models/RoleType";
 import { GraphQLError, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
 import { db } from "../../database/database";

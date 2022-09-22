@@ -1,9 +1,9 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
-import { UserType } from "./UserModel";
-import { ApplicationStatusType } from "./ApplicationStatusType";
-import { CitationType } from "./CitationType";
+import { UserType } from "./UserType";
+// import { ApplicationStatusType } from "./ApplicationStatusType";
+// import { CitationType } from "./CitationType";
 
 export const ApplicationType = new GraphQLObjectType({
   name: "Application",
@@ -21,6 +21,18 @@ export const ApplicationType = new GraphQLObjectType({
     title: {
       type: GraphQLNonNull(GraphQLString),
       description: "Application title",
+    },
+    image: {
+      type: GraphQLNonNull(GraphQLString),
+      description: "Application image",
+    },
+    description: {
+      type: GraphQLNonNull(GraphQLString),
+      description: "Application description",
+    },
+    support: {
+      type: GraphQLNonNull(GraphQLString),
+      description: "Application requested support",
     },
     deadline: {
       type: GraphQLString,
@@ -42,14 +54,14 @@ export const ApplicationType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "Application response date",
     },
-    applicationStatus: {
-      type: GraphQLNonNull(ApplicationStatusType),
-      description: "Application status",
-    },
-    citation: {
-      type: GraphQLNonNull(CitationType),
-      description: "Citation of the application",
-    },
+    // applicationStatus: {
+    //   type: GraphQLNonNull(ApplicationStatusType),
+    //   description: "Application status",
+    // },
+    // citation: {
+    //   type: GraphQLNonNull(CitationType),
+    //   description: "Citation of the application",
+    // },
     created_at: {
       type: GraphQLNonNull(GraphQLString),
       description: "Application creation date",
@@ -58,5 +70,18 @@ export const ApplicationType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "Last time application was updated",
     },
+    // Foreign keys
+    application_status_id: {
+      type: GraphQLNonNull(GraphQLID),
+      description: "Aplication status ID",
+    },
+    user_id: {
+      type: GraphQLNonNull(GraphQLID),
+      description: "User ID",
+    },
+    citation_id : {
+      type: GraphQLNonNull(GraphQLID),
+      description: "Citation ID",
+    }
   },
 });
