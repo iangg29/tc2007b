@@ -5,7 +5,6 @@ import UserQueries from "./queries/UserQueries";
 import RoleQueries from "./queries/RoleQueries";
 import RoleMutations from "./mutations/RoleMutations";
 import ApplicationStatusQueries from "./queries/ApplicationStatusQueries";
-import AuthMutations from "./mutations/AuthMutations";
 import FAQQueries from "./queries/FAQQueries";
 import FAQMutations from "./mutations/FAQMutations";
 
@@ -31,7 +30,6 @@ const RootMutation = new GraphQLObjectType({
   description: "Application's GraphQL root mutations",
   fields: {
     ...RoleMutations,
-    ...AuthMutations,
     ...FAQMutations,
   },
 });
