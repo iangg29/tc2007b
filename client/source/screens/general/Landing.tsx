@@ -1,7 +1,9 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { API_URL } from "@env";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 const Landing = () => {
   const navigation = useNavigation();

@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   CacheConfig,

@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { useState } from "react";
 import { Alert, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useMutation } from "react-relay";
