@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import React, { StrictMode, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./assets/css/main.css";
