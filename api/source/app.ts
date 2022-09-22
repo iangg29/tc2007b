@@ -26,6 +26,8 @@ app.use(cors());
 app.options("*", cors());
 app.use(xss());
 app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(
   "/graphql",
@@ -63,10 +65,7 @@ const limiter = rateLimit({
   },
 });
 
-app.use("/v1", limiter);
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use("/auth", limiter);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
