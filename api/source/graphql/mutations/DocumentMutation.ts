@@ -8,17 +8,17 @@ export default {
   createDocument: {
     type: DocumentType,
     args: {
-      name: {
+      file_name: {
         type: GraphQLNonNull(GraphQLString),
       },
     },
-    resolve: async (_: any, { name }: any) => {
+    resolve: async (_: any, { file_name }: any) => {
       const id = uuid();
       await db(DOCUMENT_TABLE_NAME)
         .insert({
           id,
           user_id: "deb149b2-da23-4ad7-81ea-570a0a83f11b",
-          file_name: name,
+          file_name,
           file_type_id: "565b3a47-85af-4aa5-bec4-eda0d63f1910",
           url: "www.algo.com",
         })

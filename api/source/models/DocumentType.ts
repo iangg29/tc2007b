@@ -16,7 +16,7 @@ export const DocumentType = new GraphQLObjectType({
       type: GraphQLNonNull(UserType),
       description: "User that uploaded the document",
     },
-    name: {
+    file_name: {
       type: GraphQLNonNull(GraphQLString),
       description: "Document's name",
     },
