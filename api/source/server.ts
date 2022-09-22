@@ -13,9 +13,14 @@ process.on("uncaughtException", (error: Error) => {
 
 const application = require("./app");
 const PORT = process.env.PORT || 5050;
+const toBool = require("to-bool");
 
 const server = application.listen(PORT, () => {
+  console.log(`=====================================`);
   console.log(`🚀 [API] Listening on port ${PORT}`);
+  console.log(`💻 [API] Running in ${process.env.NODE_ENV} mode.`);
+  console.log(`🔐 [API] Authentication is ${toBool(process.env.USE_AUTH) ? "enabled" : "disabled"}.`);
+  console.log(`=====================================`);
 });
 
 process.on("unhandledRejection", (error: Error) => {
