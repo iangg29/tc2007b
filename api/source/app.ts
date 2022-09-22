@@ -25,6 +25,7 @@ app.enable("trust proxy");
 app.use(cors());
 app.options("*", cors());
 app.use(xss());
+app.use(cookieParser());
 
 app.use(
   "/graphql",
@@ -66,7 +67,6 @@ app.use("/v1", limiter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
