@@ -31,7 +31,6 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
     const decoded = await promisify(jwt.verify)(token, process.env.SECRET_KEY);
     // @ts-ignore
     const user = await db(USER_TABLE_NAME).select().where("email", decoded.email).limit(1);
-    console.log("USER", user[0]);
     if (!user[0]) {
       return next(new ServerError("No se ha podido encontrar este usuario.", 401));
     }
