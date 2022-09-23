@@ -57,7 +57,7 @@ const RequestCard = ({
                 className="rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:scale-110"
                 style={{ backgroundColor: color }}
               >
-                <Link to={""}>{buttonText}</Link>
+                <Link to={"/app/Solicitudes/RevisarDocumentos/Documentos"}>{buttonText}</Link>
               </button>
             </div>
           </div>

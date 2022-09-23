@@ -1,7 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { useRef } from "react";
 import logo from "../../assets/logos/logoColorSC.png";
-import back from "../../assets/background/login.png";
+import back from "../../assets/background/login.svg";
 
 interface Form {
   email?: string;
