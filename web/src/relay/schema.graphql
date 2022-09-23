@@ -209,7 +209,7 @@ type RootQuery {
   user(id: ID!): User
   roles: [Role]
   applications: [Application]
-  application(id: ID!): Application
+  application(id: ID!, user_id: ID!): Application
   applicationStatus: [ApplicationStatus]
   documentTypes: [DocumentType]
   documents: [Document]
