@@ -14,7 +14,10 @@ const ApproveDoc = (): JSX.Element => {
         applicationStatusID(application_status_id: "1a0e00ff-08c7-49b9-8c08-6285e5bda7d7") {
           id
           title
-          application_status_id
+          applicationStatus {
+            id
+            name
+          }
           user_id
         }
       }
