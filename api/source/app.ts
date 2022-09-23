@@ -16,6 +16,9 @@ import { ServerError } from "./utils/serverError";
 import serverErrorHandler from "./controllers/errorController";
 import path from "path";
 
+import filesRoutes from "./routes/files.routes";
+
+const fileupload = require("express-fileupload");
 const xss = require("xss-clean");
 const app = express();
 
@@ -64,6 +67,14 @@ app.use("/v1", limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use(
+  fileupload({
+    useTempFiles: true,
+    tempFileDir: "./uploads",
+  }),
+);
+app.use(filesRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
