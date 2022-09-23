@@ -24,18 +24,6 @@ type ApplicationStatus {
   updated_at: String!
 }
 
-"""Authentication response."""
-type AuthenticationResponse {
-  """Is authentication successful."""
-  success: Boolean!
-
-  """Authentication error message."""
-  error: String
-
-  """Authenticated user"""
-  user: User
-}
-
 """Frequent question & answer."""
 type FAQ {
   """FAQ ID"""
@@ -81,8 +69,6 @@ type Role {
 """Application's GraphQL root mutations"""
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
-  login(email: String!, password: String!): AuthenticationResponse
-  signup(name: String!, first_lastname: String!, second_lastname: String!, cellphone: String!, email: String!, gender: String!, password: String!, confirm_password: String!): AuthenticationResponse
   createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
