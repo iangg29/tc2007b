@@ -17,13 +17,13 @@ const Layout = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isLoggedIn === false) {
-      if (Cookies.get("token") !== null) {
-        // VALIDATE TOKEN
-        dispatch(setToken(Cookies.get("token") as string));
-      } else {
-        navigate("/login");
+    if (Cookies.get("token") !== null) {
+      if (isLoggedIn === false) {
+        // FETCH USER DATA BASED ON TOKEN;
       }
+      dispatch(setToken(Cookies.get("token") as string));
+    } else {
+      navigate("/login");
     }
   }, [isLoggedIn]);
 

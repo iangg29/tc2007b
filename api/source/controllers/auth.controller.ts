@@ -28,7 +28,7 @@ export const createSendToken = (user: any, statusCode: number, req: Request, res
     };
   }
 
-  res.cookie("jwt", token, cookieOptions);
+  res.cookie("token", token, cookieOptions);
 
   // TODO: Remove password field from user object. Should never be returned within the response.
   user.password = undefined;
