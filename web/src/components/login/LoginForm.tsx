@@ -2,30 +2,55 @@
 import { useRef } from "react";
 import logo from "../../assets/logos/logoColorSC.png";
 import back from "../../assets/background/login.png";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../store/hooks";
+import { setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
+import Cookies from "js-cookie";
 
 const LoginForm = (): JSX.Element => {
-  // const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const genLoginToken = async ({ email, password }: { email: string; password: string }): Promise<any> => {
-    const token = await axios.post((process.env.REACT_APP_API_URL as string) + "/auth/login", {
-      email,
-      password,
-    });
-    return token.data.token;
+  const genLoginToken = async (email: string, password: string): Promise<any> => {
+    try {
+      await axios
+        .post((process.env.REACT_APP_API_URL as string) + "/auth/login", {
+          email,
+          password,
+        })
+        .then((res: AxiosResponse<any>) => {
+          const { status, token } = res.data;
+          if (status === "success") {
+            Cookies.set("token", `Bearer ${token as string}`);
+            dispatch(setUser(res.data.data.user));
+            dispatch(setToken(token));
+            dispatch(setIsLoggedIn(true));
+            navigate("/app/");
+          } else {
+            alert("ERROR! Something happened.");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } catch (error: any) {
+      console.error(error);
+    }
   };
 
   const login = (): void => {
-    const token = genLoginToken({
-      email: emailRef.current?.value as string,
-      password: passwordRef.current?.value as string,
-    });
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
 
-    console.log("[DEBUG] [TOKEN]", token);
+    (async () => {
+      await genLoginToken(email as string, password as string);
+    })()
+      .then((r) => r)
+      .catch((e) => e);
   };
 
   return (
