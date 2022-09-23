@@ -5,20 +5,25 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Wrapper from "./Wrapper";
 import { iRoute } from "../shared/types/AppTypes";
 import routes from "../routes";
-import { useAppSelector } from "../store/hooks";
-import { selectIsLoggedIn } from "../store/slices/authSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { selectIsLoggedIn, setToken } from "../store/slices/authSlice";
+import Cookies from "js-cookie";
 
 const Error404 = lazy(async () => await import("../pages/Error404"));
 
 const Layout = (): JSX.Element => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isLoggedIn === null) return;
     if (isLoggedIn === false) {
-      // TODO: Try pulling user data from TOKEN (possibly stored in Cookies)
-      navigate("/login");
+      if (Cookies.get("token") !== null) {
+        // VALIDATE TOKEN
+        dispatch(setToken(Cookies.get("token") as string));
+      } else {
+        navigate("/login");
+      }
     }
   }, [isLoggedIn]);
 
