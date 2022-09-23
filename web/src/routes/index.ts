@@ -8,6 +8,10 @@ const Profile = lazy(async () => await import("../pages/Profile"));
 const Home = lazy(async () => await import("../pages/home/Home"));
 const ApproveDocs = lazy(async () => await import("../pages/suppRequests/ApproveDoc"));
 
+const Detail = lazy(async () => await import("../pages/Req_Detail"));
+const Documentation = lazy(async () => await import("../pages/Req_Documentation"));
+const Evidence = lazy(async () => await import("../pages/Req_Evidence"));
+
 const routes: iRoute[] = [
   {
     path: "/",
@@ -24,6 +28,18 @@ const routes: iRoute[] = [
   {
     path: "/Solicitudes/RevisarDocumentos",
     components: ApproveDocs,
+  },
+  {
+    path: "/Solicitudes/RevisarDocumentos/Documentos",
+    components: Documentation,
+  },
+  {
+    path: "/Solicitudes/RevisarDocumentos/Detalle",
+    components: Detail,
+  },
+  {
+    path: "/Solicitudes/RevisarDocumentos/Evidencia",
+    components: Evidence,
   },
 ];
 
