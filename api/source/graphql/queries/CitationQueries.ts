@@ -29,7 +29,7 @@ export default {
       const citations = await db.select().table(CITATION_TABLE_NAME).where('end_date', '>=', date);
 
       const newActiveCitations = await Promise.all(
-        citations.map(async (myCitation, index) => {
+        citations.map(async (myCitation) => {
           const documents = await db.select().table(DOCUMENT_TABLE_NAME).where({ id: myCitation.document_id });
 
           const newCitation = {
