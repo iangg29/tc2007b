@@ -3,8 +3,6 @@ import { useState } from "react";
 import NoticeCard from "../../components/NoticeCard/NoticeCard";
 import EditModal from "../../components/EditModal/EditModal";
 import EditForm from "../../components/EditForm/EditForm";
-import notice1 from "../../assets/images/notice1.png";
-import notice2 from "../../assets/images/notice2.png";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
@@ -22,6 +20,7 @@ const Home = (): JSX.Element => {
           citation {
             title
             end_date
+            description
           }
           document {
             file_name
@@ -57,7 +56,11 @@ const Home = (): JSX.Element => {
             <div className="flex flex-row">
               {activeCitation?.map((element: any) => (
                 <div className="flex flex-col">
-                  <NoticeCard img={notice1} name={element.citation.title} date={element.citation.end_date} />
+                  <NoticeCard
+                    img={element.citation.description}
+                    name={element.citation.title}
+                    date={element.citation.end_date}
+                  />
                 </div>
               ))}
             </div>
