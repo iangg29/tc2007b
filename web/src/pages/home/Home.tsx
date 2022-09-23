@@ -5,11 +5,34 @@ import EditModal from "../../components/EditModal/EditModal";
 import EditForm from "../../components/EditForm/EditForm";
 import notice1 from "../../assets/images/notice1.png";
 import notice2 from "../../assets/images/notice2.png";
+import { useLazyLoadQuery } from "react-relay";
+import graphql from "babel-plugin-relay/macro";
 
 const Home = (): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const handleShow = (): void => setShow(true);
   const onClose = (): void => setShow(false);
+
+  const data: HomeQuery$data = useLazyLoadQuery<HomeQuery>(
+    graphql`
+      query HomeQuery {
+        activeCitation {
+          citation {
+            title
+            end_date
+          }
+          document {
+            file_name
+          }
+        }
+      }
+    `,
+    {},
+  );
+
+  const { activeCitation } = data;
+
+  console.debug(activeCitation);
 
   return (
     <>
@@ -30,12 +53,11 @@ const Home = (): JSX.Element => {
               </div>
             </div>
             <div className="flex flex-row">
-              <div className="flex flex-col">
-                <NoticeCard img={notice1} name={"Convocatoria1"} date={"2022-10-12"} />
-              </div>
-              <div className="flex flex-col">
-                <NoticeCard img={notice2} name={"Convocatoria2"} date={"2022-11-26"} />
-              </div>
+              {activeCitation?.map((element: any) => (
+                <div className="flex flex-col">
+                  <NoticeCard img={notice1} name={element.title} date={element.end_date} />
+                </div>
+              ))}
             </div>
           </div>
         </div>
