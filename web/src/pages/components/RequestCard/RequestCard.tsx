@@ -12,13 +12,27 @@ interface Props {
   image: string;
   proyectTile?: string;
   announcement: string;
-  user: string;
+  userName: string;
+  userFirstName: string;
+  userLastName?: string;
   label: Labels[];
   buttonText: String;
   color: string;
 }
 
-const RequestCard = ({ image, proyectTile, announcement, user, label, buttonText, color }: Props): JSX.Element => {
+const RequestCard = ({
+  image,
+  proyectTile,
+  announcement,
+  userName,
+  userFirstName,
+  userLastName,
+  label,
+  buttonText,
+  color,
+}: Props): JSX.Element => {
+  const user = userName + " " + userFirstName + " " + userLastName;
+
   return (
     <>
       <div className="max-w-sm py-5">

@@ -14,11 +14,21 @@ const ApplicationAccepted = (): JSX.Element => {
   const data: ApplicationAcceptedQuery$data = useLazyLoadQuery<ApplicationAcceptedQuery>(
     graphql`
       query ApplicationAcceptedQuery {
-        applicationStatusID(application_status_id: "c444ebfd-8f39-47dd-ab1e-93150dec7cad") {
-          id
-          title
-          application_status_id
-          user_id
+        applicationByStatusID(application_status_id: "c444ebfd-8f39-47dd-ab1e-93150dec7cad") {
+          application {
+            id
+            title
+          }
+          user {
+            id
+            name
+            first_lastname
+            second_lastname
+          }
+          citation {
+            id
+            title
+          }
         }
       }
     `,
@@ -27,24 +37,26 @@ const ApplicationAccepted = (): JSX.Element => {
 
   const exampleLabels = [{ label: "Cultura" }, { label: "Baile" }];
 
-  const { applicationStatusID } = data;
+  const { applicationByStatusID } = data;
 
-  console.debug(applicationStatusID);
+  console.debug(applicationByStatusID);
 
-  const empty = applicationStatusID?.length;
+  const empty = applicationByStatusID?.length;
 
   return (
     <>
       <h5 className=" py-5 text-2xl text-main-100">Solicitudes aceptadas</h5>
 
       <div className="grid grid-cols-3">
-        {applicationStatusID?.map((element: any) => (
+        {applicationByStatusID?.map((element: any) => (
           <RequestCard
             key={element.id}
             image={back}
-            proyectTile={element.title}
-            announcement={element.application_status_id}
-            user={element.user_id}
+            proyectTile={element.application.title}
+            announcement={element.citation.title}
+            userName={element.user.name}
+            userFirstName={element.user.first_lastname}
+            userLastName={element.user.second_lastname}
             label={exampleLabels}
             buttonText="Dar seguimiento"
             color="#50245C"

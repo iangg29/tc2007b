@@ -76,7 +76,7 @@ export default {
   },
 
   //Array for applications
-  applicationStatusID: {
+  applicationByStatusID: {
     type: GraphQLList(applicationsByID),
     args: {
       application_status_id: {

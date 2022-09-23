@@ -59,6 +59,13 @@ type Application {
   citation_id: ID!
 }
 
+type applicationsByID {
+  application: Application
+  applicationStatus: ApplicationStatus
+  user: User
+  citation: Citation
+}
+
 """Assignable Application Status"""
 type ApplicationStatus {
   """ApplicationStatus ID"""
@@ -212,11 +219,12 @@ type RootQuery {
   roles: [Role]
   applicationStatus: [ApplicationStatus]
   documentTypes: [DocumentType]
-  documents: [Document]
+  documents: [Application]
   citations: [Citation]
   labels: [Label]
   applications: [Application]
-  applicationStatusID(application_status_id: String!): [Application]
+  application(id: ID!, user_id: ID!): Application
+  applicationByStatusID(application_status_id: String): [applicationsByID]
 }
 
 """

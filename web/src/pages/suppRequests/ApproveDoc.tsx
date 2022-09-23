@@ -11,14 +11,21 @@ const ApproveDoc = (): JSX.Element => {
   const data: ApproveDocQuery$data = useLazyLoadQuery<ApproveDocQuery>(
     graphql`
       query ApproveDocQuery {
-        applicationStatusID(application_status_id: "1a0e00ff-08c7-49b9-8c08-6285e5bda7d7") {
-          id
-          title
-          applicationStatus {
+        applicationByStatusID(application_status_id: "1a0e00ff-08c7-49b9-8c08-6285e5bda7d7") {
+          application {
+            id
+            title
+          }
+          user {
             id
             name
+            first_lastname
+            second_lastname
           }
-          user_id
+          citation {
+            id
+            title
+          }
         }
       }
     `,
@@ -27,24 +34,26 @@ const ApproveDoc = (): JSX.Element => {
 
   const exampleLabels = [{ label: "Cultura" }, { label: "Baile" }];
 
-  const { applicationStatusID } = data;
+  const { applicationByStatusID } = data;
 
-  const empty = applicationStatusID?.length;
+  const empty = applicationByStatusID?.length;
 
-  console.debug(applicationStatusID);
+  console.debug(applicationByStatusID);
 
   return (
     <>
       <h5 className=" py-5 text-2xl text-main-100">Solicitudes para revisión de documentos</h5>
 
       <div className="grid grid-cols-3">
-        {applicationStatusID?.map((element: any) => (
+        {applicationByStatusID?.map((element: any) => (
           <RequestCard
             key={element.id}
             image={back}
-            proyectTile={element.title}
-            announcement={element.application_status_id}
-            user={element.user_id}
+            proyectTile={element.application.title}
+            announcement={element.citation.title}
+            userName={element.user.name}
+            userFirstName={element.user.first_lastname}
+            userLastName={element.user.second_lastname}
             label={exampleLabels}
             buttonText="Revisar nuevamente"
             color="#244B5C"
