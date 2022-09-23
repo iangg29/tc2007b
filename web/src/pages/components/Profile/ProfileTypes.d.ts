@@ -4,7 +4,6 @@ export interface profileInfo {
   second_lastname: String;
   cellphone: String;
   email: String;
-  status: Number;
 }
 
 export interface fieldValue {
