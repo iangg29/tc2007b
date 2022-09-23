@@ -5,13 +5,16 @@ import back from "../../assets/background/login.png";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
-import { ApproveDocQuery, ApproveDocQuery$data } from "./__generated__/ApproveDocQuery.graphql";
+import {
+  ApplicationAcceptedQuery,
+  ApplicationAcceptedQuery$data,
+} from "./__generated__/ApplicationAcceptedQuery.graphql";
 
-const ApproveDoc = (): JSX.Element => {
-  const data: ApproveDocQuery$data = useLazyLoadQuery<ApproveDocQuery>(
+const ApplicationAccepted = (): JSX.Element => {
+  const data: ApplicationAcceptedQuery$data = useLazyLoadQuery<ApplicationAcceptedQuery>(
     graphql`
-      query ApproveDocQuery {
-        applicationStatusID(application_status_id: "1a0e00ff-08c7-49b9-8c08-6285e5bda7d7") {
+      query ApplicationAcceptedQuery {
+        applicationStatusID(application_status_id: "c444ebfd-8f39-47dd-ab1e-93150dec7cad") {
           id
           title
           application_status_id
@@ -26,13 +29,13 @@ const ApproveDoc = (): JSX.Element => {
 
   const { applicationStatusID } = data;
 
-  const empty = applicationStatusID?.length;
-
   console.debug(applicationStatusID);
+
+  const empty = applicationStatusID?.length;
 
   return (
     <>
-      <h5 className=" py-5 text-2xl text-main-100">Solicitudes para revisión de documentos</h5>
+      <h5 className=" py-5 text-2xl text-main-100">Solicitudes aceptadas</h5>
 
       <div className="grid grid-cols-3">
         {applicationStatusID?.map((element: any) => (
@@ -43,22 +46,21 @@ const ApproveDoc = (): JSX.Element => {
             announcement={element.application_status_id}
             user={element.user_id}
             label={exampleLabels}
-            buttonText="Revisar nuevamente"
-            color="#244B5C"
+            buttonText="Dar seguimiento"
+            color="#50245C"
           />
         ))}
       </div>
-
       {empty !== 0 ? (
         <></>
       ) : (
         <h1 className="text-center">
           <br />
-          No hay solicitudes pendientes de revisión de documentos.
+          No hay solicitudes finalizadas.
         </h1>
       )}
     </>
   );
 };
 
-export default ApproveDoc;
+export default ApplicationAccepted;

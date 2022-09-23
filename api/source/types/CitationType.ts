@@ -30,5 +30,9 @@ export const CitationType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "Last time citation was updated",
     },
+    end_date: {
+      type: GraphQLNonNull(GraphQLString),
+      description: "Citation's end date",
+    },
   },
 });

@@ -20,7 +20,7 @@ export async function up(knex: Knex): Promise<void> {
       table.timestamp("start_time").defaultTo(knex.fn.now());
       table.timestamp("end_time").notNullable().defaultTo("Sin fecha de fin");
       table.date("emission_date").notNullable();
-      table.date("response_date").notNullable();
+      table.date("response_date").notNullable().defaultTo("No ha sido revisada");
       table.string("application_status_id").notNullable();
       table.string("citation_id").notNullable();
       table.timestamp("created_at").defaultTo(knex.fn.now());

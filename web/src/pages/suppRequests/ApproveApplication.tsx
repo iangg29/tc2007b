@@ -5,13 +5,13 @@ import back from "../../assets/background/login.png";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
-import { ApproveDocQuery, ApproveDocQuery$data } from "./__generated__/ApproveDocQuery.graphql";
+import { ApproveApplicationQuery, ApproveApplicationQuery$data } from "./__generated__/ApproveApplicationQuery.graphql";
 
-const ApproveDoc = (): JSX.Element => {
-  const data: ApproveDocQuery$data = useLazyLoadQuery<ApproveDocQuery>(
+const ApproveApplication = (): JSX.Element => {
+  const data: ApproveApplicationQuery$data = useLazyLoadQuery<ApproveApplicationQuery>(
     graphql`
-      query ApproveDocQuery {
-        applicationStatusID(application_status_id: "1a0e00ff-08c7-49b9-8c08-6285e5bda7d7") {
+      query ApproveApplicationQuery {
+        applicationStatusID(application_status_id: "1db31830-bc92-456b-aa71-e27523ceb6e3") {
           id
           title
           application_status_id
@@ -26,13 +26,13 @@ const ApproveDoc = (): JSX.Element => {
 
   const { applicationStatusID } = data;
 
-  const empty = applicationStatusID?.length;
-
   console.debug(applicationStatusID);
+
+  const empty = applicationStatusID?.length;
 
   return (
     <>
-      <h5 className=" py-5 text-2xl text-main-100">Solicitudes para revisión de documentos</h5>
+      <h5 className=" py-5 text-2xl text-main-100">Solicitudes para revisión de propuestas</h5>
 
       <div className="grid grid-cols-3">
         {applicationStatusID?.map((element: any) => (
@@ -43,22 +43,21 @@ const ApproveDoc = (): JSX.Element => {
             announcement={element.application_status_id}
             user={element.user_id}
             label={exampleLabels}
-            buttonText="Revisar nuevamente"
-            color="#244B5C"
+            buttonText="Revisar"
+            color="#252d53"
           />
         ))}
       </div>
-
       {empty !== 0 ? (
         <></>
       ) : (
         <h1 className="text-center">
           <br />
-          No hay solicitudes pendientes de revisión de documentos.
+          No hay solicitudes pendientes de revisión de propuesta.
         </h1>
       )}
     </>
   );
 };
 
-export default ApproveDoc;
+export default ApproveApplication;

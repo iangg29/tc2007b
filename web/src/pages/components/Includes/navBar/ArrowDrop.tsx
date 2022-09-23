@@ -17,14 +17,20 @@ const ArrowDrop = (): JSX.Element => {
             </Dropdown.Item>
 
             <Dropdown.Item>
-              <Link to={""} className="navBarLink">
+              <Link to={"Solicitudes/RevisarPropuestas"} className="navBarLink">
                 Pendientes a revisión de propuesta
               </Link>
             </Dropdown.Item>
 
             <Dropdown.Item>
-              <Link to={""} className="navBarLink">
+              <Link to={"Solicitudes/RevisarAprobadas"} className="navBarLink">
                 Aprobadas
+              </Link>
+            </Dropdown.Item>
+
+            <Dropdown.Item>
+              <Link to={"Solicitudes/RevisarFinalizadas"} className="navBarLink">
+                Finalizadas
               </Link>
             </Dropdown.Item>
 

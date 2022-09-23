@@ -2,26 +2,23 @@
 
 import { useState } from "react";
 
+const Pagination = (): JSX.Element => {
+  const [pageCount, setPageCount] = useState(0);
 
-  const Pagination = (): JSX.Element => {
+  const onPageChange = ({ selected }: { selected: number }): void => {
+    // setCount(count + 1)
+  };
 
-  
- const [pageCount, setPageCount] = useState(0)
-    
-    const onPageChange = ({selected}: { selected: number }): void => {
-        // setCount(count + 1)
-    }
-  
-    return (
-      <>
-        {/* <Pagination
+  return (
+    <>
+      {/* <Pagination
         currentPage={pageCount}
         onPageChange={onPageChange}
         showIcons={true}
         totalPages={100}
         /> */}
-      </>
-    );
-  };
-  
-  export default Pagination;
+    </>
+  );
+};
+
+export default Pagination;

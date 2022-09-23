@@ -107,6 +107,9 @@ type Citation {
 
   """Last time citation was updated"""
   updated_at: String!
+
+  """Citation's end date"""
+  end_date: String!
 }
 
 """
@@ -197,6 +200,10 @@ type RootMutation {
     """ApplicationStatus name"""
     name: String!
   ): ApplicationStatus
+  deleteStatus(id: ID!): Boolean
+  createCitation(title: String!, description: String!, document_id: String!, end_date: String!): Citation
+  createDocument(file_name: String!): Document
+  createDocumentType(name: String!): DocumentType
 }
 
 """Application's GraphQL root query."""
@@ -209,6 +216,7 @@ type RootQuery {
   citations: [Citation]
   labels: [Label]
   applications: [Application]
+  applicationStatusID(application_status_id: String!): [Application]
 }
 
 """
