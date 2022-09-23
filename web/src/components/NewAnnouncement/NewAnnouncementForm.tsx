@@ -4,8 +4,8 @@ import { useState } from "react";
 import DocumentList from "../DocumentList/DocumentList";
 
 const NewAnnouncementForm = (): JSX.Element => {
-  const [tittle, setTittle] = useState("");
-  const [date, setDate] = useState("");
+  const [tittle, setTittle] = useState<string>("");
+  const [date, setDate] = useState<string>("");
 
   const AnnouncementData = (): void => {
     console.log(tittle);
