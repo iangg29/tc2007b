@@ -5,7 +5,6 @@ const Login = lazy(async () => await import("./pages/auth/Login"));
 const SignUp = lazy(async () => await import("./pages/auth/SignUp"));
 const Layout = lazy(async () => await import("./containers/Layout"));
 const Home = lazy(async () => await import("./pages/home/Home"));
-const NewAnnouncement = lazy(async () => await import("./pages/NewAnnouncement"));
 
 function App(): JSX.Element {
   return (
@@ -17,7 +16,6 @@ function App(): JSX.Element {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/app/*" element={<Layout />} />
-          <Route path="/NewAnnouncement" element={<NewAnnouncement />} />
         </Routes>
       </Router>
     </>
