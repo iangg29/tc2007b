@@ -8,6 +8,8 @@ import notice2 from "../../assets/images/notice2.png";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
+import { HomeQuery, HomeQuery$data } from "./__generated__/HomeQuery.graphql";
+
 const Home = (): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const handleShow = (): void => setShow(true);
@@ -55,7 +57,7 @@ const Home = (): JSX.Element => {
             <div className="flex flex-row">
               {activeCitation?.map((element: any) => (
                 <div className="flex flex-col">
-                  <NoticeCard img={notice1} name={element.title} date={element.end_date} />
+                  <NoticeCard img={notice1} name={element.citation.title} date={element.citation.end_date} />
                 </div>
               ))}
             </div>

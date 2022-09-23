@@ -1,0 +1,193 @@
+schema {
+  query: RootQuery
+  mutation: RootMutation
+}
+
+"""Exposes a URL that specifies the behaviour of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behaviour of this scalar."""
+  url: String!
+) on SCALAR
+
+"""Assignable Application Status"""
+type ApplicationStatus {
+  """ApplicationStatus ID"""
+  id: ID!
+
+  """ApplicationStatus name"""
+  name: String!
+
+  """ApplicationStatus creation date"""
+  created_at: String!
+
+  """Last time applicationStatus was updated."""
+  updated_at: String!
+}
+
+"""
+Citation model that contains the document and information the users has to follow in order to get their scholarship
+"""
+type Citation {
+  """Citation's ID"""
+  id: ID!
+
+  """Citation's title"""
+  title: String!
+
+  """Citation's description"""
+  description: String!
+
+  """Citation's document"""
+  document: Document!
+
+  """Citation's end date"""
+  end_date: String!
+
+  """Citation's creation date"""
+  created_at: String!
+
+  """Last time citation was updated"""
+  updated_at: String!
+}
+
+type citationDocuments {
+  citation: Citation
+  document: Document
+}
+
+"""
+Document model, contains all the specifications of the documents uploaded by the users
+"""
+type Document {
+  """Document's ID"""
+  id: ID!
+
+  """User that uploaded the document"""
+  user: User!
+
+  """Document's name"""
+  file_name: String!
+
+  """Document's type"""
+  documentType: DocumentType!
+
+  """Document's creation date"""
+  created_at: String!
+
+  """Last time document got updated"""
+  updated_at: String!
+}
+
+"""Type of document uploaded"""
+type DocumentType {
+  """Document Type ID"""
+  id: ID!
+
+  """Document Type name"""
+  name: String!
+
+  """Document Type creation date"""
+  created_at: String!
+
+  """Last time Document Type was updated"""
+  updated_at: String!
+}
+
+"""Label assigned to each application"""
+type Label {
+  """Label's ID"""
+  id: ID!
+
+  """Label's name"""
+  name: String!
+
+  """Label's description"""
+  description: String!
+
+  """Label's creation date"""
+  created_at: String!
+
+  """Last time label was updated"""
+  updated_at: String!
+}
+
+"""Assignable role to users."""
+type Role {
+  """Role ID"""
+  id: ID!
+
+  """Role name"""
+  name: String!
+
+  """Role description"""
+  description: String!
+
+  """Role creation date"""
+  created_at: String!
+
+  """Last time role was updated."""
+  updated_at: String!
+}
+
+"""Application's GraphQL root mutations"""
+type RootMutation {
+  createRole(name: String!, description: String!): Role
+  createCitation(title: String!, description: String!, document_id: String!, end_date: String!): Citation
+  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document
+  createDocumentType(name: String!): DocumentType
+  createUser(name: String!, first_lastname: String!, second_lastname: String!, password: String!, cellphone: String!, email: String!): User
+}
+
+"""Application's GraphQL root query."""
+type RootQuery {
+  users: [User]
+  roles: [Role]
+  applicationStatus: [ApplicationStatus]
+  documentTypes: [DocumentType]
+  documents: [Document]
+  findDocumentsByUserID(user_id: ID): userDocuments
+  citations: [Citation]
+  activeCitation: [citationDocuments]
+  labels: [Label]
+}
+
+"""
+Main application user model, contains all user information w/it's relations.
+"""
+type User {
+  """User's ID"""
+  id: ID!
+
+  """User's name"""
+  name: String!
+
+  """User's first lastname"""
+  first_lastname: String!
+
+  """User's second lastname"""
+  second_lastname: String!
+
+  """User's phone"""
+  cellphone: String!
+
+  """User's email"""
+  email: String!
+
+  """User status"""
+  status: Int!
+
+  """User's active status"""
+  active: Boolean!
+
+  """User's profile creation date."""
+  created_at: String!
+
+  """Last time user profile got updated"""
+  updated_at: String!
+}
+
+type userDocuments {
+  user: User
+  documents: [Document]
+}
+
