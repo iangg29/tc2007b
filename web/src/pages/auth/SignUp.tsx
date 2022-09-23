@@ -1,11 +1,8 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { useId, useRef } from "react";
-import { useMutation } from "react-relay";
 import logo from "../../assets/logos/logoColorSC.png";
-import graphql from "babel-plugin-relay/macro";
 import { APP_NAME } from "../../utils/ApplicationConstants";
-import { useNavigate } from "react-router-dom";
 
 const SignUp = (): JSX.Element => {
   const nameRef = useRef<HTMLInputElement>(null);
@@ -26,67 +23,9 @@ const SignUp = (): JSX.Element => {
   const passwordId = useId();
   const confirmPasswordId = useId();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const [triggerMutation, isMutationInFlight] = useMutation(graphql`
-    mutation SignUpMutation(
-      $name: String!
-      $first_lastname: String!
-      $second_lastname: String!
-      $email: String!
-      $cellphone: String!
-      $gender: String!
-      $password: String!
-      $confirm_password: String!
-    ) {
-      signup(
-        name: $name
-        first_lastname: $first_lastname
-        second_lastname: $second_lastname
-        email: $email
-        cellphone: $cellphone
-        gender: $gender
-        password: $password
-        confirm_password: $confirm_password
-      ) {
-        success
-        error
-        user {
-          id
-          email
-        }
-      }
-    }
-  `);
-
-  const submitForm = (): void => {
-    triggerMutation({
-      variables: {
-        name: nameRef.current?.value,
-        first_lastname: firstLastNameRef.current?.value,
-        second_lastname: secondLastNameRef.current?.value,
-        email: emailRef.current?.value,
-        cellphone: cellphoneRef.current?.value,
-        gender: genderRef.current?.value,
-        password: passwordRef.current?.value,
-        confirm_password: confirmPasswordRef.current?.value,
-      },
-      onCompleted: (response: any, errors) => {
-        console.debug("[RESPONSE]", response);
-        console.debug("[ERRORS]", errors);
-        const { success, user, error } = response.signup;
-        if (success as boolean) {
-          navigate(`/login?email=${user.email as string}`);
-        } else {
-          // TODO: Launch error modal.
-          console.debug("[RELAY] [ERRORS]", error);
-        }
-      },
-      onError: (error) => {
-        console.error("[ERROR]", error);
-      },
-    });
-  };
+  const submitForm = (): void => {};
 
   return (
     <div className="h-screen grid items-center justify-center">
@@ -162,7 +101,7 @@ const SignUp = (): JSX.Element => {
           </div>
         </div>
         <button onClick={submitForm} className="bg-indigo-900 text-indigo-50 px-10 py-1 rounded-lg font-semibold">
-          {isMutationInFlight ? "Cargando..." : "Enviar"}
+          Enviar
         </button>
       </div>
     </div>
