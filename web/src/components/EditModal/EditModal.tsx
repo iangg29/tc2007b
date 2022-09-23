@@ -1,23 +1,20 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { Modal } from "flowbite-react";
-import EditForm from "../EditForm/EditForm";
-import PropTypes from "prop-types";
 
 interface params {
   show: boolean;
   onClose: any;
   props: any;
+  header: string;
 }
 
-const EditModal = ({ show, onClose, props }: params): JSX.Element => {
+const EditModal = ({ show, onClose, props, header }: params): JSX.Element => {
   return (
     <>
       <Modal show={show} onClose={onClose}>
-        <Modal.Header>Editar Convocatoria</Modal.Header>
+        <Modal.Header> {header} </Modal.Header>
         <Modal.Body>
-          <div className="space-y-6">
-            <EditForm name={props.name} date={props.date} />
-          </div>
+          <div className="space-y-6">{props}</div>
         </Modal.Body>
         <Modal.Footer>
           <button
@@ -30,17 +27,12 @@ const EditModal = ({ show, onClose, props }: params): JSX.Element => {
             className="bg-gray-500 hover:bg-gray-500/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm mt-5"
             onClick={onClose}
           >
-            Rechazar
+            Cancelar
           </button>
         </Modal.Footer>
       </Modal>
     </>
   );
-};
-
-EditModal.propTypes = {
-  name: PropTypes.string,
-  date: PropTypes.string,
 };
 
 export default EditModal;

@@ -5,6 +5,11 @@ import { lazy } from "react";
 
 const Dashboard = lazy(async () => await import("../pages/Dashboard"));
 const NewAnnouncement = lazy(async () => await import("../pages/NewAnnouncement"));
+const Home = lazy(async () => await import("../pages/home/Home"));
+const ApproveDocs = lazy(async () => await import("../pages/suppRequests/ApproveDoc"));
+const Detail = lazy(async () => await import("../pages/Req_Detail"));
+const Documentation = lazy(async () => await import("../pages/Req_Documentation"));
+const Evidence = lazy(async () => await import("../pages/Req_Evidence"));
 
 const routes: iRoute[] = [
   {
@@ -12,9 +17,29 @@ const routes: iRoute[] = [
     components: Dashboard,
   },
   {
+    path: "/Home",
+    components: Home,
+  },
+  {
+    path: "/Solicitudes/RevisarDocumentos",
+    components: ApproveDocs,
+  },
+  {
+    path: "/Solicitudes/RevisarDocumentos/Documentos",
+    components: Documentation,
+  },
+  {
+    path: "/Solicitudes/RevisarDocumentos/Detalle",
+    components: Detail,
+  },
+  {
+    path: "/Solicitudes/RevisarDocumentos/Evidencia",
+    components: Evidence,
+  },
+  {
     path: "/newannouncement",
     components: NewAnnouncement,
-  },
+  }
 ];
 
 export default routes;

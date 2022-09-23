@@ -1,7 +1,7 @@
 //import { render } from "@testing-library/react";
-import EditForm from "./EditForm";
+import DeleteModal from "./DeleteModal";
 
-it("renders EditForm", () => {
+it("renders DeleteModal", () => {
   //Code test
   //render(<EditForm />);
 });
