@@ -11,7 +11,7 @@ export default {
     type: DocumentType,
     args: {
       user_id: {
-        type: GraphQLNonNull(GraphQLID),
+        type: GraphQLID,
       },
       file_name: {
         type: GraphQLNonNull(GraphQLString),
@@ -34,6 +34,7 @@ export default {
           console.error(error);
           throw new GraphQLError(error.name);
         });
+      
 
       const newDocument = await db.select().from(DOCUMENT_TABLE_NAME).where({ id });
       const myUser = await db.select().from(USER_TABLE_NAME).where({ id: user_id });
