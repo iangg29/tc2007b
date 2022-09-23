@@ -11,5 +11,5 @@
 }
 
 .navBarLink {
-  @apply text-gray-700 hover:text-blue-600
+  @apply text-gray-700 hover:text-blue-600;
 }
