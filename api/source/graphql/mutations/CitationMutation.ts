@@ -1,5 +1,5 @@
 import { CitationType } from "../../types/CitationType";
-import { GraphQLError, GraphQLNonNull, GraphQLString } from "graphql";
+import { GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
 import { db } from "../../database/database";
 import { CITATION_TABLE_NAME } from "../../database/utils/database_constants";
@@ -15,7 +15,7 @@ export default {
         type: GraphQLNonNull(GraphQLString),
       },
       document_id: {
-        type: GraphQLNonNull(GraphQLString),
+        type: GraphQLNonNull(GraphQLID),
       },
       end_date: {
         type: GraphQLNonNull(GraphQLString),

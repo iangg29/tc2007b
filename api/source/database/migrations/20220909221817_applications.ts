@@ -16,13 +16,12 @@ export async function up(knex: Knex): Promise<void> {
       table.string("id").primary().unique();
       table.string("user_id").notNullable();
       table.string("title").notNullable();
-      table.date("deadline").notNullable().defaultTo("Sin fecha de límite");
+      table.date("deadline").notNullable();
       table.timestamp("start_time").defaultTo(knex.fn.now());
-      table.timestamp("end_time").notNullable().defaultTo("Sin fecha de fin");
+      table.timestamp("end_time").notNullable();
       table.date("emission_date").notNullable();
-      table.date("response_date").notNullable().defaultTo("No ha sido revisada");
+      table.date("response_date").notNullable();
       table.string("application_status_id").notNullable();
-      table.string("citation_id").notNullable();
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());
       // RELATIONSHIPS

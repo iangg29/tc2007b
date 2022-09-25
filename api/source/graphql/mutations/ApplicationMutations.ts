@@ -3,7 +3,7 @@
 import { ApplicationType} from "../../types/ApplicationType";
 import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
-import { APPLICATION_TABLE_NAME } from "../../database/utils/database_constants";
+import { APPLICATION_STATUS_TABLE_NAME, APPLICATION_TABLE_NAME, CITATION_TABLE_NAME, USER_TABLE_NAME } from "../../database/utils/database_constants";
 import { db } from "../../database/database";
 
 
@@ -44,47 +44,33 @@ export default {
       await db(APPLICATION_TABLE_NAME)
         .insert({
           id,
-          user_id,
           title,
           deadline,
+          start_time,
           end_time,
           emission_date, 
-          response_date,
+          response_date, 
+          user_id,
           application_status_id,
-          citation_id, 
+          citation_id,
         })
         .catch((error: Error) => {
           console.error(error);
           throw new GraphQLError(error.name);
         });
       const newApplication = await db.select().from(APPLICATION_TABLE_NAME).where("id", id);
-      return newApplication[0];
+      const myUser = await db.select().from(USER_TABLE_NAME).where({ id: user_id });
+      const myApplytatus = await db.select().from(APPLICATION_STATUS_TABLE_NAME).where({ id: application_status_id});
+      const myCitation = await db.select().from(CITATION_TABLE_NAME).where({ id: citation_id });
+
+      return {
+        ...newApplication[0],
+        user: myUser[0],
+        applicationStatus: myApplytatus[0],
+        citation: myCitation
+      };
     },
   },
-
-//   updateApplication: {
-//     type: ApplicationType,
-
-//     args: {
-//         id: {
-//             type: GraphQLNonNull(GraphQLID),
-//           },
-//         applicationStatus: {
-//           type: GraphQLNonNull(ApplicationStatusType),
-//         },
-//         updated_at: {
-//           type: GraphQLNonNull(GraphQLString),
-//         },
-  
-//       },
-  
-  
-//     resolve: async (_: any, { id, applicationStatus, updated_at }: any) => {
-//       await db(APPLICATION_TABLE_NAME).where("id", id).update({ applicationStatus, updated_at });
-//       const results = await db(APPLICATION_TABLE_NAME).select().where("id", id);
-//       return results[0];
-//     },
-//   },
 
   deleteApplication: {
     type: GraphQLBoolean,

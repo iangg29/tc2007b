@@ -58,18 +58,5 @@ export const ApplicationType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "Last time application was updated",
     },
-    // Foreign keys
-    application_status_id: {
-      type: GraphQLNonNull(GraphQLID),
-      description: "Aplication status ID",
-    },
-    user_id: {
-      type: GraphQLNonNull(GraphQLID),
-      description: "User ID",
-    },
-    citation_id : {
-      type: GraphQLNonNull(GraphQLID),
-      description: "Citation ID",
-    }
   },
 });

@@ -14,15 +14,15 @@ import { ApplicationStatusType } from "../../types/ApplicationStatusType";
 import { CitationType } from "../../types/CitationType";
 import { getStatus } from "../helpers/StatusHelper";
 
-const applicationsByID = new GraphQLObjectType({
-  name: "applicationsByID",
-  fields: {
-    application: { type: ApplicationType },
-    applicationStatus: { type: ApplicationStatusType },
-    user: { type: UserType },
-    citation: { type: CitationType },
-  },
-});
+// const applicationsByID = new GraphQLObjectType({
+//   name: "applicationsByID",
+//   fields: {
+//     application: { type: ApplicationType },
+//     applicationStatus: { type: ApplicationStatusType },
+//     user: { type: UserType },
+//     citation: { type: CitationType },
+//   },
+// });
 
 export default {
   applications: {
@@ -77,7 +77,7 @@ export default {
 
   //Array for applications
   applicationByStatusID: {
-    type: GraphQLList(applicationsByID),
+    type: GraphQLList(ApplicationType),
     args: {
       application_status_id: {
         type: GraphQLString,
@@ -99,7 +99,7 @@ export default {
           const citation = await db.select().table(CITATION_TABLE_NAME).where({ id: application.citation_id });
 
           const newApplication = {
-            application,
+            ...application,
             applicationStatus: applicationStatus[0],
             user: user[0],
             citation: citation[0],
