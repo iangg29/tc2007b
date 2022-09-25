@@ -1,7 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { Navbar } from "flowbite-react";
-import profileIcon from "../../../../assets/icons/profileIcon.png";
+import profileIcon from "../../../assets/icons/profileIcon.png";
 import { Link } from "react-router-dom";
 import ImageDrop from "./ImageDrop";
 import NavBrand from "./NavBrand";

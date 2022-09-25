@@ -5,6 +5,7 @@ import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString 
 import { v4 as uuid } from "uuid";
 import { APPLICATION_STATUS_TABLE_NAME, APPLICATION_TABLE_NAME, CITATION_TABLE_NAME, USER_TABLE_NAME } from "../../database/utils/database_constants";
 import { db } from "../../database/database";
+import { ApplicationStatusType } from "../../types/ApplicationStatusType";
 
 
 export default {
@@ -69,6 +70,26 @@ export default {
         applicationStatus: myApplytatus[0],
         citation: myCitation
       };
+    },
+  },
+
+  updateApplication: {
+    type: ApplicationType,
+
+    args: {
+        id: {
+            type: GraphQLNonNull(GraphQLID),
+          },
+        application_status_id: {
+            type: GraphQLNonNull(GraphQLID),
+        },
+      },
+
+
+    resolve: async (_: any, { id,  application_status_id }: any) => {
+      await db(APPLICATION_TABLE_NAME).where("id", id).update({ application_status_id });
+      const results = await db(APPLICATION_TABLE_NAME).select().where("id", id);
+      return results[0];
     },
   },
 

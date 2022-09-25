@@ -1,6 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import RequestCard from "../components/RequestCard/RequestCard";
+import RequestCard from "../../components/RequestCard/RequestCard";
 import back from "../../assets/background/login.png";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
@@ -13,17 +13,13 @@ import {
 const ApplicationAccepted = (): JSX.Element => {
   const data: ApplicationAcceptedQuery$data = useLazyLoadQuery<ApplicationAcceptedQuery>(
     graphql`
-      query ApplicationAcceptedQuery {
-        applicationByStatusID(application_status_id: "c444ebfd-8f39-47dd-ab1e-93150dec7cad") {
-          application {
-            id
-            title
-          }
+      query ApplicationAcceptedQuery($application_status_id: String) {
+        applicationByStatusID(application_status_id: $application_status_id) {
+          title
+          id
           user {
             id
             name
-            first_lastname
-            second_lastname
           }
           citation {
             id
@@ -32,7 +28,7 @@ const ApplicationAccepted = (): JSX.Element => {
         }
       }
     `,
-    {},
+    { application_status_id: "" },
   );
 
   const exampleLabels = [{ label: "Cultura" }, { label: "Baile" }];
@@ -52,7 +48,7 @@ const ApplicationAccepted = (): JSX.Element => {
           <RequestCard
             key={element.id}
             image={back}
-            proyectTile={element.application.title}
+            proyectTile={element.title}
             announcement={element.citation.title}
             userName={element.user.name}
             userFirstName={element.user.first_lastname}
@@ -68,7 +64,7 @@ const ApplicationAccepted = (): JSX.Element => {
       ) : (
         <h1 className="text-center">
           <br />
-          No hay solicitudes finalizadas.
+          No hay solicitudes aprobadas.
         </h1>
       )}
     </>

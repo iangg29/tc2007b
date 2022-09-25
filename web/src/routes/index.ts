@@ -50,7 +50,6 @@ const routes: iRoute[] = [
   {
     path: "/Solicitudes/RevisarDocumentos/Evidencia",
     components: Evidence,
-
   },
 ];
 

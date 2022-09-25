@@ -80,7 +80,7 @@ export default {
     type: GraphQLList(ApplicationType),
     args: {
       application_status_id: {
-        type: GraphQLString,
+        type: GraphQLID,
       },
     },
     resolve: async (_: any, { application_status_id }: any) => {

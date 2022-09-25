@@ -1,6 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import RequestCard from "../components/RequestCard/RequestCard";
+import RequestCard from "../../components/RequestCard/RequestCard";
 import back from "../../assets/background/login.png";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
@@ -10,17 +10,13 @@ import { ApproveApplicationQuery, ApproveApplicationQuery$data } from "./__gener
 const ApproveApplication = (): JSX.Element => {
   const data: ApproveApplicationQuery$data = useLazyLoadQuery<ApproveApplicationQuery>(
     graphql`
-      query ApproveApplicationQuery {
-        applicationByStatusID(application_status_id: "1db31830-bc92-456b-aa71-e27523ceb6e3") {
-          application {
-            id
-            title
-          }
+      query ApproveApplicationQuery($application_status_id: String) {
+        applicationByStatusID(application_status_id: $application_status_id) {
+          title
+          id
           user {
             id
             name
-            first_lastname
-            second_lastname
           }
           citation {
             id
@@ -29,7 +25,7 @@ const ApproveApplication = (): JSX.Element => {
         }
       }
     `,
-    {},
+    { application_status_id: "" },
   );
 
   const exampleLabels = [{ label: "Cultura" }, { label: "Baile" }];
@@ -49,7 +45,7 @@ const ApproveApplication = (): JSX.Element => {
           <RequestCard
             key={element.id}
             image={back}
-            proyectTile={element.application.title}
+            proyectTile={element.title}
             announcement={element.citation.title}
             userName={element.user.name}
             userFirstName={element.user.first_lastname}

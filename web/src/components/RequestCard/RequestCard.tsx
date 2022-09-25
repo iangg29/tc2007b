@@ -31,7 +31,7 @@ const RequestCard = ({
   buttonText,
   color,
 }: Props): JSX.Element => {
-  const user = userName + " " + userFirstName + " " + userLastName;
+  const user = `${userName}  ${userFirstName}  ${userLastName}`;
 
   return (
     <>

@@ -11,7 +11,6 @@ import CitationQueries from "./queries/CitationQueries";
 import LabelQueries from "./queries/LabelQueries";
 import ApplicationQueries from "./queries/ApplicationQueries";
 import ApplicationMutation from "./mutations/ApplicationMutations";
-import AuthMutations from "./mutations/AuthMutations";
 import ApplicationStatusMutations from "./mutations/ApplicationStatusMutations";
 import CitationMutation from "./mutations/CitationMutation";
 import DocumentTypeMutation from "./mutations/DocumentTypeMutation";
@@ -44,7 +43,6 @@ const RootMutation = new GraphQLObjectType({
   fields: {
     ...RoleMutations,
     ...ApplicationMutation,
-    ...AuthMutations,
     ...ApplicationStatusMutations,
     ...CitationMutation,
     ...DocumentTypeMutation,
