@@ -3,14 +3,13 @@ import { useRef } from "react";
 import logo from "../../assets/logos/logoColorSC.png";
 import back from "../../assets/background/login.png";
 import axios, { AxiosResponse } from "axios";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../store/hooks";
 import { setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
 import Cookies from "js-cookie";
 
 const LoginForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -23,13 +22,13 @@ const LoginForm = (): JSX.Element => {
           password,
         })
         .then((res: AxiosResponse<any>) => {
+          console.log(res);
           const { status, token } = res.data;
           if (status === "success") {
             Cookies.set("token", `Bearer ${token as string}`);
-            dispatch(setUser(res.data.data.user));
+            dispatch(setUser(res.data.user));
             dispatch(setToken(token));
             dispatch(setIsLoggedIn(true));
-            navigate("/app/");
           } else {
             alert("ERROR! Something happened.");
           }

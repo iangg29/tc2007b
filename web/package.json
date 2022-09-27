@@ -23,6 +23,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-testing-library": "^8.0.1",
+    "redux-persist": "^6.0.0",
     "relay-runtime": "^14.1.0",
     "web-vitals": "^2.1.4"
   },
@@ -59,6 +60,7 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.2",
     "@types/react-relay": "^14.1.1",
+    "@types/redux-persist": "^4.3.1",
     "@types/relay-runtime": "^14.1.2",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "babel-plugin-relay": "^14.1.0",

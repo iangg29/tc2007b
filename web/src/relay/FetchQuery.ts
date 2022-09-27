@@ -27,9 +27,11 @@ const genFetchQuery = async (args: FetchArgsProps): Promise<GraphQLResponse> => 
   };
   if (_DEV_) console.debug(`[GRAPHQL] [FETCHING] ${process.env.REACT_APP_API_URL ?? ""}/graphql endpoint.`);
   if (_DEV_) console.debug(`[GRAPHQL] [QUERY] ${request.name}`);
-  return await fetch(`${process.env.REACT_APP_API_URL ?? ""}/graphql`, fetchConfig).then(
-    async (response: Response) => await response.json(),
-  );
+  return await fetch(`${process.env.REACT_APP_API_URL ?? ""}/graphql`, fetchConfig)
+    .then(async (response: Response) => await response.json())
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 export default genFetchQuery;
