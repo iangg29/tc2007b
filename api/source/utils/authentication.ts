@@ -7,6 +7,7 @@ import { promisify } from "util";
 import jwt from "jsonwebtoken";
 import { db } from "../database/database";
 import { USER_TABLE_NAME } from "../database/utils/database_constants";
+import { GraphQLError } from "graphql";
 
 const toBool = require("to-bool");
 
@@ -24,7 +25,7 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
     }
 
     if (!token) {
-      return next(new ServerError("No haz iniciado sesión, por favor inicia sesión antes de continuar.", 401));
+      return next(new GraphQLError("No haz iniciado sesión."));
     }
 
     // @ts-ignore
