@@ -24,8 +24,8 @@ const RootQuery = new GraphQLObjectType({
     ...RoleQueries,
     ...ApplicationStatusQueries,
     ...DocumentTypeQueries,
-    ...DocumentQueries,
     ...CitationQueries,
+    ...DocumentQueries,
     ...LabelQueries,
   },
 });
