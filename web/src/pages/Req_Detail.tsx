@@ -8,14 +8,42 @@ import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
 import { ReqDetailQuery, ReqDetailQuery$data } from "./__generated__/ReqDetailQuery.graphql";
+// import { useEffect, useState } from "react";
 
 // Notas ------------------------------------------------------------------------------------------------------
 // Necesito: nombre del proyecto, foto, autor, etiquetas, descripción, tipo de apoyo y formato de apoyo [DOC].
 // Agregué description, support e [image] a application
-// La query anidada trae al usuario, etiquetas y el documento.
+// La query anidada trae al usuario, etiquetas [faltante] y el documento [faltante].
 // ------------------------------------------------------------------------------------------------------------
 
 const ReqDetail = (): JSX.Element => {
+  // Query - State
+  // const [application, setApplication] = useState(Object);
+
+  // useEffect(() => {
+  //   const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
+  //     graphql`
+  //       query ReqDetailQuery {
+  //         application(id: "c1ffd3d4-e24c-450c-bfd3-e2991d96b68f", user_id: "7acb9f11-9073-4d48-b480-dcf68e125d12") {
+  //           title
+  //           user_id
+  //           image
+  //           citation_id
+  //           description
+  //           support
+  //           user {
+  //             name
+  //           }
+  //         }
+  //       }
+  //     `,
+  //     {},
+  //   );
+
+  //   const { application } = data;
+  //   setApplication(application);
+  // }, []);
+
   // Navigation - Go back to Req_Revision
   const navigate = useNavigate();
 
@@ -23,13 +51,16 @@ const ReqDetail = (): JSX.Element => {
   const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
     graphql`
       query ReqDetailQuery {
-        application(id: "0287ac91-09bf-4db7-a6ae-47283cec0ca4", user_id: "44931aea-7f8f-4bc4-858b-e9607c7f3c2f") {
+        application(id: "c2495dd5-ea65-43c6-99b4-0a2eabd2b64a", user_id: "e4729586-7c84-4c48-8ff4-0533d854fd1f") {
           title
           user_id
           image
           citation_id
           description
           support
+          user {
+            name
+          }
         }
       }
     `,
@@ -37,6 +68,7 @@ const ReqDetail = (): JSX.Element => {
   );
 
   const { application } = data;
+  const user = application?.user;
 
   console.debug(application);
 
@@ -68,7 +100,7 @@ const ReqDetail = (): JSX.Element => {
         <div className="w-full pt-2">
           <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">Proyecto: {application?.title}</h1>
           <img className="w-[500px] py-4 pr-8 lg:pr-16" src={application?.image} alt="art" />
-          <p className="text-lg font-semibold tracking-tight text-gray-900">Realizado por: {application?.user_id}</p>
+          <p className="text-lg font-semibold tracking-tight text-gray-900">Realizado por: {user?.name}</p>
           <div className="w-[450px] md:w-[280px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
             {exampleLabels.map((elem, index) => {

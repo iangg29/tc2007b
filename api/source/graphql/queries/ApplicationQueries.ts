@@ -50,6 +50,20 @@ export default {
   },
 };
 
-// ID - "0287ac91-09bf-4db7-a6ae-47283cec0ca4"
-// USER_ID - "44931aea-7f8f-4bc4-858b-e9607c7f3c2f"
 // IMAGEN: https://infolibros.org/wp-content/uploads/2021/06/Libros-de-Artes-Visuales.jpg?ezimgfmt=ng%3Awebp%2Fngcb33%2Frs%3Adevice%2Frscb33-1
+
+// CREATE USER AND APPLICATION
+// USER ID - "7acb9f11-9073-4d48-b480-dcf68e125d12"
+// APPLICATION ID - "c1ffd3d4-e24c-450c-bfd3-e2991d96b68f"
+
+// mutation {
+//   createUser(name: "Jose", first_lastname: "De la Garza", second_lastname: "Gónzalez", cellphone: "44424567453", email: "example@example.com") {
+//     id
+//   }
+// }
+
+// mutation {
+//   createApplication(user_id: "7acb9f11-9073-4d48-b480-dcf68e125d12", title: "Arte Típico", image: "https://infolibros.org/wp-content/uploads/2021/06/Libros-de-Artes-Visuales.jpg?ezimgfmt=ng%3Awebp%2Fngcb33%2Frs%3Adevice%2Frscb33-1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", support: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", deadline: "23/09/2022", end_time: "23/09/2022", emission_date: "23/09/2022", response_date: "23/09/2022", application_status_id: "Status_ID", citation_id: "Citation_ID") {
+//     id
+//   }
+// }
