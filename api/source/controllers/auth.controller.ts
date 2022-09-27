@@ -36,9 +36,7 @@ export const createSendToken = (user: any, statusCode: number, req: Request, res
   res.status(statusCode).json({
     status: "success",
     token,
-    data: {
-      user,
-    },
+    user,
   });
 };
 
@@ -138,7 +136,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 };
 
 export const logout = (req: Request, res: Response, next: NextFunction) => {
-  res.cookie("jwt", "loggedout", {
+  res.cookie("token", "loggedout", {
     expires: new Date(Date.now() + 10 * 1000),
   });
   res.status(200).json({
@@ -148,5 +146,5 @@ export const logout = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const token = async (req: any, res: Response, next: NextFunction) => {
-  await createSendToken(req.user.email, 200, req, res);
+  await createSendToken(req.user, 200, req, res);
 };
