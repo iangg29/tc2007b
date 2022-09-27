@@ -2,7 +2,7 @@
 
 import { Navbar } from "flowbite-react";
 import profileIcon from "../../../assets/icons/profileIcon.png";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import ImageDrop from "./ImageDrop";
 import NavBrand from "./NavBrand";
 import ArrowDrop from "./ArrowDrop";
@@ -27,21 +27,21 @@ const NavBar = (): JSX.Element => {
 
           {/* NavBar normal items */}
           <Navbar.Collapse>
-            <Link to={"/app/Home"} className="navBarLink">
+            <NavLink to={"/app/Home"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
               Home
-            </Link>
+            </NavLink>
 
             {/* Arrow Dropdown  */}
             <ArrowDrop />
 
             {/* NavBar normal items */}
-            <Link to={""} className="navBarLink">
+            <NavLink to={"/app/Analiticas"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
               Analíticas
-            </Link>
+            </NavLink>
 
-            <Link to={""} className="navBarLink">
+            <NavLink to={"/app/Chat"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
               Chat
-            </Link>
+            </NavLink>
           </Navbar.Collapse>
         </Navbar>
       </div>
