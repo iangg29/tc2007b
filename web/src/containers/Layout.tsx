@@ -20,7 +20,7 @@ const Layout = (): JSX.Element => {
     if ((isLoggedIn !== undefined && isLoggedIn === false) || Cookies.get("token") === undefined) {
       navigate("/login");
     }
-  });
+  }, [isLoggedIn]);
 
   if (isLoggedIn === true && Cookies.get("token") !== undefined) {
     return (
