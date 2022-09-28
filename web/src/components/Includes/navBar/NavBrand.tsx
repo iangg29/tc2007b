@@ -1,5 +1,5 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import logoQRO from "../../../../assets/logos/logoColorSC.png";
+import logoQRO from "../../../assets/logos/logoColorSC.png";
 
 import { Navbar } from "flowbite-react";
 

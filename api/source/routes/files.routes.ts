@@ -1,10 +1,10 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import Express from "express";
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 
 const router = Router();
 
-router.post("/uploadfile", (req: Express.Request, res: Express.Response) => {
+router.post("/uploadfile", (req: Request, res: Response) => {
   console.log({ req });
   res.status(200).json({ message: "Archivo subido" });
 });

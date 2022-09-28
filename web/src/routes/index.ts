@@ -6,7 +6,7 @@ import { lazy } from "react";
 const Dashboard = lazy(async () => await import("../pages/Dashboard"));
 const NewAnnouncement = lazy(async () => await import("../pages/NewAnnouncement"));
 const Home = lazy(async () => await import("../pages/home/Home"));
-const ApproveDocs = lazy(async () => await import("../pages/suppRequests/ApproveDoc"));
+const ApproveDocs = lazy(async () => await import("../components/suppRequests/ApproveDoc"));
 const Detail = lazy(async () => await import("../pages/Req_Detail"));
 const Documentation = lazy(async () => await import("../pages/Req_Documentation"));
 const Evidence = lazy(async () => await import("../pages/Req_Evidence"));

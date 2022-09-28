@@ -1,4 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
+import { useState } from "react";
+import axios from "axios";
 
 interface params {
   name?: string;
@@ -7,6 +9,7 @@ interface params {
 }
 
 const EditForm = ({ name, date, image }: params): JSX.Element => {
+  const [photo, setPhoto] = useState(null);
   return (
     <>
       <form>
@@ -51,9 +54,29 @@ const EditForm = ({ name, date, image }: params): JSX.Element => {
             className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             aria-describedby="file_input_help"
             id="file_input"
+            name="photo"
+            onChange={(e: any): void => setPhoto(e.target.files[0])}
             type="file"
           />
         </div>
+        <button
+          onClick={async (e: any): Promise<void> => {
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append("photo", photo!);
+
+            const res = await axios.post("http://localhost:5050/upload/photo", formData, {
+              headers: {
+                "Content-type": "multipart/form-data",
+              },
+            });
+
+            console.log(res);
+          }}
+        >
+          Enviar
+        </button>
       </form>
     </>
   );

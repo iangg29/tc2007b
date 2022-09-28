@@ -1,6 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import RequestCard from "../components/RequestCard/RequestCard";
+import RequestCard from "../RequestCard/RequestCard";
 import back from "../../assets/background/login.png";
 
 const ApproveDoc = (): JSX.Element => {
