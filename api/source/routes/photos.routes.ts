@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { Router } from "express";
 const { uploadFile } = require("./s3");
 
