@@ -2,7 +2,6 @@
 
 import React, { lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
 const Landing = lazy(async () => await import("./pages/Landing"));
 const Login = lazy(async () => await import("./pages/auth/Login"));
 const SignUp = lazy(async () => await import("./pages/auth/SignUp"));

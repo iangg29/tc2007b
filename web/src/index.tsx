@@ -6,6 +6,7 @@ import "./assets/css/main.css";
 import { RelayEnvironmentProvider } from "react-relay";
 import relayEnvironment from "./relay/RelayEnvironment";
 import App from "./App";
+import "flowbite-react";
 import { Provider } from "react-redux";
 import { persistor, store } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";

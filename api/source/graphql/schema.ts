@@ -7,6 +7,10 @@ import RoleMutations from "./mutations/RoleMutations";
 import ApplicationStatusQueries from "./queries/ApplicationStatusQueries";
 import FAQQueries from "./queries/FAQQueries";
 import FAQMutations from "./mutations/FAQMutations";
+import DocumentTypeQueries from "./queries/DocumentTypeQueries";
+import DocumentQueries from "./queries/DocumentQueries";
+import CitationQueries from "./queries/CitationQueries";
+import LabelQueries from "./queries/LabelQueries";
 
 /**
  * GraphQLObject that unifies every query that the application uses.
@@ -19,6 +23,10 @@ const RootQuery = new GraphQLObjectType({
     ...RoleQueries,
     ...ApplicationStatusQueries,
     ...FAQQueries,
+    ...DocumentTypeQueries,
+    ...DocumentQueries,
+    ...CitationQueries,
+    ...LabelQueries,
   },
 });
 
