@@ -10,7 +10,7 @@ import graphql from "babel-plugin-relay/macro";
 import { ReqDetailQuery, ReqDetailQuery$data } from "./__generated__/ReqDetailQuery.graphql";
 
 // Notas ---------------------------
-// Consulta de: 
+// Consulta de:
 // [X] titulo del proyecto
 // [X] foto
 // [X] autor
