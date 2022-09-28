@@ -1,4 +1,6 @@
-import { CitationType } from "../../models/CitationType";
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
+import { CitationType } from "../../types/CitationType";
 import { GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
 import { db } from "../../database/database";

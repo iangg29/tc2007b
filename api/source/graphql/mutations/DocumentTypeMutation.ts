@@ -1,4 +1,6 @@
-import { DocumentTypeType } from "../../models/DocumentTypeType";
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
+import { DocumentTypeType } from "../../types/DocumentTypeType";
 import { GraphQLError, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
 import { db } from "../../database/database";

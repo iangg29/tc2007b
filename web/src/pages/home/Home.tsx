@@ -12,6 +12,11 @@ const Home = (): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const handleShow = (): void => setShow(true);
   const onClose = (): void => setShow(false);
+
+  const [showCitation, setCitation] = useState<boolean>(true);
+  const handleAllCitations = (): void => setCitation(false);
+  const handleCitations = (): void => setCitation(true);
+
   const today = new Date();
   const date =
     today.getFullYear().toString() +
@@ -44,43 +49,72 @@ const Home = (): JSX.Element => {
   return (
     <>
       <div>
-        <div className="flex w-full">
-          <div>
-            <div className="flex row-span-1">
-              <div className="my-5 flex flex-col">
-                <h1 className="text-4xl font-semibold text-main-500">Convocatorias</h1>
-              </div>
-              <div className="mx-7 my-1 flex flex-col">
-                <button
-                  onClick={handleShow}
-                  className="bg-main-500 hover:bg-main-500/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm mt-5"
-                >
-                  + Nueva Convocatoria
-                </button>
-              </div>
+        <div>
+          <div className="flex row-span-1">
+            <div className="my-5 flex flex-col">
+              <h1 className="text-4xl font-semibold text-main-500">Convocatorias</h1>
             </div>
-            <div className="flex flex-row">
-              {citations
-                ?.filter((element: any) => element.end_date >= date)
-                .map((filteredElement: any) => (
-                  <div className="flex flex-col" key={filteredElement.id}>
-                    <NoticeCard
-                      img={filteredElement.description}
-                      name={filteredElement.title}
-                      date={filteredElement.end_date}
-                    />
-                  </div>
-                ))}
+            <div className="mx-7 my-1 flex flex-col">
+              <button
+                onClick={handleShow}
+                className="bg-main-500 hover:bg-main-500/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm mt-5"
+              >
+                + Nueva Convocatoria
+              </button>
             </div>
           </div>
+          <div className="flex flex-row-reverse">
+            <label className="text-sm"> Selecciona Convocatoria</label>
+          </div>
+          <div className="flex flex-row-reverse">
+            <button
+              onClick={handleAllCitations}
+              className="bg-white hover:bg-gray-300/70 ease-in-out duration-500 font-bold text-gray-500 rounded-md py-2 px-2 text-sm shadow-sm shadow-slate-300/75 border border-b-slate-300 m-1"
+            >
+              Todas
+            </button>
+            <button
+              onClick={handleCitations}
+              className="bg-main-500 hover:bg-main-500/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm shadow-sm shadow-slate-300/75 border border-b-slate-300 m-1"
+            >
+              Activas
+            </button>
+          </div>
+          {showCitation ? (
+            <>
+              <div className="flex flex-row">
+                {citations
+                  ?.filter((element: any) => element.end_date >= date)
+                  .map((filteredElement: any) => (
+                    <div className="flex flex-col" key={filteredElement.id}>
+                      <NoticeCard
+                        img={filteredElement.description}
+                        name={filteredElement.title}
+                        date={filteredElement.end_date}
+                      />
+                    </div>
+                  ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex flex-row">
+                {citations?.map((element: any) => (
+                  <div className="flex flex-col" key={element.id}>
+                    <NoticeCard img={element.description} name={element.title} date={element.end_date} />
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
-        <EditModal
-          show={show}
-          onClose={onClose}
-          header={"Crear convocatoria"}
-          props={<EditForm name={undefined} date={undefined} image={undefined} />}
-        />
       </div>
+      <EditModal
+        show={show}
+        onClose={onClose}
+        header={"Crear convocatoria"}
+        props={<EditForm name={undefined} date={undefined} image={undefined} />}
+      />
     </>
   );
 };

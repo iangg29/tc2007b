@@ -14,6 +14,7 @@ directive @specifiedBy(
 ) on SCALAR
 
 """
+<<<<<<< HEAD
 Main application model, contains all the information related with the applications of the users into the system
 """
 type Application {
@@ -79,6 +80,8 @@ type Application {
 }
 
 """
+=======
+>>>>>>> main
 Assignable Application Status
 """
 type ApplicationStatus {
@@ -104,15 +107,44 @@ type ApplicationStatus {
 }
 
 """
+<<<<<<< HEAD
 Citation model that contains the document and information the users has to follow in order to get their scholarship
 """
 type Citation {
   """
   Citation's ID
+=======
+Authentication response.
+"""
+type AuthenticationResponse {
+  """
+  Is authentication successful.
+  """
+  success: Boolean!
+
+  """
+  Authentication error message.
+  """
+  error: String
+
+  """
+  Authenticated user
+  """
+  user: User
+}
+
+"""
+Frequent question & answer.
+"""
+type FAQ {
+  """
+  FAQ ID
+>>>>>>> main
   """
   id: ID!
 
   """
+<<<<<<< HEAD
   Citation's title
   """
   title: String!
@@ -134,10 +166,29 @@ type Citation {
 
   """
   Citation's creation date
+=======
+  FAQ Question
+  """
+  question: String!
+
+  """
+  FAQ Answer
+  """
+  answer: String!
+
+  """
+  FAQ visibility
+  """
+  visible: Boolean!
+
+  """
+  FAQ creation date
+>>>>>>> main
   """
   created_at: String!
 
   """
+<<<<<<< HEAD
   Last time citation was updated
   """
   updated_at: String!
@@ -234,6 +285,9 @@ type Label {
 
   """
   Last time label was updated
+=======
+  Last time FAQ was updated.
+>>>>>>> main
   """
   updated_at: String!
 }
@@ -258,6 +312,11 @@ type Role {
   description: String!
 
   """
+  Is role default.
+  """
+  default: Boolean!
+
+  """
   Role creation date
   """
   created_at: String!
@@ -272,6 +331,7 @@ type Role {
 Application's GraphQL root mutations
 """
 type RootMutation {
+<<<<<<< HEAD
   createRole(name: String!, description: String!): Role
   createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document
@@ -284,6 +344,24 @@ type RootMutation {
     cellphone: String!
     email: String!
   ): User
+=======
+  createRole(name: String!, description: String!, is_default: Boolean): Role
+  login(email: String!, password: String!): AuthenticationResponse
+  signup(
+    name: String!
+    first_lastname: String!
+    second_lastname: String!
+    cellphone: String!
+    email: String!
+    gender: String!
+    password: String!
+    confirm_password: String!
+  ): AuthenticationResponse
+  createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
+  toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
+  updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
+  deleteFAQ(id: ID!): Boolean
+>>>>>>> main
 }
 
 """
@@ -293,11 +371,15 @@ type RootQuery {
   users: [User]
   roles: [Role]
   applicationStatus: [ApplicationStatus]
+<<<<<<< HEAD
   documentTypes: [DocumentType]
   citations: [Citation]
   documents: [Document]
   findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
+=======
+  faqs: [FAQ]
+>>>>>>> main
 }
 
 """
@@ -308,6 +390,11 @@ type User {
   User's ID
   """
   id: ID!
+
+  """
+  User's role
+  """
+  role: Role
 
   """
   User's name

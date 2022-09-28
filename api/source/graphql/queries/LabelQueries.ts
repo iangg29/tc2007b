@@ -1,7 +1,9 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { GraphQLList } from "graphql";
-import { LabelType } from "../../models/LabelType";
 import { db } from "../../database/database";
 import { LABEL_TABLE_NAME } from "../../database/utils/database_constants";
+import { LabelType } from "../../types/LabelType";
 
 export default {
   labels: {

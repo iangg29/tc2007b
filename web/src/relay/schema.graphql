@@ -129,6 +129,27 @@ type DocumentType {
   updated_at: String!
 }
 
+"""Frequent question & answer."""
+type FAQ {
+  """FAQ ID"""
+  id: ID!
+
+  """FAQ Question"""
+  question: String!
+
+  """FAQ Answer"""
+  answer: String!
+
+  """FAQ visibility"""
+  visible: Boolean!
+
+  """FAQ creation date"""
+  created_at: String!
+
+  """Last time FAQ was updated."""
+  updated_at: String!
+}
+
 """Label assigned to each application"""
 type Label {
   """Label's ID"""
@@ -161,6 +182,9 @@ type Role {
   """Role description"""
   description: String!
 
+  """Is role default."""
+  default: Boolean!
+
   """Role creation date"""
   created_at: String!
 
@@ -170,11 +194,14 @@ type Role {
 
 """Application's GraphQL root mutations"""
 type RootMutation {
-  createRole(name: String!, description: String!): Role
+  createRole(name: String!, description: String!, is_default: Boolean): Role
   createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document
   createDocumentType(name: String!): DocumentType
-  createUser(name: String!, first_lastname: String!, second_lastname: String!, password: String!, cellphone: String!, email: String!): User
+  createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
+  toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
+  updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
+  deleteFAQ(id: ID!): Boolean
 }
 
 """Application's GraphQL root query."""
@@ -182,6 +209,7 @@ type RootQuery {
   users: [User]
   roles: [Role]
   applicationStatus: [ApplicationStatus]
+  faqs: [FAQ]
   documentTypes: [DocumentType]
   citations: [Citation]
   documents: [Document]
@@ -195,6 +223,9 @@ Main application user model, contains all user information w/it's relations.
 type User {
   """User's ID"""
   id: ID!
+
+  """User's role"""
+  role: Role
 
   """User's name"""
   name: String!

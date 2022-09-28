@@ -1,23 +1,55 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { useRef } from "react";
 import logo from "../../assets/logos/logoColorSC.png";
-import back from "../../assets/background/login.svg";
-
-interface Form {
-  email?: string;
-  password?: string;
-}
+import back from "../../assets/background/login.png";
+import axios, { AxiosResponse } from "axios";
+import { useAppDispatch } from "../../store/hooks";
+import { setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
+import Cookies from "js-cookie";
 
 const LoginForm = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  // const navigate = useNavigate();
+
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
+  const genLoginToken = async (email: string, password: string): Promise<any> => {
+    try {
+      await axios
+        .post((process.env.REACT_APP_API_URL as string) + "/auth/login", {
+          email,
+          password,
+        })
+        .then((res: AxiosResponse<any>) => {
+          console.log(res);
+          const { status, token } = res.data;
+          if (status === "success") {
+            Cookies.set("token", `Bearer ${token as string}`);
+            dispatch(setUser(res.data.user));
+            dispatch(setToken(token));
+            dispatch(setIsLoggedIn(true));
+          } else {
+            alert("ERROR! Something happened.");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
+
   const login = (): void => {
-    const form: Form = {
-      email: emailRef.current?.value,
-      password: passwordRef.current?.value,
-    };
-    alert(`${form.email ?? ""} + ${form.password ?? ""}`);
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
+
+    (async () => {
+      await genLoginToken(email as string, password as string);
+    })()
+      .then((r) => r)
+      .catch((e) => e);
   };
 
   return (
