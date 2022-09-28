@@ -7,7 +7,7 @@ pipeline {
       }
     }
 
-    stage('Web Unit Tests') {
+    stage('Testing') {
       parallel {
         stage('Web Unit Tests') {
           steps {
