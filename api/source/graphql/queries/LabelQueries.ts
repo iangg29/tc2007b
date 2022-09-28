@@ -1,5 +1,5 @@
 import { GraphQLList } from "graphql";
-import { LabelType } from "../../models/LabelType";
+import { LabelType } from "../../types/LabelType";
 import { db } from "../../database/database";
 import { LABEL_TABLE_NAME } from "../../database/utils/database_constants";
 

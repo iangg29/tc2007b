@@ -14,6 +14,156 @@ directive @specifiedBy(
 ) on SCALAR
 
 """
+Assignable Application Status
+"""
+type ApplicationStatus {
+  """
+  ApplicationStatus ID
+  """
+  id: ID!
+
+  """
+  ApplicationStatus name
+  """
+  name: String!
+
+  """
+  ApplicationStatus creation date
+  """
+  created_at: String!
+
+  """
+  Last time applicationStatus was updated.
+  """
+  updated_at: String!
+}
+
+"""
+Citation type that contains the document and information the users has to follow in order to get their scholarship
+"""
+type Citation {
+  """
+  Citation's ID
+  """
+  id: ID!
+
+  """
+  Citation's title
+  """
+  title: String!
+
+  """
+  Citation's description
+  """
+  description: String!
+
+  """
+  Citation's document
+  """
+  document: Document!
+
+  """
+  Citation's creation date
+  """
+  created_at: String!
+
+  """
+  Last time citation was updated
+  """
+  updated_at: String!
+}
+
+"""
+Document type, contains all the specifications of the documents uploaded by the users
+"""
+type Document {
+  """
+  Document's ID
+  """
+  id: ID!
+
+  """
+  User that uploaded the document
+  """
+  user: User!
+
+  """
+  Document's name
+  """
+  name: String!
+
+  """
+  Document's type
+  """
+  documentType: DocumentType!
+
+  """
+  Document's creation date
+  """
+  created_at: String!
+
+  """
+  Last time document got updated
+  """
+  updated_at: String!
+}
+
+"""
+Type of document uploaded
+"""
+type DocumentType {
+  """
+  Document Type ID
+  """
+  id: ID!
+
+  """
+  Document Type name
+  """
+  name: String!
+
+  """
+  Document Type creation date
+  """
+  created_at: String!
+
+  """
+  Last time Document Type was updated
+  """
+  updated_at: String!
+}
+
+"""
+Label assigned to each application
+"""
+type Label {
+  """
+  Label's ID
+  """
+  id: ID!
+
+  """
+  Label's name
+  """
+  name: String!
+
+  """
+  Label's description
+  """
+  description: String!
+
+  """
+  Label's creation date
+  """
+  created_at: String!
+
+  """
+  Last time label was updated
+  """
+  updated_at: String!
+}
+
+"""
 Assignable role to users.
 """
 type Role {
@@ -47,7 +197,7 @@ type Role {
 Application's GraphQL root mutations
 """
 type RootMutation {
-  createRole(name: String, description: String): Role
+  createRole(name: String!, description: String!): Role
 }
 
 """
@@ -56,10 +206,15 @@ Application's GraphQL root query.
 type RootQuery {
   users: [User]
   roles: [Role]
+  applicationStatus: [ApplicationStatus]
+  documentTypes: [DocumentType]
+  documents: [Document]
+  citations: [Citation]
+  labels: [Label]
 }
 
 """
-Main application user model, contains all user information w/it's relations.
+Main application user type, contains all user information w/it's relations.
 """
 type User {
   """

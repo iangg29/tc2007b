@@ -1,14 +1,14 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
-import { UserType } from "./UserModel";
+import { UserType } from "./UserType";
 import { ApplicationStatusType } from "./ApplicationStatusType";
 import { CitationType } from "./CitationType";
 
 export const ApplicationType = new GraphQLObjectType({
   name: "Application",
   description:
-    "Main application model, contains all the information related with the applications of the users into the system",
+    "Main application type, contains all the information related with the applications of the users into the system",
   fields: {
     id: {
       type: GraphQLNonNull(GraphQLID),

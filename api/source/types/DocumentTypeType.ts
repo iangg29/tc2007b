@@ -19,6 +19,6 @@ export const DocumentTypeType = new GraphQLObjectType({
     updated_at: {
       type: GraphQLNonNull(GraphQLString),
       description: "Last time Document Type was updated",
-    }
+    },
   },
 });
