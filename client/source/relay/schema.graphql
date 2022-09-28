@@ -14,6 +14,86 @@ directive @specifiedBy(
 ) on SCALAR
 
 """
+Assignable Application Status
+"""
+type ApplicationStatus {
+  """
+  ApplicationStatus ID
+  """
+  id: ID!
+
+  """
+  ApplicationStatus name
+  """
+  name: String!
+
+  """
+  ApplicationStatus creation date
+  """
+  created_at: String!
+
+  """
+  Last time applicationStatus was updated.
+  """
+  updated_at: String!
+}
+
+"""
+Authentication response.
+"""
+type AuthenticationResponse {
+  """
+  Is authentication successful.
+  """
+  success: Boolean!
+
+  """
+  Authentication error message.
+  """
+  error: String
+
+  """
+  Authenticated user
+  """
+  user: User
+}
+
+"""
+Frequent question & answer.
+"""
+type FAQ {
+  """
+  FAQ ID
+  """
+  id: ID!
+
+  """
+  FAQ Question
+  """
+  question: String!
+
+  """
+  FAQ Answer
+  """
+  answer: String!
+
+  """
+  FAQ visibility
+  """
+  visible: Boolean!
+
+  """
+  FAQ creation date
+  """
+  created_at: String!
+
+  """
+  Last time FAQ was updated.
+  """
+  updated_at: String!
+}
+
+"""
 Assignable role to users.
 """
 type Role {
@@ -33,6 +113,11 @@ type Role {
   description: String!
 
   """
+  Is role default.
+  """
+  default: Boolean!
+
+  """
   Role creation date
   """
   created_at: String!
@@ -47,7 +132,22 @@ type Role {
 Application's GraphQL root mutations
 """
 type RootMutation {
-  createRole(name: String, description: String): Role
+  createRole(name: String!, description: String!, is_default: Boolean): Role
+  login(email: String!, password: String!): AuthenticationResponse
+  signup(
+    name: String!
+    first_lastname: String!
+    second_lastname: String!
+    cellphone: String!
+    email: String!
+    gender: String!
+    password: String!
+    confirm_password: String!
+  ): AuthenticationResponse
+  createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
+  toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
+  updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
+  deleteFAQ(id: ID!): Boolean
 }
 
 """
@@ -56,6 +156,8 @@ Application's GraphQL root query.
 type RootQuery {
   users: [User]
   roles: [Role]
+  applicationStatus: [ApplicationStatus]
+  faqs: [FAQ]
 }
 
 """
@@ -66,6 +168,11 @@ type User {
   User's ID
   """
   id: ID!
+
+  """
+  User's role
+  """
+  role: Role
 
   """
   User's name

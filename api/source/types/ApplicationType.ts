@@ -2,8 +2,8 @@
 
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import { UserType } from "./UserType";
-// import { ApplicationStatusType } from "./ApplicationStatusType";
-// import { CitationType } from "./CitationType";
+import { ApplicationStatusType } from "./ApplicationStatusType";
+import { CitationType } from "./CitationType";
 
 export const ApplicationType = new GraphQLObjectType({
   name: "Application",

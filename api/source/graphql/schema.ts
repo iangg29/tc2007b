@@ -5,6 +5,7 @@ import UserQueries from "./queries/UserQueries";
 import RoleQueries from "./queries/RoleQueries";
 import RoleMutations from "./mutations/RoleMutations";
 import ApplicationStatusQueries from "./queries/ApplicationStatusQueries";
+import FAQQueries from "./queries/FAQQueries";
 import DocumentTypeQueries from "./queries/DocumentTypeQueries";
 import DocumentQueries from "./queries/DocumentQueries";
 import CitationQueries from "./queries/CitationQueries";
@@ -14,6 +15,7 @@ import ApplicationMutation from "./mutations/ApplicationMutations";
 import ApplicationStatusMutations from "./mutations/ApplicationStatusMutations";
 import AuthMutations from "./mutations/AuthMutations";
 import UserMutations from "./mutations/UserMutations";
+import FAQMutations from "./mutations/FAQMutations";
 
 /**
  * GraphQLObject that unifies every query that the application uses.
@@ -26,6 +28,7 @@ const RootQuery = new GraphQLObjectType({
     ...RoleQueries,
     ...ApplicationQueries,
     ...ApplicationStatusQueries,
+    ...FAQQueries,
     ...DocumentTypeQueries,
     ...DocumentQueries,
     ...CitationQueries,
@@ -44,7 +47,8 @@ const RootMutation = new GraphQLObjectType({
     ...RoleMutations,
     ...ApplicationMutation,
     ...AuthMutations,
-    ...ApplicationStatusMutations
+    ...ApplicationStatusMutations,
+    ...FAQMutations
   },
 });
 

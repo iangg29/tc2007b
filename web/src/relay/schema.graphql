@@ -9,59 +9,6 @@ directive @specifiedBy(
   url: String!
 ) on SCALAR
 
-"""
-Main application model, contains all the information related with the applications of the users into the system
-"""
-type Application {
-  """Application ID"""
-  id: ID!
-
-  """User that uploaded the request"""
-  user: User!
-
-  """Application title"""
-  title: String!
-
-  """Application image"""
-  image: String!
-
-  """Application description"""
-  description: String!
-
-  """Application requested support"""
-  support: String!
-
-  """Date at which the project will be erased from consideration"""
-  deadline: String
-
-  """Date at which the user compromises to start their project"""
-  start_time: String
-
-  """Date at which the user compromises to finish their project"""
-  end_time: String
-
-  """Application emission date"""
-  emission_date: String!
-
-  """Application response date"""
-  response_date: String!
-
-  """Application creation date"""
-  created_at: String!
-
-  """Last time application was updated"""
-  updated_at: String!
-
-  """Aplication status ID"""
-  application_status_id: ID!
-
-  """User ID"""
-  user_id: ID!
-
-  """Citation ID"""
-  citation_id: ID!
-}
-
 """Assignable Application Status"""
 type ApplicationStatus {
   """ApplicationStatus ID"""
@@ -77,94 +24,24 @@ type ApplicationStatus {
   updated_at: String!
 }
 
-"""Authentication response."""
-type AuthenticationResponse {
-  """Is authentication successful."""
-  success: Boolean!
-
-  """Authentication error message."""
-  error: String
-
-  """Authenticated user"""
-  user: User
-}
-
-"""
-Citation model that contains the document and information the users has to follow in order to get their scholarship
-"""
-type Citation {
-  """Citation's ID"""
+"""Frequent question & answer."""
+type FAQ {
+  """FAQ ID"""
   id: ID!
 
-  """Citation's title"""
-  title: String!
+  """FAQ Question"""
+  question: String!
 
-  """Citation's description"""
-  description: String!
+  """FAQ Answer"""
+  answer: String!
 
-  """Citation's document"""
-  document: Document!
+  """FAQ visibility"""
+  visible: Boolean!
 
-  """Citation's creation date"""
+  """FAQ creation date"""
   created_at: String!
 
-  """Last time citation was updated"""
-  updated_at: String!
-}
-
-"""
-Document model, contains all the specifications of the documents uploaded by the users
-"""
-type Document {
-  """Document's ID"""
-  id: ID!
-
-  """User that uploaded the document"""
-  user: User!
-
-  """Document's name"""
-  name: String!
-
-  """Document's type"""
-  documentType: DocumentType!
-
-  """Document's creation date"""
-  created_at: String!
-
-  """Last time document got updated"""
-  updated_at: String!
-}
-
-"""Type of document uploaded"""
-type DocumentType {
-  """Document Type ID"""
-  id: ID!
-
-  """Document Type name"""
-  name: String!
-
-  """Document Type creation date"""
-  created_at: String!
-
-  """Last time Document Type was updated"""
-  updated_at: String!
-}
-
-"""Label assigned to each application"""
-type Label {
-  """Label's ID"""
-  id: ID!
-
-  """Label's name"""
-  name: String!
-
-  """Label's description"""
-  description: String!
-
-  """Label's creation date"""
-  created_at: String!
-
-  """Last time label was updated"""
+  """Last time FAQ was updated."""
   updated_at: String!
 }
 
@@ -191,16 +68,11 @@ type Role {
 
 """Application's GraphQL root mutations"""
 type RootMutation {
-  createUser(name: String!, first_lastname: String!, second_lastname: String!, cellphone: String!, email: String!): User
-  createRole(name: String!, description: String!): Role
-  createApplication(user_id: ID!, title: String!, image: String!, description: String!, support: String!, deadline: String, end_time: String, emission_date: String!, response_date: String!, application_status_id: ID!, citation_id: ID!): Application
-  deleteApplication(id: ID!): Boolean
-  login(email: String!, password: String!): AuthenticationResponse
-  signup(name: String!, first_lastname: String!, second_lastname: String!, cellphone: String!, email: String!, gender: String!, password: String!, confirm_password: String!): AuthenticationResponse
-  createStatus(
-    """ApplicationStatus name"""
-    name: String!
-  ): ApplicationStatus
+  createRole(name: String!, description: String!, is_default: Boolean): Role
+  createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
+  toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
+  updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
+  deleteFAQ(id: ID!): Boolean
 }
 
 """Application's GraphQL root query."""
