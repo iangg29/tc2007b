@@ -7,5 +7,11 @@ pipeline {
       }
     }
 
+    stage('Web Unit Tests') {
+      steps {
+        sh 'cd web && npm i && npm run test'
+      }
+    }
+
   }
 }
