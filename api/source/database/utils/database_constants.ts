@@ -12,3 +12,4 @@ export const DOCUMENT_TABLE_NAME: string = "Documents";
 export const APPLICATION_TABLE_NAME: string = "Applications";
 export const FAQ_TABLE_NAME: string = "FAQs";
 export const EVIDENCE_TABLE_NAME: string = "Evidences";
+export const CITATION_DOCUMENTS_TABLE_NAME: string = "Citation_Documents";
