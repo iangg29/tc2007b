@@ -1,8 +1,11 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { CitationType } from "../../types/CitationType";
 import { GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
 import { db } from "../../database/database";
-import { CITATION_TABLE_NAME, DOCUMENT_TABLE_NAME } from "../../database/utils/database_constants";
+import { CITATION_TABLE_NAME } from "../../database/utils/database_constants";
+import { DOCUMENT_TABLE_NAME } from "../../database/utils/database_constants";
 
 export default {
   createCitation: {
@@ -17,15 +20,21 @@ export default {
       document_id: {
         type: GraphQLNonNull(GraphQLID),
       },
+      end_date: {
+        type: GraphQLNonNull(GraphQLString),
+      },
     },
     resolve: async (_: any, { title, description, document_id, end_date }: any) => {
       const id = uuid();
 
-      await db.select().table(DOCUMENT_TABLE_NAME).where({ id: document_id })
-      .catch((error: Error) => {
-        console.error(error);
-        throw new GraphQLError(error.name);
-      });
+      await db
+        .select()
+        .from(DOCUMENT_TABLE_NAME)
+        .where({ id: document_id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
 
       await db(CITATION_TABLE_NAME)
         .insert({
@@ -33,19 +42,28 @@ export default {
           title,
           description,
           document_id,
+          end_date,
         })
         .catch((error: Error) => {
           console.error(error);
           throw new GraphQLError(error.name);
         });
 
-      const newCitation = await db.select().from(CITATION_TABLE_NAME).where({ id })
-      .catch((error: Error) => {
-        console.error(error);
-        throw new GraphQLError(error.name);
-      });
-      
-      return newCitation[0];
+      const newCitation = await db
+        .select()
+        .from(CITATION_TABLE_NAME)
+        .where({ id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      const myDocument = await db.select().from(DOCUMENT_TABLE_NAME).where({ id: document_id });
+
+      return {
+        ...newCitation[0],
+        document: myDocument[0],
+      };
     },
   },
 };
