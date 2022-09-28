@@ -22,11 +22,11 @@ const routes: iRoute[] = [
     components: Dashboard,
   },
   {
-    path: "/Home",
+    path: "/home",
     components: Home,
   },
   {
-    path: "/Analiticas",
+    path: "/analytics",
     components: Analytic,
   },
   {
@@ -34,19 +34,19 @@ const routes: iRoute[] = [
     components: Chat,
   },
   {
-    path: "/Solicitudes/RevisarDocumentos",
+    path: "/applications/reviewDocuments",
     components: ApproveDocs,
   },
   {
-    path: "/Solicitudes/RevisarPropuestas",
+    path: "/applications/reviewProposals",
     components: ApproveApplications,
   },
   {
-    path: "/Solicitudes/RevisarAprobadas",
+    path: "/applications/reviewApproved",
     components: ApplicationAccepted,
   },
   {
-    path: "/Solicitudes/RevisarFinalizadas",
+    path: "/applications/reviewFinished",
     components: ApplicationFinalized,
   },
   {

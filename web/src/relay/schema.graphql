@@ -193,14 +193,14 @@ type Role {
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
   createApplication(user_id: ID!, title: String!, deadline: String, end_time: String, emission_date: String!, response_date: String!, application_status_id: ID!, citation_id: ID!): Application
-  updateApplication(id: ID!, application_status_id: ID!): Application
+  updateApplicationStatus(id: ID!, application_status_id: ID!): Application
   deleteApplication(id: ID!): Boolean
   createStatus(
     """ApplicationStatus name"""
     name: String!
   ): ApplicationStatus
   deleteStatus(id: ID!): Boolean
-  createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
+  createCitation(title: String!, description: String!, document_id: ID!): Citation
   createDocumentType(name: String!): DocumentType
   createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
@@ -215,12 +215,11 @@ type RootQuery {
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]
   documentTypes: [DocumentType]
-  documents: [Application]
+  documents: [Document]
   citations: [Citation]
   labels: [Label]
   applications: [Application]
-  application(id: ID!, user_id: ID!): Application
-  applicationByStatusID(application_status_id: ID): [Application]
+  applicationByStatusID(application_status_id: ID!): [Application]
 }
 
 """

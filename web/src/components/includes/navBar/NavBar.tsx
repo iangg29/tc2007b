@@ -27,7 +27,7 @@ const NavBar = (): JSX.Element => {
 
           {/* NavBar normal items */}
           <Navbar.Collapse>
-            <NavLink to={"/app/Home"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
+            <NavLink to={"/app/home"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
               Home
             </NavLink>
 
@@ -35,11 +35,11 @@ const NavBar = (): JSX.Element => {
             <ArrowDrop />
 
             {/* NavBar normal items */}
-            <NavLink to={"/app/Analiticas"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
+            <NavLink to={"/app/analytics"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
               Analíticas
             </NavLink>
 
-            <NavLink to={"/app/Chat"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
+            <NavLink to={"/app/chat"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
               Chat
             </NavLink>
           </Navbar.Collapse>
