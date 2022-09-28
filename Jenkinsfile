@@ -8,8 +8,19 @@ pipeline {
     }
 
     stage('Web Unit Tests') {
-      steps {
-        sh 'cd web && npm i && npm run test'
+      parallel {
+        stage('Web Unit Tests') {
+          steps {
+            sh 'cd web && npm i && npm run test'
+          }
+        }
+
+        stage('API Unit Tests') {
+          steps {
+            sh 'cd api && npm i && npm run test'
+          }
+        }
+
       }
     }
 
