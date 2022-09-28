@@ -1,24 +1,30 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { GraphQLObjectType, GraphQLSchema } from "graphql";
+
+// Queries
+import FAQQueries from "./queries/FAQQueries";
 import UserQueries from "./queries/UserQueries";
 import RoleQueries from "./queries/RoleQueries";
-import RoleMutations from "./mutations/RoleMutations";
-import ApplicationStatusQueries from "./queries/ApplicationStatusQueries";
-import ApplicationDocumentsQueries from "./queries/ApplicationDocumentsQueries";
-import ApplicationDocumentsMutations from "./mutations/ApplicationDocumentsMutations";
-import FAQQueries from "./queries/FAQQueries";
-import DocumentTypeQueries from "./queries/DocumentTypeQueries";
-import DocumentQueries from "./queries/DocumentQueries";
-import DocumentMutations from "./mutations/DocumentMutations";
 import CitationQueries from "./queries/CitationQueries";
 import LabelQueries from "./queries/LabelQueries";
 import ApplicationQueries from "./queries/ApplicationQueries";
-import ApplicationMutation from "./mutations/ApplicationMutations";
-import ApplicationStatusMutations from "./mutations/ApplicationStatusMutations";
-import AuthMutations from "./mutations/AuthMutations";
-import UserMutations from "./mutations/UserMutations";
+import ApplicationStatusQueries from "./queries/ApplicationStatusQueries";
+import ApplicationDocumentsQueries from "./queries/ApplicationDocumentsQueries";
+import DocumentQueries from "./queries/DocumentQueries";
+import DocumentTypeQueries from "./queries/DocumentTypeQueries";
+
+// Mutations
 import FAQMutations from "./mutations/FAQMutations";
+import UserMutations from "./mutations/UserMutations";
+import AuthMutations from "./mutations/AuthMutations";
+import RoleMutations from "./mutations/RoleMutations";
+import CitationMutations from "./mutations/CitationMutations";
+import ApplicationMutations from "./mutations/ApplicationMutations";
+import ApplicationStatusMutations from "./mutations/ApplicationStatusMutations";
+import ApplicationDocumentsMutations from "./mutations/ApplicationDocumentsMutations";
+import DocumentMutations from "./mutations/DocumentMutations";
+import DocumentTypeMutations from "./mutations/DocumentTypeMutations";
 
 /**
  * GraphQLObject that unifies every query that the application uses.
@@ -33,8 +39,8 @@ const RootQuery = new GraphQLObjectType({
     ...ApplicationStatusQueries,
     ...FAQQueries,
     ...DocumentTypeQueries,
-    ...DocumentQueries,
     ...CitationQueries,
+    ...DocumentQueries,
     ...LabelQueries,
     ...ApplicationDocumentsQueries
   },
@@ -49,12 +55,14 @@ const RootMutation = new GraphQLObjectType({
   fields: {
     ...UserMutations,
     ...RoleMutations,
-    ...ApplicationMutation,
+    ...ApplicationMutations,
     ...AuthMutations,
     ...ApplicationStatusMutations,
     ...FAQMutations,
     ...DocumentMutations,
-    ...ApplicationDocumentsMutations
+    ...ApplicationDocumentsMutations,
+    ...CitationMutations,
+    ...DocumentTypeMutations
   },
 });
 

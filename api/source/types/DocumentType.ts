@@ -12,24 +12,16 @@ export const DocumentType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLID),
       description: "Document's ID",
     },
-    user_id: {
-      type: GraphQLNonNull(GraphQLID),
+    user: {
+      type: GraphQLNonNull(UserType),
       description: "User that uploaded the document",
     },
-    // user: {
-    //   type: GraphQLNonNull(UserType),
-    //   description: "User that uploaded the document",
-    // },
     file_name: {
       type: GraphQLNonNull(GraphQLString),
       description: "Document's name",
     },
-    // documentType: {
-    //   type: GraphQLNonNull(DocumentTypeType),
-    //   description: "Document's type",
-    // },
-    file_type_id: {
-      type: GraphQLNonNull(GraphQLID),
+    documentType: {
+      type: GraphQLNonNull(DocumentTypeType),
       description: "Document's type",
     },
     url: {

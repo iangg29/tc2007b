@@ -69,17 +69,17 @@ type ApplicationDocument {
   """ApplicationDocument ID"""
   id: ID!
 
+  """Application associated with the documents"""
+  application: Application!
+
+  """Documents associated to an specific application"""
+  document: Document!
+
   """Date in which document was assigned to the application"""
   created_at: String!
 
   """Date in which document was last updated"""
   updated_at: String!
-
-  """Application ID"""
-  application_id: String!
-
-  """Document ID"""
-  document_id: String!
 }
 
 """Assignable Application Status"""
@@ -125,6 +125,9 @@ type Citation {
   """Citation's document"""
   document: Document!
 
+  """Citation's end date"""
+  end_date: String!
+
   """Citation's creation date"""
   created_at: String!
 
@@ -140,13 +143,13 @@ type Document {
   id: ID!
 
   """User that uploaded the document"""
-  user_id: ID!
+  user: User!
 
   """Document's name"""
   file_name: String!
 
   """Document's type"""
-  file_type_id: ID!
+  documentType: DocumentType!
 
   """Document's URL"""
   url: ID!
@@ -205,6 +208,9 @@ type Label {
   """Label's description"""
   description: String!
 
+  """Application where the labels are linked"""
+  applications: [Application]
+
   """Label's creation date"""
   created_at: String!
 
@@ -249,8 +255,10 @@ type RootMutation {
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
   deleteFAQ(id: ID!): Boolean
-  uploadDocument(user_id: ID!, file_name: String!, file_type_id: ID!, url: String!): Document
-  uploadApplicationDocument(application_id: ID!, document_id: ID!): ApplicationDocument
+  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
+  createApplicationDocument(application_id: ID!, document_id: ID!): ApplicationDocument
+  createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
+  createDocumentType(name: String!): DocumentType
 }
 
 """Application's GraphQL root query."""
@@ -263,8 +271,9 @@ type RootQuery {
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]
   documentTypes: [DocumentType]
-  documents: [Document]
   citations: [Citation]
+  documents: [Document]
+  findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
   applicationsdocuments: [ApplicationDocument]
   applicationdocuments(application_id: ID!): [Document]
