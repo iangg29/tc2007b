@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import { GraphQLObjectType, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLList } from "graphql";
 import { ApplicationType } from "./ApplicationType"
+=======
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
+import { GraphQLObjectType, GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
+>>>>>>> main
 
 export const LabelType = new GraphQLObjectType({
   name: "Label",
