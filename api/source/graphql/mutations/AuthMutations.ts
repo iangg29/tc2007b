@@ -1,6 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { AuthResponseType } from "../../models/AuthTypes";
+import { AuthResponseType } from "../../types/AuthTypes";
 import { GraphQLNonNull, GraphQLString } from "graphql";
 import { ROLE_TABLE_NAME, USER_TABLE_NAME } from "../../database/utils/database_constants";
 import { db } from "../../database/database";

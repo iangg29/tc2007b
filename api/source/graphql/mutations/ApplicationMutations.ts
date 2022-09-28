@@ -1,6 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { ApplicationType} from "../../models/ApplicationType";
+import { ApplicationType} from "../../types/ApplicationType";
 import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
 import { APPLICATION_TABLE_NAME } from "../../database/utils/database_constants";
