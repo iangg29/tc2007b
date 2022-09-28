@@ -11,8 +11,9 @@ import DocumentTypeQueries from "./queries/DocumentTypeQueries";
 import DocumentQueries from "./queries/DocumentQueries";
 import CitationQueries from "./queries/CitationQueries";
 import LabelQueries from "./queries/LabelQueries";
-import UserMutation from "./mutations/UserMutation";
-
+import CitationMutation from "./mutations/CitationMutation";
+import DocumentMutation from "./mutations/DocumentMutation";
+import DocumentTypeMutation from "./mutations/DocumentTypeMutation";
 /**
  * GraphQLObject that unifies every query that the application uses.
  */
@@ -25,8 +26,8 @@ const RootQuery = new GraphQLObjectType({
     ...ApplicationStatusQueries,
     ...FAQQueries,
     ...DocumentTypeQueries,
-    ...DocumentQueries,
     ...CitationQueries,
+    ...DocumentQueries,
     ...LabelQueries,
   
   },
@@ -40,6 +41,9 @@ const RootMutation = new GraphQLObjectType({
   description: "Application's GraphQL root mutations",
   fields: {
     ...RoleMutations,
+    ...CitationMutation,
+    ...DocumentMutation,
+    ...DocumentTypeMutation,
     ...FAQMutations,
   },
 });
