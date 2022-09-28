@@ -15,6 +15,8 @@ import { graphqlHTTP } from "express-graphql";
 import { ServerError } from "./utils/serverError";
 import serverErrorHandler from "./controllers/errorController";
 import path from "path";
+import { validateToken } from "./utils/authentication";
+import authRoutes from "./routes/auth.routes";
 
 import filesRoutes from "./routes/files.routes";
 
@@ -26,9 +28,13 @@ app.enable("trust proxy");
 app.use(cors());
 app.options("*", cors());
 app.use(xss());
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(
   "/graphql",
+  validateToken,
   graphqlHTTP({
     schema,
     graphiql: process.env.NODE_ENV !== "production",
@@ -62,11 +68,7 @@ const limiter = rateLimit({
   },
 });
 
-app.use("/v1", limiter);
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use("/auth", limiter);
 
 app.use(
   fileupload({
@@ -94,6 +96,8 @@ if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "local") 
     });
   });
 }
+
+app.use("/auth", authRoutes);
 
 app.get("/health", (req: Request, res: Response) => {
   res.status(200).json({

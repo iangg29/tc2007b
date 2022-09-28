@@ -1,25 +1,12 @@
-import { Text, View } from "react-native";
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { API_URL } from "@env";
-import { graphql, useLazyLoadQuery } from "react-relay/hooks";
-import { LandingQuery, LandingQuery$data } from "./__generated__/LandingQuery.graphql";
+import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 
 const Landing = () => {
-  const result: LandingQuery$data = useLazyLoadQuery<LandingQuery>(
-    graphql`
-      query LandingQuery {
-        users {
-          id
-          name
-          first_lastname
-          email
-          created_at
-        }
-      }
-    `,
-    {},
-  );
-
-  console.log(result);
+  const navigation = useNavigation();
 
   return (
     <View>
@@ -27,6 +14,9 @@ const Landing = () => {
       <View className="flex-row justify-between mx-10">
         <Text>The env variable is</Text>
         <Text>{`${API_URL}`}</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text>Login</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

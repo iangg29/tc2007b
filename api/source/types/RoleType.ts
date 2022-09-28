@@ -1,6 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLBoolean, GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 
 export const RoleType = new GraphQLObjectType({
   name: "Role",
@@ -17,6 +17,10 @@ export const RoleType = new GraphQLObjectType({
     description: {
       type: GraphQLNonNull(GraphQLString),
       description: "Role description",
+    },
+    default: {
+      type: GraphQLNonNull(GraphQLBoolean),
+      description: "Is role default.",
     },
     created_at: {
       type: GraphQLNonNull(GraphQLString),
