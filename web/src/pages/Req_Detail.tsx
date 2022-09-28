@@ -9,38 +9,6 @@ import graphql from "babel-plugin-relay/macro";
 
 import { ReqDetailQuery, ReqDetailQuery$data } from "./__generated__/ReqDetailQuery.graphql";
 
-// Notas ---------------------------
-// Consulta de:
-// [X] titulo del proyecto
-// [X] foto
-// [X] autor
-// [X] descripción
-// [X] tipo de apoyo (support)
-// [ ] etiquetas (labels - Fredy)
-// [ ] documentos
-//
-// Acciones:
-// [ ] Cambio de estado de solicitud
-// -------------------------------
-
-// IMAGEN: https://infolibros.org/wp-content/uploads/2021/06/Libros-de-Artes-Visuales.jpg?ezimgfmt=ng%3Awebp%2Fngcb33%2Frs%3Adevice%2Frscb33-1
-
-// CREATE USER AND APPLICATION
-// USER ID - "56ed20ad-c75d-4862-8e20-4f2a5aa93856"
-// APPLICATION ID - "6ddf3cbc-c2fc-4a66-a725-bee2e092bce8"
-
-// mutation {
-//   createUser(name: "Jose", first_lastname: "De la Garza", second_lastname: "Gónzalez", cellphone: "44424567453", email: "example@example.com") {
-//     id
-//   }
-// }
-
-// mutation {
-//   createApplication(user_id: "7acb9f11-9073-4d48-b480-dcf68e125d12", title: "Arte Típico", image: "https://infolibros.org/wp-content/uploads/2021/06/Libros-de-Artes-Visuales.jpg?ezimgfmt=ng%3Awebp%2Fngcb33%2Frs%3Adevice%2Frscb33-1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", support: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", deadline: "23/09/2022", end_time: "23/09/2022", emission_date: "23/09/2022", response_date: "23/09/2022", application_status_id: "Status_ID", citation_id: "Citation_ID") {
-//     id
-//   }
-// }
-
 const ReqDetail = (): JSX.Element => {
   // Navigation - Go back to Req_Revision
   const navigate = useNavigate();
@@ -53,7 +21,6 @@ const ReqDetail = (): JSX.Element => {
           title
           user_id
           image
-          citation_id
           description
           support
           user {
@@ -88,7 +55,7 @@ const ReqDetail = (): JSX.Element => {
     <div>
       {/* RETURN - LAST PAGE */}
       <div className="w-fit pb-4 gap-2 pt-8 pl-8 pr-8 md:pl-24 md:pr-24">
-        <button className="flex items-center content-center gap-x-1" onClick={() => navigate(-2)}>
+        <button className="flex items-center content-center gap-x-1" onClick={() => navigate(-1)}>
           <IoIosArrowBack size={15} color="#252d53" />
           <span className="h-[27px] inline-block align-middle font-bold text-main-500">Regresar</span>
         </button>

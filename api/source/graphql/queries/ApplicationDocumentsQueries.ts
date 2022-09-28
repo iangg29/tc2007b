@@ -2,6 +2,7 @@
 
 import { GraphQLError, GraphQLID, GraphQLList, GraphQLNonNull } from "graphql";
 import { ApplicationDocumentType } from "../../types/ApplicationDocumentType";
+import { DocumentType } from "../../types/DocumentType";
 import { db } from "../../database/database";
 import { APPLICATION_DOCUMENTS_TABLE_NAME, DOCUMENT_TABLE_NAME } from "../../database/utils/database_constants";
 
@@ -12,8 +13,8 @@ export default {
       return db.select().table(APPLICATION_DOCUMENTS_TABLE_NAME);
     },
   },
-  applicationdocs: {
-    type: GraphQLList(ApplicationDocumentType),
+  applicationdocuments: {
+    type: GraphQLList(DocumentType),
     args: {
       application_id: {
         type: GraphQLNonNull(GraphQLID),
@@ -29,19 +30,18 @@ export default {
           throw new GraphQLError(error.name);
         });
 
+      let result = myApplicationDocuments.map(a => a.document_id);
+
       const myDocuments = await db
         .select()
         .from(DOCUMENT_TABLE_NAME)
-        .where({ id: myApplicationDocuments[0].document_id })
+        .whereIn('id', result)
         .catch((error: Error) => {
           console.error(error);
           throw new GraphQLError(error.name);
         });
 
-      return{
-        ...myApplicationDocuments[0],
-        document: myDocuments[0]
-      };
+      return myDocuments;
     },
   },
 };

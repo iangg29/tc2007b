@@ -5,9 +5,12 @@ import UserQueries from "./queries/UserQueries";
 import RoleQueries from "./queries/RoleQueries";
 import RoleMutations from "./mutations/RoleMutations";
 import ApplicationStatusQueries from "./queries/ApplicationStatusQueries";
+import ApplicationDocumentsQueries from "./queries/ApplicationDocumentsQueries";
+import ApplicationDocumentsMutations from "./mutations/ApplicationDocumentsMutations";
 import FAQQueries from "./queries/FAQQueries";
 import DocumentTypeQueries from "./queries/DocumentTypeQueries";
 import DocumentQueries from "./queries/DocumentQueries";
+import DocumentMutations from "./mutations/DocumentMutations";
 import CitationQueries from "./queries/CitationQueries";
 import LabelQueries from "./queries/LabelQueries";
 import ApplicationQueries from "./queries/ApplicationQueries";
@@ -33,6 +36,7 @@ const RootQuery = new GraphQLObjectType({
     ...DocumentQueries,
     ...CitationQueries,
     ...LabelQueries,
+    ...ApplicationDocumentsQueries
   },
 });
 
@@ -48,7 +52,9 @@ const RootMutation = new GraphQLObjectType({
     ...ApplicationMutation,
     ...AuthMutations,
     ...ApplicationStatusMutations,
-    ...FAQMutations
+    ...FAQMutations,
+    ...DocumentMutations,
+    ...ApplicationDocumentsMutations
   },
 });
 

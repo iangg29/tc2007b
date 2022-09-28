@@ -62,6 +62,26 @@ type Application {
   citation_id: ID!
 }
 
+"""
+Application - Document model, contains all the information related to application's documentation
+"""
+type ApplicationDocument {
+  """ApplicationDocument ID"""
+  id: ID!
+
+  """Date in which document was assigned to the application"""
+  created_at: String!
+
+  """Date in which document was last updated"""
+  updated_at: String!
+
+  """Application ID"""
+  application_id: String!
+
+  """Document ID"""
+  document_id: String!
+}
+
 """Assignable Application Status"""
 type ApplicationStatus {
   """ApplicationStatus ID"""
@@ -120,13 +140,16 @@ type Document {
   id: ID!
 
   """User that uploaded the document"""
-  user: User!
+  user_id: ID!
 
   """Document's name"""
-  name: String!
+  file_name: String!
 
   """Document's type"""
-  documentType: DocumentType!
+  file_type_id: ID!
+
+  """Document's URL"""
+  url: ID!
 
   """Document's creation date"""
   created_at: String!
@@ -226,6 +249,8 @@ type RootMutation {
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
   deleteFAQ(id: ID!): Boolean
+  uploadDocument(user_id: ID!, file_name: String!, file_type_id: ID!, url: String!): Document
+  uploadApplicationDocument(application_id: ID!, document_id: ID!): ApplicationDocument
 }
 
 """Application's GraphQL root query."""
@@ -241,6 +266,8 @@ type RootQuery {
   documents: [Document]
   citations: [Citation]
   labels: [Label]
+  applicationsdocuments: [ApplicationDocument]
+  applicationdocuments(application_id: ID!): [Document]
 }
 
 """

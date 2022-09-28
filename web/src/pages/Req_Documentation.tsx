@@ -7,16 +7,16 @@ import { useNavigate } from "react-router-dom";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
-import { ReqDetailQuery, ReqDetailQuery$data } from "./__generated__/ReqDetailQuery.graphql";
+import { ReqDocumentationQuery, ReqDocumentationQuery$data } from "./__generated__/ReqDocumentationQuery.graphql";
 
 const ReqDocumentation = (): JSX.Element => {
   // Navigation - Go back
   const navigate = useNavigate();
 
-  // Request - Info
-  const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
+  // Request - Info / Documents
+  const data: ReqDocumentationQuery$data = useLazyLoadQuery<ReqDocumentationQuery>(
     graphql`
-      query ReqDetailQuery {
+      query ReqDocumentationQuery {
         application(id: "6ddf3cbc-c2fc-4a66-a725-bee2e092bce8") {
           title
           user_id
@@ -25,15 +25,21 @@ const ReqDocumentation = (): JSX.Element => {
             name
           }
         }
+        applicationdocuments(application_id: "6ddf3cbc-c2fc-4a66-a725-bee2e092bce8") {
+          file_name
+          url
+          updated_at
+        }
       }
     `,
     {},
   );
 
-  const { application } = data;
+  const { application, applicationdocuments } = data;
   const user = application?.user;
 
   console.debug(application);
+  console.debug(applicationdocuments);
 
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
@@ -88,8 +94,8 @@ const ReqDocumentation = (): JSX.Element => {
         <div className="w-full pt-8 md:pt-2 md:pl-12">
           <h2 className="text-xl text-[#396FB1] font-bold pb-2">Documentos</h2>
           <div className="w-fit">
-            {exampleDocs.map((elem, index) => {
-              return <Document key={index} filename={elem.filename} updated={elem.update_at} link={elem.link} />;
+            {applicationdocuments?.map((elem: any, index) => {
+              return <Document key={index} filename={elem.file_name} updated={elem.updated_at.substring(0,10)} link={elem.url} />;
             })}
             <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
               <Req_Button text="Aprobar documentos" navigate="../Solicitudes/RevisarDocumentos/Detalle" />
