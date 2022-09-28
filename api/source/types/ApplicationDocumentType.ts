@@ -5,7 +5,6 @@ import { ApplicationType } from "./ApplicationType";
 import { DocumentType } from "./DocumentType";
 
 
-
 export const ApplicationDocumentType = new GraphQLObjectType({
   name: "ApplicationDocument",
   description:
