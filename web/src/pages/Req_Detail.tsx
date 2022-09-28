@@ -13,7 +13,7 @@ const ReqDetail = (): JSX.Element => {
   // Navigation - Go back to Req_Revision
   const navigate = useNavigate();
 
-  // Request - Info
+  // Request - Info / Detail
   const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
     graphql`
       query ReqDetailQuery {
@@ -27,29 +27,23 @@ const ReqDetail = (): JSX.Element => {
             name
           }
         }
+        applicationdocuments(application_id: "6ddf3cbc-c2fc-4a66-a725-bee2e092bce8") {
+          file_name
+          url
+          updated_at
+        }
       }
     `,
     {},
   );
 
-  const { application } = data;
+  const { application, applicationdocuments } = data;
   const user = application?.user;
 
   console.debug(application);
 
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
-
-  // Request - Detail
-  const exampleDetail = {
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    filename: "Formato_Solicitud.pdf",
-    link: "https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf",
-    updated: "06/10/2022",
-    requested_support:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-  };
 
   return (
     <div>
@@ -79,8 +73,17 @@ const ReqDetail = (): JSX.Element => {
             <h2 className="text-xl text-[#396FB1] font-bold pb-2">Descripción</h2>
             <p className="text-justify">{application?.description}</p>
 
-            <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Formato de solicitud</h2>
-            <Document filename={exampleDetail.filename} updated={exampleDetail.updated} link={exampleDetail.link} />
+            <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Documentos [revisados]</h2>
+            {applicationdocuments?.map((elem: any, index) => {
+              return (
+                <Document
+                  key={index}
+                  filename={elem.file_name}
+                  updated={elem.updated_at.substring(0, 10)}
+                  link={elem.url}
+                />
+              );
+            })}
 
             <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Apoyo Solicitado</h2>
             <p className="text-justify">{application?.support}</p>
