@@ -17,7 +17,7 @@ const routes: iRoute[] = [
     components: Home,
   },
   {
-    path: "/Solicitudes/RevisarDocumentos",
+    path: "/solicitudes/revisardocumentos",
     components: ApproveDocs,
   },
 ];
