@@ -21,6 +21,12 @@ pipeline {
           }
         }
 
+        stage('Client Unit Tests') {
+          steps {
+            sh 'cd client && npm i && npm run test'
+          }
+        }
+
       }
     }
 
