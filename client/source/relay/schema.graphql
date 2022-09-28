@@ -14,74 +14,6 @@ directive @specifiedBy(
 ) on SCALAR
 
 """
-<<<<<<< HEAD
-Main application model, contains all the information related with the applications of the users into the system
-"""
-type Application {
-  """
-  Application ID
-  """
-  id: ID!
-
-  """
-  User that uploaded the request
-  """
-  user: User!
-
-  """
-  Application title
-  """
-  title: String!
-
-  """
-  Date at which the project will be erased from consideration
-  """
-  deadline: String
-
-  """
-  Date at which the user compromises to start their project
-  """
-  start_time: String
-
-  """
-  Date at which the user compromises to finish their project
-  """
-  end_time: String
-
-  """
-  Application emission date
-  """
-  emission_date: String!
-
-  """
-  Application response date
-  """
-  response_date: String!
-
-  """
-  Application status
-  """
-  applicationStatus: ApplicationStatus!
-
-  """
-  Citation of the application
-  """
-  citation: Citation!
-
-  """
-  Application creation date
-  """
-  created_at: String!
-
-  """
-  Last time application was updated
-  """
-  updated_at: String!
-}
-
-"""
-=======
->>>>>>> main
 Assignable Application Status
 """
 type ApplicationStatus {
@@ -107,13 +39,6 @@ type ApplicationStatus {
 }
 
 """
-<<<<<<< HEAD
-Citation model that contains the document and information the users has to follow in order to get their scholarship
-"""
-type Citation {
-  """
-  Citation's ID
-=======
 Authentication response.
 """
 type AuthenticationResponse {
@@ -139,34 +64,10 @@ Frequent question & answer.
 type FAQ {
   """
   FAQ ID
->>>>>>> main
   """
   id: ID!
 
   """
-<<<<<<< HEAD
-  Citation's title
-  """
-  title: String!
-
-  """
-  Citation's description
-  """
-  description: String!
-
-  """
-  Citation's document
-  """
-  document: Document!
-
-  """
-  Citation's end date
-  """
-  end_date: String!
-
-  """
-  Citation's creation date
-=======
   FAQ Question
   """
   question: String!
@@ -183,111 +84,11 @@ type FAQ {
 
   """
   FAQ creation date
->>>>>>> main
   """
   created_at: String!
 
   """
-<<<<<<< HEAD
-  Last time citation was updated
-  """
-  updated_at: String!
-}
-
-"""
-Document model, contains all the specifications of the documents uploaded by the users
-"""
-type Document {
-  """
-  Document's ID
-  """
-  id: ID!
-
-  """
-  User that uploaded the document
-  """
-  user: User!
-
-  """
-  Document's name
-  """
-  file_name: String!
-
-  """
-  Document's type
-  """
-  documentType: DocumentType!
-
-  """
-  Document's creation date
-  """
-  created_at: String!
-
-  """
-  Last time document got updated
-  """
-  updated_at: String!
-}
-
-"""
-Type of document uploaded
-"""
-type DocumentType {
-  """
-  Document Type ID
-  """
-  id: ID!
-
-  """
-  Document Type name
-  """
-  name: String!
-
-  """
-  Document Type creation date
-  """
-  created_at: String!
-
-  """
-  Last time Document Type was updated
-  """
-  updated_at: String!
-}
-
-"""
-Label assigned to each application
-"""
-type Label {
-  """
-  Label's ID
-  """
-  id: ID!
-
-  """
-  Label's name
-  """
-  name: String!
-
-  """
-  Label's description
-  """
-  description: String!
-
-  """
-  Application where the labels are linked
-  """
-  applications: [Application]
-
-  """
-  Label's creation date
-  """
-  created_at: String!
-
-  """
-  Last time label was updated
-=======
   Last time FAQ was updated.
->>>>>>> main
   """
   updated_at: String!
 }
@@ -331,20 +132,6 @@ type Role {
 Application's GraphQL root mutations
 """
 type RootMutation {
-<<<<<<< HEAD
-  createRole(name: String!, description: String!): Role
-  createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
-  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document
-  createDocumentType(name: String!): DocumentType
-  createUser(
-    name: String!
-    first_lastname: String!
-    second_lastname: String!
-    password: String!
-    cellphone: String!
-    email: String!
-  ): User
-=======
   createRole(name: String!, description: String!, is_default: Boolean): Role
   login(email: String!, password: String!): AuthenticationResponse
   signup(
@@ -361,7 +148,6 @@ type RootMutation {
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
   deleteFAQ(id: ID!): Boolean
->>>>>>> main
 }
 
 """
@@ -371,15 +157,7 @@ type RootQuery {
   users: [User]
   roles: [Role]
   applicationStatus: [ApplicationStatus]
-<<<<<<< HEAD
-  documentTypes: [DocumentType]
-  citations: [Citation]
-  documents: [Document]
-  findDocumentsByUserID(user_id: ID): [Document]
-  labels: [Label]
-=======
   faqs: [FAQ]
->>>>>>> main
 }
 
 """
