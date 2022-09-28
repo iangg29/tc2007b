@@ -44,30 +44,6 @@ const ReqDocumentation = (): JSX.Element => {
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
 
-  // Request - Documents
-  const exampleDocs = [
-    {
-      filename: "INE.jpg",
-      update_at: "14/09/2022",
-      link: "https://www.protocolo.com.mx/wp-content/uploads/ine-01.jpg",
-    },
-    {
-      filename: "CURP.jpg",
-      update_at: "01/02/2021",
-      link: "https://sandiegoleisure.com/files/CURP_FOR_FOREIGNERS.jpg",
-    },
-    {
-      filename: "Domicilio.pdf",
-      update_at: "21/05/2022",
-      link: "https://es.scribd.com/document/360818376/Comprobante-Domicilio",
-    },
-    {
-      filename: "Pasaporte.pdf",
-      update_at: "06/12/2020",
-      link: "https://as1.ftcdn.net/v2/jpg/01/41/33/80/1000_F_141338053_EoksmBImK7aaJanhLPYYkI8AdWzNrX8v.jpg",
-    },
-  ];
-
   return (
     <div>
       {/* RETURN - LAST PAGE */}
@@ -95,7 +71,14 @@ const ReqDocumentation = (): JSX.Element => {
           <h2 className="text-xl text-[#396FB1] font-bold pb-2">Documentos</h2>
           <div className="w-fit">
             {applicationdocuments?.map((elem: any, index) => {
-              return <Document key={index} filename={elem.file_name} updated={elem.updated_at.substring(0,10)} link={elem.url} />;
+              return (
+                <Document
+                  key={index}
+                  filename={elem.file_name}
+                  updated={elem.updated_at.substring(0, 10)}
+                  link={elem.url}
+                />
+              );
             })}
             <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
               <Req_Button text="Aprobar documentos" navigate="../Solicitudes/RevisarDocumentos/Detalle" />
