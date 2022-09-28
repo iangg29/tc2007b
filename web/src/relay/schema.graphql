@@ -196,7 +196,7 @@ type Role {
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
   createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
-  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document
+  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
   createDocumentType(name: String!): DocumentType
   createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ

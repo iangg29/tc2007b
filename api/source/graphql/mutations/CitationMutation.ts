@@ -7,7 +7,6 @@ import { db } from "../../database/database";
 import { CITATION_TABLE_NAME } from "../../database/utils/database_constants";
 import { DOCUMENT_TABLE_NAME } from "../../database/utils/database_constants";
 
-
 export default {
   createCitation: {
     type: CitationType,
@@ -27,6 +26,16 @@ export default {
     },
     resolve: async (_: any, { title, description, document_id, end_date }: any) => {
       const id = uuid();
+
+      await db
+        .select()
+        .from(DOCUMENT_TABLE_NAME)
+        .where({ id: document_id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
       await db(CITATION_TABLE_NAME)
         .insert({
           id,
@@ -40,13 +49,21 @@ export default {
           throw new GraphQLError(error.name);
         });
 
-      const newCitation = await db.select().from(CITATION_TABLE_NAME).where({ id });
+      const newCitation = await db
+        .select()
+        .from(CITATION_TABLE_NAME)
+        .where({ id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
       const myDocument = await db.select().from(DOCUMENT_TABLE_NAME).where({ id: document_id });
 
       return {
         ...newCitation[0],
-        document: myDocument[0], 
-    };
+        document: myDocument[0],
+      };
     },
   },
 };
