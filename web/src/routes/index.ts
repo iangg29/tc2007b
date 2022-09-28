@@ -39,7 +39,7 @@ const routes: iRoute[] = [
   {
     path: "/newannouncement",
     components: NewAnnouncement,
-  }
+  },
 ];
 
 export default routes;
