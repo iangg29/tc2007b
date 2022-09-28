@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 module.exports = function(api) {
   api.cache(true);
   return {

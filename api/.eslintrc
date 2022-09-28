@@ -1,6 +1,11 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": ["plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": [
+    "notice"
+  ],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
@@ -8,6 +13,16 @@
   "rules": {
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/ban-ts-comment": 0,
-    "@typescript-eslint/no-inferrable-types": 0
+    "@typescript-eslint/no-inferrable-types": 0,
+    "notice/notice": [
+      "error",
+      {
+        "mustMatch": "\\(c\\) Tecnologico de Monterrey [0-9]{0,4}, rights reserved.",
+        "template": "// (c) Tecnologico de Monterrey <%= YEAR %>, rights reserved.\n\n",
+        "messages": {
+          "whenFailedToMatch": "Couldn't find 'Copyright notice', are you sure you added it?"
+        }
+      }
+    ]
   }
 }
