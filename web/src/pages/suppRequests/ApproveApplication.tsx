@@ -10,7 +10,7 @@ import { ApproveApplicationQuery, ApproveApplicationQuery$data } from "./__gener
 const ApproveApplication = (): JSX.Element => {
   const data: ApproveApplicationQuery$data = useLazyLoadQuery<ApproveApplicationQuery>(
     graphql`
-      query ApproveApplicationQuery($application_status_id: String) {
+      query ApproveApplicationQuery($application_status_id: ID) {
         applicationByStatusID(application_status_id: $application_status_id) {
           title
           id

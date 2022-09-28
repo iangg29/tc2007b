@@ -1,3 +1,6 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   CacheConfig,
   Environment,
@@ -8,7 +11,7 @@ import {
   Store,
   Variables,
 } from "relay-runtime";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import fetchGraphQL from "./fetchGraphQL";
 
 const __DEV__ = process.env.NODE_ENV !== "production";
@@ -19,7 +22,7 @@ const fetchFunction = async (
   cacheConfig: CacheConfig,
 ): Promise<GraphQLResponse> => {
   const args = { request, variables, cacheConfig };
-  return AsyncStorage.getItem("token").then((token) => {
+  return AsyncStorage.getItem("token").then((token: string | null) => {
     return fetchGraphQL({ ...args, token });
   });
 };

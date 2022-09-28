@@ -13,7 +13,7 @@ import {
 const ApplicationFinalized = (): JSX.Element => {
   const data: ApplicationFinalizedQuery$data = useLazyLoadQuery<ApplicationFinalizedQuery>(
     graphql`
-      query ApplicationFinalizedQuery($application_status_id: String) {
+      query ApplicationFinalizedQuery($application_status_id: ID) {
         applicationByStatusID(application_status_id: $application_status_id) {
           title
           id

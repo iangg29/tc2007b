@@ -22,6 +22,7 @@ export async function up(knex: Knex): Promise<void> {
       table.date("emission_date").notNullable();
       table.date("response_date").notNullable();
       table.string("application_status_id").notNullable();
+      table.string("citation_id").notNullable();
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());
       // RELATIONSHIPS

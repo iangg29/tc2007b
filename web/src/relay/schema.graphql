@@ -65,18 +65,6 @@ type ApplicationStatus {
   updated_at: String!
 }
 
-"""Authentication response."""
-type AuthenticationResponse {
-  """Is authentication successful."""
-  success: Boolean!
-
-  """Authentication error message."""
-  error: String
-
-  """Authenticated user"""
-  user: User
-}
-
 """
 Citation model that contains the document and information the users has to follow in order to get their scholarship
 """
@@ -141,6 +129,27 @@ type DocumentType {
   updated_at: String!
 }
 
+"""Frequent question & answer."""
+type FAQ {
+  """FAQ ID"""
+  id: ID!
+
+  """FAQ Question"""
+  question: String!
+
+  """FAQ Answer"""
+  answer: String!
+
+  """FAQ visibility"""
+  visible: Boolean!
+
+  """FAQ creation date"""
+  created_at: String!
+
+  """Last time FAQ was updated."""
+  updated_at: String!
+}
+
 """Label assigned to each application"""
 type Label {
   """Label's ID"""
@@ -182,11 +191,10 @@ type Role {
 
 """Application's GraphQL root mutations"""
 type RootMutation {
-  createRole(name: String!, description: String!): Role
+  createRole(name: String!, description: String!, is_default: Boolean): Role
   createApplication(user_id: ID!, title: String!, deadline: String, end_time: String, emission_date: String!, response_date: String!, application_status_id: ID!, citation_id: ID!): Application
+  updateApplication(id: ID!, application_status_id: ID!): Application
   deleteApplication(id: ID!): Boolean
-  login(email: String!, password: String!): AuthenticationResponse
-  signup(name: String!, first_lastname: String!, second_lastname: String!, cellphone: String!, email: String!, gender: String!, password: String!, confirm_password: String!): AuthenticationResponse
   createStatus(
     """ApplicationStatus name"""
     name: String!
@@ -194,6 +202,10 @@ type RootMutation {
   deleteStatus(id: ID!): Boolean
   createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
   createDocumentType(name: String!): DocumentType
+  createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
+  toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
+  updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
+  deleteFAQ(id: ID!): Boolean
 }
 
 """Application's GraphQL root query."""
@@ -201,13 +213,14 @@ type RootQuery {
   users: [User]
   roles: [Role]
   applicationStatus: [ApplicationStatus]
+  faqs: [FAQ]
   documentTypes: [DocumentType]
   documents: [Application]
   citations: [Citation]
   labels: [Label]
   applications: [Application]
   application(id: ID!, user_id: ID!): Application
-  applicationByStatusID(application_status_id: String): [Application]
+  applicationByStatusID(application_status_id: ID): [Application]
 }
 
 """

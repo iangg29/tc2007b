@@ -10,7 +10,91 @@ directive @specifiedBy(
 ) on SCALAR
 
 """
+<<<<<<< HEAD
 Main application model, contains all the information related with the applications of the users into the system
+=======
+Assignable Application Status
+"""
+type ApplicationStatus {
+  """
+  ApplicationStatus ID
+  """
+  id: ID!
+
+  """
+  ApplicationStatus name
+  """
+  name: String!
+
+  """
+  ApplicationStatus creation date
+  """
+  created_at: String!
+
+  """
+  Last time applicationStatus was updated.
+  """
+  updated_at: String!
+}
+
+"""
+Authentication response.
+"""
+type AuthenticationResponse {
+  """
+  Is authentication successful.
+  """
+  success: Boolean!
+
+  """
+  Authentication error message.
+  """
+  error: String
+
+  """
+  Authenticated user
+  """
+  user: User
+}
+
+"""
+Frequent question & answer.
+"""
+type FAQ {
+  """
+  FAQ ID
+  """
+  id: ID!
+
+  """
+  FAQ Question
+  """
+  question: String!
+
+  """
+  FAQ Answer
+  """
+  answer: String!
+
+  """
+  FAQ visibility
+  """
+  visible: Boolean!
+
+  """
+  FAQ creation date
+  """
+  created_at: String!
+
+  """
+  Last time FAQ was updated.
+  """
+  updated_at: String!
+}
+
+"""
+Assignable role to users.
+>>>>>>> main
 """
 type Application {
   """Application ID"""
@@ -78,10 +162,21 @@ type Citation {
   """Citation's description"""
   description: String!
 
+<<<<<<< HEAD
   """Citation's document"""
   document: Document!
 
   """Citation's creation date"""
+=======
+  """
+  Is role default.
+  """
+  default: Boolean!
+
+  """
+  Role creation date
+  """
+>>>>>>> main
   created_at: String!
 
   """Last time citation was updated"""
@@ -170,6 +265,7 @@ type Role {
 
 """Application's GraphQL root mutations"""
 type RootMutation {
+<<<<<<< HEAD
   createRole(name: String!, description: String!): Role
   createApplication(user_id: ID!, title: String!, deadline: String, end_time: String, emission_date: String!, response_date: String!, application_status_id: ID!, citation_id: ID!): Application
   updateApplication(id: ID!, application_status_id: ID!): Application
@@ -181,6 +277,24 @@ type RootMutation {
   deleteStatus(id: ID!): Boolean
   createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
   createDocumentType(name: String!): DocumentType
+=======
+  createRole(name: String!, description: String!, is_default: Boolean): Role
+  login(email: String!, password: String!): AuthenticationResponse
+  signup(
+    name: String!
+    first_lastname: String!
+    second_lastname: String!
+    cellphone: String!
+    email: String!
+    gender: String!
+    password: String!
+    confirm_password: String!
+  ): AuthenticationResponse
+  createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
+  toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
+  updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
+  deleteFAQ(id: ID!): Boolean
+>>>>>>> main
 }
 
 """Application's GraphQL root query."""
@@ -188,6 +302,7 @@ type RootQuery {
   users: [User]
   roles: [Role]
   applicationStatus: [ApplicationStatus]
+<<<<<<< HEAD
   documentTypes: [DocumentType]
   documents: [Application]
   citations: [Citation]
@@ -195,6 +310,9 @@ type RootQuery {
   applications: [Application]
   application(id: ID!, user_id: ID!): Application
   applicationByStatusID(application_status_id: ID): [Application]
+=======
+  faqs: [FAQ]
+>>>>>>> main
 }
 
 """
@@ -204,10 +322,21 @@ type User {
   """User's ID"""
   id: ID!
 
+<<<<<<< HEAD
   """User's role"""
   role: Role
 
   """User's name"""
+=======
+  """
+  User's role
+  """
+  role: Role
+
+  """
+  User's name
+  """
+>>>>>>> main
   name: String!
 
   """User's first lastname"""

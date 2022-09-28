@@ -10,7 +10,7 @@ import { ApproveDocQuery, ApproveDocQuery$data } from "./__generated__/ApproveDo
 const ApproveDoc = (): JSX.Element => {
   const data: ApproveDocQuery$data = useLazyLoadQuery<ApproveDocQuery>(
     graphql`
-      query ApproveDocQuery($application_status_id: String) {
+      query ApproveDocQuery($application_status_id: ID) {
         applicationByStatusID(application_status_id: $application_status_id) {
           title
           id

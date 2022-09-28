@@ -13,7 +13,7 @@ import {
 const ApplicationAccepted = (): JSX.Element => {
   const data: ApplicationAcceptedQuery$data = useLazyLoadQuery<ApplicationAcceptedQuery>(
     graphql`
-      query ApplicationAcceptedQuery($application_status_id: String) {
+      query ApplicationAcceptedQuery($application_status_id: ID) {
         applicationByStatusID(application_status_id: $application_status_id) {
           title
           id

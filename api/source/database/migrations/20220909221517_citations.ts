@@ -14,7 +14,6 @@ export async function up(knex: Knex): Promise<void> {
       table.string("document_id").notNullable();
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());
-      table.timestamp("end_date").notNullable();
       // RELATIONSHIPS
       table.foreign("document_id").references(`${DOCUMENT_TABLE_NAME}.id`).deferrable("deferred");
     });

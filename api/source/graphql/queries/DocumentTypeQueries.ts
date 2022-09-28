@@ -1,7 +1,7 @@
 import { GraphQLList } from "graphql";
-import { DocumentTypeType } from "../../types/DocumentTypeType";
 import { db } from "../../database/database";
 import { DOCUMENT_TYPE_TABLE_NAME } from "../../database/utils/database_constants";
+import { DocumentTypeType } from "../../types/DocumentTypeType";
 
 export default {
   documentTypes: {
