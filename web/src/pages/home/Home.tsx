@@ -12,16 +12,22 @@ const Home = (): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const handleShow = (): void => setShow(true);
   const onClose = (): void => setShow(false);
+  const today = new Date();
+  const date =
+    today.getFullYear().toString() +
+    "-" +
+    (today.getMonth() + 1).toString().padStart(2, "0") +
+    "-" +
+    today.getDate().toString().padStart(2, "0");
 
   const data: HomeQuery$data = useLazyLoadQuery<HomeQuery>(
     graphql`
       query HomeQuery {
-        activeCitation {
-          citation {
-            title
-            end_date
-            description
-          }
+        citations {
+          id
+          title
+          description
+          end_date
           document {
             file_name
           }
@@ -31,9 +37,9 @@ const Home = (): JSX.Element => {
     {},
   );
 
-  const { activeCitation } = data;
+  const { citations } = data;
 
-  console.debug(activeCitation);
+  console.debug(citations);
 
   return (
     <>
@@ -54,15 +60,17 @@ const Home = (): JSX.Element => {
               </div>
             </div>
             <div className="flex flex-row">
-              {activeCitation?.map((element: any) => (
-                <div className="flex flex-col">
-                  <NoticeCard
-                    img={element.citation.description}
-                    name={element.citation.title}
-                    date={element.citation.end_date}
-                  />
-                </div>
-              ))}
+              {citations
+                ?.filter((element: any) => element.end_date >= date)
+                .map((filteredElement: any) => (
+                  <div className="flex flex-col" key={filteredElement.id}>
+                    <NoticeCard
+                      img={filteredElement.description}
+                      name={filteredElement.title}
+                      date={filteredElement.end_date}
+                    />
+                  </div>
+                ))}
             </div>
           </div>
         </div>

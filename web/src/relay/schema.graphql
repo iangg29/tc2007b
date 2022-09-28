@@ -9,6 +9,47 @@ directive @specifiedBy(
   url: String!
 ) on SCALAR
 
+"""
+Main application model, contains all the information related with the applications of the users into the system
+"""
+type Application {
+  """Application ID"""
+  id: ID!
+
+  """User that uploaded the request"""
+  user: User!
+
+  """Application title"""
+  title: String!
+
+  """Date at which the project will be erased from consideration"""
+  deadline: String
+
+  """Date at which the user compromises to start their project"""
+  start_time: String
+
+  """Date at which the user compromises to finish their project"""
+  end_time: String
+
+  """Application emission date"""
+  emission_date: String!
+
+  """Application response date"""
+  response_date: String!
+
+  """Application status"""
+  applicationStatus: ApplicationStatus!
+
+  """Citation of the application"""
+  citation: Citation!
+
+  """Application creation date"""
+  created_at: String!
+
+  """Last time application was updated"""
+  updated_at: String!
+}
+
 """Assignable Application Status"""
 type ApplicationStatus {
   """ApplicationStatus ID"""
@@ -48,11 +89,6 @@ type Citation {
 
   """Last time citation was updated"""
   updated_at: String!
-}
-
-type citationDocuments {
-  citation: Citation
-  document: Document
 }
 
 """
@@ -104,6 +140,9 @@ type Label {
   """Label's description"""
   description: String!
 
+  """Application where the labels are linked"""
+  applications: [Application]
+
   """Label's creation date"""
   created_at: String!
 
@@ -132,7 +171,7 @@ type Role {
 """Application's GraphQL root mutations"""
 type RootMutation {
   createRole(name: String!, description: String!): Role
-  createCitation(title: String!, description: String!, document_id: String!, end_date: String!): Citation
+  createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document
   createDocumentType(name: String!): DocumentType
   createUser(name: String!, first_lastname: String!, second_lastname: String!, password: String!, cellphone: String!, email: String!): User
@@ -144,10 +183,9 @@ type RootQuery {
   roles: [Role]
   applicationStatus: [ApplicationStatus]
   documentTypes: [DocumentType]
-  documents: [Document]
-  findDocumentsByUserID(user_id: ID): userDocuments
   citations: [Citation]
-  activeCitation: [citationDocuments]
+  documents: [Document]
+  findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
 }
 
@@ -184,10 +222,5 @@ type User {
 
   """Last time user profile got updated"""
   updated_at: String!
-}
-
-type userDocuments {
-  user: User
-  documents: [Document]
 }
 
