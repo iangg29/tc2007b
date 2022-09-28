@@ -8,9 +8,9 @@ import routes from "../routes";
 import { useAppSelector } from "../store/hooks";
 import { selectIsLoggedIn } from "../store/slices/authSlice";
 import Cookies from "js-cookie";
-import Login from "../pages/auth/Login";
 
 const Error404 = lazy(async () => await import("../pages/Error404"));
+const Login = lazy(async () => await import("../pages/auth/Login"));
 
 const Layout = (): JSX.Element => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
@@ -22,7 +22,7 @@ const Layout = (): JSX.Element => {
     }
   });
 
-  if (isLoggedIn === true) {
+  if (isLoggedIn === true && Cookies.get("token") !== undefined) {
     return (
       <>
         <Wrapper>
