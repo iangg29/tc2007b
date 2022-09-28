@@ -5,7 +5,8 @@
     "react",
     "@typescript-eslint",
     "prettier",
-    "jest"
+    "jest",
+    "notice"
   ],
   "extends": [
     "eslint:recommended",
@@ -17,21 +18,42 @@
     "plugin:jest/recommended"
   ],
   "rules": {
-    "no-console": 1,
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "error",
+          "warn",
+          "debug"
+        ]
+      }
+    ],
     "prettier/prettier": 2,
     "react/react-in-jsx-scope": "off",
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error"
+    "jest/valid-expect": "error",
+    "notice/notice": [
+      "error",
+      {
+        "mustMatch": "\\(c\\) Tecnologico de Monterrey [0-9]{0,4}, rights reserved.",
+        "template": "// (c) Tecnologico de Monterrey <%= YEAR %>, rights reserved.\n\n",
+        "messages": {
+          "whenFailedToMatch": "Couldn't find 'Copyright notice', are you sure you added it?"
+        }
+      }
+    ]
   },
   "settings": {
     "react": {
       "pragma": "React",
       "version": "detect"
     },
-    "import/ignore": ["react-native"],
+    "import/ignore": [
+      "react-native"
+    ]
   },
   "env": {
     "jest/globals": true

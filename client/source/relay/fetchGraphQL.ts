@@ -1,5 +1,7 @@
-import { CacheConfig, GraphQLResponse, RequestParameters, Variables } from "relay-runtime";
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { API_URL } from "@env";
+import { CacheConfig, GraphQLResponse, RequestParameters, Variables } from "relay-runtime";
 
 export type FetchArgProps = {
   request: RequestParameters;
@@ -9,7 +11,7 @@ export type FetchArgProps = {
 };
 
 const fetchGraphQL = async (args: FetchArgProps): Promise<GraphQLResponse> => {
-  const { request, variables, cacheConfig, token } = args;
+  const { request, variables, token } = args;
   const fetchConfig = {
     method: "POST",
     headers: {

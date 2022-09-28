@@ -10,6 +10,7 @@ export async function up(knex: Knex): Promise<void> {
       table.string("id").primary().unique();
       table.string("question").notNullable();
       table.text("answer").notNullable();
+      table.boolean("visible").defaultTo(true);
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());
     });
