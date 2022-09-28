@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { GraphQLObjectType, GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 
 export const LabelType = new GraphQLObjectType({
