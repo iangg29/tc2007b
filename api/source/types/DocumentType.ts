@@ -1,7 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
-import { UserType } from "./UserModel";
+import { UserType } from "./UserType";
 import { DocumentTypeType } from "./DocumentTypeType";
 
 export const DocumentType = new GraphQLObjectType({
