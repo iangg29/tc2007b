@@ -4,17 +4,36 @@ import Document from "../components/Doc_Review";
 import Req_Button from "../components/Req_Button";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { useLazyLoadQuery } from "react-relay";
+import graphql from "babel-plugin-relay/macro";
+
+import { ReqDetailQuery, ReqDetailQuery$data } from "./__generated__/ReqDetailQuery.graphql";
 
 const ReqDocumentation = (): JSX.Element => {
   // Navigation - Go back
   const navigate = useNavigate();
 
   // Request - Info
-  const exampleRequest = {
-    titulo: "Arte Típico",
-    autor: "Susana Horia",
-    img: "https://infolibros.org/wp-content/uploads/2021/06/Libros-de-Artes-Visuales.jpg?ezimgfmt=ng%3Awebp%2Fngcb33%2Frs%3Adevice%2Frscb33-1",
-  };
+  const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
+    graphql`
+      query ReqDetailQuery {
+        application(id: "6ddf3cbc-c2fc-4a66-a725-bee2e092bce8") {
+          title
+          user_id
+          image
+          user {
+            name
+          }
+        }
+      }
+    `,
+    {},
+  );
+
+  const { application } = data;
+  const user = application?.user;
+
+  console.debug(application);
 
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
@@ -55,11 +74,9 @@ const ReqDocumentation = (): JSX.Element => {
       <div className="w-full grid md:grid-cols-2 pb-8 pl-8 pr-8 md:pl-24 md:pr-24">
         {/* REQUEST - BASIC INFO */}
         <div className="w-full pt-2">
-          <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">
-            Proyecto: {exampleRequest.titulo}
-          </h1>
-          <img className="w-[500px] py-4 pr-8 lg:pr-16" src={exampleRequest.img} alt="art" />
-          <p className="text-lg font-semibold tracking-tight text-gray-900">Realizado por: {exampleRequest.autor}</p>
+          <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">Proyecto: {application?.title}</h1>
+          <img className="w-[500px] py-4 pr-8 lg:pr-16" src={application?.image} alt="art" />
+          <p className="text-lg font-semibold tracking-tight text-gray-900">Realizado por: {user?.name}</p>
           <div className="w-[450px] md:w-[280px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
             {exampleLabels.map((elem, index) => {

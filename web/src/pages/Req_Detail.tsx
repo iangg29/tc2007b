@@ -8,7 +8,6 @@ import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
 import { ReqDetailQuery, ReqDetailQuery$data } from "./__generated__/ReqDetailQuery.graphql";
-// import { useEffect, useState } from "react";
 
 // Notas ---------------------------
 // Consulta de: 
@@ -27,8 +26,8 @@ import { ReqDetailQuery, ReqDetailQuery$data } from "./__generated__/ReqDetailQu
 // IMAGEN: https://infolibros.org/wp-content/uploads/2021/06/Libros-de-Artes-Visuales.jpg?ezimgfmt=ng%3Awebp%2Fngcb33%2Frs%3Adevice%2Frscb33-1
 
 // CREATE USER AND APPLICATION
-// USER ID - "7acb9f11-9073-4d48-b480-dcf68e125d12"
-// APPLICATION ID - "c1ffd3d4-e24c-450c-bfd3-e2991d96b68f"
+// USER ID - "56ed20ad-c75d-4862-8e20-4f2a5aa93856"
+// APPLICATION ID - "6ddf3cbc-c2fc-4a66-a725-bee2e092bce8"
 
 // mutation {
 //   createUser(name: "Jose", first_lastname: "De la Garza", second_lastname: "Gónzalez", cellphone: "44424567453", email: "example@example.com") {
@@ -42,7 +41,6 @@ import { ReqDetailQuery, ReqDetailQuery$data } from "./__generated__/ReqDetailQu
 //   }
 // }
 
-
 const ReqDetail = (): JSX.Element => {
   // Navigation - Go back to Req_Revision
   const navigate = useNavigate();
@@ -51,7 +49,7 @@ const ReqDetail = (): JSX.Element => {
   const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
     graphql`
       query ReqDetailQuery {
-        application(id: "c2495dd5-ea65-43c6-99b4-0a2eabd2b64a") {
+        application(id: "6ddf3cbc-c2fc-4a66-a725-bee2e092bce8") {
           title
           user_id
           image
@@ -66,30 +64,6 @@ const ReqDetail = (): JSX.Element => {
     `,
     {},
   );
-
-  // Renderización (useEffect, useState) -------------------------------
-  // const [application, setApplication] = useState(Object);
-
-  // useEffect(() => {
-  //   const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
-  //     graphql`
-  //       query ReqDetailQuery {
-  //         application(id: "c1ffd3d4-e24c-450c-bfd3-e2991d96b68f", user_id: "7acb9f11-9073-4d48-b480-dcf68e125d12") {
-  //           title
-  //           user_id
-  //           image
-  //           citation_id
-  //           description
-  //           support
-  //           user {
-  //             name
-  //           }
-  //         }
-  //       }
-  //     `,
-  //     {},
-  //   );
-  // --------------------------------------------------------------
 
   const { application } = data;
   const user = application?.user;
