@@ -41,7 +41,6 @@ const RootMutation = new GraphQLObjectType({
     ...CitationMutation,
     ...DocumentMutation,
     ...DocumentTypeMutation,
-    ...UserMutation,
   },
 });
 
