@@ -4,6 +4,7 @@ import { iRoute } from "../shared/types/AppTypes";
 import { lazy } from "react";
 
 const Dashboard = lazy(async () => await import("../pages/Dashboard"));
+const NewAnnouncement = lazy(async () => await import("../pages/NewAnnouncement"));
 const Home = lazy(async () => await import("../pages/home/Home"));
 const ApproveDocs = lazy(async () => await import("../pages/suppRequests/ApproveDoc"));
 const ApproveApplications = lazy(async () => await import("../pages/suppRequests/ApproveApplication"));
@@ -11,7 +12,6 @@ const ApplicationAccepted = lazy(async () => await import("../pages/suppRequests
 const ApplicationFinalized = lazy(async () => await import("../pages/suppRequests/ApplicationFinalized"));
 const Chat = lazy(async () => await import("../pages/Chat/Chat"));
 const Analytic = lazy(async () => await import("../pages/analytics/Analytic"));
-
 const Detail = lazy(async () => await import("../pages/Req_Detail"));
 const Documentation = lazy(async () => await import("../pages/Req_Documentation"));
 const Evidence = lazy(async () => await import("../pages/Req_Evidence"));
@@ -60,6 +60,10 @@ const routes: iRoute[] = [
   {
     path: "/Solicitudes/RevisarDocumentos/Evidencia",
     components: Evidence,
+  },
+  {
+    path: "/newannouncement",
+    components: NewAnnouncement,
   },
 ];
 
