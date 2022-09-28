@@ -10,14 +10,64 @@ import graphql from "babel-plugin-relay/macro";
 import { ReqDetailQuery, ReqDetailQuery$data } from "./__generated__/ReqDetailQuery.graphql";
 // import { useEffect, useState } from "react";
 
-// Notas ------------------------------------------------------------------------------------------------------
-// Necesito: nombre del proyecto, foto, autor, etiquetas, descripción, tipo de apoyo y formato de apoyo [DOC].
-// Agregué description, support e [image] a application
-// La query anidada trae al usuario, etiquetas [faltante] y el documento [faltante].
-// ------------------------------------------------------------------------------------------------------------
+// Notas ---------------------------
+// Consulta de: 
+// [X] titulo del proyecto
+// [X] foto
+// [X] autor
+// [X] descripción
+// [X] tipo de apoyo (support)
+// [ ] etiquetas (labels - Fredy)
+// [ ] documentos
+//
+// Acciones:
+// [ ] Cambio de estado de solicitud
+// -------------------------------
+
+// IMAGEN: https://infolibros.org/wp-content/uploads/2021/06/Libros-de-Artes-Visuales.jpg?ezimgfmt=ng%3Awebp%2Fngcb33%2Frs%3Adevice%2Frscb33-1
+
+// CREATE USER AND APPLICATION
+// USER ID - "7acb9f11-9073-4d48-b480-dcf68e125d12"
+// APPLICATION ID - "c1ffd3d4-e24c-450c-bfd3-e2991d96b68f"
+
+// mutation {
+//   createUser(name: "Jose", first_lastname: "De la Garza", second_lastname: "Gónzalez", cellphone: "44424567453", email: "example@example.com") {
+//     id
+//   }
+// }
+
+// mutation {
+//   createApplication(user_id: "7acb9f11-9073-4d48-b480-dcf68e125d12", title: "Arte Típico", image: "https://infolibros.org/wp-content/uploads/2021/06/Libros-de-Artes-Visuales.jpg?ezimgfmt=ng%3Awebp%2Fngcb33%2Frs%3Adevice%2Frscb33-1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", support: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", deadline: "23/09/2022", end_time: "23/09/2022", emission_date: "23/09/2022", response_date: "23/09/2022", application_status_id: "Status_ID", citation_id: "Citation_ID") {
+//     id
+//   }
+// }
+
 
 const ReqDetail = (): JSX.Element => {
-  // Query - State
+  // Navigation - Go back to Req_Revision
+  const navigate = useNavigate();
+
+  // Request - Info
+  const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
+    graphql`
+      query ReqDetailQuery {
+        application(id: "c2495dd5-ea65-43c6-99b4-0a2eabd2b64a") {
+          title
+          user_id
+          image
+          citation_id
+          description
+          support
+          user {
+            name
+          }
+        }
+      }
+    `,
+    {},
+  );
+
+  // Renderización (useEffect, useState) -------------------------------
   // const [application, setApplication] = useState(Object);
 
   // useEffect(() => {
@@ -39,33 +89,7 @@ const ReqDetail = (): JSX.Element => {
   //     `,
   //     {},
   //   );
-
-  //   const { application } = data;
-  //   setApplication(application);
-  // }, []);
-
-  // Navigation - Go back to Req_Revision
-  const navigate = useNavigate();
-
-  // Request - Info
-  const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
-    graphql`
-      query ReqDetailQuery {
-        application(id: "c2495dd5-ea65-43c6-99b4-0a2eabd2b64a", user_id: "e4729586-7c84-4c48-8ff4-0533d854fd1f") {
-          title
-          user_id
-          image
-          citation_id
-          description
-          support
-          user {
-            name
-          }
-        }
-      }
-    `,
-    {},
-  );
+  // --------------------------------------------------------------
 
   const { application } = data;
   const user = application?.user;
