@@ -16,8 +16,8 @@ const ReqDetail = (): JSX.Element => {
   // Request - Info / Detail
   const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
     graphql`
-      query ReqDetailQuery {
-        application(id: "f09960dc-6e38-49e5-b2b1-584315683f6c") {
+      query ReqDetailQuery($application_id: ID!) {
+        application(id: $application_id ) {
           title
           user_id
           image
@@ -27,14 +27,14 @@ const ReqDetail = (): JSX.Element => {
             name
           }
         }
-        applicationdocuments(application_id: "f09960dc-6e38-49e5-b2b1-584315683f6c") {
+        applicationdocuments(application_id: $application_id) {
           file_name
           url
           updated_at
         }
       }
     `,
-    {},
+    {application_id: "f09960dc-6e38-49e5-b2b1-584315683f6c"},
   );
 
   const { application, applicationdocuments } = data;

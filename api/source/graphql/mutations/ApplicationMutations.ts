@@ -3,9 +3,11 @@
 import { ApplicationType} from "../../types/ApplicationType";
 import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
-import { APPLICATION_TABLE_NAME } from "../../database/utils/database_constants";
 import { db } from "../../database/database";
-
+import {
+  APPLICATION_STATUS_TABLE_NAME,
+  APPLICATION_TABLE_NAME,
+} from "../../database/utils/database_constants";
 
 export default {
 
@@ -98,6 +100,49 @@ export default {
 //       return results[0];
 //     },
 //   },
+
+updateApplicationStatus: {
+  type: ApplicationType,
+
+  args: {
+    id: {
+      type: GraphQLNonNull(GraphQLID),
+    },
+    application_status_id: {
+      type: GraphQLNonNull(GraphQLID),
+    },
+  },
+  resolve: async (_: any, { id, application_status_name }: any) => {
+    const myApplicationStatus = await db
+      .select()
+      .table(APPLICATION_STATUS_TABLE_NAME)
+      .where({ name: application_status_name })
+      .catch((error: Error) => {
+        console.error(error);
+        throw new GraphQLError(error.name);
+      });
+    
+    let result = myApplicationStatus[0].id;
+    
+    await db(APPLICATION_TABLE_NAME)
+      .where("id", id)
+      .update({ result })
+      .catch((error: Error) => {
+        console.error(error);
+        throw new GraphQLError(error.name);
+      });
+
+    const results = await db(APPLICATION_TABLE_NAME)
+      .select()
+      .where("id", id)
+      .catch((error: Error) => {
+        console.error(error);
+        throw new GraphQLError(error.name);
+      });
+
+    return results[0];
+  },
+},
 
   deleteApplication: {
     type: GraphQLBoolean,
