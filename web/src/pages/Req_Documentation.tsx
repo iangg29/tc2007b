@@ -20,7 +20,6 @@ const ReqDocumentation = (): JSX.Element => {
         application(id: $application_id) {
           id
           title
-          user_id
           image
           user {
             name
@@ -33,7 +32,7 @@ const ReqDocumentation = (): JSX.Element => {
         }
       }
     `,
-    {application_id: "d558cace-8f9b-4794-a67c-8559542c1ca2"},
+    {application_id: "c6f1cc82-38a4-4aaf-a2ce-044c059c806d"},
   );
 
   const { application, applicationdocuments } = data;
@@ -82,8 +81,8 @@ const ReqDocumentation = (): JSX.Element => {
               );
             })}
             <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button text="Aprobar documentos" navigate="../Solicitudes/RevisarDocumentos/Detalle" next={1} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
-              <Req_Button text="Enviar a correción" navigate="../Solicitudes/RevisarDocumentos" next={-1} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
+              <Req_Button text="Aprobar documentos" navigate="../applications/reviewdocuments/detail" next={1} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
+              <Req_Button text="Enviar a correción" navigate="../applications/reviewdocuments" next={-1} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
             </div>
           </div>
         </div>

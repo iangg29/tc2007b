@@ -46,20 +46,17 @@ type Application {
   """Application response date"""
   response_date: String!
 
+  """Application status"""
+  applicationStatus: ApplicationStatus!
+
+  """Citation of the application"""
+  citation: Citation!
+
   """Application creation date"""
   created_at: String!
 
   """Last time application was updated"""
   updated_at: String!
-
-  """Aplication status ID"""
-  application_status_id: ID!
-
-  """User ID"""
-  user_id: ID!
-
-  """Citation ID"""
-  citation_id: ID!
 }
 
 """
@@ -258,6 +255,7 @@ type RootMutation {
     """ApplicationStatus order"""
     order: Int!
   ): ApplicationStatus
+  deleteStatus(id: ID!): Boolean
   createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
@@ -275,6 +273,7 @@ type RootQuery {
   roles: [Role]
   applications: [Application]
   application(id: ID!): Application
+  applicationByStatusID(application_status_id: ID!): [Application]
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]
   documentTypes: [DocumentType]

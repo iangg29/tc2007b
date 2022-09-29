@@ -1,10 +1,15 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { ApplicationType } from "../../types/ApplicationType";
-import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLInt, GraphQLNonNull, GraphQLString } from "graphql";
+import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLInt } from "graphql";
 import { v4 as uuid } from "uuid";
+import {
+  APPLICATION_STATUS_TABLE_NAME,
+  APPLICATION_TABLE_NAME,
+  CITATION_TABLE_NAME,
+  USER_TABLE_NAME,
+} from "../../database/utils/database_constants";
 import { db } from "../../database/database";
-import { APPLICATION_STATUS_TABLE_NAME, APPLICATION_TABLE_NAME } from "../../database/utils/database_constants";
 
 export default {
   createApplication: {
@@ -62,19 +67,42 @@ export default {
       }: any,
     ) => {
       const id = uuid();
+      console.log("NO HAY ERROR 1 ---------------------------------------")
+
+      const myUser = await db.select().from(USER_TABLE_NAME).where({ id: user_id })
+      .catch((error: Error) => {
+        console.error(error);
+        throw new GraphQLError(error.name);
+      });
+      console.log("NO HAY ERROR 2 ---------------------------------------")
+
+      const myApplytatus = await db.select().from(APPLICATION_STATUS_TABLE_NAME).where({ id: application_status_id })
+      .catch((error: Error) => {
+        console.error(error);
+        throw new GraphQLError(error.name);
+      });
+      console.log("NO HAY ERROR 3 ---------------------------------------")
+      
+      const myCitation = await db.select().from(CITATION_TABLE_NAME).where({ id: citation_id })
+      .catch((error: Error) => {
+        console.error(error);
+        throw new GraphQLError(error.name);
+      });
+      console.log("NO HAY ERROR 4 ---------------------------------------")
+
       await db(APPLICATION_TABLE_NAME)
         .insert({
           id,
-          user_id,
           title,
           image,
           description,
           support,
-          deadline: deadline,
-          start_time: start_time,
-          end_time: end_time,
+          deadline,
+          start_time,
+          end_time,
           emission_date,
           response_date,
+          user_id,
           application_status_id,
           citation_id,
         })
@@ -82,36 +110,25 @@ export default {
           console.error(error);
           throw new GraphQLError(error.name);
         });
-      const newApplication = await db.select().from(APPLICATION_TABLE_NAME).where("id", id);
-      return newApplication[0];
+
+      const newApplication = await db.select().from(APPLICATION_TABLE_NAME).where("id", id)
+      .catch((error: Error) => {
+        console.error(error);
+        throw new GraphQLError(error.name);
+      });
+
+      return {
+        ...newApplication[0],
+        user: myUser[0],
+        applicationStatus: myApplytatus[0],
+        citation: myCitation,
+      };
     },
   },
 
-  //   updateApplication: {
-  //     type: ApplicationType,
-
-  //     args: {
-  //         id: {
-  //             type: GraphQLNonNull(GraphQLID),
-  //           },
-  //         applicationStatus: {
-  //           type: GraphQLNonNull(ApplicationStatusType),
-  //         },
-  //         updated_at: {
-  //           type: GraphQLNonNull(GraphQLString),
-  //         },
-
-  //       },
-
-  //     resolve: async (_: any, { id, applicationStatus, updated_at }: any) => {
-  //       await db(APPLICATION_TABLE_NAME).where("id", id).update({ applicationStatus, updated_at });
-  //       const results = await db(APPLICATION_TABLE_NAME).select().where("id", id);
-  //       return results[0];
-  //     },
-  //   },
-
   updateApplicationStatus: {
     type: GraphQLString,
+
     args: {
       application_id: {
         type: GraphQLNonNull(GraphQLID),
@@ -120,6 +137,7 @@ export default {
         type: GraphQLNonNull(GraphQLInt),
       },
     },
+
     resolve: async (_: any, { application_id, next_status }: any) => {
       const application_status_id = await db
         .select("application_status_id")

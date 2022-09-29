@@ -5,12 +5,12 @@ import back from "../../assets/background/login.png";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
-import { ApproveDocQuery, ApproveDocQuery$data } from "./__generated__/ApproveDocQuery.graphql";
+import { ApproveApplicationQuery, ApproveApplicationQuery$data } from "./__generated__/ApproveApplicationQuery.graphql";
 
-const ApproveDoc = (): JSX.Element => {
-  const data: ApproveDocQuery$data = useLazyLoadQuery<ApproveDocQuery>(
+const ApproveApplication = (): JSX.Element => {
+  const data: ApproveApplicationQuery$data = useLazyLoadQuery<ApproveApplicationQuery>(
     graphql`
-      query ApproveDocQuery($application_status_id: ID!) {
+      query ApproveApplicationQuery($application_status_id: ID!) {
         applicationByStatusID(application_status_id: $application_status_id) {
           title
           id
@@ -27,7 +27,7 @@ const ApproveDoc = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "58b9754b-c1ca-47f9-b96e-3e2a8f24a433" },
+    { application_status_id: "" },
   );
 
   const exampleLabels = [{ label: "Cultura" }, { label: "Baile" }];
@@ -40,13 +40,13 @@ const ApproveDoc = (): JSX.Element => {
 
   return (
     <>
-      <h5 className=" py-5 text-2xl text-main-100">Solicitudes para revisión de documentos</h5>
+      <h5 className=" py-5 text-2xl text-main-100">Solicitudes para revisión de propuestas</h5>
 
       <div className="grid grid-cols-3">
         {empty ? (
           <h1 className="col-span-3 text-center">
             <br />
-            No hay solicitudes pendientes de revisión de documentos.
+            No hay solicitudes pendientes de revisión de propuesta.
           </h1>
         ) : (
           applicationByStatusID?.map((element: any) => (
@@ -59,8 +59,8 @@ const ApproveDoc = (): JSX.Element => {
               userFirstName={element.user.first_lastname}
               userLastName={element.user.second_lastname}
               label={exampleLabels}
-              buttonText="Revisar nuevamente"
-              color="#244B5C"
+              buttonText="Revisar"
+              color="#252d53"
             />
           ))
         )}
@@ -69,4 +69,4 @@ const ApproveDoc = (): JSX.Element => {
   );
 };
 
-export default ApproveDoc;
+export default ApproveApplication;

@@ -54,14 +54,14 @@ export const ApplicationType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "Application response date",
     },
-    // applicationStatus: {
-    //   type: GraphQLNonNull(ApplicationStatusType),
-    //   description: "Application status",
-    // },
-    // citation: {
-    //   type: GraphQLNonNull(CitationType),
-    //   description: "Citation of the application",
-    // },
+    applicationStatus: {
+      type: GraphQLNonNull(ApplicationStatusType),
+      description: "Application status",
+    },
+    citation: {
+      type: GraphQLNonNull(CitationType),
+      description: "Citation of the application",
+    },
     created_at: {
       type: GraphQLNonNull(GraphQLString),
       description: "Application creation date",
@@ -70,18 +70,5 @@ export const ApplicationType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "Last time application was updated",
     },
-    // Foreign keys
-    application_status_id: {
-      type: GraphQLNonNull(GraphQLID),
-      description: "Aplication status ID",
-    },
-    user_id: {
-      type: GraphQLNonNull(GraphQLID),
-      description: "User ID",
-    },
-    citation_id : {
-      type: GraphQLNonNull(GraphQLID),
-      description: "Citation ID",
-    }
   },
 });

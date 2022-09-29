@@ -19,7 +19,6 @@ const ReqDetail = (): JSX.Element => {
       query ReqDetailQuery($application_id: ID!) {
         application(id: $application_id ) {
           title
-          user_id
           image
           description
           support
@@ -34,7 +33,7 @@ const ReqDetail = (): JSX.Element => {
         }
       }
     `,
-    {application_id: "d558cace-8f9b-4794-a67c-8559542c1ca2"},
+    {application_id: "c6f1cc82-38a4-4aaf-a2ce-044c059c806d"},
   );
 
   const { application, applicationdocuments } = data;
@@ -90,8 +89,8 @@ const ReqDetail = (): JSX.Element => {
             <p className="text-justify">{application?.support}</p>
 
             <div className="w-full justify-center flex flex-wrap pt-8 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button text="Aprobar" navigate="/app/Solicitudes/RevisarDocumentos" next={2} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
-              <Req_Button text="Rechazar" navigate="/app/Solicitudes/RevisarDocumentos" next={1} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
+              <Req_Button text="Aprobar" navigate="/app/applications/reviewapproved" next={2} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
+              <Req_Button text="Rechazar" navigate="/app/applications/reviewdocuments" next={1} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
             </div>
           </div>
         </div>

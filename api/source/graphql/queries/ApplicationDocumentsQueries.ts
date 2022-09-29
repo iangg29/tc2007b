@@ -30,7 +30,10 @@ export default {
           throw new GraphQLError(error.name);
         });
 
-      let result = myApplicationDocuments.map(a => a.document_id);
+      console.log(myApplicationDocuments);
+
+      const result = myApplicationDocuments.map(a => a.document_id);
+      console.log(result);
 
       const myDocuments = await db
         .select()
@@ -41,6 +44,7 @@ export default {
           throw new GraphQLError(error.name);
         });
 
+      console.log(myDocuments);
       return myDocuments;
     },
   },
