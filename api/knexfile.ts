@@ -1,6 +1,10 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-const path = require("path");
+import * as dotenv from "dotenv";
+import { resolve } from "path";
+
+dotenv.config({ path: resolve(__dirname, "./.env") });
+
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
@@ -10,10 +14,10 @@ const TIMEZONE = "America/Mexico_City";
 const builder = {
   migrations: {
     tableName: "app_migrations",
-    directory: path.resolve(__dirname, "source", "database", "migrations"),
+    directory: resolve(__dirname, "source", "database", "migrations"),
   },
   seeds: {
-    directory: path.resolve(__dirname, "source", "database", "seeds"),
+    directory: resolve(__dirname, "source", "database", "seeds"),
   },
 };
 
@@ -26,9 +30,6 @@ const defaults = {
     password: process.env.PG_PASSWORD,
     timezone: TIMEZONE,
   },
-  ssl: {
-    ca: process.env.DB_CACERT,
-  },
   ...builder,
 };
 
@@ -36,7 +37,7 @@ module.exports = {
   local: {
     client: "sqlite3",
     connection: {
-      filename: path.resolve(__dirname, "source", "database", "dev.sqlite3"),
+      filename: resolve(__dirname, "source", "database", "dev.sqlite3"),
       timezone: TIMEZONE,
     },
     debug: true,
