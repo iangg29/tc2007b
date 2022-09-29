@@ -43,7 +43,4 @@ export const getConnectionConfig = () => {
     };
   }
 };
-export const db = knex({
-  ...getConnectionConfig(),
-  searchPath: ["knex", "public"],
-} as Config);
+export const db = knex(getConnectionConfig() as Config);
