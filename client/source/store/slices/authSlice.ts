@@ -32,7 +32,7 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setIsLoggedIn: (state: any, action: PayloadAction<iAuthState["isLoggedIn"]>) => {
+    setIsLoggedIn: (state, action: PayloadAction<iAuthState["isLoggedIn"]>) => {
       state.isLoggedIn = action.payload;
     },
     setUser: (state, action: PayloadAction<iAuthState["user"]>) => {
@@ -47,7 +47,7 @@ export const authSlice = createSlice({
 export const { setUser, setToken, setIsLoggedIn } = authSlice.actions;
 
 export const selectUser = (state: RootState): unknown => state.auth.user;
-export const selectIsLoggedIn = (state: RootState): boolean => state.auth.isLoggedIn;
+export const selectIsLoggedIn = (state: RootState): unknown => state.auth.isLoggedIn;
 export const selectAuth = (state: RootState): unknown => state.auth;
 
 export default authSlice.reducer;
