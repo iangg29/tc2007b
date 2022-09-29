@@ -30,23 +30,23 @@ const routes: iRoute[] = [
     components: Analytic,
   },
   {
-    path: "/Chat",
+    path: "/chat",
     components: Chat,
   },
   {
-    path: "/applications/reviewDocuments",
+    path: "/applications/reviewdocuments",
     components: ApproveDocs,
   },
   {
-    path: "/applications/reviewProposals",
+    path: "/applications/reviewPpoposals",
     components: ApproveApplications,
   },
   {
-    path: "/applications/reviewApproved",
+    path: "/applications/reviewapproved",
     components: ApplicationAccepted,
   },
   {
-    path: "/applications/reviewFinished",
+    path: "/applications/reviewfinished",
     components: ApplicationFinalized,
   },
   {
