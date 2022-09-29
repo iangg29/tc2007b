@@ -1,13 +1,14 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import DocumentList from "../DocumentList/DocumentList";
-import { commitMutation, Environment, useLazyLoadQuery, useMutation } from "react-relay";
+import { useLazyLoadQuery, useMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import useChecked from "../../hooks/useChecked";
 import {
   NewAnnouncementFormQuery,
   NewAnnouncementFormQuery$data,
 } from "./__generated__/NewAnnouncementFormQuery.graphql";
+import { NewAnnouncementFormMutation } from "./__generated__/NewAnnouncementFormMutation.graphql";
 import { useRef } from "react";
 
 interface documentTypeType {
@@ -33,6 +34,23 @@ const NewAnnouncementForm = (): JSX.Element => {
     {},
   );
 
+  const [commitMutation, isMutationInFlight] = useMutation<NewAnnouncementFormMutation>(
+    graphql`
+      mutation NewAnnouncementFormMutation(
+        $title: String!
+        $description: String!
+        $end_date: String!
+        $document_types: [ID]!
+      ) {
+        createCitation(title: $title, description: $description, end_date: $end_date, document_types: $document_types) {
+          title
+          description
+          end_date
+        }
+      }
+    `,
+  );
+
   const { documentTypes } = data;
 
   console.debug(documentTypes);
@@ -51,37 +69,6 @@ const NewAnnouncementForm = (): JSX.Element => {
     });
   console.log("list", list);
   console.log("docType", docType);
-
-  const mutation = graphql`
-    mutation CreateCitationMutation($input: CreateCitationInput) {
-      createCitation(input: $input) {
-        title
-        description
-        end_date
-        documentTypes
-      }
-    }
-  `;
-
-  function commit(
-    environment: Environment,
-    title: string,
-    description: string,
-    end_date: string,
-    documentTypes: [string],
-  ): any {
-    return commitMutation<CreateCitationMutation>(environment, {
-      mutation,
-      variables: {
-        input: {
-          title,
-          description,
-          end_date,
-          documentTypes,
-        },
-      },
-    });
-  }
 
   return (
     <>
@@ -158,7 +145,17 @@ const NewAnnouncementForm = (): JSX.Element => {
           <button
             className="w-48 bg-main-500 hover:bg-main-500/70  hover:scale-105 transition-all ease-in-out duration-500 active:scale-95 font-bold text-white rounded-3xl py-2 text-sm mt-5"
             type="submit"
-            onClick={() => {}}
+            onClick={() => {
+              commitMutation({
+                variables: {
+                  title: titleRef as unknown as string,
+                  description: descriptionRef as unknown as string,
+                  end_date: endDdateRef as unknown as string,
+                  document_types: docType as unknown as [string],
+                },
+              });
+            }}
+            disabled={isMutationInFlight}
           >
             Crear
           </button>

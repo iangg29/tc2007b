@@ -4,14 +4,13 @@ import { GraphQLID, GraphQLList, GraphQLNonNull } from "graphql";
 import { db } from "../../database/database";
 import {
   CITATION_DOCUMENTS_TABLE_NAME,
-  CITATION_TABLE_NAME,
   DOCUMENT_TYPE_TABLE_NAME,
 } from "../../database/utils/database_constants";
-import { CitationDocumentType } from "../../types/CitationDocumentType";
+import { DocumentType } from "../../types/DocumentType";
 
 export default {
   citationDocuments: {
-    type: GraphQLList(CitationDocumentType),
+    type: GraphQLList(DocumentType),
     args: {
       id: {
             type: GraphQLNonNull(GraphQLID),
@@ -24,12 +23,10 @@ export default {
 
       const newCitationDocuments = await Promise.all(
         myCitationDocuments?.map(async (citation_documents) => {
-          const { document_type_id, citation_id } = citation_documents;
-          const citation = await db.select().table(CITATION_TABLE_NAME).where({ id: citation_id });
+          const { document_type_id } = citation_documents;
           const documentType = await db.select().table(DOCUMENT_TYPE_TABLE_NAME).where({ id: document_type_id });
 
           return {
-            citation: citation[0],
             documentType: documentType[0],
           };
         }),
