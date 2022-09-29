@@ -97,18 +97,6 @@ type ApplicationStatus {
   updated_at: String!
 }
 
-"""Authentication response."""
-type AuthenticationResponse {
-  """Is authentication successful."""
-  success: Boolean!
-
-  """Authentication error message."""
-  error: String
-
-  """Authenticated user"""
-  user: User
-}
-
 """
 Citation model that contains the document and information the users has to follow in order to get their scholarship
 """
@@ -241,13 +229,10 @@ type Role {
 
 """Application's GraphQL root mutations"""
 type RootMutation {
-  createUser(name: String!, first_lastname: String!, second_lastname: String!, cellphone: String!, email: String!): User
   createRole(name: String!, description: String!, is_default: Boolean): Role
   createApplication(user_id: ID!, title: String!, image: String!, description: String!, support: String!, deadline: String, end_time: String, emission_date: String!, response_date: String!, application_status_id: ID!, citation_id: ID!): Application
   updateApplicationStatus(application_id: ID!, next_status: Int!): String
   deleteApplication(id: ID!): Boolean
-  login(email: String!, password: String!): AuthenticationResponse
-  signup(name: String!, first_lastname: String!, second_lastname: String!, cellphone: String!, email: String!, gender: String!, password: String!, confirm_password: String!): AuthenticationResponse
   createStatus(
     """ApplicationStatus name"""
     name: String!
@@ -272,7 +257,7 @@ type RootQuery {
   user(id: ID!): User
   roles: [Role]
   applications: [Application]
-  application(id: ID!): Application
+  application(id: ID): Application
   applicationByStatusID(application_status_id: ID!): [Application]
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]

@@ -10,7 +10,7 @@ import { ApproveDocQuery, ApproveDocQuery$data } from "./__generated__/ApproveDo
 const ApproveDoc = (): JSX.Element => {
   const data: ApproveDocQuery$data = useLazyLoadQuery<ApproveDocQuery>(
     graphql`
-      query ApproveDocQuery($application_status_id: ID!) {
+      query ApproveDocQuery($application_status_id: ID) {
         applicationByStatusID(application_status_id: $application_status_id) {
           title
           id
@@ -27,7 +27,7 @@ const ApproveDoc = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "58a765a1-1204-48a5-b81c-c8c711aceb18" },
+    { application_status_id: "" },
   );
 
   const exampleLabels = [{ label: "Cultura" }, { label: "Baile" }];
