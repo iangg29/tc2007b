@@ -1,8 +1,8 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 const Login = (): JSX.Element => {
   const [email, setEmail] = useState<string>("");
@@ -10,7 +10,9 @@ const Login = (): JSX.Element => {
 
   const navigation = useNavigation();
 
-  const login = () => {};
+  const login = () => {
+    console.debug("LOGIN :: ATTEMPT :: BTN_CLICK");
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-white">
