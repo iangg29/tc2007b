@@ -32,7 +32,7 @@ const ReqDocumentation = (): JSX.Element => {
         }
       }
     `,
-    {application_id: "8bc874cc-e021-4504-ac90-a473e57e999c"},
+    { application_id: "8bc874cc-e021-4504-ac90-a473e57e999c" },
   );
 
   const { application, applicationdocuments } = data;
@@ -81,8 +81,18 @@ const ReqDocumentation = (): JSX.Element => {
               );
             })}
             <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button text="Aprobar documentos" navigate="../applications/reviewdocuments/detail" next={1} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
-              <Req_Button text="Enviar a correción" navigate="../applications/reviewdocuments" next={-1} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
+              <Req_Button
+                text="Aprobar documentos"
+                navigate="../applications/reviewdocuments/detail"
+                next={1}
+                appID="d558cace-8f9b-4794-a67c-8559542c1ca2"
+              />
+              <Req_Button
+                text="Enviar a correción"
+                navigate="../applications/reviewdocuments"
+                next={-1}
+                appID="d558cace-8f9b-4794-a67c-8559542c1ca2"
+              />
             </div>
           </div>
         </div>

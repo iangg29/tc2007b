@@ -17,7 +17,7 @@ const ReqDetail = (): JSX.Element => {
   const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
     graphql`
       query ReqDetailQuery($application_id: ID!) {
-        application(id: $application_id ) {
+        application(id: $application_id) {
           title
           image
           description
@@ -33,7 +33,7 @@ const ReqDetail = (): JSX.Element => {
         }
       }
     `,
-    {application_id: "8bc874cc-e021-4504-ac90-a473e57e999c"},
+    { application_id: "8bc874cc-e021-4504-ac90-a473e57e999c" },
   );
 
   const { application, applicationdocuments } = data;
@@ -89,8 +89,18 @@ const ReqDetail = (): JSX.Element => {
             <p className="text-justify">{application?.support}</p>
 
             <div className="w-full justify-center flex flex-wrap pt-8 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button text="Aprobar" navigate="/app/applications/reviewapproved" next={2} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
-              <Req_Button text="Rechazar" navigate="/app/applications/reviewdocuments" next={1} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
+              <Req_Button
+                text="Aprobar"
+                navigate="/app/applications/reviewapproved"
+                next={2}
+                appID="d558cace-8f9b-4794-a67c-8559542c1ca2"
+              />
+              <Req_Button
+                text="Rechazar"
+                navigate="/app/applications/reviewdocuments"
+                next={1}
+                appID="d558cace-8f9b-4794-a67c-8559542c1ca2"
+              />
             </div>
           </div>
         </div>
