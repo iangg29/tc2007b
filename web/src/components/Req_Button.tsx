@@ -32,7 +32,7 @@ const ReqButton = ({ text, navigate, appID, next }: Props): JSX.Element => {
     // console.debug(updateApplicationStatus);
 
     nav(navigate);
-  }
+  };
 
   return (
     <>
