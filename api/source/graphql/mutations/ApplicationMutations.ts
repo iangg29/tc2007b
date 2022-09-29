@@ -67,28 +67,24 @@ export default {
       }: any,
     ) => {
       const id = uuid();
-      console.log("NO HAY ERROR 1 ---------------------------------------")
 
       const myUser = await db.select().from(USER_TABLE_NAME).where({ id: user_id })
       .catch((error: Error) => {
         console.error(error);
         throw new GraphQLError(error.name);
       });
-      console.log("NO HAY ERROR 2 ---------------------------------------")
 
       const myApplytatus = await db.select().from(APPLICATION_STATUS_TABLE_NAME).where({ id: application_status_id })
       .catch((error: Error) => {
         console.error(error);
         throw new GraphQLError(error.name);
       });
-      console.log("NO HAY ERROR 3 ---------------------------------------")
       
       const myCitation = await db.select().from(CITATION_TABLE_NAME).where({ id: citation_id })
       .catch((error: Error) => {
         console.error(error);
         throw new GraphQLError(error.name);
       });
-      console.log("NO HAY ERROR 4 ---------------------------------------")
 
       await db(APPLICATION_TABLE_NAME)
         .insert({
