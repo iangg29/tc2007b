@@ -5,7 +5,7 @@ declare global {
     interface ProcessEnv {
       NODE_ENV: string;
       BASE_URL: string;
-      PG_CONNECTION_STRING: string;
+      DB_CACERT: string;
       PG_HOST: string;
       PG_PORT: number;
       PG_USER: string;
