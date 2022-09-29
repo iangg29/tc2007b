@@ -33,9 +33,6 @@ const Home = (): JSX.Element => {
           title
           description
           end_date
-          document {
-            file_name
-          }
         }
       }
     `,

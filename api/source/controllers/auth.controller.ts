@@ -109,9 +109,6 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
-
-  console.log(email);
-  console.log(password);
   
   if (!email || !password) {
     res.status(400).json({

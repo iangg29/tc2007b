@@ -46,6 +46,5 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
 
 export const isPasswordCorrect = async (candidatePassword: string, userPassword: string): Promise<boolean> => {
   const flag = await bcrypt.compare(candidatePassword, userPassword);
-  console.log(flag);
   return flag;
 };

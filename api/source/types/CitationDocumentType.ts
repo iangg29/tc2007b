@@ -1,5 +1,5 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import { GraphQLNonNull, GraphQLObjectType } from "graphql";
+import { GraphQLID, GraphQLNonNull, GraphQLObjectType } from "graphql";
 import { DocumentTypeType } from "./DocumentTypeType";
 import { CitationType } from "./CitationType";
 

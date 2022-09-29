@@ -9,10 +9,14 @@ export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(CITATION_DOCUMENTS_TABLE_NAME, (table: CreateTableBuilder) => {
       // COLUMNS
       table.string("citation_id").notNullable;
-      table.string("document_type_id").notNullable
+      table.string("document_type_id").notNullable;
       // RELATIONSHIPS
         table.foreign("citation_id").references(`${CITATION_TABLE_NAME}.id`).deferrable("deferred");
         table.foreign("document_type_id").references(`${DOCUMENT_TYPE_TABLE_NAME}.id`).deferrable("deferred");
     });
   }
+}
+
+export async function down(knex: Knex): Promise<void> {
+  knex.schema.dropTable(CITATION_DOCUMENTS_TABLE_NAME);
 }

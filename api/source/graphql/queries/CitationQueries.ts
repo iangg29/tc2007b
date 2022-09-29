@@ -15,11 +15,11 @@ export default {
       const citationsActive = await Promise.all(
         mycitations.map(async (citation) => {
           const { document_id } = citation
-          const document = await db.select().table(DOCUMENT_TABLE_NAME).where({ id: document_id })
+          //const document = await db.select().table(DOCUMENT_TABLE_NAME).where({ id: document_id })
 
           return {
             ...citation,
-            document: document[0]
+            //document: document[0]
           }
         })
       )

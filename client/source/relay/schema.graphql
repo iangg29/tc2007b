@@ -3,219 +3,255 @@ schema {
   mutation: RootMutation
 }
 
-"""
-Exposes a URL that specifies the behaviour of this scalar.
-"""
+"""Exposes a URL that specifies the behaviour of this scalar."""
 directive @specifiedBy(
-  """
-  The URL that specifies the behaviour of this scalar.
-  """
+  """The URL that specifies the behaviour of this scalar."""
   url: String!
 ) on SCALAR
 
 """
-Assignable Application Status
+Main application model, contains all the information related with the applications of the users into the system
 """
+type Application {
+  """Application ID"""
+  id: ID!
+
+  """User that uploaded the request"""
+  user: User!
+
+  """Application title"""
+  title: String!
+
+  """Date at which the project will be erased from consideration"""
+  deadline: String
+
+  """Date at which the user compromises to start their project"""
+  start_time: String
+
+  """Date at which the user compromises to finish their project"""
+  end_time: String
+
+  """Application emission date"""
+  emission_date: String!
+
+  """Application response date"""
+  response_date: String!
+
+  """Application status"""
+  applicationStatus: ApplicationStatus!
+
+  """Citation of the application"""
+  citation: Citation!
+
+  """Application creation date"""
+  created_at: String!
+
+  """Last time application was updated"""
+  updated_at: String!
+}
+
+"""Assignable Application Status"""
 type ApplicationStatus {
-  """
-  ApplicationStatus ID
-  """
+  """ApplicationStatus ID"""
   id: ID!
 
-  """
-  ApplicationStatus name
-  """
+  """ApplicationStatus name"""
   name: String!
 
-  """
-  ApplicationStatus creation date
-  """
+  """ApplicationStatus creation date"""
   created_at: String!
 
-  """
-  Last time applicationStatus was updated.
-  """
+  """Last time applicationStatus was updated."""
   updated_at: String!
 }
 
 """
-Authentication response.
+Citation model that contains the document and information the users has to follow in order to get their scholarship
 """
-type AuthenticationResponse {
-  """
-  Is authentication successful.
-  """
-  success: Boolean!
-
-  """
-  Authentication error message.
-  """
-  error: String
-
-  """
-  Authenticated user
-  """
-  user: User
-}
-
-"""
-Frequent question & answer.
-"""
-type FAQ {
-  """
-  FAQ ID
-  """
+type Citation {
+  """Citation's ID"""
   id: ID!
 
-  """
-  FAQ Question
-  """
-  question: String!
+  """Citation's title"""
+  title: String!
 
-  """
-  FAQ Answer
-  """
-  answer: String!
-
-  """
-  FAQ visibility
-  """
-  visible: Boolean!
-
-  """
-  FAQ creation date
-  """
-  created_at: String!
-
-  """
-  Last time FAQ was updated.
-  """
-  updated_at: String!
-}
-
-"""
-Assignable role to users.
-"""
-type Role {
-  """
-  Role ID
-  """
-  id: ID!
-
-  """
-  Role name
-  """
-  name: String!
-
-  """
-  Role description
-  """
+  """Citation's description"""
   description: String!
 
-  """
-  Is role default.
-  """
-  default: Boolean!
+  """Citation's document"""
+  document: Document!
 
-  """
-  Role creation date
-  """
+  """Citation's end date"""
+  end_date: String!
+
+  """Citation's creation date"""
   created_at: String!
 
-  """
-  Last time role was updated.
-  """
+  """Last time citation was updated"""
   updated_at: String!
 }
 
 """
-Application's GraphQL root mutations
+Document model, contains all the specifications of the documents uploaded by the users
 """
+type Document {
+  """Document's ID"""
+  id: ID!
+
+  """User that uploaded the document"""
+  user: User!
+
+  """Document's name"""
+  file_name: String!
+
+  """Document's type"""
+  documentType: DocumentType!
+
+  """Document's creation date"""
+  created_at: String!
+
+  """Last time document got updated"""
+  updated_at: String!
+}
+
+"""Type of document uploaded"""
+type DocumentType {
+  """Document Type ID"""
+  id: ID!
+
+  """Document Type name"""
+  name: String!
+
+  """Document Type creation date"""
+  created_at: String!
+
+  """Last time Document Type was updated"""
+  updated_at: String!
+}
+
+"""Frequent question & answer."""
+type FAQ {
+  """FAQ ID"""
+  id: ID!
+
+  """FAQ Question"""
+  question: String!
+
+  """FAQ Answer"""
+  answer: String!
+
+  """FAQ visibility"""
+  visible: Boolean!
+
+  """FAQ creation date"""
+  created_at: String!
+
+  """Last time FAQ was updated."""
+  updated_at: String!
+}
+
+"""Label assigned to each application"""
+type Label {
+  """Label's ID"""
+  id: ID!
+
+  """Label's name"""
+  name: String!
+
+  """Label's description"""
+  description: String!
+
+  """Application where the labels are linked"""
+  applications: [Application]
+
+  """Label's creation date"""
+  created_at: String!
+
+  """Last time label was updated"""
+  updated_at: String!
+}
+
+"""Assignable role to users."""
+type Role {
+  """Role ID"""
+  id: ID!
+
+  """Role name"""
+  name: String!
+
+  """Role description"""
+  description: String!
+
+  """Is role default."""
+  default: Boolean!
+
+  """Role creation date"""
+  created_at: String!
+
+  """Last time role was updated."""
+  updated_at: String!
+}
+
+"""Application's GraphQL root mutations"""
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
-  login(email: String!, password: String!): AuthenticationResponse
-  signup(
-    name: String!
-    first_lastname: String!
-    second_lastname: String!
-    cellphone: String!
-    email: String!
-    gender: String!
-    password: String!
-    confirm_password: String!
-  ): AuthenticationResponse
+  createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
+  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document
+  createDocumentType(name: String!): DocumentType
   createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
   deleteFAQ(id: ID!): Boolean
 }
 
-"""
-Application's GraphQL root query.
-"""
+"""Application's GraphQL root query."""
 type RootQuery {
   users: [User]
   roles: [Role]
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]
+  documentTypes: [DocumentType]
+  citations: [Citation]
+  documents: [Document]
+  findDocumentsByUserID(user_id: ID): [Document]
+  labels: [Label]
 }
 
 """
 Main application user model, contains all user information w/it's relations.
 """
 type User {
-  """
-  User's ID
-  """
+  """User's ID"""
   id: ID!
 
-  """
-  User's role
-  """
+  """User's role"""
   role: Role
 
-  """
-  User's name
-  """
+  """User's name"""
   name: String!
 
-  """
-  User's first lastname
-  """
+  """User's first lastname"""
   first_lastname: String!
 
-  """
-  User's second lastname
-  """
+  """User's second lastname"""
   second_lastname: String!
 
-  """
-  User's phone
-  """
+  """User's phone"""
   cellphone: String!
 
-  """
-  User's email
-  """
+  """User's email"""
   email: String!
 
-  """
-  User status
-  """
+  """User status"""
   status: Int!
 
-  """
-  User's active status
-  """
+  """User's active status"""
   active: Boolean!
 
-  """
-  User's profile creation date.
-  """
+  """User's profile creation date."""
   created_at: String!
 
-  """
-  Last time user profile got updated
-  """
+  """Last time user profile got updated"""
   updated_at: String!
 }
+

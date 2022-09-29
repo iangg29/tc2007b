@@ -91,6 +91,15 @@ type Citation {
   updated_at: String!
 }
 
+"""Document types required for a citation"""
+type CitationDocuments {
+  """Citation"""
+  citation: Citation!
+
+  """Citation's Document Types"""
+  documentType: DocumentType!
+}
+
 """
 Document model, contains all the specifications of the documents uploaded by the users
 """
@@ -195,7 +204,7 @@ type Role {
 """Application's GraphQL root mutations"""
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
-  createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
+  createCitation(title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document
   createDocumentType(name: String!): DocumentType
   createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
@@ -215,6 +224,7 @@ type RootQuery {
   documents: [Document]
   findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
+  citationDocuments(citation_id: ID): [CitationDocuments]
 }
 
 """
