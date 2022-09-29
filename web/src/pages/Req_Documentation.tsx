@@ -16,7 +16,7 @@ const ReqDocumentation = (): JSX.Element => {
   // Request - Info / Documents
   const data: ReqDocumentationQuery$data = useLazyLoadQuery<ReqDocumentationQuery>(
     graphql`
-      query ReqDocumentationQuery($application_id: ID) {
+      query ReqDocumentationQuery($application_id: ID!) {
         applicationByID(id: $application_id) {
           id
           title
@@ -24,11 +24,11 @@ const ReqDocumentation = (): JSX.Element => {
           user {
             name
           }
-        }
-        applicationdocuments(application_id: $application_id) {
-          file_name
-          url
-          updated_at
+          applicationDocuments {
+            file_name
+            url
+            updated_at
+          }
         }
       }
     `,

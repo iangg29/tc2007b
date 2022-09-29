@@ -9,7 +9,7 @@ import RequestMap from "../../components/RequestCard/RequestMap";
 const ApproveDoc = (): JSX.Element => {
   const data: ApproveDocQuery$data = useLazyLoadQuery<ApproveDocQuery>(
     graphql`
-      query ApproveDocQuery($application_status_id: ID) {
+      query ApproveDocQuery($application_status_id: ID!) {
         applicationByStatusID(application_status_id: $application_status_id) {
           title
           id
