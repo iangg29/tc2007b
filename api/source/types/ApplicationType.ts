@@ -1,9 +1,10 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
+import {GraphQLID, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString} from "graphql";
 import { UserType } from "./UserType";
 import { ApplicationStatusType } from "./ApplicationStatusType";
 import { CitationType } from "./CitationType";
+import {LabelType} from "./LabelType";
 
 export const ApplicationType = new GraphQLObjectType({
   name: "Application",
@@ -49,6 +50,10 @@ export const ApplicationType = new GraphQLObjectType({
     citation: {
       type: GraphQLNonNull(CitationType),
       description: "Citation of the application",
+    },
+    labels: {
+      type: GraphQLList(LabelType),
+      description: "Labels attached to the application",
     },
     created_at: {
       type: GraphQLNonNull(GraphQLString),
