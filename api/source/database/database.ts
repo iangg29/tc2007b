@@ -22,6 +22,9 @@ export const getConnectionConfig = () => {
         database: process.env.PG_DATABASE,
         timezone: TIMEZONE,
       },
+      ssl: {
+        ca: process.env.DB_CACERT,
+      },
       debug: process.env.NODE_ENV === "development",
     };
   } else {
