@@ -14,7 +14,7 @@ const ReqButton = ({ text, navigate, appID, next }: Props): JSX.Element => {
   const handleClick = (e: any) => {
     e.preventDefault();
     nav(navigate);
-  }
+  };
 
   return (
     <>

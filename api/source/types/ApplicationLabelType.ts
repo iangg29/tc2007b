@@ -11,21 +11,5 @@ export const ApplicationLabelType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLID),
       description: "ApplicationLabel ID",
     },
-    // application_id: {
-    //   type: GraphQLNonNull(GraphQLString),
-    //   description: "Application ID",
-    // },
-    // label_id: {
-    //   type: GraphQLNonNull(GraphQLString),
-    //   description: "Label ID",
-    // },
-    // created_at: {
-    //   type: GraphQLNonNull(GraphQLString),
-    //   description: "Date in which label was assigned to the application",
-    // },
-    // updated_at: {
-    //   type: GraphQLNonNull(GraphQLString),
-    //   description: "Date in which label was last updated",
-    // }
   },
 });

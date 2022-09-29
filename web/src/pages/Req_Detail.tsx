@@ -17,7 +17,7 @@ const ReqDetail = (): JSX.Element => {
   const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
     graphql`
       query ReqDetailQuery($application_id: ID) {
-        application(id: $application_id) {
+        applicationByID(id: $application_id) {
           title
           image
           description

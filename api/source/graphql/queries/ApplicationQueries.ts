@@ -2,22 +2,28 @@
 
 import { GraphQLError, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import { ApplicationType } from "../../types/ApplicationType";
+import { DocumentType } from "../../types/DocumentType";
 import { db } from "../../database/database";
 import {
   APPLICATION_STATUS_TABLE_NAME,
   APPLICATION_TABLE_NAME,
+  APPLICATION_DOCUMENTS_TABLE_NAME,
   USER_TABLE_NAME,
   CITATION_TABLE_NAME,
+  DOCUMENT_TABLE_NAME
 } from "../../database/utils/database_constants";
 
 export default {
+  // FETCH ALL (RELATIONSHIPS) FOR EVERY APPLICATION
   applications: {
     type: GraphQLList(ApplicationType),
     resolve: () => {
       return db.select().table(APPLICATION_TABLE_NAME);
     },
   },
-  application: {
+
+  // FETCH ALL (RELATIONSHIPS) FOR ONE APPLICATIONS
+  applicationByID: {
     type: ApplicationType,
     args: {
       id: {
@@ -49,7 +55,7 @@ export default {
       };
     },
   },
-  //Array for applications
+
   applicationByStatusID: {
     type: GraphQLList(ApplicationType),
     args: {
@@ -98,6 +104,38 @@ export default {
       );
 
       return [...newApplicationById];
+    },
+  },
+
+  applicationDocuments: {
+    type: GraphQLList(DocumentType),
+    args: {
+      application_id: {
+        type: GraphQLNonNull(GraphQLID),
+      }
+    },
+    resolve: async (_: any, { application_id }: any) => {
+      const myApplicationDocuments = await db
+        .select()
+        .from(APPLICATION_DOCUMENTS_TABLE_NAME)
+        .where({ application_id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      const result = myApplicationDocuments.map(a => a.document_id);
+
+      const myDocuments = await db
+        .select()
+        .from(DOCUMENT_TABLE_NAME)
+        .whereIn('id', result)
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      return myDocuments;
     },
   },
 };

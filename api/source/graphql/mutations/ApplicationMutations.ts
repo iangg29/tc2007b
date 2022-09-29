@@ -6,8 +6,10 @@ import { v4 as uuid } from "uuid";
 import {
   APPLICATION_STATUS_TABLE_NAME,
   APPLICATION_TABLE_NAME,
+  APPLICATION_DOCUMENTS_TABLE_NAME,
   CITATION_TABLE_NAME,
   USER_TABLE_NAME,
+  DOCUMENT_TABLE_NAME
 } from "../../database/utils/database_constants";
 import { db } from "../../database/database";
 
@@ -174,6 +176,59 @@ export default {
       });
 
       return "Successful status update";
+    },
+  },
+
+  createApplicationDocument: {
+    type: ApplicationType,
+    args: {
+      application_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+      document_id: {
+        type: GraphQLNonNull(GraphQLID),
+      }
+    },
+    resolve: async (_: any, { application_id, document_id }: any) => {
+      const id = uuid();
+
+      const myApplication = await db
+        .select()
+        .from(APPLICATION_TABLE_NAME)
+        .where({ id: application_id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      await db
+        .select()
+        .from(DOCUMENT_TABLE_NAME)
+        .where({ id: application_id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      await db(APPLICATION_DOCUMENTS_TABLE_NAME)
+        .insert({
+          id,
+          application_id,
+          document_id
+        })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      await db
+        .select()
+        .from(APPLICATION_DOCUMENTS_TABLE_NAME)
+        .where("id", id);
+
+      return {
+        ...myApplication[0]
+      };
     },
   },
 
