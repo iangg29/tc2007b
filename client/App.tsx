@@ -8,7 +8,7 @@ import { RelayEnvironmentProvider } from "react-relay/hooks";
 import Tabs from "./source/components/navigator/TabsNavigator";
 
 import relayEnvironment from "./source/relay/RelayEnvironment";
-import { iRoute, Routes } from "./source/routes";
+// import { iRoute, Routes } from "./source/routes";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,7 +23,7 @@ export default function App() {
             ))}
             <Stack.Screen name="Tabs" component={Tabs} />
           </Stack.Navigator> */}
-          <Tabs/>
+          <Tabs />
         </NavigationContainer>
       </Suspense>
     </RelayEnvironmentProvider>
