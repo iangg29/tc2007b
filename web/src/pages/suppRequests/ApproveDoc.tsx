@@ -27,7 +27,7 @@ const ApproveDoc = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "58b9754b-c1ca-47f9-b96e-3e2a8f24a433" },
+    { application_status_id: "58a765a1-1204-48a5-b81c-c8c711aceb18" },
   );
 
   const exampleLabels = [{ label: "Cultura" }, { label: "Baile" }];

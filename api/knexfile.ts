@@ -4,8 +4,7 @@ const path = require("path");
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-const MIN_POOLS = 2;
-const MAX_POOLS = 10;
+
 const TIMEZONE = "America/Mexico_City";
 
 const builder = {
@@ -19,7 +18,7 @@ const builder = {
 };
 
 const defaults = {
-  client: "postgresql",
+  client: "mysql",
   connection: {
     host: process.env.PG_HOST,
     database: process.env.PG_DATABASE,
@@ -27,9 +26,8 @@ const defaults = {
     password: process.env.PG_PASSWORD,
     timezone: TIMEZONE,
   },
-  pool: {
-    min: MIN_POOLS,
-    max: MAX_POOLS,
+  ssl: {
+    ca: process.env.DB_CACERT,
   },
   ...builder,
 };

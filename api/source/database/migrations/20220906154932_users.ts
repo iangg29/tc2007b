@@ -22,7 +22,13 @@ export async function up(knex: Knex): Promise<void> {
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());
       // RELATIONSHIPS
-      table.foreign("role_id").references(`${ROLE_TABLE_NAME}.id`).deferrable("deferred");
+      table
+        .foreign("role_id")
+        .references("id")
+        .inTable(ROLE_TABLE_NAME)
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE")
+        .deferrable("deferred");
     });
   }
 }

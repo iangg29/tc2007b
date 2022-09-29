@@ -32,7 +32,7 @@ const ReqDocumentation = (): JSX.Element => {
         }
       }
     `,
-    {application_id: "c6f1cc82-38a4-4aaf-a2ce-044c059c806d"},
+    {application_id: "8bc874cc-e021-4504-ac90-a473e57e999c"},
   );
 
   const { application, applicationdocuments } = data;
