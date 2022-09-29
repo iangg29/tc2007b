@@ -71,7 +71,20 @@ export default {
           throw new GraphQLError(error.name);
         });
 
-      return [...applications];
+      const applicationsComplete = await Promise.all(
+        applications.map(async (citation) => {
+          const { citation_id, application_status_id } = citation;
+          const myCitation = await db.select().table(CITATION_TABLE_NAME).where({ id: citation });
+          const status = await db.select().table(APPLICATION_STATUS_TABLE_NAME).where({ id: application_status_id });
+          return {
+            ...citation,
+            citation: myCitation[0],
+            applicationStatus: status[0],
+          };
+        }),
+      );
+
+      return [...applicationsComplete];
     },
   },
 };

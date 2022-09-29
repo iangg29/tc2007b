@@ -2,7 +2,9 @@ import { Text, View } from "react-native";
 import { API_URL } from "@env";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 import { LandingQuery, LandingQuery$data } from "./__generated__/LandingQuery.graphql";
-
+import CitationList from "./components/Citation/CitationList";
+import UserApplicationView from "../UserApplicationView";
+import ApplicationStatusView from "../ApplicationStatusView";
 const Landing = () => {
   const result: LandingQuery$data = useLazyLoadQuery<LandingQuery>(
     graphql`
@@ -23,11 +25,7 @@ const Landing = () => {
 
   return (
     <View>
-      <Text>This is the landing page</Text>
-      <View className="flex-row justify-between mx-10">
-        <Text>The env variable is</Text>
-        <Text>{`${API_URL}`}</Text>
-      </View>
+      <ApplicationStatusView status={"finalizado"}></ApplicationStatusView>
     </View>
   );
 };
