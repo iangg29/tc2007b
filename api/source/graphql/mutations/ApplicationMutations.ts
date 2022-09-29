@@ -1,16 +1,12 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { ApplicationType} from "../../types/ApplicationType";
-import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
+import { ApplicationType } from "../../types/ApplicationType";
+import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLInt, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
 import { db } from "../../database/database";
-import {
-  APPLICATION_STATUS_TABLE_NAME,
-  APPLICATION_TABLE_NAME,
-} from "../../database/utils/database_constants";
+import { APPLICATION_STATUS_TABLE_NAME, APPLICATION_TABLE_NAME } from "../../database/utils/database_constants";
 
 export default {
-
   createApplication: {
     type: ApplicationType,
     args: {
@@ -18,10 +14,10 @@ export default {
         type: GraphQLNonNull(GraphQLID),
       },
       title: {
-        type: GraphQLNonNull(GraphQLString)
+        type: GraphQLNonNull(GraphQLString),
       },
       image: {
-        type: GraphQLNonNull(GraphQLString)
+        type: GraphQLNonNull(GraphQLString),
       },
       description: {
         type: GraphQLNonNull(GraphQLString),
@@ -39,18 +35,32 @@ export default {
         type: GraphQLNonNull(GraphQLString),
       },
       response_date: {
-        type: GraphQLNonNull(GraphQLString)
+        type: GraphQLNonNull(GraphQLString),
       },
       application_status_id: {
         type: GraphQLNonNull(GraphQLID),
       },
       citation_id: {
         type: GraphQLNonNull(GraphQLID),
-      }
-
+      },
     },
-    resolve: async (_: any, { user_id, title, image, description, support, deadline, start_time,end_time, emission_date, response_date,
-    application_status_id,citation_id }: any) => {
+    resolve: async (
+      _: any,
+      {
+        user_id,
+        title,
+        image,
+        description,
+        support,
+        deadline,
+        start_time,
+        end_time,
+        emission_date,
+        response_date,
+        application_status_id,
+        citation_id,
+      }: any,
+    ) => {
       const id = uuid();
       await db(APPLICATION_TABLE_NAME)
         .insert({
@@ -63,10 +73,10 @@ export default {
           deadline: deadline,
           start_time: start_time,
           end_time: end_time,
-          emission_date, 
+          emission_date,
           response_date,
           application_status_id,
-          citation_id, 
+          citation_id,
         })
         .catch((error: Error) => {
           console.error(error);
@@ -77,72 +87,81 @@ export default {
     },
   },
 
-//   updateApplication: {
-//     type: ApplicationType,
+  //   updateApplication: {
+  //     type: ApplicationType,
 
-//     args: {
-//         id: {
-//             type: GraphQLNonNull(GraphQLID),
-//           },
-//         applicationStatus: {
-//           type: GraphQLNonNull(ApplicationStatusType),
-//         },
-//         updated_at: {
-//           type: GraphQLNonNull(GraphQLString),
-//         },
+  //     args: {
+  //         id: {
+  //             type: GraphQLNonNull(GraphQLID),
+  //           },
+  //         applicationStatus: {
+  //           type: GraphQLNonNull(ApplicationStatusType),
+  //         },
+  //         updated_at: {
+  //           type: GraphQLNonNull(GraphQLString),
+  //         },
 
-//       },
+  //       },
 
+  //     resolve: async (_: any, { id, applicationStatus, updated_at }: any) => {
+  //       await db(APPLICATION_TABLE_NAME).where("id", id).update({ applicationStatus, updated_at });
+  //       const results = await db(APPLICATION_TABLE_NAME).select().where("id", id);
+  //       return results[0];
+  //     },
+  //   },
 
-//     resolve: async (_: any, { id, applicationStatus, updated_at }: any) => {
-//       await db(APPLICATION_TABLE_NAME).where("id", id).update({ applicationStatus, updated_at });
-//       const results = await db(APPLICATION_TABLE_NAME).select().where("id", id);
-//       return results[0];
-//     },
-//   },
-
-updateApplicationStatus: {
-  type: ApplicationType,
-
-  args: {
-    id: {
-      type: GraphQLNonNull(GraphQLID),
+  updateApplicationStatus: {
+    type: GraphQLString,
+    args: {
+      application_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+      next_status: {
+        type: GraphQLNonNull(GraphQLInt),
+      },
     },
-    application_status_id: {
-      type: GraphQLNonNull(GraphQLID),
+    resolve: async (_: any, { application_id, next_status }: any) => {
+      const application_status_id = await db
+        .select("application_status_id")
+        .table(APPLICATION_TABLE_NAME)
+        .where({ id: application_id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+      
+      const myOldOrder = await db
+        .select("order")
+        .table(APPLICATION_STATUS_TABLE_NAME)
+        .where({ id: application_status_id[0].application_status_id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      const newstatusORDER = myOldOrder[0].order + next_status;
+
+      const newStatusID = await db
+        .select("id")
+        .table(APPLICATION_STATUS_TABLE_NAME)
+        .where({ order: newstatusORDER })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      await db
+      .table(APPLICATION_TABLE_NAME)
+      .update({application_status_id: newStatusID[0].id})
+      .where({id:application_id})
+      .catch((error: Error) => {
+        console.error(error);
+        throw new GraphQLError(error.name);
+      });
+
+      return "Successful status update";
     },
   },
-  resolve: async (_: any, { id, application_status_name }: any) => {
-    const myApplicationStatus = await db
-      .select()
-      .table(APPLICATION_STATUS_TABLE_NAME)
-      .where({ name: application_status_name })
-      .catch((error: Error) => {
-        console.error(error);
-        throw new GraphQLError(error.name);
-      });
-    
-    let result = myApplicationStatus[0].id;
-    
-    await db(APPLICATION_TABLE_NAME)
-      .where("id", id)
-      .update({ result })
-      .catch((error: Error) => {
-        console.error(error);
-        throw new GraphQLError(error.name);
-      });
-
-    const results = await db(APPLICATION_TABLE_NAME)
-      .select()
-      .where("id", id)
-      .catch((error: Error) => {
-        console.error(error);
-        throw new GraphQLError(error.name);
-      });
-
-    return results[0];
-  },
-},
 
   deleteApplication: {
     type: GraphQLBoolean,

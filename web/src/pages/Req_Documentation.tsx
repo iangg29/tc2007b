@@ -32,7 +32,7 @@ const ReqDocumentation = (): JSX.Element => {
         }
       }
     `,
-    {application_id: "f09960dc-6e38-49e5-b2b1-584315683f6c"},
+    {application_id: "d558cace-8f9b-4794-a67c-8559542c1ca2"},
   );
 
   const { application, applicationdocuments } = data;
@@ -81,8 +81,8 @@ const ReqDocumentation = (): JSX.Element => {
               );
             })}
             <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button text="Aprobar documentos" navigate="../Solicitudes/RevisarDocumentos/Detalle" />
-              <Req_Button text="Enviar a correción" navigate="../Solicitudes/RevisarDocumentos" />
+              <Req_Button text="Aprobar documentos" navigate="../Solicitudes/RevisarDocumentos/Detalle" next={1} />
+              <Req_Button text="Enviar a correción" navigate="../Solicitudes/RevisarDocumentos" next={-1} />
             </div>
           </div>
         </div>

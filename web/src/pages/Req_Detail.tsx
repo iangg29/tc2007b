@@ -34,7 +34,7 @@ const ReqDetail = (): JSX.Element => {
         }
       }
     `,
-    {application_id: "f09960dc-6e38-49e5-b2b1-584315683f6c"},
+    {application_id: "d558cace-8f9b-4794-a67c-8559542c1ca2"},
   );
 
   const { application, applicationdocuments } = data;
@@ -89,8 +89,8 @@ const ReqDetail = (): JSX.Element => {
             <p className="text-justify">{application?.support}</p>
 
             <div className="w-full justify-center flex flex-wrap pt-8 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button text="Aprobar" navigate="/app/Solicitudes/RevisarDocumentos" />
-              <Req_Button text="Rechazar" navigate="/app/Solicitudes/RevisarDocumentos" />
+              <Req_Button text="Aprobar" navigate="/app/Solicitudes/RevisarDocumentos" next={2} />
+              <Req_Button text="Rechazar" navigate="/app/Solicitudes/RevisarDocumentos" next={1} />
             </div>
           </div>
         </div>
