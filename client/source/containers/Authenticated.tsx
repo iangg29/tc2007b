@@ -9,7 +9,7 @@ import { useAppSelector } from "../store/hooks";
 import { selectIsLoggedIn } from "../store/slices/authSlice";
 
 export const Authenticated = ({ stack, children }: any): JSX.Element => {
-  const isLoggedIn: boolean = useAppSelector<boolean>(selectIsLoggedIn);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const navigation = useNavigation();
 
   useEffect(() => {

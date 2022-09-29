@@ -41,6 +41,7 @@ const Login = (): JSX.Element => {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-1 items-center justify-center space-y-10 px-10">
+        <Text>{API_URL}</Text>
         {isLoggedIn ? <Text>You are logged in.</Text> : <Text>You are not logged in</Text>}
         <Text className="font-bold text-2xl">Secretaria de Cultura</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Landing")}>
