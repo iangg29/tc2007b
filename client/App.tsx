@@ -7,14 +7,16 @@ import { Text } from "react-native";
 import { Provider } from "react-redux";
 import { RelayEnvironmentProvider } from "react-relay/hooks";
 import { PersistGate } from "redux-persist/integration/react";
-
-import { Authenticated } from "./source/containers/Authenticated";
 import relayEnvironment from "./source/relay/RelayEnvironment";
 import Login from "./source/screens/auth/Login";
 import Landing from "./source/screens/general/Landing";
 import { persistor, store } from "./source/store/store";
+import axios from "axios";
+import { API_URL } from "@env";
 
 const Stack = createNativeStackNavigator();
+
+axios.defaults.baseURL = API_URL;
 
 export default function App() {
   return (
@@ -25,9 +27,7 @@ export default function App() {
             <NavigationContainer>
               <Stack.Navigator>
                 <Stack.Screen name="Login" component={Login} />
-                <Authenticated stack={Stack}>
-                  <Stack.Screen name="Landing" component={Landing} />
-                </Authenticated>
+                <Stack.Screen name="Landing" component={Landing} />
               </Stack.Navigator>
             </NavigationContainer>
           </PersistGate>
