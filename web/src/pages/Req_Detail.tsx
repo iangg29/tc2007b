@@ -41,6 +41,7 @@ const ReqDetail = (): JSX.Element => {
   const user = application?.user;
 
   console.debug(application);
+  console.debug(applicationdocuments);
 
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
@@ -89,8 +90,8 @@ const ReqDetail = (): JSX.Element => {
             <p className="text-justify">{application?.support}</p>
 
             <div className="w-full justify-center flex flex-wrap pt-8 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button text="Aprobar" navigate="/app/Solicitudes/RevisarDocumentos" next={2} />
-              <Req_Button text="Rechazar" navigate="/app/Solicitudes/RevisarDocumentos" next={1} />
+              <Req_Button text="Aprobar" navigate="/app/Solicitudes/RevisarDocumentos" next={2} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
+              <Req_Button text="Rechazar" navigate="/app/Solicitudes/RevisarDocumentos" next={1} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
             </div>
           </div>
         </div>

@@ -18,6 +18,7 @@ const ReqDocumentation = (): JSX.Element => {
     graphql`
       query ReqDocumentationQuery($application_id: ID!) {
         application(id: $application_id) {
+          id
           title
           user_id
           image
@@ -81,8 +82,8 @@ const ReqDocumentation = (): JSX.Element => {
               );
             })}
             <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button text="Aprobar documentos" navigate="../Solicitudes/RevisarDocumentos/Detalle" next={1} />
-              <Req_Button text="Enviar a correción" navigate="../Solicitudes/RevisarDocumentos" next={-1} />
+              <Req_Button text="Aprobar documentos" navigate="../Solicitudes/RevisarDocumentos/Detalle" next={1} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
+              <Req_Button text="Enviar a correción" navigate="../Solicitudes/RevisarDocumentos" next={-1} appID="d558cace-8f9b-4794-a67c-8559542c1ca2" />
             </div>
           </div>
         </div>

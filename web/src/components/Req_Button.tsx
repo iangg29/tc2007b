@@ -1,45 +1,36 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { useNavigate } from "react-router-dom";
-// import { useLazyLoadQuery } from "react-relay";
-// import graphql from "babel-plugin-relay/macro";
+// import { graphql, useMutation } from "react-relay";
 
-// import { ReqDetailQuery, ReqDetailQuery$data } from "./__generated__/ReqButtonReqButtonQuery.graphql";
+// import type {ReqButtonMutation, ReqButtonMutation$data } from './__generated__/ReqButtonMutation.graphql';
 
 interface Props {
   text: string;
   navigate: string;
+  appID: string;
   next: number;
 }
 
-const ReqButton = ({ text, navigate, next }: Props): JSX.Element => {
+const ReqButton = ({ text, navigate, appID, next }: Props): JSX.Element => {
   const nav = useNavigate();
-
-  // Request - Status Update
-  // const data: ReqButtonQuery$data = useLazyLoadQuery<ReqButtonQuery>(
-  //   graphql`
-  //     mutation ReqButtonQuery() {
-  //       updateStatus(id: $application_id, next ) {
-  //         title
-  //         user_id
-  //         image
-  //         description
-  //         support
-  //         user {
-  //           name
-  //         }
-  //       }
-  //     }
-  //   `,
-  //   { },
-  // );
-
-  // const { application, applicationdocuments } = data;
-  // console.debug(application);
 
   const handleClick = (e: any) => {
     e.preventDefault();
-    // Cambiar status
-    // 
+    // const data: ReqButtonMutation$data = useMutation<ReqButtonMutation>(
+    //   graphql`
+    //     mutation ReqButtonMutation($application_id: ID!, $next_status:Int!) {
+    //       updateApplicationStatus(
+    //         application_id: $application_id
+    //         next_status: $next_status
+    //       )
+    //     }
+    //   `,
+    //   {application_id: appID, next_status: next},
+    // );
+
+    // const { updateApplicationStatus } = data;
+    // console.debug(updateApplicationStatus);
+
     nav(navigate);
   }
 
