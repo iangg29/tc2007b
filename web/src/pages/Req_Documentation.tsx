@@ -32,14 +32,12 @@ const ReqDocumentation = (): JSX.Element => {
         }
       }
     `,
-    { application_id: "" },
+    { application_id: "b778942d-7259-486d-b9fa-18281530b9d0" },
   );
 
-  const { application, applicationdocuments } = data;
-  const user = application?.user;
-
-  console.debug(application);
-  console.debug(applicationdocuments);
+  const { applicationByID } = data;
+  const user = applicationByID?.user;
+  const documents = applicationByID?.applicationDocuments;
 
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
@@ -56,8 +54,10 @@ const ReqDocumentation = (): JSX.Element => {
       <div className="w-full grid md:grid-cols-2 pb-8 pl-8 pr-8 md:pl-24 md:pr-24">
         {/* REQUEST - BASIC INFO */}
         <div className="w-full pt-2">
-          <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">Proyecto: {application?.title}</h1>
-          <img className="w-[500px] py-4 pr-8 lg:pr-16" src={application?.image} alt="art" />
+          <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">
+            Proyecto: {applicationByID?.title}
+          </h1>
+          <img className="w-[500px] py-4 pr-8 lg:pr-16" src={applicationByID?.image} alt="art" />
           <p className="text-lg font-semibold tracking-tight text-gray-900">Realizado por: {user?.name}</p>
           <div className="w-[450px] md:w-[280px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
@@ -70,7 +70,7 @@ const ReqDocumentation = (): JSX.Element => {
         <div className="w-full pt-8 md:pt-2 md:pl-12">
           <h2 className="text-xl text-[#396FB1] font-bold pb-2">Documentos</h2>
           <div className="w-fit">
-            {applicationdocuments?.map((elem: any, index) => {
+            {documents?.map((elem: any, index) => {
               return (
                 <Document
                   key={index}

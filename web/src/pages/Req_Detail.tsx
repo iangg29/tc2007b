@@ -33,15 +33,12 @@ const ReqDetail = (): JSX.Element => {
         }
       }
     `,
-    { application_id: "" },
+    { application_id: "b778942d-7259-486d-b9fa-18281530b9d0" },
   );
 
-  const { application } = data;
-  const user = application?.user;
-  // const applicationDocuments = application?.applicationDocuments;
-
-  console.debug(application);
-  // console.debug(applicationdocuments);
+  const { applicationByID } = data;
+  const user = applicationByID?.user;
+  const documents = applicationByID?.applicationDocuments;
 
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
@@ -58,8 +55,10 @@ const ReqDetail = (): JSX.Element => {
       <div className="w-full grid md:grid-cols-2 pb-8 pl-8 pr-8 md:pl-24 md:pr-24">
         {/* REQUEST - BASIC INFO */}
         <div className="w-full pt-2">
-          <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">Proyecto: {application?.title}</h1>
-          <img className="w-[500px] py-4 pr-8 lg:pr-16" src={application?.image} alt="art" />
+          <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">
+            Proyecto: {applicationByID?.title}
+          </h1>
+          <img className="w-[500px] py-4 pr-8 lg:pr-16" src={applicationByID?.image} alt="art" />
           <p className="text-lg font-semibold tracking-tight text-gray-900">Realizado por: {user?.name}</p>
           <div className="w-[450px] md:w-[280px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
@@ -72,10 +71,10 @@ const ReqDetail = (): JSX.Element => {
         <div className="w-full pt-8 pr-8 md:pr-0 lg:pr-8 md:pt-2 md:pl-12">
           <div className="w-fit">
             <h2 className="text-xl text-[#396FB1] font-bold pb-2">Descripción</h2>
-            <p className="text-justify">{application?.description}</p>
+            <p className="text-justify">{applicationByID?.description}</p>
 
             <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Documentos [revisados]</h2>
-            {/* {applicationdocuments?.map((elem: any, index) => {
+            {documents?.map((elem: any, index) => {
               return (
                 <Document
                   key={index}
@@ -84,10 +83,10 @@ const ReqDetail = (): JSX.Element => {
                   link={elem.url}
                 />
               );
-            })} */}
+            })}
 
             <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Apoyo Solicitado</h2>
-            <p className="text-justify">{application?.support}</p>
+            <p className="text-justify">{applicationByID?.support}</p>
 
             <div className="w-full justify-center flex flex-wrap pt-8 gap-4 md:gap-2 lg:gap-4">
               <Req_Button

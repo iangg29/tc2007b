@@ -14,7 +14,7 @@ interface Props {
   announcement: string;
   userName: string;
   userFirstName: string;
-  userLastName?: string;
+  userLastName: string;
   label: Labels[];
   buttonText: String;
   color: string;
@@ -33,7 +33,7 @@ const RequestCard = ({
   color,
   btnLink,
 }: Props): JSX.Element => {
-  const user = `${userName}  ${userFirstName}  ${userLastName}`;
+  const user = userName + userFirstName + userLastName;
 
   return (
     <>

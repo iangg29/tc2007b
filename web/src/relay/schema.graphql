@@ -215,7 +215,7 @@ type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
   createApplication(user_id: ID!, title: String!, image: String!, description: String!, support: String!, deadline: String, end_time: String, emission_date: String!, response_date: String!, application_status_id: ID!, citation_id: ID!): Application
   updateApplicationStatus(application_id: ID!, next_status: Int!): String
-  createApplicationDocument(application_id: ID!, document_id: ID!): Application
+  attachApplicationDocument(application_id: ID!, document_id: ID!): Application
   deleteApplication(id: ID!): Boolean
   createStatus(
     """ApplicationStatus name"""

@@ -26,7 +26,7 @@ const ApproveDoc = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "" },
+    { application_status_id: "262f4d91-3558-473c-b8ea-a40a476d4c98" },
   );
 
   const { applicationByStatusID } = data;

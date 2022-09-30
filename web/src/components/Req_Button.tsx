@@ -11,7 +11,7 @@ interface Props {
 const ReqButton = ({ text, navigate, appID, next }: Props): JSX.Element => {
   const nav = useNavigate();
 
-  const handleClick = (e: any) => {
+  const handleClick = (e: any): void => {
     e.preventDefault();
     nav(navigate);
   };
