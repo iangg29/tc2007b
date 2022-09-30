@@ -18,6 +18,7 @@ interface Props {
   label: Labels[];
   buttonText: String;
   color: string;
+  btnLink: string;
 }
 
 const RequestCard = ({
@@ -30,6 +31,7 @@ const RequestCard = ({
   label,
   buttonText,
   color,
+  btnLink,
 }: Props): JSX.Element => {
   const user = `${userName}  ${userFirstName}  ${userLastName}`;
 
@@ -57,7 +59,7 @@ const RequestCard = ({
                 className="rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:scale-110"
                 style={{ backgroundColor: color }}
               >
-                <Link to={"/app/applications/reviewdocuments/documents"}>{buttonText}</Link>
+                <Link to={btnLink}>{buttonText}</Link>
               </button>
             </div>
           </div>
