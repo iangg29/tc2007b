@@ -19,7 +19,7 @@ const UserApplicationView = () => {
   );
   const mydata: any = data_application_list;
   return (
-    <View className="flex flex-col px-2">
+    <View className=" pl-2">
       <Text className=" text-4xl text-indigo-500 font-semibold py-4">Mis solicitudes</Text>
       <View>
         <ApplicationList applicationsInfo={mydata.applicationsByUserID}></ApplicationList>
