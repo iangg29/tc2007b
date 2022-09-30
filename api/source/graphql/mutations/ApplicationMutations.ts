@@ -1,15 +1,18 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { ApplicationType } from "../../types/ApplicationType";
-import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
+import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
 import {
+  APPLICATION_LABEL_TABLE_NAME,
   APPLICATION_STATUS_TABLE_NAME,
   APPLICATION_TABLE_NAME,
-  CITATION_TABLE_NAME,
-  USER_TABLE_NAME,
+  CITATION_TABLE_NAME, LABEL_TABLE_NAME,
+  USER_TABLE_NAME
 } from "../../database/utils/database_constants";
 import { db } from "../../database/database";
+import { LabelType } from "../../types/LabelType";
+import errorController from "../../controllers/errorController";
 
 export default {
   createApplication: {
@@ -159,6 +162,32 @@ export default {
     resolve: async (_: any, { id }: any) => {
       await db(APPLICATION_TABLE_NAME).where("id", id).del();
       return true;
+    },
+  },
+
+  updateAplicationLabels: {
+    type: ApplicationType,
+    args: {
+      application_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+      label_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+    },
+    resolve: async (_: any, { application_id, label_id }: any) => {
+
+      await db(APPLICATION_LABEL_TABLE_NAME)
+        .insert({
+          application_id,
+          label_id
+        })
+        .catch((error: Error) => {
+          console.error(error);
+          throw  new GraphQLError(error.name);
+        });
+
+      return {};
     },
   },
 };
