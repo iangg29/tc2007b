@@ -87,12 +87,7 @@ const ReqDocumentation = (): JSX.Element => {
                 next={1}
                 appID=""
               />
-              <Req_Button
-                text="Enviar a correción"
-                navigate="../applications/reviewdocuments"
-                next={-1}
-                appID=""
-              />
+              <Req_Button text="Enviar a correción" navigate="../applications/reviewdocuments" next={-1} appID="" />
             </div>
           </div>
         </div>

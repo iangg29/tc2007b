@@ -89,18 +89,8 @@ const ReqDetail = (): JSX.Element => {
             <p className="text-justify">{applicationByID?.support}</p>
 
             <div className="w-full justify-center flex flex-wrap pt-8 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button
-                text="Aprobar"
-                navigate="/app/applications/reviewapproved"
-                next={2}
-                appID=""
-              />
-              <Req_Button
-                text="Rechazar"
-                navigate="/app/applications/reviewdocuments"
-                next={1}
-                appID=""
-              />
+              <Req_Button text="Aprobar" navigate="/app/applications/reviewapproved" next={2} appID="" />
+              <Req_Button text="Rechazar" navigate="/app/applications/reviewdocuments" next={1} appID="" />
             </div>
           </div>
         </div>
