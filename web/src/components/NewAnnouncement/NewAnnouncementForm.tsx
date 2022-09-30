@@ -64,7 +64,7 @@ const NewAnnouncementForm = (): JSX.Element => {
   const docType = list
     ?.filter((element: any) => element.isChecked === true)
     .map((filteredElement: any) => {
-      const newElement: any = { id: filteredElement.id };
+      const newElement: any = filteredElement.id;
       return newElement;
     });
   console.log("list", list);
@@ -148,10 +148,17 @@ const NewAnnouncementForm = (): JSX.Element => {
             onClick={() => {
               commitMutation({
                 variables: {
-                  title: titleRef as unknown as string,
-                  description: descriptionRef as unknown as string,
-                  end_date: endDdateRef as unknown as string,
+                  title: titleRef.current?.value as unknown as string,
+                  description: descriptionRef.current?.value as unknown as string,
+                  end_date: endDdateRef.current?.value as unknown as string,
                   document_types: docType as unknown as [string],
+                },
+                onCompleted: (data) => {
+                  console.log(data);
+                },
+                onError: () => {
+                  console.log("error :(");
+                  console.log(docType);
                 },
               });
             }}
