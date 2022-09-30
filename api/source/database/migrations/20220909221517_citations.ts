@@ -16,7 +16,16 @@ export async function up(knex: Knex): Promise<void> {
       table.timestamp("updated_at").defaultTo(knex.fn.now());
       table.timestamp("end_date").notNullable();
       // RELATIONSHIPS
+
+      //Commented this since this part is not ready yet
       //table.foreign("document_id").references(`${DOCUMENT_TABLE_NAME}.id`).deferrable("deferred");
+      // table
+      //   .foreign("document_id")
+      //   .references("id")
+      //   .inTable(DOCUMENT_TABLE_NAME)
+      //   .onUpdate("CASCADE")
+      //   .onDelete("CASCADE")
+      //   .deferrable("deferred");
     });
   }
 }
