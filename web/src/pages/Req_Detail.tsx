@@ -33,7 +33,7 @@ const ReqDetail = (): JSX.Element => {
         }
       }
     `,
-    { application_id: "b778942d-7259-486d-b9fa-18281530b9d0" },
+    { application_id: "" },
   );
 
   const { applicationByID } = data;
@@ -93,13 +93,13 @@ const ReqDetail = (): JSX.Element => {
                 text="Aprobar"
                 navigate="/app/applications/reviewapproved"
                 next={2}
-                appID="d558cace-8f9b-4794-a67c-8559542c1ca2"
+                appID=""
               />
               <Req_Button
                 text="Rechazar"
                 navigate="/app/applications/reviewdocuments"
                 next={1}
-                appID="d558cace-8f9b-4794-a67c-8559542c1ca2"
+                appID=""
               />
             </div>
           </div>
