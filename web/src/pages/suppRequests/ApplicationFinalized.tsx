@@ -1,7 +1,5 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import RequestCard from "../../components/RequestCard/RequestCard";
-import back from "../../assets/background/login.png";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
@@ -9,6 +7,7 @@ import {
   ApplicationFinalizedQuery,
   ApplicationFinalizedQuery$data,
 } from "./__generated__/ApplicationFinalizedQuery.graphql";
+import RequestMap from "../../components/RequestCard/RequestMap";
 
 const ApplicationFinalized = (): JSX.Element => {
   const data: ApplicationFinalizedQuery$data = useLazyLoadQuery<ApplicationFinalizedQuery>(
@@ -33,8 +32,6 @@ const ApplicationFinalized = (): JSX.Element => {
     { application_status_id: "" },
   );
 
-  const exampleLabels = [{ label: "Cultura" }, { label: "Baile" }];
-
   const { applicationByStatusID } = data;
 
   console.debug(applicationByStatusID);
@@ -53,18 +50,13 @@ const ApplicationFinalized = (): JSX.Element => {
           </h1>
         ) : (
           applicationByStatusID?.map((element: any) => (
-            <RequestCard
+            <RequestMap
               key={element.id}
-              image={back}
-              proyectTile={element.title}
-              announcement={element.citation.title}
-              userName={element.user.name}
-              userFirstName={element.user.first_lastname}
-              userLastName={element.user.second_lastname}
-              label={exampleLabels}
-              buttonText="Ver"
-              color="#D0A52A"
-            />
+              element={element}
+              text={"Ver"}
+              color={"#D0A52A"}
+              link={"/app/applications/reviewdocuments/documents"}
+            ></RequestMap>
           ))
         )}
       </div>

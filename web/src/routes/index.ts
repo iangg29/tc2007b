@@ -10,7 +10,6 @@ const ApproveDocs = lazy(async () => await import("../pages/suppRequests/Approve
 const ApproveApplications = lazy(async () => await import("../pages/suppRequests/ApproveApplication"));
 const ApplicationAccepted = lazy(async () => await import("../pages/suppRequests/ApplicationAccepted"));
 const ApplicationFinalized = lazy(async () => await import("../pages/suppRequests/ApplicationFinalized"));
-const Chat = lazy(async () => await import("../pages/Chat/Chat"));
 const Analytic = lazy(async () => await import("../pages/analytics/Analytic"));
 const Detail = lazy(async () => await import("../pages/Req_Detail"));
 const Documentation = lazy(async () => await import("../pages/Req_Documentation"));
@@ -30,15 +29,11 @@ const routes: iRoute[] = [
     components: Analytic,
   },
   {
-    path: "/chat",
-    components: Chat,
-  },
-  {
     path: "/applications/reviewdocuments",
     components: ApproveDocs,
   },
   {
-    path: "/applications/reviewPpoposals",
+    path: "/applications/reviewproposals",
     components: ApproveApplications,
   },
   {
@@ -50,15 +45,15 @@ const routes: iRoute[] = [
     components: ApplicationFinalized,
   },
   {
-    path: "/Solicitudes/RevisarDocumentos/Documentos",
+    path: "/applications/reviewdocuments/documents",
     components: Documentation,
   },
   {
-    path: "/Solicitudes/RevisarDocumentos/Detalle",
+    path: "/applications/reviewdocuments/detail",
     components: Detail,
   },
   {
-    path: "/Solicitudes/RevisarDocumentos/Evidencia",
+    path: "/applications/reviewfinished/evidence",
     components: Evidence,
   },
   {

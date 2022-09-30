@@ -38,10 +38,6 @@ const NavBar = (): JSX.Element => {
             <NavLink to={"/app/analytics"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
               Analíticas
             </NavLink>
-
-            <NavLink to={"/app/chat"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
-              Chat
-            </NavLink>
           </Navbar.Collapse>
         </Navbar>
       </div>

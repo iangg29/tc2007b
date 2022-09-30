@@ -1,18 +1,23 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { GraphQLObjectType, GraphQLSchema } from "graphql";
+
+// Queries
+import FAQQueries from "./queries/FAQQueries";
 import UserQueries from "./queries/UserQueries";
 import RoleQueries from "./queries/RoleQueries";
-import RoleMutations from "./mutations/RoleMutations";
-import ApplicationStatusQueries from "./queries/ApplicationStatusQueries";
-import FAQQueries from "./queries/FAQQueries";
-import FAQMutations from "./mutations/FAQMutations";
-import DocumentTypeQueries from "./queries/DocumentTypeQueries";
-import DocumentQueries from "./queries/DocumentQueries";
 import CitationQueries from "./queries/CitationQueries";
 import LabelQueries from "./queries/LabelQueries";
 import ApplicationQueries from "./queries/ApplicationQueries";
-import ApplicationMutation from "./mutations/ApplicationMutations";
+import ApplicationStatusQueries from "./queries/ApplicationStatusQueries";
+import DocumentQueries from "./queries/DocumentQueries";
+import DocumentTypeQueries from "./queries/DocumentTypeQueries";
+
+// Mutations
+import FAQMutations from "./mutations/FAQMutations";
+import RoleMutations from "./mutations/RoleMutations";
+import CitationMutations from "./mutations/CitationMutations";
+import ApplicationMutations from "./mutations/ApplicationMutations";
 import ApplicationStatusMutations from "./mutations/ApplicationStatusMutations";
 import CitationMutation from "./mutations/CitationMutation";
 import DocumentTypeMutation from "./mutations/DocumentTypeMutation";
@@ -28,13 +33,13 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     ...UserQueries,
     ...RoleQueries,
+    ...ApplicationQueries,
     ...ApplicationStatusQueries,
     ...FAQQueries,
     ...DocumentTypeQueries,
     ...CitationQueries,
     ...DocumentQueries,
     ...LabelQueries,
-    ...ApplicationQueries,
   },
 });
 
@@ -46,13 +51,12 @@ const RootMutation = new GraphQLObjectType({
   description: "Application's GraphQL root mutations",
   fields: {
     ...RoleMutations,
-    ...ApplicationMutation,
+    ...ApplicationMutations,
     ...ApplicationStatusMutations,
-    ...CitationMutation,
-    ...DocumentMutation,
-    ...DocumentTypeMutation,
     ...FAQMutations,
-    ...LabelMutations,
+    ...DocumentMutations,
+    ...CitationMutations,
+    ...DocumentTypeMutations
   },
 });
 

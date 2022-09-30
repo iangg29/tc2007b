@@ -1,13 +1,12 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { ApplicationStatusType } from "../../types/ApplicationStatusType";
-import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
+import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLInt } from "graphql";
 import { v4 as uuid } from "uuid";
 import { db } from "../../database/database";
 import { APPLICATION_STATUS_TABLE_NAME } from "../../database/utils/database_constants";
 
 export default {
-    
   createStatus: {
     type: ApplicationStatusType,
     args: {
@@ -15,13 +14,18 @@ export default {
             type: GraphQLNonNull(GraphQLString),
             description: "ApplicationStatus name",
           },
+          order: {
+            type: GraphQLNonNull(GraphQLInt),
+            description: "ApplicationStatus order",
+          },
     },
-    resolve: async (_: any, { name }: any) => {
+    resolve: async (_: any, { name, order }: any) => {
       const id = uuid();
       await db(APPLICATION_STATUS_TABLE_NAME)
         .insert({
           id,
           name,
+          order,
         })
         .catch((error: Error) => {
           console.error(error);
