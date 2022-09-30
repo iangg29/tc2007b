@@ -96,9 +96,9 @@ const Home = (): JSX.Element => {
               </>
             ) : (
               <>
-                <div className="flex flex-row">
+                <div className="flex flex-row flex-wrap">
                   {citations?.map((element: any) => (
-                    <div className="flex flex-col" key={element.id}>
+                    <div className="flex flex-col basis-1/3" key={element.id}>
                       <NoticeCard img={element.description} name={element.title} date={element.end_date} />
                     </div>
                   ))}
