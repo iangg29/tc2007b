@@ -38,10 +38,10 @@ const ReqDetail = (): JSX.Element => {
 
   const { application } = data;
   const user = application?.user;
-  const applicationDocuments = application?.applicationDocuments;
+  // const applicationDocuments = application?.applicationDocuments;
 
   console.debug(application);
-  console.debug(applicationdocuments);
+  // console.debug(applicationdocuments);
 
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
@@ -75,7 +75,7 @@ const ReqDetail = (): JSX.Element => {
             <p className="text-justify">{application?.description}</p>
 
             <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Documentos [revisados]</h2>
-            {applicationdocuments?.map((elem: any, index) => {
+            {/* {applicationdocuments?.map((elem: any, index) => {
               return (
                 <Document
                   key={index}
@@ -84,7 +84,7 @@ const ReqDetail = (): JSX.Element => {
                   link={elem.url}
                 />
               );
-            })}
+            })} */}
 
             <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Apoyo Solicitado</h2>
             <p className="text-justify">{application?.support}</p>

@@ -2,7 +2,6 @@
 
 import { GraphQLError, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import { ApplicationType } from "../../types/ApplicationType";
-import { DocumentType } from "../../types/DocumentType";
 import { db } from "../../database/database";
 import {
   APPLICATION_STATUS_TABLE_NAME,
@@ -12,6 +11,7 @@ import {
   CITATION_TABLE_NAME,
   DOCUMENT_TABLE_NAME
 } from "../../database/utils/database_constants";
+import { genApplications } from "../../database/utils/generics/queries";
 
 export default {
   applications: {
@@ -26,60 +26,8 @@ export default {
           throw new GraphQLError(error.name);
       });
 
-      const newApplications = await Promise.all(
-        Applications.map(async (application, index) => {
-          const users = await db.select().table(USER_TABLE_NAME).where({ id: application.user_id });
-
-          const applicationStatus = await db
-            .select()
-            .table(APPLICATION_STATUS_TABLE_NAME)
-            .where({ id: application.application_status_id })
-            .catch((error: Error) => {
-              console.error(error);
-              throw new GraphQLError(error.name);
-            });
-           
-          const citation = await db
-            .select()
-            .table(CITATION_TABLE_NAME)
-            .where({ id: application.citation_id })
-            .catch((error: Error) => {
-              console.error(error);
-              throw new GraphQLError(error.name);
-            });
-         
-          const docs = await db
-            .select()
-            .from(APPLICATION_DOCUMENTS_TABLE_NAME)
-            .where({ application_id: application.id })
-            .catch((error: Error) => {
-              console.error(error);
-              throw new GraphQLError(error.name);
-          });
-   
-          const result = docs.map(a => a.document_id);
-   
-          const documents = await db
-            .select()
-            .from(DOCUMENT_TABLE_NAME)
-            .whereIn('id', result)
-            .catch((error: Error) => {
-              console.error(error);
-              throw new GraphQLError(error.name);
-          });
-  
-          const newApplication = {
-            ...application,
-            applicationStatus: applicationStatus[0],
-            user: users[0],
-            citation: citation[0],
-            applicationDocuments: documents
-          };
-          return newApplication;
-        }),
-      );
- 
-      return [...newApplications];
+      const applications = await genApplications(Applications);
+      return applications;
     },
   },
 
@@ -170,7 +118,7 @@ export default {
       },
     },
     resolve: async (_: any, { application_status_id }: any) => {
-      const applications = await db
+      const Applications = await db
         .select()
         .table(APPLICATION_TABLE_NAME)
         .where({ application_status_id: application_status_id })
@@ -179,59 +127,8 @@ export default {
           throw new GraphQLError(error.name);
         });
 
-      const newApplicationById = await Promise.all(
-        applications.map(async (application, index) => {
-          const user = await db.select().table(USER_TABLE_NAME).where({ id: application.user_id });
-          const applicationStatus = await db
-            .select()
-            .table(APPLICATION_STATUS_TABLE_NAME)
-            .where({ id: application.application_status_id })
-            .catch((error: Error) => {
-              console.error(error);
-              throw new GraphQLError(error.name);
-            });
-            
-          const citation = await db
-            .select()
-            .table(CITATION_TABLE_NAME)
-            .where({ id: application.citation_id })
-            .catch((error: Error) => {
-              console.error(error);
-              throw new GraphQLError(error.name);
-            });
-          
-          const docs = await db
-            .select()
-            .from(APPLICATION_DOCUMENTS_TABLE_NAME)
-            .where({ application_id: application.id })
-            .catch((error: Error) => {
-              console.error(error);
-              throw new GraphQLError(error.name);
-          });
-    
-          const result = docs.map(a => a.document_id);
-    
-          const documents = await db
-            .select()
-            .from(DOCUMENT_TABLE_NAME)
-            .whereIn('id', result)
-            .catch((error: Error) => {
-              console.error(error);
-              throw new GraphQLError(error.name);
-          });
-
-          const newApplication = {
-            ...application,
-            applicationStatus: applicationStatus[0],
-            user: user[0],
-            citation: citation[0],
-            applicationDocuments: documents
-          };
-          return newApplication;
-        }),
-      );
-
-      return [...newApplicationById];
+      const applications = await genApplications(Applications);
+      return applications;
     },
   },
 };
