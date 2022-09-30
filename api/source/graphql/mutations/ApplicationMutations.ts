@@ -50,7 +50,6 @@ export default {
       citation_id: {
         type: GraphQLNonNull(GraphQLID),
       },
-      // PASO DOCUMENTOS YA CREADOS
     },
     resolve: async (
       _: any,
@@ -71,7 +70,6 @@ export default {
     ) => {
       const id = uuid();
 
-      // CREO MI APPLICATION
       const myUser = await db.select().from(USER_TABLE_NAME).where({ id: user_id })
       .catch((error: Error) => {
         console.error(error);
@@ -110,8 +108,6 @@ export default {
           console.error(error);
           throw new GraphQLError(error.name);
         });
-
-        // AQUÍ INSERTO EN TABLA PIVOTE
 
       const newApplication = await db.select().from(APPLICATION_TABLE_NAME).where("id", id)
       .catch((error: Error) => {
