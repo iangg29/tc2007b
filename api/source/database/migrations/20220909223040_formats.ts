@@ -15,8 +15,20 @@ export async function up(knex: Knex): Promise<void> {
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());
       // RELATIONSHIPS
-      table.foreign("citation_id").references(`${CITATION_TABLE_NAME}.id`).deferrable("deferred");
-      table.foreign("document_id").references(`${DOCUMENT_TABLE_NAME}.id`).deferrable("deferred");
+      table
+        .foreign("citation_id")
+        .references("id")
+        .inTable(CITATION_TABLE_NAME)
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE")
+        .deferrable("deferred");
+      table
+        .foreign("document_id")
+        .references("id")
+        .inTable(DOCUMENT_TABLE_NAME)
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE")
+        .deferrable("deferred");
     });
   }
 }

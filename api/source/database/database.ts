@@ -13,6 +13,7 @@ const TIMEZONE: string = "America/Mexico_City";
 export const getConnectionConfig = () => {
   if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "development") {
     return {
+      client: "mysql",
       connection: {
         host: process.env.PG_HOST,
         port: process.env.PG_PORT,
@@ -21,9 +22,8 @@ export const getConnectionConfig = () => {
         database: process.env.PG_DATABASE,
         timezone: TIMEZONE,
       },
-      pool: {
-        min: 2,
-        max: 7,
+      ssl: {
+        ca: process.env.DB_CACERT,
       },
       debug: process.env.NODE_ENV === "development",
     };
@@ -46,8 +46,4 @@ export const getConnectionConfig = () => {
     };
   }
 };
-export const db = knex({
-  client: "pg",
-  ...getConnectionConfig(),
-  searchPath: ["knex", "public"],
-} as Config);
+export const db = knex(getConnectionConfig() as Config);
