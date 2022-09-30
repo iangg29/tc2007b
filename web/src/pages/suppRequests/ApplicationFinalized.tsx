@@ -50,7 +50,13 @@ const ApplicationFinalized = (): JSX.Element => {
           </h1>
         ) : (
           applicationByStatusID?.map((element: any) => (
-            <RequestMap key={element.id} element={element} text={"Ver"} color={"#D0A52A"}></RequestMap>
+            <RequestMap
+              key={element.id}
+              element={element}
+              text={"Ver"}
+              color={"#D0A52A"}
+              link={"/app/applications/reviewdocuments/documents"}
+            ></RequestMap>
           ))
         )}
       </div>

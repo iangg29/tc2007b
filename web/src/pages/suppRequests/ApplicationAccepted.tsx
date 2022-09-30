@@ -50,7 +50,13 @@ const ApplicationAccepted = (): JSX.Element => {
           </h1>
         ) : (
           applicationByStatusID?.map((element: any) => (
-            <RequestMap key={element.id} element={element} text={"Dar seguimiento"} color={"#50245C"}></RequestMap>
+            <RequestMap
+              key={element.id}
+              element={element}
+              text={"Dar seguimiento"}
+              color={"#50245C"}
+              link={"/app/applications/reviewdocuments/documents"}
+            ></RequestMap>
           ))
         )}
       </div>

@@ -18,6 +18,7 @@ interface user {
 interface Props {
   text: string;
   color: string;
+  link: string;
   element: {
     title: string;
     citation: citation;
@@ -25,7 +26,7 @@ interface Props {
   };
 }
 
-const RequestMap = ({ element, text, color }: Props): JSX.Element => {
+const RequestMap = ({ element, text, color, link }: Props): JSX.Element => {
   const exampleLabels = [{ label: "Cultura" }, { label: "Baile" }];
 
   return (
@@ -40,6 +41,7 @@ const RequestMap = ({ element, text, color }: Props): JSX.Element => {
         label={exampleLabels}
         buttonText={text}
         color={color}
+        btnLink={link}
       />
     </>
   );
