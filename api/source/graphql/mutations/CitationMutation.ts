@@ -51,13 +51,9 @@ export default {
         });
 
       const newCitation = await db.select().from(CITATION_TABLE_NAME).where({ id });
-      //const myDocumentTypes = await db.select().from(CITATION_DOCUMENTS_TABLE_NAME).where({ citation_id: id });
-      //const myDocument = await db.select().from(DOCUMENT_TABLE_NAME).where({ id: document_id });
 
       return {
         ...newCitation[0],
-
-        //document: myDocument[0],
       };
     },
   },

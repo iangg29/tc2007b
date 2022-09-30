@@ -212,10 +212,10 @@ type RootQuery {
   faqs: [FAQ]
   documentTypes: [DocumentType]
   citations: [Citation]
+  citationDocuments(id: ID!): [DocumentType]
   documents: [Document]
   findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
-  citationDocuments(id: ID!): [Document]
 }
 
 """

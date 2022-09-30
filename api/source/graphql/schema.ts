@@ -14,7 +14,6 @@ import LabelQueries from "./queries/LabelQueries";
 import CitationMutation from "./mutations/CitationMutation";
 import DocumentMutation from "./mutations/DocumentMutation";
 import DocumentTypeMutation from "./mutations/DocumentTypeMutation";
-import CitationDocumentQueries from "./queries/CitationDocumentQueries";
 /**
  * GraphQLObject that unifies every query that the application uses.
  */
@@ -30,7 +29,6 @@ const RootQuery = new GraphQLObjectType({
     ...CitationQueries,
     ...DocumentQueries,
     ...LabelQueries,
-    ...CitationDocumentQueries,
   },
 });
 
