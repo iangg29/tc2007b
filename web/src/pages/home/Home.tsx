@@ -77,10 +77,10 @@ const Home = (): JSX.Element => {
               Activas
             </button>
           </div>
-          <div className="flex flex-wrap">
+          <div>
             {showCitation ? (
               <>
-                <div className="flex flex-row flex-wrap">
+                <div className="flex flex-row flex-wrap w-full">
                   {citations
                     ?.filter((element: any) => element.end_date >= date)
                     .map((filteredElement: any) => (
