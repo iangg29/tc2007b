@@ -6,20 +6,10 @@ import { db } from "../../database/database";
 import { USER_TABLE_NAME } from "../../database/utils/database_constants";
 
 export default {
-  user: {
-    type: UserType,
-    args: {
-      id: {
-        type: GraphQLNonNull(GraphQLID),
-      },
+  users: {
+    type: GraphQLList(UserType),
+    resolve: () => {
+      return db.select().table(USER_TABLE_NAME);
     },
-    resolve: async (_: any, { id }: any) => {
-      const user = await db.select().from(USER_TABLE_NAME).where({ id })
-        .catch((error: Error) => {
-          console.error(error);
-          throw new GraphQLError(error.name);
-        });
-      return user[0];
-    },
-  }
+  },
 };
