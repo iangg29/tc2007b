@@ -12,7 +12,10 @@ import {
 export const genApplications = async (Applications: any) => {
     const newApplications = await Promise.all(
         Applications.map(async (application: any) => {
-          const users = await db.select().table(USER_TABLE_NAME).where({ id: application.user_id });
+          const users = await db
+            .select()
+            .table(USER_TABLE_NAME)
+            .where({ id: application.user_id });
 
           const applicationStatus = await db
             .select()
@@ -61,7 +64,7 @@ export const genApplications = async (Applications: any) => {
           };
           return newApplication;
         }),
-      );
+    );
  
-      return [...newApplications];
+    return [...newApplications];
 }
