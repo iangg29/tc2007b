@@ -24,6 +24,10 @@ export const DocumentType = new GraphQLObjectType({
       type: GraphQLNonNull(DocumentTypeType),
       description: "Document's type",
     },
+    url: {
+      type: GraphQLNonNull(GraphQLID),
+      description: "Document's URL",
+    },
     created_at: {
       type: GraphQLNonNull(GraphQLString),
       description: "Document's creation date",

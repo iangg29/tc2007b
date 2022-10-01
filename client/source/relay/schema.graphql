@@ -128,11 +128,6 @@ type Citation {
   document: Document!
 
   """
-  Citation's end date
-  """
-  end_date: String!
-
-  """
   Citation's creation date
   """
   created_at: String!
@@ -141,6 +136,11 @@ type Citation {
   Last time citation was updated
   """
   updated_at: String!
+
+  """
+  Citation's end date
+  """
+  end_date: String!
 }
 
 """
@@ -160,7 +160,7 @@ type Document {
   """
   Document's name
   """
-  file_name: String!
+  name: String!
 
   """
   Document's type
@@ -258,11 +258,6 @@ type Label {
   description: String!
 
   """
-  Application where the labels are linked
-  """
-  applications: [Application]
-
-  """
   Label's creation date
   """
   created_at: String!
@@ -313,8 +308,26 @@ Application's GraphQL root mutations
 """
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
-  createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
-  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document
+  createApplication(
+    user_id: ID!
+    title: String!
+    deadline: String
+    end_time: String
+    emission_date: String!
+    response_date: String!
+    application_status_id: ID!
+    citation_id: ID!
+  ): Application
+  updateApplicationStatus(id: ID!, application_status_id: ID!): Application
+  deleteApplication(id: ID!): Boolean
+  createStatus(
+    """
+    ApplicationStatus name
+    """
+    name: String!
+  ): ApplicationStatus
+  deleteStatus(id: ID!): Boolean
+  createCitation(title: String!, description: String!, document_id: ID!): Citation
   createDocumentType(name: String!): DocumentType
   createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
@@ -331,10 +344,11 @@ type RootQuery {
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]
   documentTypes: [DocumentType]
-  citations: [Citation]
   documents: [Document]
-  findDocumentsByUserID(user_id: ID): [Document]
+  citations: [Citation]
   labels: [Label]
+  applications: [Application]
+  applicationByStatusID(application_status_id: ID!): [Application]
 }
 
 """

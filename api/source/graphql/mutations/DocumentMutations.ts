@@ -49,7 +49,7 @@ export default {
           user_id,
           file_name,
           file_type_id,
-          url: "www.algo.com",
+          url: "https://www.africau.edu/images/default/sample.pdf",
         })
         .catch((error: Error) => {
           console.error(error);
@@ -57,9 +57,7 @@ export default {
         });
 
       const newDocument = await db.select().from(DOCUMENT_TABLE_NAME).where({ id });
-
       const myUser = await db.select().from(USER_TABLE_NAME).where({ id: user_id });
-
       const myDocumentType = await db.select().from(DOCUMENT_TYPE_TABLE_NAME).where({ id: file_type_id });
 
       return {

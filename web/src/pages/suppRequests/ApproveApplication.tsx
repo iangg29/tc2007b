@@ -3,13 +3,13 @@
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
-import { ApproveDocQuery, ApproveDocQuery$data } from "./__generated__/ApproveDocQuery.graphql";
+import { ApproveApplicationQuery, ApproveApplicationQuery$data } from "./__generated__/ApproveApplicationQuery.graphql";
 import RequestMap from "../../components/RequestCard/RequestMap";
 
-const ApproveDoc = (): JSX.Element => {
-  const data: ApproveDocQuery$data = useLazyLoadQuery<ApproveDocQuery>(
+const ApproveApplication = (): JSX.Element => {
+  const data: ApproveApplicationQuery$data = useLazyLoadQuery<ApproveApplicationQuery>(
     graphql`
-      query ApproveDocQuery($application_status_id: ID!) {
+      query ApproveApplicationQuery($application_status_id: ID!) {
         applicationByStatusID(application_status_id: $application_status_id) {
           title
           id
@@ -37,21 +37,21 @@ const ApproveDoc = (): JSX.Element => {
 
   return (
     <>
-      <h5 className=" py-5 text-2xl text-main-100">Solicitudes para revisión de documentos</h5>
+      <h5 className=" py-5 text-2xl text-main-100">Solicitudes para revisión de propuestas</h5>
 
       <div className="grid grid-cols-3">
         {empty ? (
           <h1 className="col-span-3 text-center">
             <br />
-            No hay solicitudes pendientes de revisión de documentos.
+            No hay solicitudes pendientes de revisión de propuesta.
           </h1>
         ) : (
           applicationByStatusID?.map((element: any) => (
             <RequestMap
               key={element.id}
               element={element}
-              text={"Revisar documentos"}
-              color={"#244B5C"}
+              text={"Revisar Propuesta"}
+              color={"#252d53"}
               link={"/app/applications/reviewdocuments/documents"}
             ></RequestMap>
           ))
@@ -61,4 +61,4 @@ const ApproveDoc = (): JSX.Element => {
   );
 };
 
-export default ApproveDoc;
+export default ApproveApplication;
