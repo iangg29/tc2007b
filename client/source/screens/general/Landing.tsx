@@ -1,27 +1,16 @@
-import { Text, View } from "react-native";
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { API_URL } from "@env";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 import { LandingQuery, LandingQuery$data } from "./__generated__/LandingQuery.graphql";
 import CitationList from "./components/Citation/CitationList";
 import UserApplicationView from "../UserApplicationView";
 import ApplicationStatusView from "../ApplicationStatusView";
+import React from "react";
+import { View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 const Landing = () => {
-  const result: LandingQuery$data = useLazyLoadQuery<LandingQuery>(
-    graphql`
-      query LandingQuery {
-        users {
-          id
-          name
-          first_lastname
-          email
-          created_at
-        }
-      }
-    `,
-    {},
-  );
-
-  console.log(result);
+  const navigation = useNavigation();
 
   return (
     <View>

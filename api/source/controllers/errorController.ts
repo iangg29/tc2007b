@@ -46,7 +46,7 @@ export default (error: ServerError, req: Request, res: Response, next: NextFunct
   error.statusType = error.statusType || STATUS_TYPE.ERROR;
   error.statusCode = error.statusCode || 500;
 
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "local") {
     return sendErrorDev(error, req, res);
   } else if (process.env.NODE_ENV === "production") {
     return sendErrorProduction(error, req, res);

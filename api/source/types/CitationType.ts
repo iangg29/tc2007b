@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import { DocumentType } from "./DocumentType";
 
@@ -21,6 +23,10 @@ export const CitationType = new GraphQLObjectType({
     document: {
       type: GraphQLNonNull(DocumentType),
       description: "Citation's document",
+    },
+    end_date: {
+      type: GraphQLNonNull(GraphQLString),
+      description: "Citation's end date",
     },
     created_at: {
       type: GraphQLNonNull(GraphQLString),
