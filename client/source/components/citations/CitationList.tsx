@@ -21,7 +21,6 @@ const CitationList = () => {
 
   return (
     <View>
-      <Text>LIST:</Text>
       <Text>This is the Citation List page: </Text>
       <FlatList
         data={mydata.applicationsByUserID}

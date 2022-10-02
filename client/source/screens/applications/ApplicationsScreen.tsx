@@ -1,10 +1,9 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import React from "react";
-import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { View, Text } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
-import ApplicationList from "./ApplicationList";
+import ApplicationList from "../../components/applications/ApplicationList";
 
 const ApplicationsScreen = ({ navigation }): JSX.Element => {
   const context_id: string = "bcb1f0b7-fbd1-4752-8199-2238e298957a";
