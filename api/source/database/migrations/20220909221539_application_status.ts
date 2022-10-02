@@ -9,6 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(APPLICATION_STATUS_TABLE_NAME, (table: CreateTableBuilder) => {
       table.string("id").primary().unique();
       table.string("name").notNullable();
+      table.integer("order").notNullable();
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());
     });
