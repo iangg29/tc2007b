@@ -8,8 +8,50 @@ import bcrypt from "bcryptjs";
 import { v4 as uuid } from "uuid";
 import { isPasswordCorrect } from "../utils/authentication";
 
+const toBool = require("to-bool");
+
+const IS_AUTH_ENABLED: boolean = toBool(process.env.USE_AUTH);
+
 export const signToken = (email: string): string => {
   return jwt.sign({ email }, process.env.SECRET_KEY as Secret, { expiresIn: process.env.JWT_EXPIRES });
+};
+
+export const verifyToken = (req: Request, res: Response) => {
+  if (IS_AUTH_ENABLED) {
+    let token;
+    if (req.cookies.token) {
+      token = req.cookies.token;
+    } else if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+      token = req.headers.authorization.split(" ")[1];
+    }
+
+    if (!token) {
+      return res.status(200).json({
+        success: false,
+        valid: false,
+      });
+    }
+
+    jwt.verify(token, process.env.SECRET_KEY as Secret, (error: any, decoded: any) => {
+      if (error) {
+        return res.status(200).json({
+          success: false,
+          valid: false,
+        });
+      }
+      if (decoded) {
+        return res.status(200).json({
+          success: true,
+          valid: true,
+        });
+      }
+    });
+  } else {
+    return res.status(200).json({
+      success: true,
+      valid: true,
+    });
+  }
 };
 
 export const createSendToken = (user: any, statusCode: number, req: Request, res: Response) => {
@@ -109,7 +151,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
-  
+
   if (!email || !password) {
     res.status(400).json({
       success: false,
