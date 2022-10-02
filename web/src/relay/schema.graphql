@@ -230,14 +230,13 @@ type RootMutation {
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
   deleteFAQ(id: ID!): Boolean
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
-  createCitation(title: String!, description: String!, document_id: ID!, end_date: String!): Citation
+  createCitation(title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
   createDocumentType(name: String!): DocumentType
 }
 
 """Application's GraphQL root query."""
 type RootQuery {
   users: [User]
-  user(id: ID!): User
   roles: [Role]
   applications: [Application]
   applicationByID(id: ID!): Application
@@ -246,6 +245,7 @@ type RootQuery {
   faqs: [FAQ]
   documentTypes: [DocumentType]
   citations: [Citation]
+  citationDocuments(id: ID!): [DocumentType]
   documents: [Document]
   findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
