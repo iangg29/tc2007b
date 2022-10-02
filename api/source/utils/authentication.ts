@@ -19,7 +19,7 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
     console.debug("[API] [AUTH] [MIDDLEWARE] Auth enabled.");
     let token;
     if (req.cookies.jwt) {
-      token = req.cookies.jwt;
+      token = req.cookies.token;
     } else if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
       token = req.headers.authorization.split(" ")[1];
     }
