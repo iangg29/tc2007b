@@ -11,6 +11,7 @@ import { persistor, store } from "./source/store/store";
 import axios from "axios";
 import { API_URL } from "@env";
 import { NavigatorHandler } from "./source/containers/NavigatorHandler";
+import { StatusBar } from "expo-status-bar";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ export default function App() {
       <Suspense fallback={<Text>Loading application...</Text>}>
         <Provider store={store}>
           <PersistGate persistor={persistor} loading={<Text>Loading...</Text>}>
+            <StatusBar style="dark" />
             <NavigatorHandler />
           </PersistGate>
         </Provider>
