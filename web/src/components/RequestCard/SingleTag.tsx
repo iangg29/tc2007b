@@ -8,8 +8,6 @@ interface Props {
 }
 
 const SingleTag = ({ element }: Props): JSX.Element => {
-  console.log(element);
-
   return (
     <div>
       <a
