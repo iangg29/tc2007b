@@ -1,5 +1,4 @@
 import { GraphQLError, GraphQLID, GraphQLList, GraphQLNonNull } from "graphql";
-import { CitationType } from "../../types/CitationType";
 import { db } from "../../database/database";
 import { CITATION_TABLE_NAME, DOCUMENT_TABLE_NAME } from "../../database/utils/database_constants";
 import { CitationType } from "../../types/CitationType";

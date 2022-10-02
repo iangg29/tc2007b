@@ -1,11 +1,9 @@
 import { Text, View } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
-
-import ApplicationList from "./general/components/Application/ApplicationList";
+import ApplicationList from "./ApplicationList";
 
 const UserApplicationView = () => {
   const context_id: string = "bcb1f0b7-fbd1-4752-8199-2238e298957a";
-  //const data_application_list: UserApplicationViewQuery$data = useLazyLoadQuery<UserApplicationViewQuery>(
   const data_application_list: any = useLazyLoadQuery(
     graphql`
       query UserApplicationViewQuery($user_id: ID!) {

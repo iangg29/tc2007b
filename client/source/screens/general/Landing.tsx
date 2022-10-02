@@ -2,18 +2,18 @@
 
 import { API_URL } from "@env";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
-import { LandingQuery, LandingQuery$data } from "./__generated__/LandingQuery.graphql";
-import CitationList from "./components/Citation/CitationList";
-import UserApplicationView from "../UserApplicationView";
-import ApplicationStatusView from "../ApplicationStatusView";
+import CitationList from "../Citation/CitationList";
+import UserApplicationView from "../applications/UserApplicationView";
+import ApplicationStatusView from "../applications/ApplicationStatusView";
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 const Landing = () => {
   const navigation = useNavigation();
 
   return (
     <View>
+      <Text>Landing</Text>
       <ApplicationStatusView status={"finalizado"}></ApplicationStatusView>
     </View>
   );
