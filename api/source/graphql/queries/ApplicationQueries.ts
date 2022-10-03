@@ -153,7 +153,8 @@ export default {
       const labels = applicationLabels.map(l => l.label_id);
 
       const labelsOfApplications = await db
-        .select().from(LABEL_TABLE_NAME)
+        .select()
+        .from(LABEL_TABLE_NAME)
         .whereIn('id', labels)
         .catch((error: Error) => {
           console.error(error);
