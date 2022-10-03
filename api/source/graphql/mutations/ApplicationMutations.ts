@@ -10,7 +10,8 @@ import {
   APPLICATION_DOCUMENTS_TABLE_NAME,
   CITATION_TABLE_NAME,
   USER_TABLE_NAME,
-  DOCUMENT_TABLE_NAME
+  DOCUMENT_TABLE_NAME,
+  LABEL_TABLE_NAME,
 } from "../../database/utils/database_constants";
 import { db } from "../../database/database";
 import { LabelType } from "../../types/LabelType";
@@ -259,6 +260,23 @@ export default {
       },
     },
     resolve: async (_: any, { application_id, label_id }: any) => {
+      const myApplication = await db
+        .select()
+        .from(APPLICATION_TABLE_NAME)
+        .where({ id: application_id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      await db
+        .select()
+        .table(LABEL_TABLE_NAME)
+        .where('id', label_id)
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
 
       await db(APPLICATION_LABEL_TABLE_NAME)
         .insert({
@@ -270,7 +288,7 @@ export default {
           throw  new GraphQLError(error.name);
         });
 
-      return {};
+      return myApplication[0];
     },
   },
 };
