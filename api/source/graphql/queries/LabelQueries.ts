@@ -19,35 +19,4 @@ export default {
       return db.select().table(LABEL_TABLE_NAME);
     },
   },
-  applicationsByLabel: {
-    type: GraphQLList(ApplicationType),
-    args: {
-      label_id: {
-        type: GraphQLNonNull(GraphQLID),
-      },
-    },
-    resolve: async (_: any, { label_id }: any) => {
-      const applicationLabels = await db
-        .select('application_id')
-        .table(APPLICATION_LABEL_TABLE_NAME)
-        .where({ label_id: label_id })
-        .catch((error: Error) => {
-          console.error(error);
-          throw new GraphQLError(error.name);
-        });
-
-      const Applications = await db
-        .select()
-        .table(APPLICATION_TABLE_NAME)
-        .where('id', applicationLabels)
-        .catch((error: Error) => {
-          console.error(error);
-          throw new GraphQLError(error.name);
-        });
-
-      const applications = await genApplications(Applications);
-
-       return applications;
-    },
-  },
 };
