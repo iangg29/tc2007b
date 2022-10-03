@@ -1,6 +1,4 @@
 import { Text, View, Image } from "react-native";
-import { graphql, useLazyLoadQuery } from "react-relay/hooks";
-import { ApplicationListQuery, ApplicationListQuery$data } from "../__generated__/ApplicationListQuery.graphql";
 
 interface Props {
   id: string;
