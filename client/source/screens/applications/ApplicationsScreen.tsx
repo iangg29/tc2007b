@@ -3,11 +3,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
-import ApplicationList from "../../components/applications/ApplicationList";
+import ApplicationStatusView from "../../components/applications/ApplicationStatusView";
+import { ApplicationsScreenQuery, ApplicationsScreenQuery$data } from "./__generated__/ApplicationsScreenQuery.graphql";
 
 const ApplicationsScreen = ({ navigation }): JSX.Element => {
   const context_id: string = "bcb1f0b7-fbd1-4752-8199-2238e298957a";
-  const data_application_list: any = useLazyLoadQuery(
+  const data_application_list: ApplicationsScreenQuery$data = useLazyLoadQuery<ApplicationsScreenQuery>(
     graphql`
       query ApplicationsScreenQuery($user_id: ID!) {
         applicationsByUserID(user_id: $user_id) {
@@ -19,11 +20,12 @@ const ApplicationsScreen = ({ navigation }): JSX.Element => {
     { user_id: context_id },
   );
   const mydata: any = data_application_list;
+
   return (
     <View className=" pl-2">
       <Text className=" text-4xl text-indigo-500 font-semibold py-4">Mis solicitudes</Text>
       <View>
-        <ApplicationList applicationsInfo={mydata.applicationsByUserID}></ApplicationList>
+        <ApplicationStatusView status={""} title={"title"}></ApplicationStatusView>
       </View>
     </View>
   );

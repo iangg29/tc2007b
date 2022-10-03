@@ -3,10 +3,11 @@ import { Text, View, FlatList } from "react-native";
 import ApplicationCheckPoint from "./ApplicationCheckPoint";
 
 interface Props {
+  title: string;
   status: string;
 }
 
-const ApplicationStatusView = ({ status }: Props) => {
+const ApplicationStatusView = ({ status, title }: Props) => {
   const [num, setNum] = useState(0);
   const [myData, setMyData] = useState([]);
   const [message, setMessage] = useState("");
@@ -82,10 +83,7 @@ const ApplicationStatusView = ({ status }: Props) => {
   return (
     <View>
       <View className="flex flex-col pl-4 justify-start">
-        <Text className=" text-4xl text-indigo-500 font-semibold py-4">
-          Status: {status}
-          Num: {num}
-        </Text>
+        <Text className=" text-4xl text-indigo-500 font-semibold py-4">Solicitud: {title}</Text>
 
         <FlatList
           data={myData}
