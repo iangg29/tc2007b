@@ -21,14 +21,6 @@ export const LabelType: GraphQLObjectType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "Label's description",
     },
-    applications: {
-      type: GraphQLList(ApplicationType),
-      description: "Applications that contains this label",
-      /*async resolve ({ application_id }) {
-        const sendApplication = await db.select().table(APPLICATION_TABLE_NAME).where("id", application_id);
-        return [...sendApplication];
-      },*/
-    },
     created_at: {
       type: GraphQLNonNull(GraphQLString),
       description: "Label's creation date",
