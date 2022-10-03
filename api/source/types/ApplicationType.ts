@@ -66,14 +66,10 @@ export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
       type: GraphQLNonNull(CitationType),
       description: "Citation of the application",
     },
-    /*labels: {
+    labels: {
       type: GraphQLList(LabelType),
       description: "Labels attached to the application",
-      /!*async resolve ({ label_id }) {
-        const sendLabel = await db.select().table(LABEL_TABLE_NAME).where("id", label_id);
-        return [...sendLabel];
-      },*!/
-    },*/
+    },
     applicationDocuments: {
       type: GraphQLList(DocumentType),
       description: "Application documents",
