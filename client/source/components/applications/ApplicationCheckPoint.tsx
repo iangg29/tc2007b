@@ -1,14 +1,17 @@
-import { Text, View, Image } from "react-native";
-import { graphql, useLazyLoadQuery } from "react-relay/hooks";
-import { ApplicationListQuery, ApplicationListQuery$data } from "../__generated__/ApplicationListQuery.graphql";
+import { Text, View } from "react-native";
 
 interface Props {
   isTurnOn: boolean;
   labelText: string;
   isLine: string;
+  disable?: boolean;
 }
 
-const ApplicationCheckPoint = ({ isTurnOn, labelText, isLine }: Props) => {
+const ApplicationCheckPoint = ({ isTurnOn, labelText, isLine, disable }: Props) => {
+  if (disable) {
+    return <View></View>;
+  }
+
   return (
     <View>
       <View className="flex-row">
@@ -25,7 +28,9 @@ const ApplicationCheckPoint = ({ isTurnOn, labelText, isLine }: Props) => {
       {!!isLine && (
         <View
           className={
-            isTurnOn ? "flex-row border-l-8  border-green-300 h-10 " : "flex-row border-l-8  border-slate-300 h-10 "
+            isTurnOn
+              ? "flex-row border-l-8 ml-2 border-green-300 h-10 "
+              : "flex-row border-l-8 ml-2  border-slate-300 h-10 "
           }></View>
       )}
     </View>
