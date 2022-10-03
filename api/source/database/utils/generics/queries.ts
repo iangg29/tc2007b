@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { GraphQLError } from "graphql";
 import { db } from "../../../database/database";
 import {
