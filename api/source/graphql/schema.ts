@@ -19,8 +19,9 @@ import RoleMutations from "./mutations/RoleMutations";
 import CitationMutations from "./mutations/CitationMutations";
 import ApplicationMutations from "./mutations/ApplicationMutations";
 import ApplicationStatusMutations from "./mutations/ApplicationStatusMutations";
-import DocumentMutations from "./mutations/DocumentMutations";
-import DocumentTypeMutations from "./mutations/DocumentTypeMutations";
+import DocumentTypeMutation from "./mutations/DocumentTypeMutations";
+import DocumentMutation from "./mutations/DocumentMutations";
+import LabelMutations from "./mutations/LabelMutations";
 
 /**
  * GraphQLObject that unifies every query that the application uses.
@@ -52,9 +53,10 @@ const RootMutation = new GraphQLObjectType({
     ...ApplicationMutations,
     ...ApplicationStatusMutations,
     ...FAQMutations,
-    ...DocumentMutations,
+    ...DocumentMutation,
     ...CitationMutations,
-    ...DocumentTypeMutations
+    ...DocumentTypeMutation,
+    ...LabelMutations,
   },
 });
 

@@ -5,8 +5,11 @@ import { UserType } from "./UserType";
 import { ApplicationStatusType } from "./ApplicationStatusType";
 import { CitationType } from "./CitationType";
 import { DocumentType } from "./DocumentType";
+import {LabelType} from "./LabelType";
+import { LABEL_TABLE_NAME } from "../database/utils/database_constants";
+import { db } from "../database/database";
 
-export const ApplicationType = new GraphQLObjectType({
+export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
   name: "Application",
   description:
     "Main application model, contains all the information related with the applications of the users into the system",
@@ -62,6 +65,10 @@ export const ApplicationType = new GraphQLObjectType({
     citation: {
       type: GraphQLNonNull(CitationType),
       description: "Citation of the application",
+    },
+    labels: {
+      type: GraphQLList(LabelType),
+      description: "Labels attached to the application",
     },
     applicationDocuments: {
       type: GraphQLList(DocumentType),
