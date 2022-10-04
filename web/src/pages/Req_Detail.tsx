@@ -28,6 +28,12 @@ const ReqDetail = (): JSX.Element => {
           support
           user {
             name
+            first_lastname
+            second_lastname
+          }
+          applicationStatus {
+            name
+            order
           }
           applicationDocuments {
             file_name
@@ -43,7 +49,11 @@ const ReqDetail = (): JSX.Element => {
   const { applicationByID } = data;
   const user = applicationByID?.user;
   const documents = applicationByID?.applicationDocuments;
-  console.debug(applicationByID);
+
+  // As long as the request has not been accepted or rejected,
+  // the user can change its status
+  const status = applicationByID?.applicationStatus;
+  const show = status!.order === 2 && status!.order < 3;
 
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
@@ -64,7 +74,9 @@ const ReqDetail = (): JSX.Element => {
             Proyecto: {applicationByID?.title}
           </h1>
           <img className="w-[500px] py-4 pr-8 lg:pr-16" src={applicationByID?.image} alt="art" />
-          <p className="text-lg font-semibold tracking-tight text-gray-900">Realizado por: {user?.name}</p>
+          <p className="text-lg font-semibold tracking-tight text-gray-900">
+            Realizado por: {user?.name} {user?.first_lastname} {user?.second_lastname}
+          </p>
           <div className="w-[450px] md:w-[280px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
             {exampleLabels.map((elem, index) => {
@@ -96,10 +108,24 @@ const ReqDetail = (): JSX.Element => {
             <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Apoyo Solicitado</h2>
             <p className="text-justify">{applicationByID?.support}</p>
 
-            <div className="w-full justify-center flex flex-wrap pt-8 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button key={1} text="Aprobar" navigate="/app/applications/reviewproposals" next={2} appID="" />
-              <Req_Button key={2} text="Rechazar" navigate="/app/applications/reviewproposals" next={1} appID="" />
-            </div>
+            {show && (
+              <div className="w-full justify-center flex flex-wrap pt-8 gap-4 md:gap-2 lg:gap-4">
+                <Req_Button
+                  key={1}
+                  text="Aprobar"
+                  navigate="/app/applications/reviewproposals"
+                  next={4}
+                  appID={params.applicationId!}
+                />
+                <Req_Button
+                  key={2}
+                  text="Rechazar"
+                  navigate="/app/applications/reviewproposals"
+                  next={3}
+                  appID={params.applicationId!}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

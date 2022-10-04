@@ -103,8 +103,8 @@ export default {
       return{
         ...myApplication[0],
         user: myUser[0],
-        citation: myCitation,
-        applicationStatus: myStatus,
+        citation: myCitation[0],
+        applicationStatus: myStatus[0],
         applicationDocuments: myDocuments
       };
     },

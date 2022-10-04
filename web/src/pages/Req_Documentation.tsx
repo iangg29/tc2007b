@@ -25,8 +25,16 @@ const ReqDocumentation = (): JSX.Element => {
           id
           title
           image
+          description
+          support
           user {
             name
+            first_lastname
+            second_lastname
+          }
+          applicationStatus {
+            name
+            order
           }
           applicationDocuments {
             file_name
@@ -42,6 +50,11 @@ const ReqDocumentation = (): JSX.Element => {
   const { applicationByID } = data;
   const user = applicationByID?.user;
   const documents = applicationByID?.applicationDocuments;
+
+  // As long as the documents have not been approved,
+  // the user can change its status
+  const status = applicationByID?.applicationStatus;
+  const show = status!.order < 2;
 
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
@@ -62,7 +75,9 @@ const ReqDocumentation = (): JSX.Element => {
             Proyecto: {applicationByID?.title}
           </h1>
           <img className="w-[500px] py-4 pr-8 lg:pr-16" src={applicationByID?.image} alt="art" />
-          <p className="text-lg font-semibold tracking-tight text-gray-900">Realizado por: {user?.name}</p>
+          <p className="text-lg font-semibold tracking-tight text-gray-900">
+            Realizado por: {user?.name} {user?.first_lastname} {user?.second_lastname}
+          </p>
           <div className="w-[450px] md:w-[280px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
             {exampleLabels.map((elem, index) => {
@@ -84,10 +99,23 @@ const ReqDocumentation = (): JSX.Element => {
                 />
               );
             })}
-            <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button text="Aprobar documentos" navigate="../applications/reviewdocuments" next={1} appID="" />
-              <Req_Button text="Enviar a correción" navigate="../applications/reviewdocuments" next={-1} appID="" />
-            </div>
+
+            {show && (
+              <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
+                <Req_Button
+                  text="Aprobar documentos"
+                  navigate="../applications/reviewdocuments"
+                  next={2}
+                  appID={params.applicationId!}
+                />
+                <Req_Button
+                  text="Enviar a correción"
+                  navigate="../applications/reviewdocuments"
+                  next={0}
+                  appID={params.applicationId!}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
