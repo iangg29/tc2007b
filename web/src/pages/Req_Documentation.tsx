@@ -3,15 +3,19 @@ import Label from "../components/Label";
 import Document from "../components/Doc_Review";
 import Req_Button from "../components/Req_Button";
 import { IoIosArrowBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
 import { ReqDocumentationQuery, ReqDocumentationQuery$data } from "./__generated__/ReqDocumentationQuery.graphql";
 
+// Page to review the documents of an application
 const ReqDocumentation = (): JSX.Element => {
   // Navigation - Go back
   const navigate = useNavigate();
+
+  // Params - ApplicationID
+  const params = useParams();
 
   // Request - Info / Documents
   const data: ReqDocumentationQuery$data = useLazyLoadQuery<ReqDocumentationQuery>(
@@ -32,7 +36,7 @@ const ReqDocumentation = (): JSX.Element => {
         }
       }
     `,
-    { application_id: "" },
+    { application_id: params.applicationId! },
   );
 
   const { applicationByID } = data;
@@ -81,12 +85,7 @@ const ReqDocumentation = (): JSX.Element => {
               );
             })}
             <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button
-                text="Aprobar documentos"
-                navigate="../applications/reviewdocuments/detail"
-                next={1}
-                appID=""
-              />
+              <Req_Button text="Aprobar documentos" navigate="../applications/reviewdocuments" next={1} appID="" />
               <Req_Button text="Enviar a correción" navigate="../applications/reviewdocuments" next={-1} appID="" />
             </div>
           </div>

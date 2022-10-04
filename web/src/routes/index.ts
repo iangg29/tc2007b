@@ -33,27 +33,31 @@ const routes: iRoute[] = [
     components: ApproveDocs,
   },
   {
+    path: "/applications/reviewdocuments/:applicationId",
+    components: Documentation,
+  },
+  {
     path: "/applications/reviewproposals",
     components: ApproveApplications,
+  },
+  {
+    path: "/applications/reviewproposals/:applicationId",
+    components: Detail,
   },
   {
     path: "/applications/reviewapproved",
     components: ApplicationAccepted,
   },
   {
+    path: "/applications/reviewapproved/:applicationId",
+    components: Detail,
+  },
+  {
     path: "/applications/reviewfinished",
     components: ApplicationFinalized,
   },
   {
-    path: "/applications/reviewdocuments/documents",
-    components: Documentation,
-  },
-  {
-    path: "/applications/reviewdocuments/detail",
-    components: Detail,
-  },
-  {
-    path: "/applications/reviewfinished/evidence",
+    path: "/applications/reviewfinished/:applicationId",
     components: Evidence,
   },
   {

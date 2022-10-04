@@ -3,15 +3,19 @@ import Label from "../components/Label";
 import Document from "../components/Doc_Review";
 import Req_Button from "../components/Req_Button";
 import { IoIosArrowBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
 import { ReqDetailQuery, ReqDetailQuery$data } from "./__generated__/ReqDetailQuery.graphql";
 
+// Page to review the proposal of an application
 const ReqDetail = (): JSX.Element => {
   // Navigation - Go back to Req_Revision
   const navigate = useNavigate();
+
+  // Params - ApplicationID
+  const params = useParams();
 
   // Request - Info / Detail
   const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
@@ -33,12 +37,13 @@ const ReqDetail = (): JSX.Element => {
         }
       }
     `,
-    { application_id: "" },
+    { application_id: params.applicationId! },
   );
 
   const { applicationByID } = data;
   const user = applicationByID?.user;
   const documents = applicationByID?.applicationDocuments;
+  console.debug(applicationByID);
 
   // Request - Labels
   const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
@@ -73,7 +78,10 @@ const ReqDetail = (): JSX.Element => {
             <h2 className="text-xl text-[#396FB1] font-bold pb-2">Descripción</h2>
             <p className="text-justify">{applicationByID?.description}</p>
 
-            <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Documentos [revisados]</h2>
+            <div className="flex pb-2 pt-8">
+              <h2 className="text-xl text-[#396FB1] font-bold">Documentos&nbsp;</h2>
+              <h2 className="text-md text-[#396FB1] font-bold"> [REVISADOS]</h2>
+            </div>
             {documents?.map((elem: any, index) => {
               return (
                 <Document
@@ -89,8 +97,8 @@ const ReqDetail = (): JSX.Element => {
             <p className="text-justify">{applicationByID?.support}</p>
 
             <div className="w-full justify-center flex flex-wrap pt-8 gap-4 md:gap-2 lg:gap-4">
-              <Req_Button text="Aprobar" navigate="/app/applications/reviewapproved" next={2} appID="" />
-              <Req_Button text="Rechazar" navigate="/app/applications/reviewdocuments" next={1} appID="" />
+              <Req_Button key={1} text="Aprobar" navigate="/app/applications/reviewproposals" next={2} appID="" />
+              <Req_Button key={2} text="Rechazar" navigate="/app/applications/reviewproposals" next={1} appID="" />
             </div>
           </div>
         </div>
