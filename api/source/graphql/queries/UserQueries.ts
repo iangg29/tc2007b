@@ -28,7 +28,7 @@ export default {
           console.error(error);
           throw new GraphQLError(error.name);
         });
-      return userlist[0];
+      return { ...userlist[0] };
     },
   },
 };

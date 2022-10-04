@@ -1,9 +1,9 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { GraphQLObjectType, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLList } from "graphql";
-import { ApplicationType } from "./ApplicationType"
+import { ApplicationType } from "./ApplicationType";
 
-export const LabelType = new GraphQLObjectType({
+export const LabelType: GraphQLObjectType = new GraphQLObjectType({
   name: "Label",
   description: "Label assigned to each application",
   fields: {
@@ -21,7 +21,7 @@ export const LabelType = new GraphQLObjectType({
     },
     applications: {
       type: GraphQLList(ApplicationType),
-      description: "Application where the labels are linked"
+      description: "Application where the labels are linked",
     },
     created_at: {
       type: GraphQLNonNull(GraphQLString),

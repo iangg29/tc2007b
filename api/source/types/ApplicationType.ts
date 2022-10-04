@@ -1,11 +1,12 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLID, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLScalarType, GraphQLString } from "graphql";
 import { UserType } from "./UserType";
 import { ApplicationStatusType } from "./ApplicationStatusType";
 import { CitationType } from "./CitationType";
+import { LabelType } from "./LabelType";
 
-export const ApplicationType = new GraphQLObjectType({
+export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
   name: "Application",
   description:
     "Main application model, contains all the information related with the applications of the users into the system",
@@ -45,6 +46,9 @@ export const ApplicationType = new GraphQLObjectType({
     applicationStatus: {
       type: GraphQLNonNull(ApplicationStatusType),
       description: "Application status",
+    },
+    labels:{ 
+      type: GraphQLList(LabelType)
     },
     citation: {
       type: GraphQLNonNull(CitationType),
