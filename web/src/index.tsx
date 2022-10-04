@@ -1,6 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import React, { StrictMode, Suspense } from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./assets/css/main.css";
 import { RelayEnvironmentProvider } from "react-relay";
@@ -20,11 +20,9 @@ root.render(
   <RelayEnvironmentProvider environment={relayEnvironment.getEnvironment()}>
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={<h1>Loading...</h1>}>
-        <StrictMode>
-          <Suspense fallback={<h1>Loading...</h1>}>
-            <App />
-          </Suspense>
-        </StrictMode>
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <App />
+        </Suspense>
       </PersistGate>
     </Provider>
   </RelayEnvironmentProvider>,
