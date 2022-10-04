@@ -22,6 +22,10 @@ const NewAnnouncementForm = (): JSX.Element => {
   const descriptionRef = useRef<HTMLInputElement>(null);
   const endDdateRef = useRef<HTMLInputElement>(null);
 
+  // const [title, setTitle] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [endDate, setEndDate] = useState("");
+
   const data: NewAnnouncementFormQuery$data = useLazyLoadQuery<NewAnnouncementFormQuery>(
     graphql`
       query NewAnnouncementFormQuery {

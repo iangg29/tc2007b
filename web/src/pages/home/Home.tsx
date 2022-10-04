@@ -7,6 +7,7 @@ import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
 import { HomeQuery, HomeQuery$data } from "./__generated__/HomeQuery.graphql";
+import { Link } from "react-router-dom";
 
 const Home = (): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
@@ -52,12 +53,11 @@ const Home = (): JSX.Element => {
               <h1 className="text-4xl font-semibold text-main-500">Convocatorias</h1>
             </div>
             <div className="mx-7 my-1 flex flex-col">
-              <button
-                onClick={handleShow}
-                className="bg-main-500 hover:bg-main-500/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm mt-5"
-              >
-                + Nueva Convocatoria
-              </button>
+              <Link to={"/app/newannouncement"} className="navBarLink">
+                <button className="bg-main-500 hover:bg-main-500/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm mt-5">
+                  + Nueva Convocatoria
+                </button>
+              </Link>
             </div>
           </div>
           <div className="flex flex-row-reverse">
