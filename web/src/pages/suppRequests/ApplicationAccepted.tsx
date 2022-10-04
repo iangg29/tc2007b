@@ -29,13 +29,10 @@ const ApplicationAccepted = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "" },
+    { application_status_id: "2a920562-abf6-4748-9e39-824a9d152729" },
   );
 
   const { applicationByStatusID } = data;
-
-  console.debug(applicationByStatusID);
-
   const empty = applicationByStatusID?.length === 0;
 
   return (
@@ -55,7 +52,7 @@ const ApplicationAccepted = (): JSX.Element => {
               element={element}
               text={"Dar seguimiento"}
               color={"#50245C"}
-              link={"/app/applications/reviewdocuments/documents"}
+              link={"/app/applications/reviewapproved/" + element.id}
             ></RequestMap>
           ))
         )}

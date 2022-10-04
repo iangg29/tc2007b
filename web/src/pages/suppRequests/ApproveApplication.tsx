@@ -26,13 +26,10 @@ const ApproveApplication = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "" },
+    { application_status_id: "b8fc2629-1141-45b9-8dfa-c86bde27179e" },
   );
 
   const { applicationByStatusID } = data;
-
-  console.debug(applicationByStatusID);
-
   const empty = applicationByStatusID?.length === 0;
 
   return (
@@ -52,7 +49,7 @@ const ApproveApplication = (): JSX.Element => {
               element={element}
               text={"Revisar Propuesta"}
               color={"#252d53"}
-              link={"/app/applications/reviewdocuments/documents"}
+              link={"/app/applications/reviewproposals/" + element.id}
             ></RequestMap>
           ))
         )}

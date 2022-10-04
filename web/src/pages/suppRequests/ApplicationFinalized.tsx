@@ -29,13 +29,10 @@ const ApplicationFinalized = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "" },
+    { application_status_id: "24770675-0a09-474a-a47f-80f40eb8c72c" },
   );
 
   const { applicationByStatusID } = data;
-
-  console.debug(applicationByStatusID);
-
   const empty = applicationByStatusID?.length === 0;
 
   return (
@@ -55,7 +52,7 @@ const ApplicationFinalized = (): JSX.Element => {
               element={element}
               text={"Ver"}
               color={"#D0A52A"}
-              link={"/app/applications/reviewdocuments/documents"}
+              link={"/app/applications/reviewfinished/" + element.id}
             ></RequestMap>
           ))
         )}
