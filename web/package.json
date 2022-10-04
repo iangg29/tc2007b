@@ -40,7 +40,7 @@
     "format": "prettier --write .",
     "prepare": "cd .. && husky install ./web/.husky",
     "build-relay": "relay-compiler relay.config.json",
-    "fetch-graphql": "npx get-graphql-schema http://localhost:5050/graphql > ./src/relay/schema.graphql"
+    "fetch-graphql": "npx get-graphql-schema http://localhost:5050/graphiql > ./src/relay/schema.graphql"
   },
   "eslintConfig": {
     "extends": [

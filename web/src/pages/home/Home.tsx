@@ -33,9 +33,6 @@ const Home = (): JSX.Element => {
           title
           description
           end_date
-          document {
-            file_name
-          }
         }
       }
     `,
@@ -80,33 +77,35 @@ const Home = (): JSX.Element => {
               Activas
             </button>
           </div>
-          {showCitation ? (
-            <>
-              <div className="flex flex-row">
-                {citations
-                  ?.filter((element: any) => element.end_date >= date)
-                  .map((filteredElement: any) => (
-                    <div className="flex flex-col" key={filteredElement.id}>
-                      <NoticeCard
-                        img={filteredElement.description}
-                        name={filteredElement.title}
-                        date={filteredElement.end_date}
-                      />
+          <div>
+            {showCitation ? (
+              <>
+                <div className="flex flex-row flex-wrap w-full">
+                  {citations
+                    ?.filter((element: any) => element.end_date >= date)
+                    .map((filteredElement: any) => (
+                      <div className="flex flex-col basis-1/3" key={filteredElement.id}>
+                        <NoticeCard
+                          img={filteredElement.description}
+                          name={filteredElement.title}
+                          date={filteredElement.end_date}
+                        />
+                      </div>
+                    ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex flex-row flex-wrap">
+                  {citations?.map((element: any) => (
+                    <div className="flex flex-col basis-1/3" key={element.id}>
+                      <NoticeCard img={element.description} name={element.title} date={element.end_date} />
                     </div>
                   ))}
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="flex flex-row">
-                {citations?.map((element: any) => (
-                  <div className="flex flex-col" key={element.id}>
-                    <NoticeCard img={element.description} name={element.title} date={element.end_date} />
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
       <EditModal

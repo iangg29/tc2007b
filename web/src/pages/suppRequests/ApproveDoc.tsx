@@ -1,42 +1,61 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import RequestCard from "../components/RequestCard/RequestCard";
-import back from "../../assets/background/login.png";
+import { useLazyLoadQuery } from "react-relay";
+import graphql from "babel-plugin-relay/macro";
+
+import { ApproveDocQuery, ApproveDocQuery$data } from "./__generated__/ApproveDocQuery.graphql";
+import RequestMap from "../../components/RequestCard/RequestMap";
 
 const ApproveDoc = (): JSX.Element => {
-  const exampleLabels = [{ label: "Cultura" }, { label: "Baile" }];
+  const data: ApproveDocQuery$data = useLazyLoadQuery<ApproveDocQuery>(
+    graphql`
+      query ApproveDocQuery($application_status_id: ID!) {
+        applicationByStatusID(application_status_id: $application_status_id) {
+          title
+          id
+          user {
+            id
+            name
+            first_lastname
+            second_lastname
+          }
+          citation {
+            id
+            title
+          }
+        }
+      }
+    `,
+    { application_status_id: "" },
+  );
+
+  const { applicationByStatusID } = data;
+
+  console.debug(applicationByStatusID);
+
+  const empty = applicationByStatusID?.length === 0;
 
   return (
     <>
       <h5 className=" py-5 text-2xl text-main-100">Solicitudes para revisión de documentos</h5>
+
       <div className="grid grid-cols-3">
-        <RequestCard
-          image={back}
-          proyectTile="Proyecto 1"
-          announcement="Convocatoria noche mexicana"
-          user="Susana Horia"
-          label={exampleLabels}
-          buttonText="Revisar nuevamente"
-          color="#244B5C"
-        />
-        <RequestCard
-          image={back}
-          proyectTile="Proyecto 2"
-          announcement="Convocatoria Querétaro Mágico"
-          user="Susana Horia"
-          label={exampleLabels}
-          buttonText="Dar seguimiento"
-          color="#50245C"
-        />
-        <RequestCard
-          image={back}
-          proyectTile="Proyecto 3"
-          announcement="Convocatoria dulce o truco"
-          user="Susana Horia"
-          label={exampleLabels}
-          buttonText="Revisar"
-          color="#252d53"
-        />
+        {empty ? (
+          <h1 className="col-span-3 text-center">
+            <br />
+            No hay solicitudes pendientes de revisión de documentos.
+          </h1>
+        ) : (
+          applicationByStatusID?.map((element: any) => (
+            <RequestMap
+              key={element.id}
+              element={element}
+              text={"Revisar documentos"}
+              color={"#244B5C"}
+              link={"/app/applications/reviewdocuments/documents"}
+            ></RequestMap>
+          ))
+        )}
       </div>
     </>
   );
