@@ -10,15 +10,31 @@ interface Labels {
 
 interface Props {
   image: string;
-  proyectTile: string;
+  proyectTile?: string;
   announcement: string;
-  user: string;
+  userName: string;
+  userFirstName: string;
+  userLastName: string;
   label: Labels[];
   buttonText: String;
   color: string;
+  btnLink: string;
 }
 
-const RequestCard = ({ image, proyectTile, announcement, user, label, buttonText, color }: Props): JSX.Element => {
+const RequestCard = ({
+  image,
+  proyectTile,
+  announcement,
+  userName,
+  userFirstName,
+  userLastName,
+  label,
+  buttonText,
+  color,
+  btnLink,
+}: Props): JSX.Element => {
+  const user = userName + userFirstName + userLastName;
+
   return (
     <>
       <div className="max-w-sm py-5">
@@ -43,7 +59,7 @@ const RequestCard = ({ image, proyectTile, announcement, user, label, buttonText
                 className="rounded-lg px-5 py-2.5 text-center text-sm font-medium text-white hover:scale-110"
                 style={{ backgroundColor: color }}
               >
-                <Link to={"/app/Solicitudes/RevisarDocumentos/Documentos"}>{buttonText}</Link>
+                <Link to={btnLink}>{buttonText}</Link>
               </button>
             </div>
           </div>
