@@ -80,38 +80,30 @@ export default {
       },
     },
     resolve: async (_: any, { id, title, description, end_date, document_types }: any) => {
+
+      const citationDocuments = await db.select().table(CITATION_DOCUMENTS_TABLE_NAME).where({ citation_id: id });
+      const listCitationDocuments = citationDocuments.map((element: any) => { const newElement: any = element.document_type_id; return newElement });
+
       await db
         .transaction(async (trx) => {
           await trx(CITATION_TABLE_NAME).where({ id }).update({ title, description, end_date });
 
-          const citationDocuments = await trx.select().table(CITATION_DOCUMENTS_TABLE_NAME).where({ citation_id: id });
-
-          const listCitationDocuments = citationDocuments.map((element: any) => { const newElement: any = element.document_type_id; return newElement });
-          
-          //console.log(listCitationDocuments);
-
-          const docsToBeDeleted = listCitationDocuments.filter((element: any) => !document_types.includes(element)).map(
-            async (filteredElement: any) => {
-              const newElement: any = filteredElement;
+          const docsToBeDeleted = listCitationDocuments.filter((element: any) => !document_types.includes(element)).map((filteredElement: any) => {
+              const newElement: string = filteredElement;
               return newElement;
             }
           );
           
 
-          const docsToBeAdded = document_types.filter((element: any) => !listCitationDocuments.includes(element)).map(
-            async (filteredElement: any) => {
-              const newElement: any = filteredElement;
+          const docsToBeAdded = document_types.filter((element: any) => !listCitationDocuments.includes(element)).map((filteredElement: any) => {
+              const newElement: string = filteredElement;
               return newElement;
             }
           );
-
-          //console.log("Add ", docsToBeAdded);
-          //console.log("Delete ", docsToBeDeleted);
-
 
           await Promise.all(
             docsToBeAdded.map(
-              async (element: any) =>
+              async (element: string) =>
                 await trx(CITATION_DOCUMENTS_TABLE_NAME).insert({
                   citation_id: id,
                   document_type_id: element,
@@ -122,7 +114,7 @@ export default {
           await Promise.all(
             docsToBeDeleted.map(
               async (element: any) =>
-                await trx(CITATION_DOCUMENTS_TABLE_NAME).where({document_type_id: element}).delete()
+                await trx(CITATION_DOCUMENTS_TABLE_NAME).where({document_type_id: element}).andWhere({citation_id: id}).delete()
             ),
           );
 
