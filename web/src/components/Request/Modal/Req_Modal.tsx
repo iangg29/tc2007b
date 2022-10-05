@@ -1,4 +1,5 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
+import React from "react"
 import { Modal } from "flowbite-react";
 
 interface params {

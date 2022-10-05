@@ -29,6 +29,8 @@ interface Props {
 const RequestMap = ({ element, text, color, link }: Props): JSX.Element => {
   const exampleLabels = [{ label: "Cultura" }, { label: "Baile" }];
 
+  console.log(element);
+
   return (
     <>
       <RequestCard
