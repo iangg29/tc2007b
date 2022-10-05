@@ -17,6 +17,7 @@ import { genApplications } from "../../database/utils/generics/queries";
 import { LabelType } from "../../types/LabelType";
 
 export default {
+  // Get all aplications
   applications: {
     type: GraphQLList(ApplicationType),
     resolve: async () => {
@@ -34,6 +35,7 @@ export default {
     },
   },
 
+  // Get an application by ID
   applicationByID: {
     type: ApplicationType,
     args: {
@@ -106,13 +108,14 @@ export default {
       return {
         ...myApplication[0],
         user: myUser[0],
-        citation: myCitation,
-        applicationStatus: myStatus,
+        citation: myCitation[0],
+        applicationStatus: myStatus[0],
         applicationDocuments: myDocuments,
       };
     },
   },
 
+  // Get applications by status
   applicationByStatusID: {
     type: GraphQLList(ApplicationType),
     args: {
@@ -135,6 +138,7 @@ export default {
     },
   },
 
+  // Get labels of an application
   applicationLabels: {
     type: GraphQLList(LabelType),
     args: {

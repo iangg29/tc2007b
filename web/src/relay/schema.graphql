@@ -349,6 +349,7 @@ type RootMutation {
   updateApplicationStatus(application_id: ID!, next_status: Int!): String
   attachApplicationDocument(application_id: ID!, document_id: ID!): Application
   deleteApplication(id: ID!): Boolean
+  updateAplicationLabels(application_id: ID!, label_id: ID!): Application
   createStatus(
     """
     ApplicationStatus name
@@ -365,9 +366,11 @@ type RootMutation {
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
   deleteFAQ(id: ID!): Boolean
-  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
   createCitation(title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
   createDocumentType(name: String!): DocumentType
+  uploadEvidence(impact: String!, application_id: ID!, document_id: ID!): Evidence
+  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
+  createLabel(name: String!, description: String!): Label
 }
 
 """
@@ -380,6 +383,7 @@ type RootQuery {
   applications: [Application]
   applicationByID(id: ID!): Application
   applicationByStatusID(application_status_id: ID!): [Application]
+  applicationLabels(application_id: ID!): [Label]
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]
   documentTypes: [DocumentType]
@@ -388,6 +392,8 @@ type RootQuery {
   documents: [Document]
   findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
+  evidences: [Evidence]
+  evidenceByApplicationID(application_id: ID!): Evidence
 }
 
 """
@@ -404,19 +410,9 @@ type User {
   """
   name: String!
 
-<<<<<<< HEAD
   """
   User's first lastname
   """
-=======
-  """User's id rol"""
-  role_id: ID!
-
-  """User's password"""
-  password: String!
-
-  """User's first lastname"""
->>>>>>> origin/45-knex-seed-database
   first_lastname: String!
 
   """

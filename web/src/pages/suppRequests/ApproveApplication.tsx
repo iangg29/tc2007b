@@ -23,16 +23,18 @@ const ApproveApplication = (): JSX.Element => {
             id
             title
           }
+          labels {
+            id
+            name
+          }
         }
       }
     `,
     { application_status_id: "" },
+    { fetchPolicy: "network-only" },
   );
 
   const { applicationByStatusID } = data;
-
-  console.debug(applicationByStatusID);
-
   const empty = applicationByStatusID?.length === 0;
 
   return (
@@ -52,7 +54,7 @@ const ApproveApplication = (): JSX.Element => {
               element={element}
               text={"Revisar Propuesta"}
               color={"#252d53"}
-              link={"/app/applications/reviewdocuments/documents"}
+              link={`/app/applications/reviewproposals/${String(element.id)}`}
             ></RequestMap>
           ))
         )}

@@ -18,6 +18,7 @@ import { LabelType } from "../../types/LabelType";
 import errorController from "../../controllers/errorController";
 
 export default {
+  // Create application
   createApplication: {
     type: ApplicationType,
     args: {
@@ -128,6 +129,7 @@ export default {
     },
   },
 
+  // Update the status of an application
   updateApplicationStatus: {
     type: GraphQLString,
 
@@ -159,20 +161,20 @@ export default {
           throw new GraphQLError(error.name);
         });
 
-      const newstatusORDER = myOldOrder[0].order + next_status;
-
       const newStatusID = await db
         .select("id")
         .table(APPLICATION_STATUS_TABLE_NAME)
-        .where({ order: newstatusORDER })
+        .where({ order: next_status })
         .catch((error: Error) => {
           console.error(error);
           throw new GraphQLError(error.name);
         });
 
+      const new_date = new Date().toISOString().split(/[T.]+/, 2).join(' ');
+
       await db
       .table(APPLICATION_TABLE_NAME)
-      .update({application_status_id: newStatusID[0].id})
+      .update({application_status_id: newStatusID[0].id, updated_at: new_date})
       .where({id:application_id})
       .catch((error: Error) => {
         console.error(error);
@@ -183,6 +185,7 @@ export default {
     },
   },
 
+  // Attach a document to an application
   attachApplicationDocument: {
     type: ApplicationType,
     args: {
@@ -236,6 +239,7 @@ export default {
     },
   },
 
+  // Delete an application (inactive)
   deleteApplication: {
     type: GraphQLBoolean,
     args: {
