@@ -19,6 +19,7 @@ import { LabelType } from "../../types/LabelType";
 import errorController from "../../controllers/errorController";
 
 export default {
+  // Create application
   createApplication: {
     type: ApplicationType,
     args: {
@@ -185,6 +186,7 @@ export default {
     },
   },
 
+  // Attach a document to an application
   attachApplicationDocument: {
     type: ApplicationType,
     args: {
@@ -238,6 +240,7 @@ export default {
     },
   },
 
+  // Delete an application (inactive)
   deleteApplication: {
     type: GraphQLBoolean,
     args: {

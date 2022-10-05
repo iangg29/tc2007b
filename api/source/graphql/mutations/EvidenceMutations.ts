@@ -7,53 +7,54 @@ import { v4 as uuid } from "uuid";
 import { db } from "../../database/database";
 
 export default {
-  uploadEvidence: {
-    type: EvidenceType,
-    args: {
-        impact: {
-            type: GraphQLNonNull(GraphQLString),
+    // Upload the evidence of an application (accepted)
+    uploadEvidence: {
+        type: EvidenceType,
+        args: {
+            impact: {
+                type: GraphQLNonNull(GraphQLString),
+            },
+            application_id: {
+                type: GraphQLNonNull(GraphQLID),
+            },
+            document_id: {
+                type: GraphQLNonNull(GraphQLID),
+            },
         },
-        application_id: {
-            type: GraphQLNonNull(GraphQLID),
-        },
-        document_id: {
-            type: GraphQLNonNull(GraphQLID),
-        },
-    },
-    resolve: async (_: any, { impact, application_id, document_id }: any) => {
-        const id = uuid();
+        resolve: async (_: any, { impact, application_id, document_id }: any) => {
+            const id = uuid();
 
-        await db()
-            .from(APPLICATION_TABLE_NAME)
-            .where({id: application_id})
-            .catch((error: Error) => {
+            await db()
+                .from(APPLICATION_TABLE_NAME)
+                .where({id: application_id})
+                .catch((error: Error) => {
+                    console.error(error);
+                    throw new GraphQLError(error.name);
+                });
+        
+            await db
+                .select()
+                .from(DOCUMENT_TABLE_NAME)
+                .where({ id: document_id })
+                .catch((error: Error) => {
                 console.error(error);
                 throw new GraphQLError(error.name);
-            });
-    
-        await db
-            .select()
-            .from(DOCUMENT_TABLE_NAME)
-            .where({ id: document_id })
+                });
+
+            await db(EVIDENCE_TABLE_NAME)
+                .insert({
+                id,
+                impact,
+                application_id,
+                document_id
+                })
             .catch((error: Error) => {
             console.error(error);
             throw new GraphQLError(error.name);
             });
-
-        await db(EVIDENCE_TABLE_NAME)
-            .insert({
-            id,
-            impact,
-            application_id,
-            document_id
-            })
-        .catch((error: Error) => {
-          console.error(error);
-          throw new GraphQLError(error.name);
-        });
-        
-        const newEvidence = await db.select().from(EVIDENCE_TABLE_NAME).where({ id });
-        return newEvidence[0];
+            
+            const newEvidence = await db.select().from(EVIDENCE_TABLE_NAME).where({ id });
+            return newEvidence[0];
+        },
     },
-  },
 };

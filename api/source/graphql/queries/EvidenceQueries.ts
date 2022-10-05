@@ -14,13 +14,7 @@ import {
 } from "../../database/utils/database_constants";
 
 export default {
-    evidences:{
-        type: GraphQLList(EvidenceType),
-        resolve: async () => {
-            const evidences = await db.select().from(EVIDENCE_TABLE_NAME);
-            return evidences;
-        },  
-    },
+    // Get the evidence of an application by application: ID
     evidenceByApplicationID: {
         type: EvidenceType,
         args: {

@@ -12,6 +12,7 @@ interface Props {
   next: number;
 }
 
+// Button to change an application status
 const ReqButton = ({ text, navigate, appID, next }: Props): JSX.Element => {
   const nav = useNavigate();
 
