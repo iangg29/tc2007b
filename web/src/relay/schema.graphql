@@ -231,6 +231,7 @@ type RootMutation {
   deleteFAQ(id: ID!): Boolean
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
   createCitation(title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
+  updateCitation(id: ID!, title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
   createDocumentType(name: String!): DocumentType
 }
 

@@ -1,8 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { useState } from "react";
 import NoticeCard from "../../components/NoticeCard/NoticeCard";
-import EditModal from "../../components/EditModal/EditModal";
-import EditForm from "../../components/EditForm/EditForm";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
@@ -10,10 +8,6 @@ import { HomeQuery, HomeQuery$data } from "./__generated__/HomeQuery.graphql";
 import { Link } from "react-router-dom";
 
 const Home = (): JSX.Element => {
-  const [show, setShow] = useState<boolean>(false);
-  const handleShow = (): void => setShow(true);
-  const onClose = (): void => setShow(false);
-
   const [showCitation, setCitation] = useState<boolean>(true);
   const handleAllCitations = (): void => setCitation(false);
   const handleCitations = (): void => setCitation(true);
@@ -108,12 +102,6 @@ const Home = (): JSX.Element => {
           </div>
         </div>
       </div>
-      <EditModal
-        show={show}
-        onClose={onClose}
-        header={"Crear convocatoria"}
-        props={<EditForm name={undefined} date={undefined} image={undefined} />}
-      />
     </>
   );
 };
