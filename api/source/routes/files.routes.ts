@@ -1,6 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import Express from "express";
 import { Request, Response, Router } from "express";
+import path from "path";
 
 const router = Router();
 interface FileRequest extends Request {
@@ -24,16 +25,15 @@ router.post("/upload/files", async (req: Request, res: Response) => {
       return res.status(400).send({ message: "Invalid extension document type." });
   }
 
-  const path = __dirname + "../../../public/upload/files/" + file.name;
+  const route = path.resolve(__dirname, "../../../public/upload/files/", file.name);
 
-  file.mv(path, (err: any) => {
+  file.mv(route, (err: any) => {
     if (err) {
       console.log({ err });
       return res.status(500).send(err);
     }
-    return res.send({ status: "success", path: path });
+    return res.send({ status: "success", route: route });
   });
-  // res.status(200).json({ message: "Archivo subido" });
 });
 
 export default router;

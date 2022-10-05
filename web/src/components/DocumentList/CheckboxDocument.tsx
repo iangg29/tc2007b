@@ -1,7 +1,5 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import React from "react";
-
 interface params {
   id: string;
   name: string;

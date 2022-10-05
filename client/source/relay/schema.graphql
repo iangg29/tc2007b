@@ -14,6 +14,71 @@ directive @specifiedBy(
 ) on SCALAR
 
 """
+Main application model, contains all the information related with the applications of the users into the system
+"""
+type Application {
+  """
+  Application ID
+  """
+  id: ID!
+
+  """
+  User that uploaded the request
+  """
+  user: User!
+
+  """
+  Application title
+  """
+  title: String!
+
+  """
+  Date at which the project will be erased from consideration
+  """
+  deadline: String
+
+  """
+  Date at which the user compromises to start their project
+  """
+  start_time: String
+
+  """
+  Date at which the user compromises to finish their project
+  """
+  end_time: String
+
+  """
+  Application emission date
+  """
+  emission_date: String!
+
+  """
+  Application response date
+  """
+  response_date: String!
+
+  """
+  Application status
+  """
+  applicationStatus: ApplicationStatus!
+
+  """
+  Citation of the application
+  """
+  citation: Citation!
+
+  """
+  Application creation date
+  """
+  created_at: String!
+
+  """
+  Last time application was updated
+  """
+  updated_at: String!
+}
+
+"""
 Assignable Application Status
 """
 type ApplicationStatus {
@@ -39,23 +104,103 @@ type ApplicationStatus {
 }
 
 """
-Authentication response.
+Citation model that contains the document and information the users has to follow in order to get their scholarship
 """
-type AuthenticationResponse {
+type Citation {
   """
-  Is authentication successful.
+  Citation's ID
   """
-  success: Boolean!
+  id: ID!
 
   """
-  Authentication error message.
+  Citation's title
   """
-  error: String
+  title: String!
 
   """
-  Authenticated user
+  Citation's description
   """
-  user: User
+  description: String!
+
+  """
+  Citation's document
+  """
+  document: Document!
+
+  """
+  Citation's creation date
+  """
+  created_at: String!
+
+  """
+  Last time citation was updated
+  """
+  updated_at: String!
+
+  """
+  Citation's end date
+  """
+  end_date: String!
+}
+
+"""
+Document model, contains all the specifications of the documents uploaded by the users
+"""
+type Document {
+  """
+  Document's ID
+  """
+  id: ID!
+
+  """
+  User that uploaded the document
+  """
+  user: User!
+
+  """
+  Document's name
+  """
+  name: String!
+
+  """
+  Document's type
+  """
+  documentType: DocumentType!
+
+  """
+  Document's creation date
+  """
+  created_at: String!
+
+  """
+  Last time document got updated
+  """
+  updated_at: String!
+}
+
+"""
+Type of document uploaded
+"""
+type DocumentType {
+  """
+  Document Type ID
+  """
+  id: ID!
+
+  """
+  Document Type name
+  """
+  name: String!
+
+  """
+  Document Type creation date
+  """
+  created_at: String!
+
+  """
+  Last time Document Type was updated
+  """
+  updated_at: String!
 }
 
 """
@@ -89,6 +234,36 @@ type FAQ {
 
   """
   Last time FAQ was updated.
+  """
+  updated_at: String!
+}
+
+"""
+Label assigned to each application
+"""
+type Label {
+  """
+  Label's ID
+  """
+  id: ID!
+
+  """
+  Label's name
+  """
+  name: String!
+
+  """
+  Label's description
+  """
+  description: String!
+
+  """
+  Label's creation date
+  """
+  created_at: String!
+
+  """
+  Last time label was updated
   """
   updated_at: String!
 }
@@ -133,17 +308,27 @@ Application's GraphQL root mutations
 """
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
-  login(email: String!, password: String!): AuthenticationResponse
-  signup(
+  createApplication(
+    user_id: ID!
+    title: String!
+    deadline: String
+    end_time: String
+    emission_date: String!
+    response_date: String!
+    application_status_id: ID!
+    citation_id: ID!
+  ): Application
+  updateApplicationStatus(id: ID!, application_status_id: ID!): Application
+  deleteApplication(id: ID!): Boolean
+  createStatus(
+    """
+    ApplicationStatus name
+    """
     name: String!
-    first_lastname: String!
-    second_lastname: String!
-    cellphone: String!
-    email: String!
-    gender: String!
-    password: String!
-    confirm_password: String!
-  ): AuthenticationResponse
+  ): ApplicationStatus
+  deleteStatus(id: ID!): Boolean
+  createCitation(title: String!, description: String!, document_id: ID!): Citation
+  createDocumentType(name: String!): DocumentType
   createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
@@ -158,6 +343,12 @@ type RootQuery {
   roles: [Role]
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]
+  documentTypes: [DocumentType]
+  documents: [Document]
+  citations: [Citation]
+  labels: [Label]
+  applications: [Application]
+  applicationByStatusID(application_status_id: ID!): [Application]
 }
 
 """

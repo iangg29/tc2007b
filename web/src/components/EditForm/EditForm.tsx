@@ -19,7 +19,7 @@ const EditForm = ({ name, date, image }: params): JSX.Element => {
 
     try {
       await axios
-        .post("http://localhost:5050/upload/files", formData, {
+        .post((process.env.BASE_URL as string) + "/upload/files", formData, {
           headers: {
             "Content-type": "multipart/form-data",
           },
@@ -28,7 +28,7 @@ const EditForm = ({ name, date, image }: params): JSX.Element => {
           alert(JSON.stringify(res?.data));
         })
         .catch((error: any) => {
-          alert("Invalid extension document type. Torombolo");
+          alert("Invalid extension document type.");
           alert(JSON.stringify(error.message));
         });
     } catch (error: any) {

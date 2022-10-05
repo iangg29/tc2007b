@@ -45,6 +45,14 @@ app.use(
 
 if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
+  app.use(
+    "/graphiql",
+    graphqlHTTP({
+      schema,
+      graphiql: process.env.NODE_ENV !== "production",
+      customFormatErrorFn: handleGraphQLError,
+    }),
+  );
 }
 app.use(express.static(path.resolve(__dirname, "../public")));
 

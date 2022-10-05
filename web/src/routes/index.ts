@@ -6,7 +6,11 @@ import { lazy } from "react";
 const Dashboard = lazy(async () => await import("../pages/Dashboard"));
 const NewAnnouncement = lazy(async () => await import("../pages/NewAnnouncement"));
 const Home = lazy(async () => await import("../pages/home/Home"));
-const ApproveDocs = lazy(async () => await import("../components/suppRequests/ApproveDoc"));
+const ApproveDocs = lazy(async () => await import("../pages/suppRequests/ApproveDoc"));
+const ApproveApplications = lazy(async () => await import("../pages/suppRequests/ApproveApplication"));
+const ApplicationAccepted = lazy(async () => await import("../pages/suppRequests/ApplicationAccepted"));
+const ApplicationFinalized = lazy(async () => await import("../pages/suppRequests/ApplicationFinalized"));
+const Analytic = lazy(async () => await import("../pages/analytics/Analytic"));
 const Detail = lazy(async () => await import("../pages/Req_Detail"));
 const Documentation = lazy(async () => await import("../pages/Req_Documentation"));
 const Evidence = lazy(async () => await import("../pages/Req_Evidence"));
@@ -17,23 +21,39 @@ const routes: iRoute[] = [
     components: Dashboard,
   },
   {
-    path: "/Home",
+    path: "/home",
     components: Home,
   },
   {
-    path: "/Solicitudes/RevisarDocumentos",
+    path: "/analytics",
+    components: Analytic,
+  },
+  {
+    path: "/applications/reviewdocuments",
     components: ApproveDocs,
   },
   {
-    path: "/Solicitudes/RevisarDocumentos/Documentos",
+    path: "/applications/reviewproposals",
+    components: ApproveApplications,
+  },
+  {
+    path: "/applications/reviewapproved",
+    components: ApplicationAccepted,
+  },
+  {
+    path: "/applications/reviewfinished",
+    components: ApplicationFinalized,
+  },
+  {
+    path: "/applications/reviewdocuments/documents",
     components: Documentation,
   },
   {
-    path: "/Solicitudes/RevisarDocumentos/Detalle",
+    path: "/applications/reviewdocuments/detail",
     components: Detail,
   },
   {
-    path: "/Solicitudes/RevisarDocumentos/Evidencia",
+    path: "/applications/reviewfinished/evidence",
     components: Evidence,
   },
   {
