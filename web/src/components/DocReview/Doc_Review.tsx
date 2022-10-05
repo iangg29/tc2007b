@@ -2,9 +2,9 @@
 import { AiFillFile, AiFillEye } from "react-icons/ai";
 
 interface Props {
-  filename: string;
-  updated: string;
-  link: string;
+  filename: string | undefined;
+  updated: string | undefined;
+  link: string | undefined;
 }
 
 const DocumentReview = ({ filename, updated, link }: Props): JSX.Element => {

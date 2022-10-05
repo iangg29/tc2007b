@@ -33,7 +33,6 @@ interface Props {
 }
 
 const RequestMap = ({ element, text, color, link }: Props): JSX.Element => {
-
   return (
     <>
       <RequestCard

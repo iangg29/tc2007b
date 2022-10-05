@@ -15,6 +15,11 @@ const ReqEvidence = (): JSX.Element => {
 
   // Params - ApplicationID
   const params = useParams();
+  let applicationID = "";
+
+  if (params.applicationId !== undefined) {
+    applicationID = params.applicationId;
+  }
 
   // Request - Info / Documents / Evidence
   const data: ReqEvidenceQuery$data = useLazyLoadQuery<ReqEvidenceQuery>(
@@ -48,7 +53,7 @@ const ReqEvidence = (): JSX.Element => {
               url
               updated_at
             }
-            labels{
+            labels {
               id
               name
             }
@@ -56,7 +61,7 @@ const ReqEvidence = (): JSX.Element => {
         }
       }
     `,
-    { application_id: params.applicationId! },
+    { application_id: applicationID },
   );
 
   const { evidenceByApplicationID } = data;
@@ -117,9 +122,9 @@ const ReqEvidence = (): JSX.Element => {
 
             <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Evidencia</h2>
             <Document
-              filename={evidenceFile?.file_name!}
-              updated={evidenceFile?.updated_at.substring(0, 10)!}
-              link={evidenceFile?.url!}
+              filename={evidenceFile?.file_name}
+              updated={evidenceFile?.updated_at.substring(0, 10)}
+              link={evidenceFile?.url}
             />
           </div>
         </div>

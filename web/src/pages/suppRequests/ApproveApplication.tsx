@@ -23,9 +23,9 @@ const ApproveApplication = (): JSX.Element => {
             id
             title
           }
-          labels{
-              id
-              name
+          labels {
+            id
+            name
           }
         }
       }
@@ -54,7 +54,7 @@ const ApproveApplication = (): JSX.Element => {
               element={element}
               text={"Revisar Propuesta"}
               color={"#252d53"}
-              link={"/app/applications/reviewproposals/" + element.id}
+              link={`/app/applications/reviewproposals/${String(element.id)}`}
             ></RequestMap>
           ))
         )}

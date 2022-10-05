@@ -1,5 +1,5 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
@@ -8,7 +8,7 @@ import { ReqButtonMutation } from "./__generated__/ReqButtonMutation.graphql";
 interface Props {
   text: string;
   navigate: string;
-  appID: string;
+  appID: string | undefined;
   next: number;
 }
 

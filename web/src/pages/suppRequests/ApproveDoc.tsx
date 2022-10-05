@@ -23,9 +23,9 @@ const ApproveDoc = (): JSX.Element => {
             id
             title
           }
-          labels{
-              id
-              name
+          labels {
+            id
+            name
           }
         }
       }
@@ -54,7 +54,7 @@ const ApproveDoc = (): JSX.Element => {
               element={element}
               text={"Revisar documentos"}
               color={"#244B5C"}
-              link={"/app/applications/reviewdocuments/" + element.id}
+              link={`/app/applications/reviewdocuments/${String(element.id)}`}
             ></RequestMap>
           ))
         )}

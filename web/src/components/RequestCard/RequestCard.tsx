@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import SingleTag from "./SingleTag";
 
 interface labels {
-  id: string
+  id: string;
   name: String;
 }
 

@@ -16,6 +16,11 @@ const ReqDetail = (): JSX.Element => {
 
   // Params - ApplicationID
   const params = useParams();
+  let applicationID = "";
+
+  if (params.applicationId !== undefined) {
+    applicationID = params.applicationId;
+  }
 
   // Request - Info / Detail / Labels
   const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
@@ -40,14 +45,14 @@ const ReqDetail = (): JSX.Element => {
             url
             updated_at
           }
-          labels{
+          labels {
             id
             name
           }
         }
       }
     `,
-    { application_id: params.applicationId! },
+    { application_id: applicationID },
     { fetchPolicy: "network-only" },
   );
 
@@ -59,7 +64,7 @@ const ReqDetail = (): JSX.Element => {
   // As long as the request has not been accepted or rejected,
   // the user can change its status
   const status = applicationByID?.applicationStatus;
-  const show = status!.order === 2 && status!.order < 3;
+  const show = status?.order === 2 && status?.order < 3;
 
   return (
     <div>
@@ -118,14 +123,14 @@ const ReqDetail = (): JSX.Element => {
                   text="Aprobar"
                   navigate="/app/applications/reviewproposals"
                   next={4}
-                  appID={params.applicationId!}
+                  appID={params?.applicationId}
                 />
                 <Req_Button
                   key={2}
                   text="Rechazar"
                   navigate="/app/applications/reviewproposals"
                   next={3}
-                  appID={params.applicationId!}
+                  appID={params?.applicationId}
                 />
               </div>
             )}

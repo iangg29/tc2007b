@@ -16,6 +16,11 @@ const ReqDocumentation = (): JSX.Element => {
 
   // Params - ApplicationID
   const params = useParams();
+  let applicationID = "";
+
+  if (params.applicationId !== undefined) {
+    applicationID = params.applicationId;
+  }
 
   // Request - Info / Documents
   const data: ReqDocumentationQuery$data = useLazyLoadQuery<ReqDocumentationQuery>(
@@ -41,14 +46,14 @@ const ReqDocumentation = (): JSX.Element => {
             url
             updated_at
           }
-          labels{
+          labels {
             id
             name
           }
         }
       }
     `,
-    { application_id: params.applicationId! },
+    { application_id: applicationID },
   );
 
   const { applicationByID } = data;
@@ -59,7 +64,11 @@ const ReqDocumentation = (): JSX.Element => {
   // As long as the documents have not been approved,
   // the user can change its status
   const status = applicationByID?.applicationStatus;
-  const show = status!.order < 2;
+  let show = true;
+
+  if (status?.order !== undefined) {
+    show = status.order < 2;
+  }
 
   return (
     <div>
@@ -108,13 +117,13 @@ const ReqDocumentation = (): JSX.Element => {
                   text="Aprobar documentos"
                   navigate="../applications/reviewdocuments"
                   next={2}
-                  appID={params.applicationId!}
+                  appID={params?.applicationId}
                 />
                 <Req_Button
                   text="Enviar a correción"
                   navigate="../applications/reviewdocuments"
                   next={0}
-                  appID={params.applicationId!}
+                  appID={params?.applicationId}
                 />
               </div>
             )}

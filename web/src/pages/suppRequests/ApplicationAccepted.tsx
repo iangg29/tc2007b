@@ -26,9 +26,9 @@ const ApplicationAccepted = (): JSX.Element => {
             id
             title
           }
-          labels{
-              id
-              name
+          labels {
+            id
+            name
           }
         }
       }
@@ -57,7 +57,7 @@ const ApplicationAccepted = (): JSX.Element => {
               element={element}
               text={"Dar seguimiento"}
               color={"#50245C"}
-              link={"/app/applications/reviewapproved/" + element.id}
+              link={`/app/applications/reviewapproved/${String(element.id)}`}
             ></RequestMap>
           ))
         )}

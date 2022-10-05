@@ -26,9 +26,9 @@ const ApplicationFinalized = (): JSX.Element => {
             id
             title
           }
-          labels{
-              id
-              name
+          labels {
+            id
+            name
           }
         }
       }
@@ -57,7 +57,7 @@ const ApplicationFinalized = (): JSX.Element => {
               element={element}
               text={"Ver"}
               color={"#D0A52A"}
-              link={"/app/applications/reviewfinished/" + element.id}
+              link={`/app/applications/reviewfinished/${String(element.id)}`}
             ></RequestMap>
           ))
         )}
