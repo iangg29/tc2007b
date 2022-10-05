@@ -104,7 +104,7 @@ const ReqDocumentation = (): JSX.Element => {
               <div className="w-full justify-center flex flex-wrap pt-5 gap-4 md:gap-2 lg:gap-4">
                 <Req_Button
                   text="Aprobar documentos"
-                  navigate="../applications/reviewproposals"
+                  navigate="../applications/reviewdocuments"
                   next={2}
                   appID={params.applicationId!}
                 />

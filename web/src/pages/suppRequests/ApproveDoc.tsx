@@ -26,7 +26,7 @@ const ApproveDoc = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "9a39a26b-2dc4-41c3-ab68-81202037a953" },
+    { application_status_id: "" },
     { fetchPolicy: "network-only" },
   );
 
