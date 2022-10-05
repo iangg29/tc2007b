@@ -1,7 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { ApplicationType } from "../../types/ApplicationType";
-import knex, { Knex } from "knex";
 import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLInt } from "graphql";
 import { v4 as uuid } from "uuid";
 import {
