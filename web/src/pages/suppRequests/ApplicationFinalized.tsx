@@ -29,7 +29,7 @@ const ApplicationFinalized = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "24770675-0a09-474a-a47f-80f40eb8c72c" },
+    { application_status_id: "" },
   );
 
   const { applicationByStatusID } = data;

@@ -147,6 +147,29 @@ type DocumentType {
   updated_at: String!
 }
 
+"""
+Evidence model, contains all the specifications of the evidence of an application
+"""
+type Evidence {
+  """Evidence's ID"""
+  id: ID!
+
+  """Application's impact"""
+  impact: String!
+
+  """Application associated to the evidence"""
+  application: Application!
+
+  """Evidence's document"""
+  document: Document!
+
+  """Evidence's creation date"""
+  created_at: String!
+
+  """Last time evidence got updated"""
+  updated_at: String!
+}
+
 """Frequent question & answer."""
 type FAQ {
   """FAQ ID"""
@@ -232,6 +255,7 @@ type RootMutation {
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
   createCitation(title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
   createDocumentType(name: String!): DocumentType
+  uploadEvidence(impact: String!, application_id: ID!, document_id: ID!): Evidence
 }
 
 """Application's GraphQL root query."""
