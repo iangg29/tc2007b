@@ -12,6 +12,7 @@ import ApplicationQueries from "./queries/ApplicationQueries";
 import ApplicationStatusQueries from "./queries/ApplicationStatusQueries";
 import DocumentQueries from "./queries/DocumentQueries";
 import DocumentTypeQueries from "./queries/DocumentTypeQueries";
+import EvidenceQueries from "./queries/EvidenceQueries";
 
 // Mutations
 import FAQMutations from "./mutations/FAQMutations";
@@ -19,14 +20,15 @@ import RoleMutations from "./mutations/RoleMutations";
 import CitationMutations from "./mutations/CitationMutations";
 import ApplicationMutations from "./mutations/ApplicationMutations";
 import ApplicationStatusMutations from "./mutations/ApplicationStatusMutations";
-import DocumentTypeMutation from "./mutations/DocumentTypeMutations";
-import DocumentMutation from "./mutations/DocumentMutations";
+import DocumentMutations from "./mutations/DocumentMutations";
+import DocumentTypeMutations from "./mutations/DocumentTypeMutations";
+import EvidenceMutations from "./mutations/EvidenceMutations";
 import LabelMutations from "./mutations/LabelMutations";
 
 /**
  * GraphQLObject that unifies every query that the application uses.
  */
-const RootQuery = new GraphQLObjectType({
+const RootQuery: GraphQLObjectType = new GraphQLObjectType({
   name: "RootQuery",
   description: "Application's GraphQL root query.",
   fields: {
@@ -39,13 +41,14 @@ const RootQuery = new GraphQLObjectType({
     ...CitationQueries,
     ...DocumentQueries,
     ...LabelQueries,
+    ...EvidenceQueries
   },
 });
 
 /**
  * GraphQLObject that unifies every mutation that the application uses.
  */
-const RootMutation = new GraphQLObjectType({
+const RootMutation: GraphQLObjectType = new GraphQLObjectType({
   name: "RootMutation",
   description: "Application's GraphQL root mutations",
   fields: {
@@ -53,10 +56,11 @@ const RootMutation = new GraphQLObjectType({
     ...ApplicationMutations,
     ...ApplicationStatusMutations,
     ...FAQMutations,
-    ...DocumentMutation,
     ...CitationMutations,
-    ...DocumentTypeMutation,
-    ...LabelMutations,
+    ...DocumentTypeMutations,
+    ...EvidenceMutations,
+    ...DocumentMutations,
+    ...LabelMutations
   },
 });
 
