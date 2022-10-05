@@ -1,3 +1,4 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
 import { View, FlatList } from "react-native";
 import ApplicationCard from "./ApplicationCard";
 

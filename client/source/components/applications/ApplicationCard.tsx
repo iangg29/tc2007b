@@ -1,3 +1,4 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
 import { Text, View, Image } from "react-native";
 
 interface Props {
