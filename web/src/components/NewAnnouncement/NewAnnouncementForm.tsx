@@ -11,7 +11,7 @@ import {
 import { NewAnnouncementFormMutation } from "./__generated__/NewAnnouncementFormMutation.graphql";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 
 interface documentTypeType {
   id: string | undefined;
@@ -105,10 +105,27 @@ const NewAnnouncementForm = (): JSX.Element => {
           console.log(docType);
         },
       });
+    } else {
+      void Swal.fire({
+        title: "Error",
+        icon: "error",
+        text: "Verifica tus campos de entrada.",
+        customClass: {
+          container: "swal2-container",
+        },
+      });
     }
   };
 
-  const onError = (): any => swal("Error", "Verifica tus campos", "error");
+  const onError = (): any =>
+    Swal.fire({
+      title: "Error",
+      icon: "error",
+      text: "Verifica tus campos de entrada.",
+      customClass: {
+        container: "swal2-container",
+      },
+    });
 
   return (
     <>

@@ -9,7 +9,7 @@ import { EditModalQuery, EditModalQuery$data } from "./__generated__/EditModalQu
 import { EditModal2Query, EditModal2Query$data } from "./__generated__/EditModal2Query.graphql";
 import { EditModalMutation } from "./__generated__/EditModalMutation.graphql";
 import { useNavigate } from "react-router-dom";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
 
 interface params {
   show: boolean;
@@ -135,18 +135,35 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
           document_types: docType as unknown as [string],
         },
         onCompleted: () => {
-          show = false;
           navigate("/app/home");
+          onClose();
         },
         onError: () => {
           console.log("error :(");
           console.log(docType);
         },
       });
+    } else {
+      void Swal.fire({
+        title: "Error",
+        icon: "error",
+        text: "Verifica tus campos de entrada.",
+        customClass: {
+          container: "swal2-container",
+        },
+      });
     }
   };
 
-  const onError = (): any => swal("Error", "Verifica tus campos", "error");
+  const onError = (): any =>
+    Swal.fire({
+      title: "Error",
+      icon: "error",
+      text: "Verifica tus campos de entrada.",
+      customClass: {
+        container: "swal2-container",
+      },
+    });
 
   return (
     <>
