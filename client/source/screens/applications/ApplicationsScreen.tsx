@@ -5,6 +5,8 @@ import { View, Text } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 import ApplicationStatusView from "../../components/applications/ApplicationStatusView";
 import { ApplicationsScreenQuery, ApplicationsScreenQuery$data } from "./__generated__/ApplicationsScreenQuery.graphql";
+import { useNavigation } from "@react-navigation/native";
+const navigation = useNavigation();
 
 const ApplicationsScreen = ({ navigation }): JSX.Element => {
   const context_id: string = "bcb1f0b7-fbd1-4752-8199-2238e298957a";
@@ -18,7 +20,6 @@ const ApplicationsScreen = ({ navigation }): JSX.Element => {
     `,
     {},
   );
-  const mydata: any = data_application_list;
 
   return (
     <View className=" pl-2">
