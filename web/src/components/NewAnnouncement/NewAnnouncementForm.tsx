@@ -207,7 +207,7 @@ const NewAnnouncementForm = (): JSX.Element => {
             <div>
               <div className="mx-7 my-5 flex flex-col px-52 ">
                 <h1 className="text-2xl font-semibold text-main-500">Documentos Necesarios</h1>
-                <DocumentList list={list} handleclickCheckbox={handleclickCheckbox} />
+                <DocumentList list={list} handleclickCheckbox={handleclickCheckbox} docTypes={[]} />
               </div>
             </div>
           </div>

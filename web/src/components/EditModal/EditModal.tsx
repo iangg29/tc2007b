@@ -98,8 +98,16 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
   console.debug(documentTypes);
   console.debug(citationDocuments);
 
+  const currentDocs: any = citationDocuments?.map((item: any) => {
+    const newItem: any = item.id;
+    return newItem;
+  });
+
   const initialState: any = documentTypes?.map((item: any): documentTypeType | undefined => {
-    const newItem: documentTypeType | undefined = { ...item, isChecked: false };
+    const newItem: documentTypeType | undefined = {
+      ...item,
+      isChecked: currentDocs?.includes(item.id),
+    };
     return newItem;
   });
 
@@ -110,8 +118,8 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
       const newElement: any = filteredElement.id;
       return newElement;
     });
-  console.log("list", list);
-  console.log("docType", docType);
+
+  console.debug("docType", docType);
 
   const onSubmitForm = (): void => {
     const docType = list
@@ -179,7 +187,7 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
               <div className="mb-3">
                 {image !== undefined && (
                   <img
-                    className="container relative mx-auto max-w-xs h-auto rounded-lg"
+                    className="container relative mx-auto max-w-xs h-auto rounded-xl"
                     src={image}
                     alt="image description"
                   />

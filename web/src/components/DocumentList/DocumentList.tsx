@@ -2,7 +2,7 @@
 
 import CheckboxDocument from "./CheckboxDocument";
 
-const DocumentList = ({ list, handleclickCheckbox }: any): JSX.Element => {
+const DocumentList = ({ list, handleclickCheckbox, docTypes }: any): JSX.Element => {
   return (
     <>
       {list?.map((element: any, idx: any) => (
