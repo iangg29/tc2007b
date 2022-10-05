@@ -1,6 +1,8 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
+import { db } from "../database/database";
+import { ROLE_TABLE_NAME } from "../database/utils/database_constants";
 import { RoleType } from "./RoleType";
 
 export const UserType = new GraphQLObjectType({
@@ -14,14 +16,14 @@ export const UserType = new GraphQLObjectType({
     role: {
       type: RoleType,
       description: "User's role",
+      async resolve({ id_rol }) {
+        const newRole = await db.select().table(ROLE_TABLE_NAME).where({ id: id_rol });
+        return { newRole };
+      },
     },
     name: {
       type: GraphQLNonNull(GraphQLString),
       description: "User's name",
-    },
-    role_id: {
-      type: GraphQLNonNull(GraphQLID),
-      description: "User's id rol",
     },
     first_lastname: {
       type: GraphQLNonNull(GraphQLString),
