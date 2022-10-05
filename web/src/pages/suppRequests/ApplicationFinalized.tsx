@@ -26,6 +26,10 @@ const ApplicationFinalized = (): JSX.Element => {
             id
             title
           }
+          labels{
+              id
+              name
+          }
         }
       }
     `,

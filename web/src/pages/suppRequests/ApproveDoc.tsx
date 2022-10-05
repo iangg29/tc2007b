@@ -23,6 +23,10 @@ const ApproveDoc = (): JSX.Element => {
             id
             title
           }
+          labels{
+              id
+              name
+          }
         }
       }
     `,

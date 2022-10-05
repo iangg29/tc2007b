@@ -48,6 +48,7 @@ const ReqDetail = (): JSX.Element => {
       }
     `,
     { application_id: params.applicationId! },
+    { fetchPolicy: "network-only" },
   );
 
   const { applicationByID } = data;

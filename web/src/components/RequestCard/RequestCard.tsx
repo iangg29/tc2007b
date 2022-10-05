@@ -4,8 +4,9 @@ import { Card } from "flowbite-react";
 import { Link } from "react-router-dom";
 import SingleTag from "./SingleTag";
 
-interface Labels {
-  label: String;
+interface labels {
+  id: string
+  name: String;
 }
 
 interface Props {
@@ -15,7 +16,7 @@ interface Props {
   userName: string;
   userFirstName: string;
   userLastName: string;
-  label: Labels[];
+  label: labels[];
   buttonText: String;
   color: string;
   btnLink: string;
@@ -50,8 +51,8 @@ const RequestCard = ({
             </div>
 
             <div className="flex flex-col space-y-2 items-center justify-between ">
-              {label.map((element, index) => (
-                <SingleTag key={index} element={element} />
+              {label?.map((element: any) => (
+                <SingleTag key={element.id} element={element.name} />
               ))}
 
               <br />

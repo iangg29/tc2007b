@@ -23,6 +23,10 @@ const ApproveApplication = (): JSX.Element => {
             id
             title
           }
+          labels{
+              id
+              name
+          }
         }
       }
     `,

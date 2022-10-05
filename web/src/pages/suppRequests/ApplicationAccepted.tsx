@@ -26,6 +26,10 @@ const ApplicationAccepted = (): JSX.Element => {
             id
             title
           }
+          labels{
+              id
+              name
+          }
         }
       }
     `,
