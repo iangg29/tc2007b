@@ -10,6 +10,9 @@ import {
 } from "./__generated__/NewAnnouncementFormQuery.graphql";
 import { NewAnnouncementFormMutation } from "./__generated__/NewAnnouncementFormMutation.graphql";
 import { useRef } from "react";
+import { useForm } from "react-hook-form";
+import { getValue } from "@testing-library/user-event/dist/utils";
+import { useNavigate } from "react-router-dom";
 
 interface documentTypeType {
   id: string | undefined;
@@ -17,14 +20,31 @@ interface documentTypeType {
   isChecked: boolean;
 }
 
+interface newCitation {
+  title: string;
+  date: string;
+  description: string;
+}
+
 const NewAnnouncementForm = (): JSX.Element => {
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLInputElement>(null);
   const endDdateRef = useRef<HTMLInputElement>(null);
 
+  const today = new Date();
+  const date =
+    today.getFullYear().toString() +
+    "-" +
+    (today.getMonth() + 1).toString().padStart(2, "0") +
+    "-" +
+    today.getDate().toString().padStart(2, "0");
+
+  const navigate = useNavigate();
+
   // const [title, setTitle] = useState("");
   // const [description, setDescription] = useState("");
   // const [endDate, setEndDate] = useState("");
+  const { register, handleSubmit, getValues } = useForm<newCitation>();
 
   const data: NewAnnouncementFormQuery$data = useLazyLoadQuery<NewAnnouncementFormQuery>(
     graphql`
@@ -65,26 +85,60 @@ const NewAnnouncementForm = (): JSX.Element => {
   });
 
   const [list, handleclickCheckbox] = useChecked(initialState);
-  const docType = list
-    ?.filter((element: any) => element.isChecked === true)
-    .map((filteredElement: any) => {
-      const newElement: any = filteredElement.id;
-      return newElement;
-    });
-  console.log("list", list);
-  console.log("docType", docType);
+  // const docType = list
+  //   ?.filter((element: any) => element.isChecked === true)
+  //   .map((filteredElement: any) => {
+  //     const newElement: any = filteredElement.id;
+  //     return newElement;
+  //   });
+  // console.log("list", list);
+  // console.log("docType", docType);
+
+  const onSubmitForm = (): void => {
+    const docType = list
+      ?.filter((element: any) => element.isChecked === true)
+      .map((filteredElement: any) => {
+        const newElement: any = filteredElement.id;
+        return newElement;
+      });
+
+    const myTitle = getValues("title");
+    const myDescription = getValues("description");
+    const myDate = getValues("date");
+    if (docType?.length !== 0) {
+      commitMutation({
+        variables: {
+          title: myTitle as unknown as string,
+          description: myDescription as unknown as string,
+          end_date: myDate as unknown as string,
+          document_types: docType as unknown as [string],
+        },
+        onCompleted: (data) => {
+          navigate("/app/home");
+        },
+        onError: () => {
+          console.log("error :(");
+          console.log(docType);
+        },
+      });
+    }
+  };
 
   return (
     <>
       <div>
-        <div className="TituloPrincipal flex row-span-1 px-11">
-          <div className="mx-7 my-5 flex">
-            <h1 className="text-4xl font-semibold text-main-500">Nueva Convocatoria</h1>
+        <form
+          onSubmit={(e) => {
+            handleSubmit(onSubmitForm)(e).catch(() => {});
+          }}
+        >
+          <div className="TituloPrincipal flex row-span-1 px-11">
+            <div className="mx-7 my-5 flex">
+              <h1 className="text-4xl font-semibold text-main-500">Nueva Convocatoria</h1>
+            </div>
           </div>
-        </div>
-        <div className="w-10/12 mx-10 grid grid-cols-2 place-content-center">
-          <div className="SubmitDocumentForm px-8">
-            <form>
+          <div className="w-10/12 mx-10 grid grid-cols-2 place-content-center">
+            <div className="SubmitDocumentForm px-8">
               <div className="mb-6">
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Nombre Convocatoria
@@ -95,8 +149,10 @@ const NewAnnouncementForm = (): JSX.Element => {
                   type="text"
                   id="title"
                   autoComplete="off"
-                  name="title"
-                  ref={titleRef}
+                  {...register("title", {
+                    required: true,
+                    pattern: { value: /^\S+[a-zA-Z\s]*/, message: "error message" },
+                  })}
                 />
               </div>
 
@@ -108,8 +164,10 @@ const NewAnnouncementForm = (): JSX.Element => {
                   type="text"
                   id="descrption"
                   autoComplete="off"
-                  name="description"
-                  ref={descriptionRef}
+                  {...register("description", {
+                    required: true,
+                    pattern: { value: /^\S+[a-zA-Z\s]*/, message: "error message" },
+                  })}
                 />
               </div>
 
@@ -124,57 +182,43 @@ const NewAnnouncementForm = (): JSX.Element => {
                   id="date"
                   placeholder="Seleccione la fecha"
                   autoComplete="off"
-                  name="date"
-                  ref={endDdateRef}
+                  {...register("date", {
+                    required: true,
+                    validate: {
+                      date_check: (v) => v >= date,
+                    },
+                  })}
                 />
               </div>
-            </form>
 
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" htmlFor="default_size">
-              PDF Convocatoria
-            </label>
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" htmlFor="default_size">
+                PDF Convocatoria
+              </label>
 
-            <input
-              className="block mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-              id="default_size"
-              type="file"
-            ></input>
-          </div>
-          <div>
-            <div className="mx-7 my-5 flex flex-col px-52 ">
-              <h1 className="text-2xl font-semibold text-main-500">Documentos Necesarios</h1>
-              <DocumentList list={list} handleclickCheckbox={handleclickCheckbox} />
+              <input
+                className="block mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                id="default_size"
+                type="file"
+              ></input>
+            </div>
+            <div>
+              <div className="mx-7 my-5 flex flex-col px-52 ">
+                <h1 className="text-2xl font-semibold text-main-500">Documentos Necesarios</h1>
+                <DocumentList list={list} handleclickCheckbox={handleclickCheckbox} />
+              </div>
             </div>
           </div>
-        </div>
-        <br />
-        <br />
-        <div className="flex flex-col mx-auto content-center items-center">
-          <button
-            className="w-48 bg-main-500 hover:bg-main-500/70  hover:scale-105 transition-all ease-in-out duration-500 active:scale-95 font-bold text-white rounded-3xl py-2 text-sm mt-5"
-            type="submit"
-            onClick={() => {
-              commitMutation({
-                variables: {
-                  title: titleRef.current?.value as unknown as string,
-                  description: descriptionRef.current?.value as unknown as string,
-                  end_date: endDdateRef.current?.value as unknown as string,
-                  document_types: docType as unknown as [string],
-                },
-                onCompleted: (data) => {
-                  console.log(data);
-                },
-                onError: () => {
-                  console.log("error :(");
-                  console.log(docType);
-                },
-              });
-            }}
-            disabled={isMutationInFlight}
-          >
-            Crear
-          </button>
-        </div>
+          <br />
+          <br />
+          <div className="flex flex-col mx-auto content-center items-center">
+            <button
+              className="w-48 bg-main-500 hover:bg-main-500/70  hover:scale-105 transition-all ease-in-out duration-500 active:scale-95 font-bold text-white rounded-3xl py-2 text-sm mt-5"
+              type="submit"
+            >
+              Crear
+            </button>
+          </div>
+        </form>
       </div>
     </>
   );
