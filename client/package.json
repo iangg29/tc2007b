@@ -14,7 +14,7 @@
     "prettier-format": "prettier --write .",
     "build-relay": "relay-compiler relay.config.json",
     "relay:watch": "relay-compiler relay.config.json --watch",
-    "fetch-graphql": "npx get-graphql-schema http://localhost:5050/graphql > source/relay/schema.graphql"
+    "fetch-graphql": "npx get-graphql-schema http://localhost:5050/graphiql > source/relay/schema.graphql"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "~1.17.3",
