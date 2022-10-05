@@ -273,6 +273,8 @@ type RootQuery {
   documents: [Document]
   findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
+  evidences: [Evidence]
+  evidenceByApplicationID(application_id: ID!): Evidence
 }
 
 """
