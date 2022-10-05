@@ -31,7 +31,7 @@ const Home = (): JSX.Element => {
         }
       }
     `,
-    {},
+    { fetchPolicy: "network-only" },
   );
 
   const { citations } = data;
@@ -83,6 +83,7 @@ const Home = (): JSX.Element => {
                           img={filteredElement.description}
                           name={filteredElement.title}
                           date={filteredElement.end_date}
+                          id={filteredElement.id}
                         />
                       </div>
                     ))}
@@ -93,7 +94,12 @@ const Home = (): JSX.Element => {
                 <div className="flex flex-row flex-wrap">
                   {citations?.map((element: any) => (
                     <div className="flex flex-col basis-1/3" key={element.id}>
-                      <NoticeCard img={element.description} name={element.title} date={element.end_date} />
+                      <NoticeCard
+                        img={element.description}
+                        name={element.title}
+                        date={element.end_date}
+                        id={element.id}
+                      />
                     </div>
                   ))}
                 </div>

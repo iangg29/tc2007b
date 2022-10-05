@@ -47,7 +47,7 @@ const NewAnnouncementForm = (): JSX.Element => {
         }
       }
     `,
-    {},
+    { fetchPolicy: "network-only" },
   );
 
   const [commitMutation] = useMutation<NewAnnouncementFormMutation>(
@@ -68,7 +68,6 @@ const NewAnnouncementForm = (): JSX.Element => {
   );
 
   const { documentTypes } = data;
-
   console.debug(documentTypes);
 
   const initialState: any = documentTypes?.map((item: any): documentTypeType | undefined => {
@@ -77,6 +76,7 @@ const NewAnnouncementForm = (): JSX.Element => {
   });
 
   const [list, handleclickCheckbox] = useChecked(initialState);
+
   const onSubmitForm = (): void => {
     const docType = list
       ?.filter((element: any) => element.isChecked === true)
@@ -88,6 +88,7 @@ const NewAnnouncementForm = (): JSX.Element => {
     const myTitle = getValues("title");
     const myDescription = getValues("description");
     const myDate = getValues("date");
+
     if (docType?.length !== 0) {
       commitMutation({
         variables: {
@@ -199,10 +200,6 @@ const NewAnnouncementForm = (): JSX.Element => {
             <button
               className="w-48 bg-main-500 hover:bg-main-500/70  hover:scale-105 transition-all ease-in-out duration-500 active:scale-95 font-bold text-white rounded-3xl py-2 text-sm mt-5"
               type="submit"
-              onClick={() => {
-                // if (disabled === true) {
-                // }
-              }}
             >
               Crear
             </button>

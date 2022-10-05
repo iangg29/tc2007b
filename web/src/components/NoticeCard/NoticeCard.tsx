@@ -10,9 +10,10 @@ interface params {
   img: string;
   name: string;
   date: string;
+  id: string;
 }
 
-const NoticeCard = ({ img, name, date }: params): JSX.Element => {
+const NoticeCard = ({ img, name, date, id }: params): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const handleShow = (): void => setShow(true);
   const onClose = (): void => setShow(false);
@@ -36,7 +37,15 @@ const NoticeCard = ({ img, name, date }: params): JSX.Element => {
           </div>
         </div>
       </div>
-      <EditModal show={show} onClose={onClose} header={"Editar Convocatoria"} name={name} date={date} image={img} />
+      <EditModal
+        show={show}
+        onClose={onClose}
+        header={"Editar Convocatoria"}
+        title={name}
+        date={date}
+        image={img}
+        citationId={id}
+      />
       <DeleteModal name={name} show={showDelete} onClose={onCloseDelete} />
     </>
   );
