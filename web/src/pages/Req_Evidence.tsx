@@ -56,7 +56,7 @@ const ReqEvidence = (): JSX.Element => {
   );
 
   const { evidenceByApplicationID } = data;
-  const evidence_file = evidenceByApplicationID?.document;
+  const evidenceFile = evidenceByApplicationID?.document;
   const application = evidenceByApplicationID?.application;
   const user = application?.user;
   const documents = application?.applicationDocuments;
@@ -67,13 +67,13 @@ const ReqEvidence = (): JSX.Element => {
   return (
     <div>
       {/* RETURN - LAST PAGE */}
-      <div className="w-fit pb-4 gap-2 pt-8 pl-8 pr-8 md:pl-24 md:pr-24">
+      <div className="w-fit pb-4 gap-2 pt-8 pl-8 pr-8 lg:pl-24 lg:pr-24">
         <button className="flex items-center content-center gap-x-1" onClick={() => navigate(-1)}>
           <IoIosArrowBack size={15} color="#252d53" />
           <span className="h-[27px] inline-block align-middle font-bold text-main-500">Regresar</span>
         </button>
       </div>
-      <div className="w-full grid md:grid-cols-2 pb-8 pl-8 pr-8 md:pl-24 md:pr-24">
+      <div className="w-full grid lg:grid-cols-2 pb-8 pl-8 pr-8 lg:pl-24 lg:pr-24">
         {/* REQUEST - BASIC INFO */}
         <div className="w-full pt-2">
           <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">Proyecto: {application?.title}</h1>
@@ -81,7 +81,7 @@ const ReqEvidence = (): JSX.Element => {
           <p className="text-lg font-semibold tracking-tight text-gray-900">
             Realizado por: {user?.name} {user?.first_lastname} {user?.second_lastname}
           </p>
-          <div className="w-[450px] md:w-[280px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
+          <div className="w-[450px] md:w-[500px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
             {exampleLabels.map((elem, index) => {
               return <Label key={index} label={elem.label} />;
@@ -89,7 +89,7 @@ const ReqEvidence = (): JSX.Element => {
           </div>
         </div>
         {/* REQUEST - EVIDENCE */}
-        <div className="w-full pt-8 pr-8 md:pr-0 lg:pr-8 md:pt-2 md:pl-12">
+        <div className="w-full pt-8 pr-8 md:pr-0 lg:pr-8 lg:pt-2 lg:pl-12">
           <div className="w-fit">
             <h2 className="text-xl text-[#396FB1] font-bold pb-2">Descripción</h2>
             <p className="text-justify">{application?.description}</p>
@@ -115,9 +115,9 @@ const ReqEvidence = (): JSX.Element => {
 
             <h2 className="text-xl text-[#396FB1] font-bold pb-2 pt-8">Evidencia</h2>
             <Document
-              filename={evidence_file?.file_name!}
-              updated={evidence_file?.updated_at.substring(0, 10)!}
-              link={evidence_file?.url!}
+              filename={evidenceFile?.file_name!}
+              updated={evidenceFile?.updated_at.substring(0, 10)!}
+              link={evidenceFile?.url!}
             />
           </div>
         </div>

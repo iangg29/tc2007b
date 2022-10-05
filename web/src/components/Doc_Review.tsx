@@ -17,7 +17,7 @@ const DocumentReview = ({ filename, updated, link }: Props): JSX.Element => {
         <p className="text-base">{filename}</p>
       </div>
       <div className="w-fit flex items-center gap-2 justify-start lg:justify-center bg-white">
-        <p className="hidden lg:block font-light text-xs">{updated}</p>
+        <p className="hidden md:block font-light text-xs">{updated}</p>
         <div className="w-[35px] pl-1">
           <a href={link} target="noopener">
             <AiFillEye size={30} color="#252d53" />

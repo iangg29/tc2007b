@@ -62,23 +62,23 @@ const ReqDocumentation = (): JSX.Element => {
   return (
     <div>
       {/* RETURN - LAST PAGE */}
-      <div className="w-fit pb-4 gap-2 pt-8 pl-8 pr-8 md:pl-24 md:pr-24">
+      <div className="w-fit pb-4 gap-2 pt-8 pl-8 pr-8 lg:pl-24 lg:pr-24">
         <button className="flex items-center content-center gap-x-1" onClick={() => navigate(-1)}>
           <IoIosArrowBack size={15} color="#252d53" />
           <span className="h-[27px] inline-block align-middle font-bold text-main-500">Regresar</span>
         </button>
       </div>
-      <div className="w-full grid md:grid-cols-2 pb-8 pl-8 pr-8 md:pl-24 md:pr-24">
+      <div className="w-full grid lg:grid-cols-2 pb-8 pl-8 pr-8 lg:pl-24 lg:pr-24">
         {/* REQUEST - BASIC INFO */}
         <div className="w-full pt-2">
           <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">
             Proyecto: {applicationByID?.title}
           </h1>
-          <img className="w-[500px] py-4 pr-8 lg:pr-16" src={applicationByID?.image} alt="art" />
+          <img className="w-[800px] py-4 pr-8 lg:pr-16" src={applicationByID?.image} alt="art" />
           <p className="text-lg font-semibold tracking-tight text-gray-900">
             Realizado por: {user?.name} {user?.first_lastname} {user?.second_lastname}
           </p>
-          <div className="w-[450px] md:w-[280px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
+          <div className="w-[450px] md:w-[500px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
             {exampleLabels.map((elem, index) => {
               return <Label key={index} label={elem.label} />;
@@ -86,7 +86,7 @@ const ReqDocumentation = (): JSX.Element => {
           </div>
         </div>
         {/* REQUEST - DOCUMENTATION */}
-        <div className="w-full pt-8 md:pt-2 md:pl-12">
+        <div className="w-full pt-8 lg:pt-2 lg:pl-12">
           <h2 className="text-xl text-[#396FB1] font-bold pb-2">Documentos</h2>
           <div className="w-fit">
             {documents?.map((elem: any, index) => {
