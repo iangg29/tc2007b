@@ -33,7 +33,7 @@ const RequestCard = ({
   color,
   btnLink,
 }: Props): JSX.Element => {
-  const user = userName + userFirstName + userLastName;
+  const user = userName + " " + userFirstName + " " + userLastName;
 
   return (
     <>
