@@ -1,7 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import Label from "../components/Label";
-import Document from "../components/Doc_Review";
-import Req_Button from "../components/Req_Button";
+import Label from "../components/Label/Label";
+import Document from "../components/DocReview/Doc_Review";
+import Req_Button from "../components/Request/Button/Req_Button";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import { useLazyLoadQuery } from "react-relay";

@@ -5,14 +5,18 @@ import knex, { Knex } from "knex";
 import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLInt } from "graphql";
 import { v4 as uuid } from "uuid";
 import {
+  APPLICATION_LABEL_TABLE_NAME,
   APPLICATION_STATUS_TABLE_NAME,
   APPLICATION_TABLE_NAME,
   APPLICATION_DOCUMENTS_TABLE_NAME,
   CITATION_TABLE_NAME,
   USER_TABLE_NAME,
-  DOCUMENT_TABLE_NAME
+  DOCUMENT_TABLE_NAME,
+  LABEL_TABLE_NAME,
 } from "../../database/utils/database_constants";
 import { db } from "../../database/database";
+import { LabelType } from "../../types/LabelType";
+import errorController from "../../controllers/errorController";
 
 export default {
   createApplication: {
@@ -244,6 +248,49 @@ export default {
     resolve: async (_: any, { id }: any) => {
       await db(APPLICATION_TABLE_NAME).where("id", id).del();
       return true;
+    },
+  },
+
+  updateAplicationLabels: {
+    type: ApplicationType,
+    args: {
+      application_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+      label_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+    },
+    resolve: async (_: any, { application_id, label_id }: any) => {
+      const myApplication = await db
+        .select()
+        .from(APPLICATION_TABLE_NAME)
+        .where({ id: application_id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      await db
+        .select()
+        .table(LABEL_TABLE_NAME)
+        .where('id', label_id)
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      await db(APPLICATION_LABEL_TABLE_NAME)
+        .insert({
+          application_id,
+          label_id
+        })
+        .catch((error: Error) => {
+          console.error(error);
+          throw  new GraphQLError(error.name);
+        });
+
+      return myApplication[0];
     },
   },
 };
