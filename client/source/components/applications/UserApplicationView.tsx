@@ -6,14 +6,13 @@ const UserApplicationView = () => {
   const context_id: string = "bcb1f0b7-fbd1-4752-8199-2238e298957a";
   const data_application_list: any = useLazyLoadQuery(
     graphql`
-      query UserApplicationViewQuery($user_id: ID!) {
-        applicationsByUserID(user_id: $user_id) {
+      query UserApplicationViewQuery {
+        users {
           id
-          title
         }
       }
     `,
-    { user_id: context_id },
+    {},
   );
   const mydata: any = data_application_list;
   return (

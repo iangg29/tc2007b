@@ -10,14 +10,13 @@ const ApplicationsScreen = ({ navigation }): JSX.Element => {
   const context_id: string = "bcb1f0b7-fbd1-4752-8199-2238e298957a";
   const data_application_list: ApplicationsScreenQuery$data = useLazyLoadQuery<ApplicationsScreenQuery>(
     graphql`
-      query ApplicationsScreenQuery($user_id: ID!) {
-        applicationsByUserID(user_id: $user_id) {
+      query ApplicationsScreenQuery {
+        users {
           id
-          title
         }
       }
     `,
-    { user_id: context_id },
+    {},
   );
   const mydata: any = data_application_list;
 

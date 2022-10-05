@@ -8,14 +8,13 @@ const CitationList = () => {
   //const data_Citation_list: CitationListQuery$data = useLazyLoadQuery<CitationListQuery>(
   const data_Citation_list: any = useLazyLoadQuery(
     graphql`
-      query CitationListQuery($user_id: ID!) {
-        applicationsByUserID(user_id: $user_id) {
+      query CitationListQuery {
+        users {
           id
-          title
         }
       }
     `,
-    { user_id: context_id },
+    {},
   );
   const mydata: any = data_Citation_list;
 

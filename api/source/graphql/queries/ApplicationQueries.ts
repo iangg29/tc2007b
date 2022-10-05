@@ -166,4 +166,25 @@ export default {
       return labelsOfApplications;
     },
   },
+
+  applicationByUserID: {
+    type: GraphQLList(ApplicationType),
+    args: {
+      user_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+    },
+    resolve: async (_: any, { user_id }: any) => {
+      const applicationByUser = await db
+        .select()
+        .table(APPLICATION_TABLE_NAME)
+        .where("user_id", user_id)
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      return applicationByUser;
+    },
+  },
 };
