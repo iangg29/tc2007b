@@ -8,7 +8,7 @@ import { ROLE_TABLE_NAME } from "../../database/utils/database_constants";
 
 export default {
   createRole: {
-    type: RoleType,
+    type: RoleType, 
     args: {
       name: {
         type: GraphQLNonNull(GraphQLString),

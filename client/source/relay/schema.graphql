@@ -9,6 +9,21 @@ directive @specifiedBy(
   url: String!
 ) on SCALAR
 
+"""Assignable Application Status"""
+type ApplicationStatus {
+  """ApplicationStatus ID"""
+  id: ID!
+
+  """ApplicationStatus name"""
+  name: String!
+
+  """ApplicationStatus creation date"""
+  created_at: String!
+
+  """Last time applicationStatus was updated."""
+  updated_at: String!
+}
+
 """
 Main application type, contains all the information related with the applications of the users into the system
 """
@@ -171,6 +186,7 @@ type Label {
   updated_at: String!
 }
 
+<<<<<<< HEAD
 """Assignable role to users."""
 type Role {
   """Role ID"""
@@ -192,6 +208,105 @@ type Role {
   updated_at: String!
 }
 
+=======
+"""
+Assignable role to users.
+"""
+type Citation {
+  """Citation's ID"""
+  id: ID!
+
+  """Citation's title"""
+  title: String!
+
+  """Citation's description"""
+  description: String!
+
+  """Citation's document"""
+  document: Document!
+
+  """Citation's creation date"""
+  created_at: String!
+
+  """Last time citation was updated"""
+  updated_at: String!
+}
+
+"""
+Document model, contains all the specifications of the documents uploaded by the users
+"""
+type Document {
+  """Document's ID"""
+  id: ID!
+
+  """User that uploaded the document"""
+  user: User!
+
+  """Document's name"""
+  name: String!
+
+  """Document's type"""
+  documentType: DocumentType!
+
+  """Document's creation date"""
+  created_at: String!
+
+  """Last time document got updated"""
+  updated_at: String!
+}
+
+"""Type of document uploaded"""
+type DocumentType {
+  """Document Type ID"""
+  id: ID!
+
+  """Document Type name"""
+  name: String!
+
+  """Document Type creation date"""
+  created_at: String!
+
+  """Last time Document Type was updated"""
+  updated_at: String!
+}
+
+"""Label assigned to each application"""
+type Label {
+  """Label's ID"""
+  id: ID!
+
+  """Label's name"""
+  name: String!
+
+  """Label's description"""
+  description: String!
+
+  """Label's creation date"""
+  created_at: String!
+
+  """Last time label was updated"""
+  updated_at: String!
+}
+
+"""Assignable role to users."""
+type Role {
+  """Role ID"""
+  id: ID!
+
+  """Role name"""
+  name: String!
+
+  """Role description"""
+  description: String!
+
+  """Role creation date"""
+  created_at: String!
+
+  """Last time role was updated."""
+  updated_at: String!
+}
+
+>>>>>>> origin/45-knex-seed-database
 """Application's GraphQL root mutations"""
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
@@ -210,8 +325,13 @@ type RootMutation {
 """Application's GraphQL root query."""
 type RootQuery {
   users: [User]
+  user(id: String!): User
   roles: [Role]
   applicationStatus: [ApplicationStatus]
+  documentTypes: [DocumentType]
+  documents: [Document]
+  citations: [Citation]
+  labels: [Label]
   faqs: [FAQ]
   documentTypes: [DocumentType]
   citations: [Citation]
@@ -237,6 +357,15 @@ type User {
   """User's name"""
   name: String!
 
+<<<<<<< HEAD
+=======
+  """User's id rol"""
+  role_id: ID!
+
+  """User's password"""
+  password: String!
+
+>>>>>>> origin/45-knex-seed-database
   """User's first lastname"""
   first_lastname: String!
 

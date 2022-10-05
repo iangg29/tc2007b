@@ -375,6 +375,7 @@ Application's GraphQL root query.
 """
 type RootQuery {
   users: [User]
+  user(id: String!): User
   roles: [Role]
   applications: [Application]
   applicationByID(id: ID!): Application
@@ -403,9 +404,19 @@ type User {
   """
   name: String!
 
+<<<<<<< HEAD
   """
   User's first lastname
   """
+=======
+  """User's id rol"""
+  role_id: ID!
+
+  """User's password"""
+  password: String!
+
+  """User's first lastname"""
+>>>>>>> origin/45-knex-seed-database
   first_lastname: String!
 
   """
