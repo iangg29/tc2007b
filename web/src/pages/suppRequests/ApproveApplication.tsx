@@ -26,7 +26,8 @@ const ApproveApplication = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "" },
+    { application_status_id: "d36bdf64-b975-4fb2-a28f-9b43e49fc000" },
+    { fetchPolicy: "network-only" },
   );
 
   const { applicationByStatusID } = data;

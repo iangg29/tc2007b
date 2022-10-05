@@ -30,6 +30,7 @@ const ApplicationAccepted = (): JSX.Element => {
       }
     `,
     { application_status_id: "" },
+    { fetchPolicy: "network-only" },
   );
 
   const { applicationByStatusID } = data;
