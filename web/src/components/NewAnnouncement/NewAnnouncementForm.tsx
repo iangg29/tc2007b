@@ -9,10 +9,9 @@ import {
   NewAnnouncementFormQuery$data,
 } from "./__generated__/NewAnnouncementFormQuery.graphql";
 import { NewAnnouncementFormMutation } from "./__generated__/NewAnnouncementFormMutation.graphql";
-import { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { getValue } from "@testing-library/user-event/dist/utils";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 interface documentTypeType {
   id: string | undefined;
@@ -27,10 +26,6 @@ interface newCitation {
 }
 
 const NewAnnouncementForm = (): JSX.Element => {
-  const titleRef = useRef<HTMLInputElement>(null);
-  const descriptionRef = useRef<HTMLInputElement>(null);
-  const endDdateRef = useRef<HTMLInputElement>(null);
-
   const today = new Date();
   const date =
     today.getFullYear().toString() +
@@ -41,9 +36,6 @@ const NewAnnouncementForm = (): JSX.Element => {
 
   const navigate = useNavigate();
 
-  // const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [endDate, setEndDate] = useState("");
   const { register, handleSubmit, getValues } = useForm<newCitation>();
 
   const data: NewAnnouncementFormQuery$data = useLazyLoadQuery<NewAnnouncementFormQuery>(
@@ -58,7 +50,7 @@ const NewAnnouncementForm = (): JSX.Element => {
     {},
   );
 
-  const [commitMutation, isMutationInFlight] = useMutation<NewAnnouncementFormMutation>(
+  const [commitMutation] = useMutation<NewAnnouncementFormMutation>(
     graphql`
       mutation NewAnnouncementFormMutation(
         $title: String!
@@ -85,15 +77,6 @@ const NewAnnouncementForm = (): JSX.Element => {
   });
 
   const [list, handleclickCheckbox] = useChecked(initialState);
-  // const docType = list
-  //   ?.filter((element: any) => element.isChecked === true)
-  //   .map((filteredElement: any) => {
-  //     const newElement: any = filteredElement.id;
-  //     return newElement;
-  //   });
-  // console.log("list", list);
-  // console.log("docType", docType);
-
   const onSubmitForm = (): void => {
     const docType = list
       ?.filter((element: any) => element.isChecked === true)
@@ -113,7 +96,7 @@ const NewAnnouncementForm = (): JSX.Element => {
           end_date: myDate as unknown as string,
           document_types: docType as unknown as [string],
         },
-        onCompleted: (data) => {
+        onCompleted: () => {
           navigate("/app/home");
         },
         onError: () => {
@@ -124,12 +107,14 @@ const NewAnnouncementForm = (): JSX.Element => {
     }
   };
 
+  const onError = (): any => swal("Error", "Verifica tus campos", "error");
+
   return (
     <>
       <div>
         <form
           onSubmit={(e) => {
-            handleSubmit(onSubmitForm)(e).catch(() => {});
+            handleSubmit(onSubmitForm, onError)(e).catch(() => {});
           }}
         >
           <div className="TituloPrincipal flex row-span-1 px-11">
@@ -214,6 +199,10 @@ const NewAnnouncementForm = (): JSX.Element => {
             <button
               className="w-48 bg-main-500 hover:bg-main-500/70  hover:scale-105 transition-all ease-in-out duration-500 active:scale-95 font-bold text-white rounded-3xl py-2 text-sm mt-5"
               type="submit"
+              onClick={() => {
+                // if (disabled === true) {
+                // }
+              }}
             >
               Crear
             </button>
