@@ -1,7 +1,10 @@
-//import { render } from "@testing-library/react";
-import EditModal from "./EditModal";
+// (c) Tecnologico de Monterrey 2022, rights reserved.
 
-it("renders EditModal", () => {
-  //Code test
-  //render(<EditModal />);
+// import { render } from "@testing-library/react";
+
+describe("EditModal tests", () => {
+  it("renders EditModal", () => {
+    // Code test
+    // render(<EditModal />);
+  });
 });

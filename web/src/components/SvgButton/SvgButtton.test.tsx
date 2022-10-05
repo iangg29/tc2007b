@@ -1,7 +1,7 @@
-//import { render } from "@testing-library/react";
-import SvgButton from "./SvgButton";
+// (c) Tecnologico de Monterrey 2022, rights reserved.
 
-it("renders svg button", () => {
-  //Code test
-  //render(<SvgButton />);
+describe("SVGButton tests", () => {
+  it("Should render", () => {
+    // Code test
+  });
 });
