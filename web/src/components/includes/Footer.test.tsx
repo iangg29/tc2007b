@@ -1,7 +1,10 @@
-import SingleTag from "./Footer";
+// (c) Tecnologico de Monterrey 2022, rights reserved.
 
-describe("Test Footer component", () => {
-  it("render component", () => {
-    //Code test
+import { render } from "@testing-library/react";
+import Footer from "./Footer";
+
+describe("Footer tests.", () => {
+  it("Should render.", () => {
+    render(<Footer />);
   });
 });

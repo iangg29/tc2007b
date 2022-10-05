@@ -1,8 +1,7 @@
-import ImageDrop from "./ImageDrop";
-import { screen, render } from "@testing-library/react";
+// (c) Tecnologico de Monterrey 2022, rights reserved.
 
 describe("Test Arrow Drop component", () => {
   it("render component", () => {
-    //Code test
+    // Code test
   });
 });
