@@ -52,6 +52,9 @@ type Application {
   """Citation of the application"""
   citation: Citation!
 
+  """Labels attached to the application"""
+  labels: [Label]
+
   """Application documents"""
   applicationDocuments: [Document]
 
@@ -202,9 +205,6 @@ type Label {
   """Label's description"""
   description: String!
 
-  """Application where the labels are linked"""
-  applications: [Application]
-
   """Label's creation date"""
   created_at: String!
 
@@ -240,6 +240,7 @@ type RootMutation {
   updateApplicationStatus(application_id: ID!, next_status: Int!): String
   attachApplicationDocument(application_id: ID!, document_id: ID!): Application
   deleteApplication(id: ID!): Boolean
+  updateAplicationLabels(application_id: ID!, label_id: ID!): Application
   createStatus(
     """ApplicationStatus name"""
     name: String!
@@ -252,10 +253,11 @@ type RootMutation {
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
   deleteFAQ(id: ID!): Boolean
-  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
   createCitation(title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
   createDocumentType(name: String!): DocumentType
   uploadEvidence(impact: String!, application_id: ID!, document_id: ID!): Evidence
+  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
+  createLabel(name: String!, description: String!): Label
 }
 
 """Application's GraphQL root query."""
@@ -265,6 +267,7 @@ type RootQuery {
   applications: [Application]
   applicationByID(id: ID!): Application
   applicationByStatusID(application_status_id: ID!): [Application]
+  applicationLabels(application_id: ID!): [Label]
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]
   documentTypes: [DocumentType]

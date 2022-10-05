@@ -41,6 +41,10 @@ const ReqDocumentation = (): JSX.Element => {
             url
             updated_at
           }
+          labels{
+            id
+            name
+          }
         }
       }
     `,
@@ -50,14 +54,12 @@ const ReqDocumentation = (): JSX.Element => {
   const { applicationByID } = data;
   const user = applicationByID?.user;
   const documents = applicationByID?.applicationDocuments;
+  const labels = applicationByID?.labels;
 
   // As long as the documents have not been approved,
   // the user can change its status
   const status = applicationByID?.applicationStatus;
   const show = status!.order < 2;
-
-  // Request - Labels
-  const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
 
   return (
     <div>
@@ -80,8 +82,8 @@ const ReqDocumentation = (): JSX.Element => {
           </p>
           <div className="w-[450px] md:w-[500px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
-            {exampleLabels.map((elem, index) => {
-              return <Label key={index} label={elem.label} />;
+            {labels?.map((elem: any) => {
+              return <Label key={elem.id} label={elem.name} />;
             })}
           </div>
         </div>

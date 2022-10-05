@@ -48,6 +48,10 @@ const ReqEvidence = (): JSX.Element => {
               url
               updated_at
             }
+            labels{
+              id
+              name
+            }
           }
         }
       }
@@ -60,9 +64,7 @@ const ReqEvidence = (): JSX.Element => {
   const application = evidenceByApplicationID?.application;
   const user = application?.user;
   const documents = application?.applicationDocuments;
-
-  // Request - Labels
-  const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
+  const labels = application?.labels;
 
   return (
     <div>
@@ -83,8 +85,8 @@ const ReqEvidence = (): JSX.Element => {
           </p>
           <div className="w-[450px] md:w-[500px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
-            {exampleLabels.map((elem, index) => {
-              return <Label key={index} label={elem.label} />;
+            {labels?.map((elem: any) => {
+              return <Label key={elem.id} label={elem.name} />;
             })}
           </div>
         </div>

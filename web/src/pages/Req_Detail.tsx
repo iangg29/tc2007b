@@ -17,7 +17,7 @@ const ReqDetail = (): JSX.Element => {
   // Params - ApplicationID
   const params = useParams();
 
-  // Request - Info / Detail
+  // Request - Info / Detail / Labels
   const data: ReqDetailQuery$data = useLazyLoadQuery<ReqDetailQuery>(
     graphql`
       query ReqDetailQuery($application_id: ID!) {
@@ -40,6 +40,10 @@ const ReqDetail = (): JSX.Element => {
             url
             updated_at
           }
+          labels{
+            id
+            name
+          }
         }
       }
     `,
@@ -49,14 +53,12 @@ const ReqDetail = (): JSX.Element => {
   const { applicationByID } = data;
   const user = applicationByID?.user;
   const documents = applicationByID?.applicationDocuments;
+  const labels = applicationByID?.labels;
 
   // As long as the request has not been accepted or rejected,
   // the user can change its status
   const status = applicationByID?.applicationStatus;
   const show = status!.order === 2 && status!.order < 3;
-
-  // Request - Labels
-  const exampleLabels = [{ label: "Cine" }, { label: "Música" }, { label: "Literatura" }, { label: "Danza" }];
 
   return (
     <div>
@@ -79,8 +81,8 @@ const ReqDetail = (): JSX.Element => {
           </p>
           <div className="w-[450px] md:w-[500px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
-            {exampleLabels.map((elem, index) => {
-              return <Label key={index} label={elem.label} />;
+            {labels?.map((elem: any) => {
+              return <Label key={elem.id} label={elem.name} />;
             })}
           </div>
         </div>
