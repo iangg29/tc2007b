@@ -39,6 +39,7 @@ const RootQuery = new GraphQLObjectType({
     ...CitationQueries,
     ...DocumentQueries,
     ...LabelQueries,
+  
   },
 });
 

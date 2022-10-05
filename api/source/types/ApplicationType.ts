@@ -1,13 +1,11 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { GraphQLID, GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLList } from "graphql";
+import { GraphQLID, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLScalarType, GraphQLString } from "graphql";
 import { UserType } from "./UserType";
 import { ApplicationStatusType } from "./ApplicationStatusType";
 import { CitationType } from "./CitationType";
+import { LabelType } from "./LabelType";
 import { DocumentType } from "./DocumentType";
-import {LabelType} from "./LabelType";
-import { LABEL_TABLE_NAME } from "../database/utils/database_constants";
-import { db } from "../database/database";
 
 export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
   name: "Application",

@@ -2,8 +2,6 @@
 
 import { GraphQLObjectType, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLList } from "graphql";
 import { ApplicationType } from "./ApplicationType"
-import { db } from "../database/database";
-import { APPLICATION_TABLE_NAME } from "../database/utils/database_constants";
 
 export const LabelType: GraphQLObjectType = new GraphQLObjectType({
   name: "Label",
@@ -20,6 +18,10 @@ export const LabelType: GraphQLObjectType = new GraphQLObjectType({
     description: {
       type: GraphQLNonNull(GraphQLString),
       description: "Label's description",
+    },
+    applications: {
+      type: GraphQLList(ApplicationType),
+      description: "Application where the labels are linked",
     },
     created_at: {
       type: GraphQLNonNull(GraphQLString),
