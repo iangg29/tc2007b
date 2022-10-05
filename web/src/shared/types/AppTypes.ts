@@ -2,7 +2,7 @@
 
 import { ExoticComponent, LazyExoticComponent } from "react";
 
-export type iRoute = {
+export interface iRoute {
   path: string;
   components: ExoticComponent | LazyExoticComponent<any>;
-};
+}

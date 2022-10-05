@@ -1,6 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import Label from "../components/Label";
-import Document from "../components/Doc_Review";
+import Label from "../components/Label/Label";
+import Document from "../components/DocReview/Doc_Review";
 import { IoIosArrowBack, IoMdArrowDropdownCircle } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
