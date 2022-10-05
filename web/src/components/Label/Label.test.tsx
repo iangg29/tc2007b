@@ -1,7 +1,7 @@
-import Label from "./Label";
+// (c) Tecnologico de Monterrey 2022, rights reserved.
 
-describe("Test Doc_Review component", () => {
+describe("Test Label component", () => {
   it("render component", () => {
-    //Code test
+    // Code test
   });
 });
