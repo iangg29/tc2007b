@@ -1,4 +1,4 @@
-import DocumentList from "./DocumentList";
+// (c) Tecnologico de Monterrey 2022, rights reserved.
 
 describe("Test DocumentList", () => {
   it("render component", () => {
