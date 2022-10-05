@@ -19,6 +19,14 @@ export const UserType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "User's name",
     },
+    role_id: {
+      type: GraphQLNonNull(GraphQLID),
+      description: "User's id rol",
+    },
+    password: {
+      type: GraphQLNonNull(GraphQLString),
+      description: "User's password",
+    },
     first_lastname: {
       type: GraphQLNonNull(GraphQLString),
       description: "User's first lastname",
