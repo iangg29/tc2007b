@@ -16,9 +16,9 @@ export const UserType = new GraphQLObjectType({
     role: {
       type: RoleType,
       description: "User's role",
-      async resolve({ id_rol }) {
-        const newRole = await db.select().table(ROLE_TABLE_NAME).where({ id: id_rol });
-        return { newRole };
+      async resolve({ role_id }) {
+        const newRole = await db.select().table(ROLE_TABLE_NAME).where({ id: role_id });
+        return { ...newRole[0] };
       },
     },
     name: {
