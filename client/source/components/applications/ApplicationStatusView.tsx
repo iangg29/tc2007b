@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Text, View, FlatList } from "react-native";
+
 import ApplicationCheckPoint from "./ApplicationCheckPoint";
 
 interface Props {
@@ -94,7 +95,8 @@ const ApplicationStatusView = ({ status, title }: Props) => {
               isTurnOn={item.isOn}
               labelText={item.label}
               isLine={item.line}
-              disable={item.disable}></ApplicationCheckPoint>
+              disable={item.disable}
+            />
           )}
           keyExtractor={(item) => item.label}
         />

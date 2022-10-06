@@ -11,7 +11,7 @@ interface Props {
 
 const ApplicationCheckPoint = ({ isTurnOn, labelText, isLine, disable }: Props) => {
   if (disable) {
-    return <View></View>;
+    return <View />;
   }
 
   return (
@@ -33,7 +33,8 @@ const ApplicationCheckPoint = ({ isTurnOn, labelText, isLine, disable }: Props) 
             isTurnOn
               ? "flex-row border-l-8 ml-2 border-green-300 h-10 "
               : "flex-row border-l-8 ml-2  border-slate-300 h-10 "
-          }></View>
+          }
+        />
       )}
     </View>
   );

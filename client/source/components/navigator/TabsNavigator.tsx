@@ -1,10 +1,11 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
+import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import ApplicationsScreen from "../../screens/applications/ApplicationsScreen";
 import ChatScreen from "../../screens/chat/ChatScreen";
 import HomeScreen from "../../screens/home/HomeScreen";
-import { Ionicons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +23,7 @@ const Tabs = (): JSX.Element => {
         name="Inicio"
         component={HomeScreen}
         options={{
-          tabBarIcon: () => <Ionicons name="ios-home" size={30} color={"#111932"} />,
+          tabBarIcon: () => <Ionicons name="ios-home" size={30} color="#111932" />,
         }}
       />
 
@@ -30,7 +31,7 @@ const Tabs = (): JSX.Element => {
         name="Mis solicitudes"
         component={ApplicationsScreen}
         options={{
-          tabBarIcon: () => <Ionicons name="document-text" size={30} color={"#111932"} />,
+          tabBarIcon: () => <Ionicons name="document-text" size={30} color="#111932" />,
         }}
       />
 
@@ -38,7 +39,7 @@ const Tabs = (): JSX.Element => {
         name="ChatBot"
         component={ChatScreen}
         options={{
-          tabBarIcon: () => <Ionicons name="chatbubbles" size={30} color={"#111932"} />,
+          tabBarIcon: () => <Ionicons name="chatbubbles" size={30} color="#111932" />,
         }}
       />
     </Tab.Navigator>

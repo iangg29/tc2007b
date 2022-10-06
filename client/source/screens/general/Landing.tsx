@@ -1,11 +1,12 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { selectUser, setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Landing = () => {
   const navigation = useNavigation();
