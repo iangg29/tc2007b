@@ -6,9 +6,9 @@ import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 import ApplicationStatusView from "../../components/applications/ApplicationStatusView";
 import { ApplicationsScreenQuery, ApplicationsScreenQuery$data } from "./__generated__/ApplicationsScreenQuery.graphql";
 import { useNavigation } from "@react-navigation/native";
-const navigation = useNavigation();
 
-const ApplicationsScreen = ({ navigation }): JSX.Element => {
+const ApplicationsScreen = (): JSX.Element => {
+  const navigation = useNavigation();
   const context_id: string = "bcb1f0b7-fbd1-4752-8199-2238e298957a";
   const data_application_list: ApplicationsScreenQuery$data = useLazyLoadQuery<ApplicationsScreenQuery>(
     graphql`
