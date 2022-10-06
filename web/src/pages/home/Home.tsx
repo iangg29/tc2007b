@@ -31,7 +31,9 @@ const Home = (): JSX.Element => {
         }
       }
     `,
-    { fetchPolicy: "network-only" },
+    {
+      fetchPolicy: "network-only",
+    },
   );
 
   const { citations } = data;

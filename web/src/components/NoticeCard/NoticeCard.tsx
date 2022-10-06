@@ -19,8 +19,12 @@ const NoticeCard = ({ img, name, date, id }: params): JSX.Element => {
   const onClose = (): void => setShow(false);
 
   const [showDelete, setShowDelete] = useState(false);
-  const handleShowDelete = (): void => setShowDelete(true);
-  const onCloseDelete = (): void => setShowDelete(false);
+  const handleShowDelete = (): void => {
+    setShowDelete(true);
+  };
+  const onCloseDelete = (): void => {
+    setShowDelete(false);
+  };
 
   return (
     <>
@@ -46,7 +50,7 @@ const NoticeCard = ({ img, name, date, id }: params): JSX.Element => {
         image={img}
         citationId={id}
       />
-      <DeleteModal name={name} show={showDelete} onClose={onCloseDelete} />
+      <DeleteModal name={name} show={showDelete} onClose={onCloseDelete} citationId={id} />
     </>
   );
 };

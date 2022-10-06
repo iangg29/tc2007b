@@ -8,7 +8,6 @@ import DocumentList from "../DocumentList/DocumentList";
 import { EditModalQuery, EditModalQuery$data } from "./__generated__/EditModalQuery.graphql";
 import { EditModal2Query, EditModal2Query$data } from "./__generated__/EditModal2Query.graphql";
 import { EditModalMutation } from "./__generated__/EditModalMutation.graphql";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 interface params {
@@ -31,6 +30,7 @@ interface EditForm {
   title: string;
   description: string;
   date: string;
+  doChangeProps: string;
 }
 
 const EditModal = ({ show, onClose, title, date, image, header, citationId }: params): JSX.Element => {
@@ -90,7 +90,6 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
   );
 
   const { register, handleSubmit, getValues } = useForm<EditForm>();
-  const navigate = useNavigate();
 
   const { documentTypes } = data;
   const { citationDocuments } = dataDocs;
@@ -143,8 +142,7 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
           document_types: docType as unknown as [string],
         },
         onCompleted: () => {
-          navigate("/app/home");
-          onClose();
+          window.location.href = "/app/home";
         },
         onError: () => {
           console.log("error :(");
@@ -210,7 +208,7 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
                   </div>
                   <div className="mb-3">
                     <label className="block mb-2 py-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                      Descripción
+                      Imagen
                     </label>
                     <input
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

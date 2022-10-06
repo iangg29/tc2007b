@@ -1,7 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { CitationType } from "../../types/CitationType";
-import { GraphQLError, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLString } from "graphql";
+import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
 import { db } from "../../database/database";
 import { CITATION_DOCUMENTS_TABLE_NAME, CITATION_TABLE_NAME, DOCUMENT_TYPE_TABLE_NAME } from "../../database/utils/database_constants";
@@ -128,6 +128,29 @@ export default {
       const newCitation = await db.select().from(CITATION_TABLE_NAME).where({ id });
 
       return newCitation[0];
+    },
+  },
+
+  deleteCitation: {
+    type: GraphQLBoolean,
+    args: {
+      id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+    },
+    resolve: async (_: any, { id }: any) => { 
+
+      await db
+        .transaction(async (trx) => { 
+          await trx(CITATION_TABLE_NAME).where({ id }).delete();
+          await trx(CITATION_DOCUMENTS_TABLE_NAME).where({ citation_id: id }).delete();
+        })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+      
+      return true;
     },
   },
 };
