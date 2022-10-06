@@ -12,6 +12,7 @@ import ApplicationQueries from "./queries/ApplicationQueries";
 import ApplicationStatusQueries from "./queries/ApplicationStatusQueries";
 import DocumentQueries from "./queries/DocumentQueries";
 import DocumentTypeQueries from "./queries/DocumentTypeQueries";
+import EvidenceQueries from "./queries/EvidenceQueries";
 
 // Mutations
 import FAQMutations from "./mutations/FAQMutations";
@@ -21,6 +22,8 @@ import ApplicationMutations from "./mutations/ApplicationMutations";
 import ApplicationStatusMutations from "./mutations/ApplicationStatusMutations";
 import DocumentMutations from "./mutations/DocumentMutations";
 import DocumentTypeMutations from "./mutations/DocumentTypeMutations";
+import EvidenceMutations from "./mutations/EvidenceMutations";
+import LabelMutations from "./mutations/LabelMutations";
 
 /**
  * GraphQLObject that unifies every query that the application uses.
@@ -38,6 +41,7 @@ const RootQuery = new GraphQLObjectType({
     ...CitationQueries,
     ...DocumentQueries,
     ...LabelQueries,
+    ...EvidenceQueries
   },
 });
 
@@ -52,9 +56,11 @@ const RootMutation = new GraphQLObjectType({
     ...ApplicationMutations,
     ...ApplicationStatusMutations,
     ...FAQMutations,
-    ...DocumentMutations,
     ...CitationMutations,
-    ...DocumentTypeMutations
+    ...DocumentTypeMutations,
+    ...EvidenceMutations,
+    ...DocumentMutations,
+    ...LabelMutations
   },
 });
 

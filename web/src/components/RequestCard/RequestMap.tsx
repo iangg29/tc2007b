@@ -15,6 +15,11 @@ interface user {
   second_lastname: string;
 }
 
+interface label {
+  id: string;
+  name: string;
+}
+
 interface Props {
   text: string;
   color: string;
@@ -23,12 +28,11 @@ interface Props {
     title: string;
     citation: citation;
     user: user;
+    labels: [label];
   };
 }
 
 const RequestMap = ({ element, text, color, link }: Props): JSX.Element => {
-  const exampleLabels = [{ label: "Cultura" }, { label: "Baile" }];
-
   return (
     <>
       <RequestCard
@@ -38,7 +42,7 @@ const RequestMap = ({ element, text, color, link }: Props): JSX.Element => {
         userName={element.user.name}
         userFirstName={element.user.first_lastname}
         userLastName={element.user.second_lastname}
-        label={exampleLabels}
+        label={element.labels}
         buttonText={text}
         color={color}
         btnLink={link}

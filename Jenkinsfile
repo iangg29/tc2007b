@@ -30,5 +30,22 @@ pipeline {
       }
     }
 
+    stage('Relay Compile') {
+      parallel {
+        stage('Web') {
+          steps {
+            sh 'cd web && npm run build-relay'
+          }
+        }
+
+        stage('Client') {
+          steps {
+            sh 'cd client && npm run build-relay'
+          }
+        }
+
+      }
+    }
+
   }
 }

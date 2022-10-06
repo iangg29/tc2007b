@@ -4,16 +4,21 @@ import { ApplicationType } from "../../types/ApplicationType";
 import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLInt } from "graphql";
 import { v4 as uuid } from "uuid";
 import {
+  APPLICATION_LABEL_TABLE_NAME,
   APPLICATION_STATUS_TABLE_NAME,
   APPLICATION_TABLE_NAME,
   APPLICATION_DOCUMENTS_TABLE_NAME,
   CITATION_TABLE_NAME,
   USER_TABLE_NAME,
-  DOCUMENT_TABLE_NAME
+  DOCUMENT_TABLE_NAME,
+  LABEL_TABLE_NAME,
 } from "../../database/utils/database_constants";
 import { db } from "../../database/database";
+import { LabelType } from "../../types/LabelType";
+import errorController from "../../controllers/errorController";
 
 export default {
+  // Create application
   createApplication: {
     type: ApplicationType,
     args: {
@@ -124,6 +129,7 @@ export default {
     },
   },
 
+  // Update the status of an application
   updateApplicationStatus: {
     type: GraphQLString,
 
@@ -155,20 +161,20 @@ export default {
           throw new GraphQLError(error.name);
         });
 
-      const newstatusORDER = myOldOrder[0].order + next_status;
-
       const newStatusID = await db
         .select("id")
         .table(APPLICATION_STATUS_TABLE_NAME)
-        .where({ order: newstatusORDER })
+        .where({ order: next_status })
         .catch((error: Error) => {
           console.error(error);
           throw new GraphQLError(error.name);
         });
 
+      const new_date = new Date().toISOString().split(/[T.]+/, 2).join(' ');
+
       await db
       .table(APPLICATION_TABLE_NAME)
-      .update({application_status_id: newStatusID[0].id})
+      .update({application_status_id: newStatusID[0].id, updated_at: new_date})
       .where({id:application_id})
       .catch((error: Error) => {
         console.error(error);
@@ -179,6 +185,7 @@ export default {
     },
   },
 
+  // Attach a document to an application
   attachApplicationDocument: {
     type: ApplicationType,
     args: {
@@ -232,6 +239,7 @@ export default {
     },
   },
 
+  // Delete an application (inactive)
   deleteApplication: {
     type: GraphQLBoolean,
     args: {
@@ -242,6 +250,49 @@ export default {
     resolve: async (_: any, { id }: any) => {
       await db(APPLICATION_TABLE_NAME).where("id", id).del();
       return true;
+    },
+  },
+
+  updateAplicationLabels: {
+    type: ApplicationType,
+    args: {
+      application_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+      label_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+    },
+    resolve: async (_: any, { application_id, label_id }: any) => {
+      const myApplication = await db
+        .select()
+        .from(APPLICATION_TABLE_NAME)
+        .where({ id: application_id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      await db
+        .select()
+        .table(LABEL_TABLE_NAME)
+        .where('id', label_id)
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      await db(APPLICATION_LABEL_TABLE_NAME)
+        .insert({
+          application_id,
+          label_id
+        })
+        .catch((error: Error) => {
+          console.error(error);
+          throw  new GraphQLError(error.name);
+        });
+
+      return myApplication[0];
     },
   },
 };

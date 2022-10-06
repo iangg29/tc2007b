@@ -9,11 +9,13 @@ import {
   APPLICATION_DOCUMENTS_TABLE_NAME,
   USER_TABLE_NAME,
   CITATION_TABLE_NAME,
-  DOCUMENT_TABLE_NAME
+  DOCUMENT_TABLE_NAME, LABEL_TABLE_NAME, APPLICATION_LABEL_TABLE_NAME
 } from "../../database/utils/database_constants";
 import { genApplications } from "../../database/utils/generics/queries";
+import { LabelType } from "../../types/LabelType";
 
 export default {
+  // Get all aplications
   applications: {
     type: GraphQLList(ApplicationType),
     resolve: async () => {
@@ -31,6 +33,7 @@ export default {
     },
   },
 
+  // Get an application by ID
   applicationByID: {
     type: ApplicationType,
     args: {
@@ -103,13 +106,14 @@ export default {
       return{
         ...myApplication[0],
         user: myUser[0],
-        citation: myCitation,
-        applicationStatus: myStatus,
+        citation: myCitation[0],
+        applicationStatus: myStatus[0],
         applicationDocuments: myDocuments
       };
     },
   },
 
+  // Get applications by status
   applicationByStatusID: {
     type: GraphQLList(ApplicationType),
     args: {
@@ -129,6 +133,39 @@ export default {
 
       const applications = await genApplications(Applications);
       return applications;
+    },
+  },
+
+  // Get labels of an application
+  applicationLabels: {
+    type: GraphQLList(LabelType),
+    args: {
+      application_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+    },
+    resolve: async (_:any, { application_id }: any) => {
+      const applicationLabels = await db
+        .select()
+        .table(APPLICATION_LABEL_TABLE_NAME)
+        .where("application_id", application_id)
+        .catch((error : Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      const labels = applicationLabels.map(l => l.label_id);
+
+      const labelsOfApplications = await db
+        .select()
+        .from(LABEL_TABLE_NAME)
+        .whereIn('id', labels)
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      return labelsOfApplications;
     },
   },
 };
