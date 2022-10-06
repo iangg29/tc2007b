@@ -26,16 +26,18 @@ const ApplicationFinalized = (): JSX.Element => {
             id
             title
           }
+          labels {
+            id
+            name
+          }
         }
       }
     `,
     { application_status_id: "" },
+    { fetchPolicy: "network-only" },
   );
 
   const { applicationByStatusID } = data;
-
-  console.debug(applicationByStatusID);
-
   const empty = applicationByStatusID?.length === 0;
 
   return (
@@ -55,7 +57,7 @@ const ApplicationFinalized = (): JSX.Element => {
               element={element}
               text={"Ver"}
               color={"#D0A52A"}
-              link={"/app/applications/reviewdocuments/documents"}
+              link={`/app/applications/reviewfinished/${String(element.id)}`}
             ></RequestMap>
           ))
         )}
