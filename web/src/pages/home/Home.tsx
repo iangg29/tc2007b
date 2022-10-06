@@ -1,18 +1,13 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { useState } from "react";
 import NoticeCard from "../../components/NoticeCard/NoticeCard";
-import EditModal from "../../components/EditModal/EditModal";
-import EditForm from "../../components/EditForm/EditForm";
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 
 import { HomeQuery, HomeQuery$data } from "./__generated__/HomeQuery.graphql";
+import { Link } from "react-router-dom";
 
 const Home = (): JSX.Element => {
-  const [show, setShow] = useState<boolean>(false);
-  const handleShow = (): void => setShow(true);
-  const onClose = (): void => setShow(false);
-
   const [showCitation, setCitation] = useState<boolean>(true);
   const handleAllCitations = (): void => setCitation(false);
   const handleCitations = (): void => setCitation(true);
@@ -36,7 +31,9 @@ const Home = (): JSX.Element => {
         }
       }
     `,
-    {},
+    {
+      fetchPolicy: "network-only",
+    },
   );
 
   const { citations } = data;
@@ -52,12 +49,11 @@ const Home = (): JSX.Element => {
               <h1 className="text-4xl font-semibold text-main-500">Convocatorias</h1>
             </div>
             <div className="mx-7 my-1 flex flex-col">
-              <button
-                onClick={handleShow}
-                className="bg-main-500 hover:bg-main-500/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm mt-5"
-              >
-                + Nueva Convocatoria
-              </button>
+              <Link to={"/app/newannouncement"} className="navBarLink">
+                <button className="bg-main-500 hover:bg-main-500/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm mt-5">
+                  + Nueva Convocatoria
+                </button>
+              </Link>
             </div>
           </div>
           <div className="flex flex-row-reverse">
@@ -89,6 +85,7 @@ const Home = (): JSX.Element => {
                           img={filteredElement.description}
                           name={filteredElement.title}
                           date={filteredElement.end_date}
+                          id={filteredElement.id}
                         />
                       </div>
                     ))}
@@ -99,7 +96,12 @@ const Home = (): JSX.Element => {
                 <div className="flex flex-row flex-wrap">
                   {citations?.map((element: any) => (
                     <div className="flex flex-col basis-1/3" key={element.id}>
-                      <NoticeCard img={element.description} name={element.title} date={element.end_date} />
+                      <NoticeCard
+                        img={element.description}
+                        name={element.title}
+                        date={element.end_date}
+                        id={element.id}
+                      />
                     </div>
                   ))}
                 </div>
@@ -108,12 +110,6 @@ const Home = (): JSX.Element => {
           </div>
         </div>
       </div>
-      <EditModal
-        show={show}
-        onClose={onClose}
-        header={"Crear convocatoria"}
-        props={<EditForm name={undefined} date={undefined} image={undefined} />}
-      />
     </>
   );
 };
