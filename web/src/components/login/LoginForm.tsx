@@ -65,7 +65,9 @@ const LoginForm = (): JSX.Element => {
                 <img src={logo} className="w-full " />
               </div>
               <div className=" flex flex-col -ml-24">
-                <label htmlFor="email"  className="labelLogin">Correo Electronico</label>
+                <label htmlFor="email" className="labelLogin">
+                  Correo Electronico
+                </label>
                 <input
                   className="inputLogin"
                   placeholder="example@qro.gob.mx"
@@ -74,7 +76,9 @@ const LoginForm = (): JSX.Element => {
                   ref={emailRef}
                   autoComplete="email"
                 />
-                <label htmlFor="password" className="labelLogin">Contraseña</label>
+                <label htmlFor="password" className="labelLogin">
+                  Contraseña
+                </label>
                 <input
                   className="inputLogin"
                   placeholder="************"

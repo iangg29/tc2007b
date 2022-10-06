@@ -82,7 +82,7 @@ const NewAnnouncementForm = (): JSX.Element => {
           <div className="SubmitDocumentForm px-8">
             <form>
               <div className="mb-6">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Nombre Convocatoria
                 </label>
 
@@ -97,12 +97,17 @@ const NewAnnouncementForm = (): JSX.Element => {
               </div>
 
               <div className="mb-6">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Descripción</label>
+                <label
+                  htmlFor="description"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Descripción
+                </label>
 
                 <input
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   type="text"
-                  id="descrption"
+                  id="description"
                   autoComplete="off"
                   name="description"
                   ref={descriptionRef}
@@ -110,7 +115,7 @@ const NewAnnouncementForm = (): JSX.Element => {
               </div>
 
               <div className="mb-6">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Fecha Fin Convocatoria
                 </label>
 
@@ -126,7 +131,7 @@ const NewAnnouncementForm = (): JSX.Element => {
               </div>
             </form>
 
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" htmlFor="default_size">
+            <label htmlFor="default_size" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               PDF Convocatoria
             </label>
 
