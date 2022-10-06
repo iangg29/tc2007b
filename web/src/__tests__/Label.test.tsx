@@ -1,6 +1,6 @@
 import Label from "../components/Label";
 
-describe("Test Doc_Review component", () => {
+describe("Test Label component", () => {
   it("render component", () => {
     //Code test
   });

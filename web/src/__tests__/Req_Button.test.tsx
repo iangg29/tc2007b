@@ -1,6 +1,6 @@
 import Req_Button from "../components/Req_Button";
 
-describe("Test Doc_Review component", () => {
+describe("Test Req_Button component", () => {
   it("render component", () => {
     //Code test
   });
