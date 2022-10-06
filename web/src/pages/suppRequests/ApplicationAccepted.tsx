@@ -6,7 +6,7 @@ import graphql from "babel-plugin-relay/macro";
 import {
   ApplicationAcceptedQuery,
   ApplicationAcceptedQuery$data,
-} from "../../components/suppRequests/__generated__/ApplicationAcceptedQuery.graphql";
+} from "./__generated__/ApplicationAcceptedQuery.graphql";
 import RequestMap from "../../components/RequestCard/RequestMap";
 
 const ApplicationAccepted = (): JSX.Element => {
