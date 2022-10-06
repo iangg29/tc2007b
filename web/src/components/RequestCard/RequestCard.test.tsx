@@ -23,12 +23,12 @@ beforeEach(() =>
   ),
 );
 
-test("Test RequestCard button param", () => {
+test("RequestCard button param", () => {
   const btnEl = screen.getByText(/revisar/i);
   expect(btnEl).toBeInTheDocument();
 });
 
-test("Test RequestCard name param", () => {
+test("RequestCard name param", () => {
   const userNameEl = screen.getByText(/Juan Pablo Mendoza Reyes/i);
   expect(userNameEl).toBeInTheDocument();
 });

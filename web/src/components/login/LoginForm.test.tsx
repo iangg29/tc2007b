@@ -1,10 +1,16 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import LoginForm from "./LoginForm";
 
-describe("Test LoginForm", () => {
-  it("render component", () => {
-    render(<LoginForm />);
-  });
+beforeEach(() => render(<LoginForm />));
+
+test("Document Review email input validation", () => {
+  const inputEl = screen.getByLabelText(/Correo Electronico/i);
+  expect(inputEl).toBeInTheDocument();
+});
+
+test("Document Review password input validation", () => {
+  const inputEl = screen.getByLabelText(/Contraseña/i);
+  expect(inputEl).toBeInTheDocument();
 });

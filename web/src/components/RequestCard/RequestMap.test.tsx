@@ -3,7 +3,7 @@
 import { render } from "@testing-library/react";
 import RequestMap from "./RequestMap";
 
-//This is a map for RequestCard components
+// This is a map for RequestCard components
 describe("Test Request component", () => {
   it("render component", () => {
     render(
