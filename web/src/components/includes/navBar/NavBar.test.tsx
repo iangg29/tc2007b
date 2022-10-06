@@ -5,6 +5,6 @@ import NavBar from "./NavBar";
 
 describe("Test RequestCard component", () => {
   it("Should render component", () => {
-    render(<NavBar/>)
+    render(<NavBar />);
   });
 });

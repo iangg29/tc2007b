@@ -5,6 +5,6 @@ import ArrowDrop from "./ArrowDrop";
 
 describe("Test Arrow Drop component", () => {
   it("render component", () => {
-    render(<ArrowDrop/>)
+    render(<ArrowDrop />);
   });
 });

@@ -5,6 +5,6 @@ import LoginForm from "./LoginForm";
 
 describe("Test LoginForm", () => {
   it("render component", () => {
-    render(<LoginForm/>)
+    render(<LoginForm />);
   });
 });

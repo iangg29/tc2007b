@@ -5,6 +5,6 @@ import EditModal from "./EditModal";
 
 describe("EditModal tests", () => {
   it("renders EditModal", () => {
-    render(<EditModal show = {true} onClose = {false} props = {""}  header = "Modal edición de convocatoria" />);
+    render(<EditModal show={true} onClose={false} props={""} header="Modal edición de convocatoria" />);
   });
 });
