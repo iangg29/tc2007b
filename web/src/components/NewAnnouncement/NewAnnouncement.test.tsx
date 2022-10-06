@@ -1,15 +1,11 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { render,screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import NewAnnouncementForm from "./NewAnnouncementForm";
 
-beforeEach(() =>
-  render(
-    <NewAnnouncementForm />,
-  ),
-);
+beforeEach(() => render(<NewAnnouncementForm />));
 
-test("NewAnnouncement Form input citation validation ", () => {
+test("NewAnnouncement Form input citation validation", () => {
   const citationEl = screen.getByLabelText(/Nombre Convocatoria/i);
   expect(citationEl).toBeInTheDocument();
 });
