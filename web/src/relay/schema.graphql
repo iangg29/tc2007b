@@ -258,7 +258,6 @@ type RootMutation {
   updateCitation(id: ID!, title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
   deleteCitation(id: ID!): Boolean
   createDocumentType(name: String!): DocumentType
-  createLabel(name: String!, description: String!): Label
   uploadEvidence(impact: String!, application_id: ID!, document_id: ID!): Evidence
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
   createLabel(name: String!, description: String!): Label
@@ -280,7 +279,6 @@ type RootQuery {
   documents: [Document]
   findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
-  evidences: [Evidence]
   evidenceByApplicationID(application_id: ID!): Evidence
 }
 
