@@ -26,16 +26,18 @@ const ApplicationAccepted = (): JSX.Element => {
             id
             title
           }
+          labels {
+            id
+            name
+          }
         }
       }
     `,
     { application_status_id: "" },
+    { fetchPolicy: "network-only" },
   );
 
   const { applicationByStatusID } = data;
-
-  console.debug(applicationByStatusID);
-
   const empty = applicationByStatusID?.length === 0;
 
   return (
@@ -55,7 +57,7 @@ const ApplicationAccepted = (): JSX.Element => {
               element={element}
               text={"Dar seguimiento"}
               color={"#50245C"}
-              link={"/app/applications/reviewdocuments/documents"}
+              link={`/app/applications/reviewapproved/${String(element.id)}`}
             ></RequestMap>
           ))
         )}
