@@ -1,6 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { Dropdown, Navbar } from "flowbite-react";
-import { Link, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ArrowDrop = (): JSX.Element => {
   return (

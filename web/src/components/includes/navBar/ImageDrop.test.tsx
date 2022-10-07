@@ -1,8 +1,8 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { render, screen } from "@testing-library/react";
-import ImageDrop from "./ImageDrop";
-import { BrowserRouter as Router } from "react-router-dom";
+// import { render, screen } from "@testing-library/react";
+// import ImageDrop from "./ImageDrop";
+// import { BrowserRouter as Router } from "react-router-dom";
 
 // useNavBarContext should be used within the NavbarContext provider!
 describe("Test Image Drop component", () => {
