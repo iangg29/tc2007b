@@ -3,7 +3,7 @@
 import { render, screen } from "@testing-library/react";
 import SingleTag from "./SingleTag";
 
-beforeEach(() => render(<SingleTag key={1} element={{ label: "Cultura" }} />));
+beforeEach(() => render(<SingleTag key={1} element="Cultura" />));
 
 describe("Test RequestCard button param", () => {
   it("should render a review button", () => {

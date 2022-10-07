@@ -17,7 +17,6 @@ const ApproveDoc = (): JSX.Element => {
             id
             name
             first_lastname
-            second_lastname
           }
           citation {
             id
@@ -30,7 +29,7 @@ const ApproveDoc = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "" },
+    { application_status_id: "2" },
     { fetchPolicy: "network-only" },
   );
 
