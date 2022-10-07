@@ -1,6 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { graphql, useLazyLoadQuery } from "react-relay";
+import { useLazyLoadQuery } from "react-relay";
+import graphql from "babel-plugin-relay/macro";
 import RequestMap from "../../components/RequestCard/RequestMap";
 
 import { ApplicationsQuery$data, ApplicationsQuery } from "./__generated__/ApplicationsQuery.graphql";
