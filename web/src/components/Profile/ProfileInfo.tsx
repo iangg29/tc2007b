@@ -11,8 +11,8 @@ interface ProfileProps {
 
 const ProfileInfo = ({ info, image }: ProfileProps): JSX.Element => {
   const objectToList = (obj: profileInfo): fieldValue[] => {
-    var list: fieldValue[] = [];
-    var result = Object.entries(obj);
+    const list: fieldValue[] = [];
+    const result = Object.entries(obj);
     result.forEach((element) => {
       list.push({ field: element[0], value: element[1] });
     });
