@@ -266,6 +266,7 @@ type RootMutation {
 """Application's GraphQL root query."""
 type RootQuery {
   users: [User]
+  user(id: String!): User
   roles: [Role]
   applications: [Application]
   applicationByID(id: ID!): Application
@@ -294,6 +295,12 @@ type User {
 
   """User's name"""
   name: String!
+
+  """User's id rol"""
+  role_id: ID!
+
+  """User's password"""
+  password: String!
 
   """User's first lastname"""
   first_lastname: String!
