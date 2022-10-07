@@ -19,7 +19,7 @@ const ImageDrop = ({ image, userName, email }: Props): JSX.Element => {
           </Dropdown.Header>
 
           <Dropdown.Item>
-            <Link to={""} className="navBarLink">
+            <Link to={"/app/profile"} className="navBarLink">
               Mi perfil
             </Link>
           </Dropdown.Item>

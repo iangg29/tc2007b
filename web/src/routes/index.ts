@@ -14,6 +14,7 @@ const Analytic = lazy(async () => await import("../pages/analytics/Analytic"));
 const Detail = lazy(async () => await import("../pages/Req_Detail"));
 const Documentation = lazy(async () => await import("../pages/Req_Documentation"));
 const Evidence = lazy(async () => await import("../pages/Req_Evidence"));
+const Profile = lazy(async () => await import("../pages/Profile"));
 
 const routes: iRoute[] = [
   {
@@ -63,6 +64,10 @@ const routes: iRoute[] = [
   {
     path: "/newannouncement",
     components: NewAnnouncement,
+  },
+  {
+    path: "/profile",
+    components: Profile,
   },
 ];
 
