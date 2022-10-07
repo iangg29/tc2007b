@@ -50,9 +50,9 @@ const Applications = (): JSX.Element => {
           applications?.map((element: any) => (
             <RequestMap
               key={element.id}
-              text={"Text"}
+              text={"Revisar documentos"}
               color={"#50245C"}
-              link={"app/applications"}
+              link={`/app/applications/reviewdocuments/${String(element.id)}`}
               element={element}
             ></RequestMap>
           ))
