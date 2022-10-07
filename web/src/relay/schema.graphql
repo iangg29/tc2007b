@@ -205,6 +205,9 @@ type Label {
   """Label's description"""
   description: String!
 
+  """Application where the labels are linked"""
+  applications: [Application]
+
   """Label's creation date"""
   created_at: String!
 
@@ -279,7 +282,6 @@ type RootQuery {
   documents: [Document]
   findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
-  evidences: [Evidence]
   evidenceByApplicationID(application_id: ID!): Evidence
 }
 
@@ -296,17 +298,11 @@ type User {
   """User's name"""
   name: String!
 
-  """User's id rol"""
-  role_id: ID!
-
-  """User's password"""
-  password: String!
-
   """User's first lastname"""
   first_lastname: String!
 
   """User's second lastname"""
-  second_lastname: String!
+  second_lastname: String
 
   """User's phone"""
   cellphone: String!

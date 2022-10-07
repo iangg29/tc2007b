@@ -33,7 +33,7 @@ const ApplicationFinalized = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "" },
+    { application_status_id: "6" },
     { fetchPolicy: "network-only" },
   );
 
