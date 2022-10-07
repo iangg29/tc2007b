@@ -47,7 +47,7 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
       query EditModalQuery {
         documentTypes {
           id
-          name
+          type_name
         }
       }
     `,
@@ -59,7 +59,7 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
       query EditModal2Query($id: ID!) {
         citationDocuments(id: $id) {
           id
-          name
+          type_name
         }
       }
     `,

@@ -25,7 +25,7 @@ const ApproveDoc = (): JSX.Element => {
           }
           labels {
             id
-            name
+            label_name
           }
         }
       }

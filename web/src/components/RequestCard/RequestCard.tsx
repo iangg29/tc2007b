@@ -34,7 +34,7 @@ const RequestCard = ({
   color,
   btnLink,
 }: Props): JSX.Element => {
-  const user = userName + " " + userFirstName + " " + userLastName;
+  const user = `${userName} ${userFirstName}`;
 
   return (
     <>
@@ -52,7 +52,7 @@ const RequestCard = ({
 
             <div className="flex flex-col space-y-2 items-center justify-between ">
               {label?.map((element: any) => (
-                <SingleTag key={element.id} element={element.name} />
+                <SingleTag key={element.id} element={element.label_name} />
               ))}
 
               <br />

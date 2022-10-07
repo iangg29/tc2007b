@@ -17,7 +17,7 @@ type Application {
   id: ID!
 
   """User that uploaded the request"""
-  user: User!
+  user: User
 
   """Application title"""
   title: String!
@@ -47,10 +47,10 @@ type Application {
   response_date: String!
 
   """Application status"""
-  applicationStatus: ApplicationStatus!
+  applicationStatus: ApplicationStatus
 
   """Citation of the application"""
-  citation: Citation!
+  citation: Citation
 
   """Labels attached to the application"""
   labels: [Label]
@@ -141,7 +141,7 @@ type DocumentType {
   id: ID!
 
   """Document Type name"""
-  name: String!
+  type_name: String!
 
   """Document Type creation date"""
   created_at: String!
@@ -200,7 +200,7 @@ type Label {
   id: ID!
 
   """Label's name"""
-  name: String!
+  label_name: String!
 
   """Label's description"""
   description: String!
@@ -273,7 +273,6 @@ type RootQuery {
   applications: [Application]
   applicationByID(id: ID!): Application
   applicationByStatusID(application_status_id: ID!): [Application]
-  applicationLabels(application_id: ID!): [Label]
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]
   documentTypes: [DocumentType]
