@@ -30,7 +30,7 @@ export const UserType = new GraphQLObjectType({
       description: "User's first lastname",
     },
     second_lastname: {
-      type: GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
       description: "User's second lastname",
     },
     cellphone: {

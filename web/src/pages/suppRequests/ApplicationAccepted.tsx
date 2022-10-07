@@ -28,12 +28,12 @@ const ApplicationAccepted = (): JSX.Element => {
           }
           labels {
             id
-            name
+            label_name
           }
         }
       }
     `,
-    { application_status_id: "" },
+    { application_status_id: "5" },
     { fetchPolicy: "network-only" },
   );
 

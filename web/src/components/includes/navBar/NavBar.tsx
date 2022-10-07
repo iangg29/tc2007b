@@ -6,8 +6,11 @@ import { NavLink } from "react-router-dom";
 import ImageDrop from "./ImageDrop";
 import NavBrand from "./NavBrand";
 import ArrowDrop from "./ArrowDrop";
+import { useAppSelector } from "../../../store/hooks";
+import { selectUser } from "../../../store/slices/authSlice";
 
 const NavBar = (): JSX.Element => {
+  const user: any = useAppSelector(selectUser);
   return (
     <>
       <div className="bg-main-50">
@@ -23,7 +26,11 @@ const NavBar = (): JSX.Element => {
           <NavBrand />
 
           {/* Image Dropdown  */}
-          <ImageDrop image={profileIcon} userName="User Name" email="example@qro.gob.mx" />
+          <ImageDrop
+            image={profileIcon}
+            userName={`${user.name as string} ${user.first_lastname as string}`}
+            email={user.email}
+          />
 
           {/* NavBar normal items */}
           <Navbar.Collapse>
@@ -35,9 +42,9 @@ const NavBar = (): JSX.Element => {
             <ArrowDrop />
 
             {/* NavBar normal items */}
-            <NavLink to={"/app/analytics"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
+            {/* <NavLink to={"/app/analytics"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
               Analíticas
-            </NavLink>
+            </NavLink> */}
           </Navbar.Collapse>
         </Navbar>
       </div>
