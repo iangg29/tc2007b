@@ -6,10 +6,12 @@ import axios, { AxiosResponse } from "axios";
 import { useAppDispatch } from "../../store/hooks";
 import { setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
 import Cookies from "js-cookie";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -23,21 +25,45 @@ const LoginForm = (): JSX.Element => {
         })
         .then((res: AxiosResponse<any>) => {
           console.log(res);
-          const { status, token } = res.data;
+          const { status, token, message } = res.data;
           if (status === "success") {
             Cookies.set("token", `Bearer ${token as string}`);
             dispatch(setUser(res.data.user));
             dispatch(setToken(token));
             dispatch(setIsLoggedIn(true));
+            navigate("/app/home");
           } else {
-            alert("ERROR! Something happened.");
+            void Swal.fire({
+              title: "Error",
+              icon: "error",
+              text: message,
+              customClass: {
+                container: "swal2-container",
+              },
+            });
           }
         })
         .catch((error) => {
           console.error(error);
+          void Swal.fire({
+            title: "Error",
+            icon: "error",
+            text: "Verifica tus campos de entrada.",
+            customClass: {
+              container: "swal2-container",
+            },
+          });
         });
     } catch (error: any) {
       console.error(error);
+      void Swal.fire({
+        title: "Error",
+        icon: "error",
+        text: "Verifica tus campos de entrada.",
+        customClass: {
+          container: "swal2-container",
+        },
+      });
     }
   };
 

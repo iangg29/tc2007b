@@ -8,7 +8,7 @@ const DocumentList = ({ list, handleclickCheckbox, docTypes }: any): JSX.Element
       {list?.map((element: any, idx: any) => (
         <CheckboxDocument
           key={idx}
-          name={element.name}
+          name={element.type_name}
           id={element.id}
           isChecked={element.isChecked}
           setChecked={handleclickCheckbox}

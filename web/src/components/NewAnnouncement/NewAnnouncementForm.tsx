@@ -43,7 +43,7 @@ const NewAnnouncementForm = (): JSX.Element => {
       query NewAnnouncementFormQuery {
         documentTypes {
           id
-          name
+          type_name
         }
       }
     `,

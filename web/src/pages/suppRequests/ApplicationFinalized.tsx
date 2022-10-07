@@ -28,12 +28,12 @@ const ApplicationFinalized = (): JSX.Element => {
           }
           labels {
             id
-            name
+            label_name
           }
         }
       }
     `,
-    { application_status_id: "" },
+    { application_status_id: "6" },
     { fetchPolicy: "network-only" },
   );
 
