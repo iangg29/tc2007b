@@ -30,7 +30,7 @@ const ApproveApplication = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "" },
+    { application_status_id: "3" },
     { fetchPolicy: "network-only" },
   );
 
