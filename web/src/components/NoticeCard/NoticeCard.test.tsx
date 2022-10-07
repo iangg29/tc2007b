@@ -1,7 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { render, screen } from "@testing-library/react";
-import NoticeCard from "./NoticeCard";
+// import { render, screen } from "@testing-library/react";
+// import NoticeCard from "./NoticeCard";
 
 // Generates API requests and marks it as an error
 describe("Test Notice Card component", () => {
