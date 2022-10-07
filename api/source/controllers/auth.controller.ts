@@ -167,15 +167,19 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     });
   }
   const user = users[0];
-  const isCorrect: boolean = await isPasswordCorrect(password, user.password);
-  if (!isCorrect) {
-    res.status(401).json({
-      success: false,
-      message: "Las credenciales son incorrectas.",
-    });
-  }
+  try {
+    const isCorrect: boolean = await isPasswordCorrect(password, user.password);
+    if (!isCorrect) {
+      res.status(401).json({
+        success: false,
+        message: "Las credenciales son incorrectas.",
+      });
+    }
 
-  createSendToken(user, 201, req, res);
+    createSendToken(user, 201, req, res);
+  } catch (error: any) {
+    console.log({error});
+  }
 };
 
 export const logout = (req: Request, res: Response, next: NextFunction) => {
