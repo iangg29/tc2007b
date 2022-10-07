@@ -92,7 +92,7 @@ export async function seed(knex: Knex): Promise<void> {
       citation_id: "4",
     },
     {
-      id: "7",
+      id: "8",
       user_id: "6",
       title: "Solicitud 7",
       image: "https://www.artistasdelatierra.com/obras/foto104185.jpg",
@@ -104,7 +104,7 @@ export async function seed(knex: Knex): Promise<void> {
       citation_id: "4",
     },
     {
-      id: "8",
+      id: "9",
       user_id: "5",
       title: "Solicitud 8",
       image: "https://www.artistasdelatierra.com/obras/foto104185.jpg",
@@ -116,7 +116,7 @@ export async function seed(knex: Knex): Promise<void> {
       citation_id: "5",
     },
     {
-      id: "9",
+      id: "10",
       user_id: "4",
       title: "Solicitud 9",
       image: "https://www.artistasdelatierra.com/obras/foto104185.jpg",
@@ -128,7 +128,7 @@ export async function seed(knex: Knex): Promise<void> {
       citation_id: "5",
     },
     {
-      id: "10",
+      id: "11",
       user_id: "2",
       title: "Solicitud 10",
       image: "https://www.artistasdelatierra.com/obras/foto104185.jpg",
@@ -140,7 +140,7 @@ export async function seed(knex: Knex): Promise<void> {
       citation_id: "6",
     },
     {
-      id: "11",
+      id: "12",
       user_id: "7",
       title: "Solicitud 11",
       image: "https://www.artistasdelatierra.com/obras/foto104185.jpg",
