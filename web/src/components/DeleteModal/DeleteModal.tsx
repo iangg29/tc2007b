@@ -1,14 +1,26 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { useMutation } from "react-relay";
+import graphql from "babel-plugin-relay/macro";
+import { DeleteModalMutation } from "./__generated__/DeleteModalMutation.graphql";
 
 interface params {
   show: boolean;
   onClose: any;
   name: string;
+  citationId: string;
 }
 
-const DeleteModal = ({ show, onClose, name }: params): JSX.Element => {
+const DeleteModal = ({ show, onClose, name, citationId }: params): JSX.Element => {
+  const [commitMutation] = useMutation<DeleteModalMutation>(
+    graphql`
+      mutation DeleteModalMutation($id: ID!) {
+        deleteCitation(id: $id)
+      }
+    `,
+  );
+
   return (
     <>
       <Modal show={show} size="md" popup={true} onClose={onClose}>
@@ -22,7 +34,19 @@ const DeleteModal = ({ show, onClose, name }: params): JSX.Element => {
             <div className="flex justify-center gap-4">
               <button
                 className="bg-red-700 hover:bg-red-700/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm mt-5"
-                onClick={onClose}
+                onClick={() => {
+                  commitMutation({
+                    variables: {
+                      id: citationId as unknown as string,
+                    },
+                    onCompleted: () => {
+                      window.location.href = "/app/home";
+                    },
+                    onError: () => {
+                      console.log("error :(");
+                    },
+                  });
+                }}
               >
                 Aceptar
               </button>

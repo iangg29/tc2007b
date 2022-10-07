@@ -18,6 +18,7 @@
     "nth-check": "^2.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.36.1",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.2",
     "react-relay": "^14.1.0",
@@ -26,6 +27,8 @@
     "redux-persist": "^6.0.0",
     "relay-runtime": "^14.1.0",
     "svgo": "^2.8.0",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.4.37",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

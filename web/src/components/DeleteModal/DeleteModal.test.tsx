@@ -6,6 +6,6 @@
 // onClose incomplete function
 describe("DeleteModal tests", () => {
   it("Should render", () => {
-    // render(<DeleteModal show={true} onClose={false} name="PruebaDelete" />);
+    //  render(<DeleteModal show={true} onClose={false} name="PruebaDelete" />);
   });
 });

@@ -4,23 +4,27 @@ import { FiEdit } from "react-icons/fi";
 import { BsFillTrashFill } from "react-icons/bs";
 import SvgButton from "../SvgButton/SvgButton";
 import EditModal from "../EditModal/EditModal";
-import EditForm from "../EditForm/EditForm";
 import DeleteModal from "../DeleteModal/DeleteModal";
 
 interface params {
   img: string;
   name: string;
   date: string;
+  id: string;
 }
 
-const NoticeCard = ({ img, name, date }: params): JSX.Element => {
+const NoticeCard = ({ img, name, date, id }: params): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const handleShow = (): void => setShow(true);
   const onClose = (): void => setShow(false);
 
   const [showDelete, setShowDelete] = useState(false);
-  const handleShowDelete = (): void => setShowDelete(true);
-  const onCloseDelete = (): void => setShowDelete(false);
+  const handleShowDelete = (): void => {
+    setShowDelete(true);
+  };
+  const onCloseDelete = (): void => {
+    setShowDelete(false);
+  };
 
   return (
     <>
@@ -41,9 +45,12 @@ const NoticeCard = ({ img, name, date }: params): JSX.Element => {
         show={show}
         onClose={onClose}
         header={"Editar Convocatoria"}
-        props={<EditForm name={name} date={date} image={img} />}
+        title={name}
+        date={date}
+        image={img}
+        citationId={id}
       />
-      <DeleteModal name={name} show={showDelete} onClose={onCloseDelete} />
+      <DeleteModal name={name} show={showDelete} onClose={onCloseDelete} citationId={id} />
     </>
   );
 };

@@ -23,16 +23,18 @@ const ApproveDoc = (): JSX.Element => {
             id
             title
           }
+          labels {
+            id
+            name
+          }
         }
       }
     `,
-    { application_status_id: "9a39a26b-2dc4-41c3-ab68-81202037a953" },
+    { application_status_id: "" },
+    { fetchPolicy: "network-only" },
   );
 
   const { applicationByStatusID } = data;
-
-  console.debug(applicationByStatusID);
-
   const empty = applicationByStatusID?.length === 0;
 
   return (
@@ -52,7 +54,7 @@ const ApproveDoc = (): JSX.Element => {
               element={element}
               text={"Revisar documentos"}
               color={"#244B5C"}
-              link={"/app/applications/reviewdocuments/documents"}
+              link={`/app/applications/reviewdocuments/${String(element.id)}`}
             ></RequestMap>
           ))
         )}
