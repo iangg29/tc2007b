@@ -28,7 +28,7 @@ const ApplicationAccepted = (): JSX.Element => {
           }
           labels {
             id
-            name
+            label_name
           }
         }
       }

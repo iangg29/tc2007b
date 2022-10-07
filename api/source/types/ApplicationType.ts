@@ -6,7 +6,15 @@ import { ApplicationStatusType } from "./ApplicationStatusType";
 import { CitationType } from "./CitationType";
 import { DocumentType } from "./DocumentType";
 import { LabelType } from "./LabelType";
-import { APPLICATION_LABEL_TABLE_NAME, LABEL_TABLE_NAME } from "../database/utils/database_constants";
+import {
+  APPLICATION_DOCUMENTS_TABLE_NAME,
+  APPLICATION_LABEL_TABLE_NAME,
+  APPLICATION_STATUS_TABLE_NAME,
+  CITATION_TABLE_NAME,
+  DOCUMENT_TABLE_NAME,
+  LABEL_TABLE_NAME,
+  USER_TABLE_NAME,
+} from "../database/utils/database_constants";
 import { db } from "../database/database";
 
 export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
@@ -19,8 +27,19 @@ export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
       description: "Application ID",
     },
     user: {
-      type: GraphQLNonNull(UserType),
+      type: UserType,
       description: "User that uploaded the request",
+      async resolve({ user_id }) {
+        const myUser = await db
+          .select()
+          .from(USER_TABLE_NAME)
+          .where({ id: user_id })
+          .catch((error: Error) => {
+            console.error(error);
+            throw new GraphQLError(error.name);
+          });
+        return { ...myUser[0] };
+      },
     },
     title: {
       type: GraphQLNonNull(GraphQLString),
@@ -59,12 +78,34 @@ export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
       description: "Application response date",
     },
     applicationStatus: {
-      type: GraphQLNonNull(ApplicationStatusType),
+      type: ApplicationStatusType,
       description: "Application status",
+      async resolve({ application_status_id }) {
+        const myStatus = await db
+          .select()
+          .from(APPLICATION_STATUS_TABLE_NAME)
+          .where({ id: application_status_id })
+          .catch((error: Error) => {
+            console.error(error);
+            throw new GraphQLError(error.name);
+          });
+        return { ...myStatus[0] };
+      },
     },
     citation: {
-      type: GraphQLNonNull(CitationType),
+      type: CitationType,
       description: "Citation of the application",
+      async resolve({ citation_id }) {
+        const myCitation = await db
+          .select()
+          .from(CITATION_TABLE_NAME)
+          .where({ id: citation_id })
+          .catch((error: Error) => {
+            console.error(error);
+            throw new GraphQLError(error.name);
+          });
+        return { ...myCitation[0] };
+      },
     },
     labels: {
       type: GraphQLList(LabelType),
@@ -90,12 +131,34 @@ export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
             throw new GraphQLError(error.name);
           });
 
-        return labelsOfApplications;
+        return [...labelsOfApplications];
       },
     },
     applicationDocuments: {
       type: GraphQLList(DocumentType),
       description: "Application documents",
+      async resolve({id}){
+        const myDocs = await db
+        .select()
+        .from(APPLICATION_DOCUMENTS_TABLE_NAME)
+        .where({ application_id: id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+      });
+
+      const result = myDocs.map(a => a.document_id);
+
+      const myDocuments = await db
+        .select()
+        .from(DOCUMENT_TABLE_NAME)
+        .whereIn('id', result)
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+      });
+      return [...myDocuments]
+      }
     },
     created_at: {
       type: GraphQLNonNull(GraphQLString),

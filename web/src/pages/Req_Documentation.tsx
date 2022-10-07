@@ -48,7 +48,7 @@ const ReqDocumentation = (): JSX.Element => {
           }
           labels {
             id
-            name
+            label_name
           }
         }
       }

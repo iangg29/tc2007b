@@ -28,7 +28,7 @@ const ApplicationFinalized = (): JSX.Element => {
           }
           labels {
             id
-            name
+            label_name
           }
         }
       }
