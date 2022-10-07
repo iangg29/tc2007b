@@ -5,6 +5,6 @@ import NavBrand from "./NavBrand";
 
 describe("Test Arrow Drop component", () => {
   it("Should render component", () => {
-    // render(<NavBrand />);
+    render(<NavBrand />);
   });
 });

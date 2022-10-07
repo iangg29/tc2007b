@@ -1,14 +1,14 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { render, screen } from "@testing-library/react";
-import NewAnnouncementForm from "./NewAnnouncementForm";
+// import { render, screen } from "@testing-library/react";
+// import NewAnnouncementForm from "./NewAnnouncementForm";
 
+// Generates API requests and marks it as an error
 describe("Test Arrow Drop component", () => {
   it("render component", () => {
-    // render(<NewAnnouncementForm />);
+    //  render(<NewAnnouncementForm />);
   });
 });
-
 
 // beforeEach(() => render(<NewAnnouncementForm />));
 

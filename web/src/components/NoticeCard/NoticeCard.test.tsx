@@ -3,9 +3,17 @@
 import { render, screen } from "@testing-library/react";
 import NoticeCard from "./NoticeCard";
 
+// Generates API requests and marks it as an error
 describe("Test Notice Card component", () => {
   it("Should render component", () => {
-    // render(<NoticeCard  />);
+    // render(
+    //   <NoticeCard
+    //         id="1"
+    //         img="https://culturabcs.gob.mx/storage/announcements/ezRBx2nKR2s7xgZL80ll8MopoyHg4SYVfqtY0oPY.jpeg"
+    //         name="Arte y Cultura ante el Covid"
+    //         date="05/10/2020"
+    //       />,
+    // );
   });
 });
 

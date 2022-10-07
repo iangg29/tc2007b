@@ -6,6 +6,6 @@ import CheckboxDocument from "./CheckboxDocument";
 // setChecked incompleted (requires a Hook)
 describe("Test CheckboxDocument", () => {
   it("render component", () => {
-    render(<CheckboxDocument name = "Prueba.pdf" isChecked = {true} id = "1" setChecked = {}/>)
+    render(<CheckboxDocument name="Prueba.pdf" isChecked={true} id="1" setChecked={} />);
   });
 });

@@ -3,12 +3,12 @@
 import { render, screen } from "@testing-library/react";
 import LoginForm from "./LoginForm";
 
+//could not find react-redux context value; please ensure the component is wrapped in a <Provider>
 describe("Test login form component", () => {
   it("render component", () => {
-    // render(<LoginForm />);
+    //  render(<LoginForm />);
   });
 });
-
 
 // beforeEach(() => render(<LoginForm />));
 
