@@ -1,6 +1,10 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios, { AxiosResponse } from "axios";
+import Cookies from "js-cookie";
+import { useAppDispatch } from "../../../store/hooks";
+import { setToken } from "../../../store/slices/authSlice";
 
 interface Props {
   image: string;
@@ -9,6 +13,25 @@ interface Props {
 }
 
 const ImageDrop = ({ image, userName, email }: Props): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const logout = (): void => {
+    (async () => {
+      return await axios.get((process.env.REACT_APP_API_URL as string) + "/auth/logout");
+    })()
+      .then((res: AxiosResponse<any>) => {
+        const { success, message } = res.data;
+        if (success as boolean) {
+          alert(message);
+          dispatch(setToken(""));
+          Cookies.remove("token");
+          navigate("/");
+        }
+      })
+      .catch((e) => console.error(e));
+  };
+
   return (
     <>
       <div className="flex md:order-2 mr-32">
@@ -19,16 +42,16 @@ const ImageDrop = ({ image, userName, email }: Props): JSX.Element => {
           </Dropdown.Header>
 
           <Dropdown.Item>
-            <Link to={""} className="navBarLink">
+            <Link to={"/app/profile"} className="navBarLink">
               Mi perfil
             </Link>
           </Dropdown.Item>
           <Dropdown.Divider />
 
           <Dropdown.Item>
-            <Link to={""} className="navBarLink">
+            <div className="navBarLink" onClick={logout}>
               Cerrar Sesión
-            </Link>
+            </div>
           </Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />

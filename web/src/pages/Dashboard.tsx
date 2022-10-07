@@ -8,11 +8,16 @@ import { selectUser, setToken } from "../store/slices/authSlice";
 import axios, { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 const Dashboard = (): JSX.Element => {
   const user: any = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/app/home");
+  }, [navigate]);
 
   const logout = (): void => {
     (async () => {

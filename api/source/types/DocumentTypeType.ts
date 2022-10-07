@@ -10,7 +10,7 @@ export const DocumentTypeType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLID),
       description: "Document Type ID",
     },
-    name: {
+    type_name: {
       type: GraphQLNonNull(GraphQLString),
       description: "Document Type name",
     },

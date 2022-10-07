@@ -55,7 +55,7 @@ const ReqEvidence = (): JSX.Element => {
             }
             labels {
               id
-              name
+              label_name
             }
           }
         }

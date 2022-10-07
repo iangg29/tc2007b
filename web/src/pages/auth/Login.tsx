@@ -11,7 +11,7 @@ const Login = (): JSX.Element => {
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      navigate("/app/");
+      navigate("/app");
     }
   }, [isLoggedIn]);
 

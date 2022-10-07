@@ -17,3 +17,17 @@
 .navBarActive {
   @apply text-blue-700;
 }
+
+body {
+  @apply select-none;
+}
+
+@layer base {
+  .swal2-container {
+    z-index: 10000;
+  }
+}
+
+.swal2-container {
+  z-index: 10000;
+}
