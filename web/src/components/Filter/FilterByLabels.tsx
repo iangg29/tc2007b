@@ -1,22 +1,22 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { DropdownItem } from "flowbite-react/lib/esm/components/Dropdown/DropdownItem";
-
-interface label {
+interface labels {
   id: string;
-  name: string;
+  name: String;
 }
 
 interface Props {
-  element: {
-    label: label;
-  };
+  label: labels[];
 }
 
-const FilterByLabels = ({ element }: Props): JSX.Element => {
+const FilterByLabels = ({ label }: Props): JSX.Element => {
   return (
     <>
-      <DropdownItem>`${String(element.label.name)}`</DropdownItem>
+      {label?.map((element: any) => (
+        <option value={element.name} key={element.id}>
+          {element.name}
+        </option>
+      ))}
     </>
   );
 };
