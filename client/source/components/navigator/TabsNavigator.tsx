@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ApplicationsScreen from "../../screens/applications/ApplicationsScreen";
 import ChatScreen from "../../screens/chat/ChatScreen";
 import HomeScreen from "../../screens/home/HomeScreen";
+import ProfileScreen from "../../screens/profile/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -40,6 +41,14 @@ const Tabs = (): JSX.Element => {
         component={ChatScreen}
         options={{
           tabBarIcon: () => <Ionicons name="chatbubbles" size={30} color="#111932" />,
+        }}
+      />
+
+    <Tab.Screen
+        name="Mi Perfil"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: () => <Ionicons name="person-circle" size={30} color={"#111932"} />,
         }}
       />
     </Tab.Navigator>
