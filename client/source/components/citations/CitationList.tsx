@@ -17,8 +17,7 @@ const CitationList = () => {
     {},
   );
   return (
-    <View>
-      <Text>This is the Citation List page: </Text>
+    <View className="pt-2">
       <FlatList
         data={data_Citation_list?.citations}
         renderItem={({ item }) => <CitationCard id={item.id} title={item.title} />}

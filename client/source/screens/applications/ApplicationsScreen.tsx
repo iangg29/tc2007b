@@ -32,8 +32,7 @@ const ApplicationsScreen = (): JSX.Element => {
   const { applicationByUserID } = data;
 
   return (
-    <View className=" pl-2">
-      <Text className=" text-4xl text-indigo-500 font-semibold py-4">Mis solicitudes</Text>
+    <View className=" pl-2 pt-2">
       <View>
         <ApplicationList applicationByUserID={applicationByUserID} />
       </View>

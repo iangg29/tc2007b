@@ -22,7 +22,7 @@ const ProfileScreen = (): JSX.Element => {
     try {
       (async () => {
         dispatch(setToken(""));
-        dispatch(setUser({ name: "", first_lastname: "", second_lastname: "", cellphone: "", email: "" }));
+        dispatch(setUser({ id: "", name: "", first_lastname: "", second_lastname: "", cellphone: "", email: "" }));
         dispatch(setIsLoggedIn(false));
         await removeToken();
       })();
