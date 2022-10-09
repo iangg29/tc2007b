@@ -48,7 +48,7 @@ const Tabs = (): JSX.Element => {
         name="Mi Perfil"
         component={ProfileScreen}
         options={{
-          tabBarIcon: () => <Ionicons name="person-circle" size={30} color={"#111932"} />,
+          tabBarIcon: () => <Ionicons name="person-circle" size={30} color="#111932" />,
         }}
       />
     </Tab.Navigator>

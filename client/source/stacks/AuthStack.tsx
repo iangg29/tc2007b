@@ -3,5 +3,5 @@
 import Tabs from "../components/navigator/TabsNavigator";
 
 export const AuthStack = () => {
-  return <Tabs></Tabs>;
+  return <Tabs />;
 };

@@ -10,7 +10,7 @@ interface Props {
 
 const CitationCard = ({ id, title }: Props) => {
   const handleApply = () => {
-    console.log("Redirect to apply route");
+    //console.log("Redirect to apply route");
   };
 
   return (

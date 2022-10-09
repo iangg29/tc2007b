@@ -4,8 +4,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import Tabs from "../../components/navigator/TabsNavigator";
 
+import Tabs from "../../components/navigator/TabsNavigator";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { selectUser, setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
 
@@ -33,7 +33,7 @@ const Landing = () => {
   };
 
   return (
-    <Tabs></Tabs>
+    <Tabs />
     // <View>
     //   <Text>This is the landing page</Text>
     //   <View className="text-center mx-10 ">

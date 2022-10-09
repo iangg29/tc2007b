@@ -1,13 +1,14 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, Image, FlatList, TouchableOpacity } from "react-native";
+import { graphql, useLazyLoadQuery } from "react-relay/hooks";
+
 import UserDocs from "../../components/profile/UserDocs";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { selectUser, setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
-import { graphql, useLazyLoadQuery } from "react-relay/hooks";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
 import { ProfileScreenQuery, ProfileScreenQuery$data } from "./__generated__/ProfileScreenQuery.graphql";
 
 const ProfileScreen = (): JSX.Element => {
@@ -58,7 +59,8 @@ const ProfileScreen = (): JSX.Element => {
           <Image
             className="rounded-full"
             style={{ width: 150, height: 150 }}
-            source={require("../../assets/profile.png")}></Image>
+            source={require("../../assets/profile.png")}
+          />
           <Text className="text-blue-600 text-xl font-semibold py-2">{`${user?.name} ${user?.first_lastname} ${user?.second_lastname} `}</Text>
 
           <TouchableOpacity onPress={logout}>
@@ -81,7 +83,7 @@ const ProfileScreen = (): JSX.Element => {
               <FlatList
                 data={userDocuments.findDocumentsByUserID}
                 renderItem={({ item }) => (
-                  <UserDocs filename={item.file_name} updated={item.updated_at} link={item.url}></UserDocs>
+                  <UserDocs filename={item.file_name} updated={item.updated_at} link={item.url} />
                 )}
               />
             </>

@@ -1,6 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import React, { useState } from "react";
 import { Text, View, Image, TouchableOpacity, Modal } from "react-native";
+
 import ApplicationStatusView from "./ApplicationStatusView";
 
 interface Props {
@@ -15,7 +16,7 @@ const ApplicationCard = ({ title, status }: Props) => {
 
   const handleStatus = () => {
     setModalVisible(!modalVisible);
-    console.log("OPEN MODAL");
+    //console.log("OPEN MODAL");
   };
   return (
     <View className=" rounded-xl shadow-md overflow-hidden ">
@@ -27,7 +28,7 @@ const ApplicationCard = ({ title, status }: Props) => {
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
-        <ApplicationStatusView status={status.name} title={title}></ApplicationStatusView>
+        <ApplicationStatusView status={status.name} title={title} />
       </Modal>
       <View>
         <Image className="h-32 w-full object-cover" source={{ uri: "https://reactjs.org/logo-og.png" }} />

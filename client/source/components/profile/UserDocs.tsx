@@ -19,14 +19,14 @@ const UserDocs = ({ filename, updated, link }: Props): JSX.Element => {
           className="place-items-end"
           name="eye"
           size={30}
-          color={"#252d53"}
+          color="#252d53"
           onPress={() => Linking.openURL(link)}
         />
         <Ionicons
           className="place-items-end"
           name="create"
           size={30}
-          color={"#252d53"}
+          color="#252d53"
           onPress={() => Linking.openURL(updated)}
         />
       </View>

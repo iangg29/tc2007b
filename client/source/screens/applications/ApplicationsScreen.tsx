@@ -4,12 +4,11 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
+
 import ApplicationList from "../../components/applications/ApplicationList";
-
-import { ApplicationsScreenQuery, ApplicationsScreenQuery$data } from "./__generated__/ApplicationsScreenQuery.graphql";
-
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/slices/authSlice";
+import { ApplicationsScreenQuery, ApplicationsScreenQuery$data } from "./__generated__/ApplicationsScreenQuery.graphql";
 
 const ApplicationsScreen = (): JSX.Element => {
   const user: any = useAppSelector(selectUser);
@@ -36,7 +35,7 @@ const ApplicationsScreen = (): JSX.Element => {
     <View className=" pl-2">
       <Text className=" text-4xl text-indigo-500 font-semibold py-4">Mis solicitudes</Text>
       <View>
-        <ApplicationList applicationByUserID={applicationByUserID}></ApplicationList>
+        <ApplicationList applicationByUserID={applicationByUserID} />
       </View>
     </View>
   );
