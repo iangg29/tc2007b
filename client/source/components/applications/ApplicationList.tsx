@@ -4,15 +4,15 @@ import { View, FlatList } from "react-native";
 import ApplicationCard from "./ApplicationCard";
 
 interface Props {
-  applicationsInfo: any;
+  applicationByUserID: any;
 }
 
-const ApplicationList = ({ applicationsInfo }: Props) => {
+const ApplicationList = ({ applicationByUserID }: Props) => {
   return (
     <View>
       <FlatList
-        data={applicationsInfo}
-        renderItem={({ item }) => <ApplicationCard id={item.id} title={item.title} />}
+        data={applicationByUserID}
+        renderItem={({ item }) => <ApplicationCard title={item.title} status={item?.applicationStatus} />}
         keyExtractor={(item) => item.id}
       />
     </View>

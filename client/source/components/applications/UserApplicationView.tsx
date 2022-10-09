@@ -20,9 +20,7 @@ const UserApplicationView = () => {
   return (
     <View className=" pl-2">
       <Text className=" text-4xl text-indigo-500 font-semibold py-4">Mis solicitudes</Text>
-      <View>
-        <ApplicationList applicationsInfo={mydata.applicationsByUserID} />
-      </View>
+      <View>UserApplicationView</View>
     </View>
   );
 };
