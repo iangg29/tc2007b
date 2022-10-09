@@ -2,7 +2,7 @@
 
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 import ApplicationList from "../../components/applications/ApplicationList";
 

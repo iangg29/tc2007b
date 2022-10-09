@@ -1,4 +1,4 @@
-import { GraphQLList, GraphQLID } from "graphql";
+import { GraphQLList, GraphQLID, GraphQLError } from "graphql";
 import { DocumentType } from "../../types/DocumentType";
 import { db } from "../../database/database";
 import { DOCUMENT_TABLE_NAME } from "../../database/utils/database_constants";
@@ -20,7 +20,16 @@ export default {
       },
     },
     resolve: async (_: any, { user_id }: any) => {
-      return await getDocumentByUserId(user_id);
+      const UserDocuments = await db
+        .select()
+        .table( DOCUMENT_TABLE_NAME)
+        .where({ user_id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+      return [...UserDocuments ];
     },
   },
+
 };
