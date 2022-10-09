@@ -18,23 +18,15 @@ const ApplicationCheckPoint = ({ isTurnOn, labelText, isLine, disable }: Props) 
     <View>
       <View className="flex-row">
         <Text
-          className={
-            isTurnOn
-              ? "rounded-full text-green-600 text-3xl font-bold bg-green-300"
-              : "rounded-full text-gray-600 text-3xl font-bold  bg-slate-300"
-          }>
+          className={`rounded-full text-3xl font-bold ${
+            isTurnOn ? " text-green-600  bg-green-300" : "text-gray-600  bg-slate-300"
+          }`}>
           ✓
         </Text>
         <Text className=" tracking-wide text-lg text-indigo-500 font-semibold">{labelText}</Text>
       </View>
       {!!isLine && (
-        <View
-          className={
-            isTurnOn
-              ? "flex-row border-l-8 ml-2 border-green-300 h-10 "
-              : "flex-row border-l-8 ml-2  border-slate-300 h-10 "
-          }
-        />
+        <View className={`flex-row border-l-8 ml-2 h-10 ${isTurnOn ? "border-green-300" : "border-slate-300 "}`} />
       )}
     </View>
   );
