@@ -2,7 +2,7 @@
 
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 
 import ApplicationStatusView from "../../components/applications/ApplicationStatusView";
@@ -23,12 +23,12 @@ const ApplicationsScreen = (): JSX.Element => {
   );
 
   return (
-    <View className=" pl-2">
-      <Text className=" text-4xl text-indigo-500 font-semibold py-4">Mis solicitudes</Text>
-      <View>
-        <ApplicationStatusView status="" title="title" />
+      <View className=" pl-2">
+        <Text className=" text-4xl text-indigo-500 font-semibold py-4">Mis solicitudes</Text>
+        <View>
+          <ApplicationStatusView status="" title="title" />
+        </View>
       </View>
-    </View>
   );
 };
 
