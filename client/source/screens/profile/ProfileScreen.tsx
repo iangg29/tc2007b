@@ -3,21 +3,19 @@
 import React from "react";
 import { View, Text, Image, FlatList, TouchableOpacity } from "react-native";
 import UserDocs from "../../components/profile/UserDocs";
-import { useAppSelector,useAppDispatch } from "../../store/hooks";
-import { selectUser,setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { selectUser, setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { ProfileScreenQuery, ProfileScreenQuery$data } from "./__generated__/ProfileScreenQuery.graphql";
 
 const ProfileScreen = (): JSX.Element => {
-
   const dispatch = useAppDispatch();
 
   const removeToken = async () => {
     await AsyncStorage.removeItem("token");
   };
-
 
   const logout = () => {
     try {
@@ -36,17 +34,17 @@ const ProfileScreen = (): JSX.Element => {
 
   const userDocuments: ProfileScreenQuery$data = useLazyLoadQuery<ProfileScreenQuery>(
     graphql`
-      query ProfileScreenQuery ($user_id: ID!){
-          findDocumentsByUserID(user_id: $user_id){
-          id,
-          file_name,
+      query ProfileScreenQuery($user_id: ID!) {
+        findDocumentsByUserID(user_id: $user_id) {
+          id
+          file_name
           url
           updated_at
         }
       }
     `,
-    {user_id: user.id},
-    { fetchPolicy: "network-only" }
+    { user_id: user.id },
+    { fetchPolicy: "network-only" },
   );
 
   const mydata: any = userDocuments;
@@ -62,10 +60,10 @@ const ProfileScreen = (): JSX.Element => {
             style={{ width: 150, height: 150 }}
             source={require("../../assets/profile.png")}></Image>
           <Text className="text-blue-600 text-xl font-semibold py-2">{`${user?.name} ${user?.first_lastname} ${user?.second_lastname} `}</Text>
-            
-            <TouchableOpacity onPress={logout}>
-              <Text>Logout</Text>
-            </TouchableOpacity>
+
+          <TouchableOpacity onPress={logout}>
+            <Text>Logout</Text>
+          </TouchableOpacity>
         </View>
 
         <View className="mx-16">
@@ -73,23 +71,24 @@ const ProfileScreen = (): JSX.Element => {
           <Text className="bg-blue-100 text-slate-600 rounded-lg text-lg font-semibold px-3">{`${user?.email}`} </Text>
         </View>
         <View className="flex items-center">
-        {empty ? (
-           <Text className="text-blue-600 text-xl text-center font-semibold pt-10">No existen documentos relacionados al usuario</Text>
-        ) : (
-        <>
-        <Text className="text-blue-600 text-xl font-semibold pt-10">Documentos</Text>
-          <FlatList
-            data= {userDocuments.findDocumentsByUserID}
-            renderItem={({ item }) => (
-              <UserDocs filename={item.file_name} updated={item.updated_at} link={item.url}></UserDocs>
-            )}
-          />
-        </> 
+          {empty ? (
+            <Text className="text-blue-600 text-xl text-center font-semibold pt-10">
+              No existen documentos relacionados al usuario
+            </Text>
+          ) : (
+            <>
+              <Text className="text-blue-600 text-xl font-semibold pt-10">Documentos</Text>
+              <FlatList
+                data={userDocuments.findDocumentsByUserID}
+                renderItem={({ item }) => (
+                  <UserDocs filename={item.file_name} updated={item.updated_at} link={item.url}></UserDocs>
+                )}
+              />
+            </>
           )}
         </View>
       </View>
     </View>
-
   );
 };
 

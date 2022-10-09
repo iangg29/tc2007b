@@ -44,7 +44,7 @@ const Tabs = (): JSX.Element => {
         }}
       />
 
-    <Tab.Screen
+      <Tab.Screen
         name="Mi Perfil"
         component={ProfileScreen}
         options={{

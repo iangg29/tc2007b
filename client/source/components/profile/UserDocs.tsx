@@ -11,25 +11,25 @@ interface Props {
 const UserDocs = ({ filename, updated, link }: Props): JSX.Element => {
   return (
     <View className="w-80 flex flex-row space-x-4 pt-4 pb-2 border-b-2">
-         <View className="w-60 flex flex-row">
-      <Text className="text-base">{filename}</Text>
+      <View className="w-60 flex flex-row">
+        <Text className="text-base">{filename}</Text>
       </View>
       <View className="w-fit flex flex-row pl-0">
-      <Ionicons
-        className="place-items-end"
-        name="eye"
-        size={30}
-        color={"#252d53"}
-        onPress={() => Linking.openURL(link)}
-      />
-      <Ionicons
-        className="place-items-end"
-        name="create"
-        size={30}
-        color={"#252d53"}
-        onPress={() => Linking.openURL(updated)}
-      />
-         </View>
+        <Ionicons
+          className="place-items-end"
+          name="eye"
+          size={30}
+          color={"#252d53"}
+          onPress={() => Linking.openURL(link)}
+        />
+        <Ionicons
+          className="place-items-end"
+          name="create"
+          size={30}
+          color={"#252d53"}
+          onPress={() => Linking.openURL(updated)}
+        />
+      </View>
     </View>
   );
 };
