@@ -17,29 +17,29 @@ const ApplicationStatusView = ({ status, title }: Props) => {
 
   const setStatus = (status: string) => {
     switch (status) {
-      case "documentos enviados":
+      case "Pendiente de revisión":
         setNum(1);
         setMessage(
           "Tus documentación se ha enviado con éxito.\nEstamos revisando que correspondan con su descripción.",
         );
         break;
-      case "en correccion":
+      case "En corrección":
         setNum(2);
         setMessage("Algo salió mal con alguno de tus documentos. Te pedimos los vuelvas a subir.");
         break;
-      case "documentos aceptados":
+      case "Documentos aceptados":
         setNum(3);
         setMessage("Tus documentos parecen en orden. Estamos evaluando tu solicitud.");
         break;
-      case "rechazada":
+      case "Rechazado":
         setNum(4);
         setMessage("Lo sentimos, tu solicitud ha sido rechazada.");
         break;
-      case "aceptada":
+      case "Aceptado":
         setNum(5);
         setMessage("Feliciades, tus solicitud a sido aceptada. Recuerda subir la evidencia para justificar el apoyo.");
         break;
-      case "finalizada":
+      case "Finalizado":
         setNum(6);
         setMessage("Hemos recibido tu evidencia.");
         break;
