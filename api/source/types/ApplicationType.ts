@@ -132,6 +132,7 @@ export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
           });
 
         return [...labelsOfApplications];
+
       },
     },
     applicationDocuments: {
