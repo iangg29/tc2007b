@@ -11,6 +11,7 @@ const CitationList = () => {
         citationsActive {
           title
           id
+          end_date
         }
       }
     `,
@@ -20,7 +21,7 @@ const CitationList = () => {
     <View className="pt-2">
       <FlatList
         data={data_Citation_list?.citationsActive}
-        renderItem={({ item }) => <CitationCard id={item.id} title={item.title} />}
+        renderItem={({ item }) => <CitationCard id={item.id} title={item.title} end_date={item.end_date} />}
         keyExtractor={(item) => item.id}
       />
     </View>
