@@ -66,7 +66,7 @@ const ApproveApplication = (): JSX.Element => {
           value={selected}
           onChange={handleChange}
         >
-          <option selected={true}></option>
+          <option selected={true}>Todas</option>
           {applicationByStatusID?.map((element: any) => (
             <FilterByLabelsMap element={element} key={element.labels.id}></FilterByLabelsMap>
           ))}
