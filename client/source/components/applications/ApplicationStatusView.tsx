@@ -86,9 +86,11 @@ const ApplicationStatusView = ({ status, title }: Props) => {
   return (
     <View>
       <View className="flex flex-col pl-4 justify-start">
-        <Text className=" text-4xl text-indigo-500 font-semibold py-4">Solicitud: {title}</Text>
+        <Text className="pt-4 tracking-wide text-xl   text-slate-600 dark:text-white">Mi solicitud:</Text>
+        <Text className=" text-2xl font-semibold text-slate-600">{title}</Text>
 
         <FlatList
+          className="pt-4"
           data={myData}
           renderItem={({ item }) => (
             <ApplicationCheckPoint
@@ -103,7 +105,7 @@ const ApplicationStatusView = ({ status, title }: Props) => {
       </View>
 
       <View className="bg-blue-100  shadow-lg mx-auto rounded-xl m-6 ">
-        <Text className="font-semibold text-indigo-500 text-lg m-4 ">{message}</Text>
+        <Text className="font-semibold text-cyan-800	 text-lg m-4 ">{message}</Text>
       </View>
     </View>
   );
