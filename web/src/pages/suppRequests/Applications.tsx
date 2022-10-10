@@ -4,7 +4,7 @@ import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import RequestMap from "../../components/RequestCard/RequestMap";
 import FilterByLabelsMap from "../../components/Filter/FilterByLabelsMap";
-import { ApplicationsQuery$data, ApplicationsQuery } from "./__generated__/ApplicationsQuery.graphql";
+import { ApplicationsQuery, ApplicationsQuery$data } from "./__generated__/ApplicationsQuery.graphql";
 import { useState } from "react";
 
 const Applications = (): JSX.Element => {
@@ -35,8 +35,12 @@ const Applications = (): JSX.Element => {
     { fetchPolicy: "network-only" },
   );
   const { applications } = data;
-  const empty = applications?.length === 0;
-  const [selected, setSelected] = useState("");
+  const empty: boolean = applications?.length === 0;
+  const [selected, setSelected] = useState<string>("");
+
+  const updateApplications = applications?.filter((application: any) =>
+    new Set(application.labels.map((label: any) => label.id)).has(selected),
+  );
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleChange = (event: any) => {
@@ -66,19 +70,25 @@ const Applications = (): JSX.Element => {
         </select>
       )}
       <div className="grid grid-cols-3">
-        {selected === "" ? (
-          <p>Show some</p>
-        ) : (
-          applications?.map((element: any) => (
-            <RequestMap
-              key={element.id}
-              text={"Revisar documentos"}
-              color={"#50245C"}
-              link={`/app/applications/reviewdocuments/${String(element.id)}`}
-              element={element}
-            ></RequestMap>
-          ))
-        )}
+        {selected === ""
+          ? applications?.map((element: any) => (
+              <RequestMap
+                key={element.id}
+                text={"Revisar documentos"}
+                color={"#50245C"}
+                link={`/app/applications/reviewdocuments/${String(element.id)}`}
+                element={element}
+              ></RequestMap>
+            ))
+          : updateApplications?.map((element: any) => (
+              <RequestMap
+                key={element.id}
+                text={"Revisar documentos"}
+                color={"#50245C"}
+                link={`/app/applications/reviewdocuments/${String(element.id)}`}
+                element={element}
+              ></RequestMap>
+            ))}
       </div>
     </>
   );
