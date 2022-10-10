@@ -7,6 +7,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { graphql, useLazyLoadQuery } from "react-relay";
 
 import {
+  ApplicationFormScreen2Query,
+  ApplicationFormScreen2Query$data,
+} from "./__generated__/ApplicationFormScreen2Query.graphql";
+import {
   ApplicationFormScreenQuery,
   ApplicationFormScreenQuery$data,
 } from "./__generated__/ApplicationFormScreenQuery.graphql";
@@ -26,9 +30,22 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     { id: itemId },
   );
 
-  const { citationDocuments } = data;
+  const labelsData: ApplicationFormScreen2Query$data = useLazyLoadQuery<ApplicationFormScreen2Query>(
+    graphql`
+      query ApplicationFormScreen2Query {
+        labels {
+          id
+          label_name
+        }
+      }
+    `,
+    {},
+  );
 
+  const { citationDocuments } = data;
+  const { labels } = labelsData;
   console.debug(citationDocuments);
+  console.debug(labels);
 
   const handlePress = () => {
     //console.log("Redirect to apply route");
@@ -64,21 +81,27 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
         )}
       />
       <Text className="text-base text-gray-800 font-medium m-2 mt-5"> Agrega etiquetas</Text>
-      <View className="flex-row mx-4 content-between justify-between space-x-10">
+      <View className="flex-row mx-4 content-center justify-center">
+        <FlatList
+          horizontal
+          initialNumToRender={3}
+          data={labelsData?.labels}
+          renderItem={({ item }) => (
+            <Text
+              className="bg-gray-500 text-gray-50 px-3 py-1 mx-5 border-gray-500"
+              style={{ borderRadius: 10, overflow: "hidden" }}
+              onPress={handlePress}>
+              {item.label_name}
+            </Text>
+          )}
+        />
+      </View>
+      <View className="flex-row mx-4 mt-6 content-center justify-center space-x-10">
         <Text
-          className="bg-gray-500 text-gray-50 px-2 py-1 border-gray-500"
-          style={{ borderRadius: 10, overflow: "hidden" }}>
-          Pintura
-        </Text>
-        <Text
-          className="bg-gray-500 text-gray-50 px-2 py-1 border-gray-500"
-          style={{ borderRadius: 10, overflow: "hidden" }}>
-          Escultura
-        </Text>
-        <Text
-          className="bg-gray-500 text-gray-50 px-2 py-1 border-gray-500"
-          style={{ borderRadius: 10, overflow: "hidden" }}>
-          Música
+          className="text-lg bg-main-100 text-gray-50 px-5 py-1 mx-2 border-gray-500"
+          style={{ borderRadius: 20, overflow: "hidden" }}
+          onPress={handlePress}>
+          Enviar
         </Text>
       </View>
     </SafeAreaView>
