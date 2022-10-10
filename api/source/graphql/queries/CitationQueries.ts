@@ -54,4 +54,19 @@ export default {
       return [...newCitationDocuments];
     },
   },
+
+  citationsActive: {
+    type: GraphQLList(CitationType),
+    resolve: async () => {
+      const now = new Date().toISOString();
+      console.log("#####################");
+      console.log(now);
+      const citationsActive = await db
+        .select()
+        .table(CITATION_TABLE_NAME)
+        .where("end_date", ">=", now)
+        .orderBy("title", "asc");
+      return [...citationsActive];
+    },
+  },
 };

@@ -7,8 +7,9 @@ export async function seed(knex: Knex): Promise<void> {
 
   // Inserts seed entries
   await knex(CITATION_TABLE_NAME).insert([
-    { id: "1", title: "example 1", description: "description 1", end_date: "2024-12-30 00:00:00" },
-    { id: "2", title: "example 2", description: "description 2", end_date: "2024-12-30 00:00:00" },
-    { id: "3", title: "example 3", description: "description 3", end_date: "2024-12-30 00:00:00" },
+    { id: "1", title: "La cultura esta en nosotros", description: "description 1", end_date: "2024-12-30 00:00:00" },
+    { id: "2", title: "Pintando Querétaro", description: "description 2", end_date: "2024-12-30 00:00:00" },
+    { id: "3", title: "QueretaRock", description: "description 3", end_date: "2024-12-30 00:00:00" },
+    { id: "4", title: "Invierno 2020", description: "description 3", end_date: "2020-12-30 00:00:00" },
   ]);
 }
