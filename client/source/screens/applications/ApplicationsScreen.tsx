@@ -24,6 +24,9 @@ const ApplicationsScreen = (): JSX.Element => {
           applicationStatus {
             name
           }
+          citation {
+            title
+          }
         }
       }
     `,

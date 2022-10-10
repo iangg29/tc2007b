@@ -9,9 +9,12 @@ interface Props {
   status: {
     name;
   };
+  citation: {
+    title;
+  };
 }
 
-const ApplicationCard = ({ title, status }: Props) => {
+const ApplicationCard = ({ title, status, citation }: Props) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleStatus = () => {
@@ -19,7 +22,7 @@ const ApplicationCard = ({ title, status }: Props) => {
     //console.log("OPEN MODAL");
   };
   return (
-    <View className=" rounded-xl shadow-md overflow-hidden ">
+    <View className="max-w my-2 mx-4 bg-white rounded-xl shadow-md overflow-hidden border ">
       <Modal
         className="w-full h-full rounded-xl m-8 "
         animationType="slide"
@@ -34,11 +37,15 @@ const ApplicationCard = ({ title, status }: Props) => {
         <Image className="h-32 w-full object-cover" source={{ uri: "https://reactjs.org/logo-og.png" }} />
       </View>
       <View className="p-4">
-        <Text className=" tracking-wide text-lg text-indigo-500 font-semibold">Solicitud: {title}</Text>
+        <Text className=" tracking-wide text-md  dark:text-white">Solicitud:</Text>
+        <Text className=" text-lg font-medium text-slate-600">{title}</Text>
+        <Text className="tracking-wide text-md  dark:text-white">Convocatoria</Text>
+        <Text className=" text-lg font-medium text-slate-600">{citation.title}</Text>
         <View className="flex flex-row justify-between ">
-          <Text className="text-lg mt-1 text-slate-500">Convocatoria</Text>
           <TouchableOpacity onPress={handleStatus}>
-            <Text className="text-lg mt-1 text-slate-500">Dar seguimiento </Text>
+            <Text className="text-lg mt-1 bg-white hover:bg-gray-100 text-gray-800 font-semibold  px-4 border border-gray-400 rounded shadow">
+              Dar seguimiento{" "}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
