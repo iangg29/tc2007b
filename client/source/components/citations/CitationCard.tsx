@@ -3,7 +3,6 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
-import AppStack from "../../stacks/AppStack";
 
 interface Props {
   id: string;
@@ -14,7 +13,7 @@ const CitationCard = ({ id, title }: Props) => {
   const navigation = useNavigation();
   const handleApply = () => {
     //console.log("Redirect to apply route");
-    navigation.navigate("ApplicationForm");
+    navigation.navigate("ApplicationForm", { itemId: id });
   };
 
   return (
