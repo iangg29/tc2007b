@@ -13,7 +13,7 @@ const FilterByLabels = ({ label }: Props): JSX.Element => {
   return (
     <>
       {label?.map((element: any) => (
-        <option value={element.name} key={element.id}>
+        <option value={element.id} key={element.id}>
           {element.label_name}
         </option>
       ))}
