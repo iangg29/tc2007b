@@ -279,6 +279,7 @@ type RootQuery {
   documentTypes: [DocumentType]
   citations: [Citation]
   citationDocuments(id: ID!): [DocumentType]
+  citationsActive: [Citation]
   documents: [Document]
   findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
