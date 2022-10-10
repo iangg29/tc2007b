@@ -8,6 +8,8 @@ import {
   ApplicationFinalizedQuery$data,
 } from "./__generated__/ApplicationFinalizedQuery.graphql";
 import RequestMap from "../../components/RequestCard/RequestMap";
+import { useState } from "react";
+import FilterByLabelsMap from "../../components/Filter/FilterByLabelsMap";
 
 const ApplicationFinalized = (): JSX.Element => {
   const data: ApplicationFinalizedQuery$data = useLazyLoadQuery<ApplicationFinalizedQuery>(
@@ -38,29 +40,61 @@ const ApplicationFinalized = (): JSX.Element => {
   );
 
   const { applicationByStatusID } = data;
-  const empty = applicationByStatusID?.length === 0;
+  const empty: boolean = applicationByStatusID?.length === 0;
+  const [selected, setSelected] = useState<string>("");
+
+  const updateApplications = applicationByStatusID?.filter((application: any) =>
+    new Set(application.labels.map((label: any) => label.id)).has(selected),
+  );
+
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const handleChange = (event: any) => {
+    setSelected(event.target.value);
+  };
 
   return (
     <>
       <h5 className=" py-5 text-2xl text-main-100">Solicitudes finalizadas</h5>
-
+      {empty ? (
+        <h1 className="col-span-3 text-center">
+          <br />
+          No hay solicitudes.
+        </h1>
+      ) : (
+        <select
+          id={"Etiquetas"}
+          className={
+            "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block max-w-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          }
+          value={selected}
+          onChange={handleChange}
+        >
+          <option selected={true}></option>
+          {applicationByStatusID?.map((element: any) => (
+            <FilterByLabelsMap element={element} key={element.labels.id}></FilterByLabelsMap>
+          ))}
+        </select>
+      )}
       <div className="grid grid-cols-3">
-        {empty ? (
-          <h1 className="col-span-3 text-center">
-            <br />
-            No hay solicitudes finalizadas.
-          </h1>
-        ) : (
-          applicationByStatusID?.map((element: any) => (
-            <RequestMap
-              key={element.id}
-              element={element}
-              text={"Ver"}
-              color={"#D0A52A"}
-              link={`/app/applications/reviewfinished/${String(element.id)}`}
-            ></RequestMap>
-          ))
-        )}
+        {selected === ""
+          ? applicationByStatusID?.map((element: any) => (
+              <RequestMap
+                key={element.id}
+                text={"Revisar documentos"}
+                color={"#50245C"}
+                link={`/app/applications/reviewdocuments/${String(element.id)}`}
+                element={element}
+              ></RequestMap>
+            ))
+          : updateApplications?.map((element: any) => (
+              <RequestMap
+                key={element.id}
+                text={"Revisar documentos"}
+                color={"#50245C"}
+                link={`/app/applications/reviewdocuments/${String(element.id)}`}
+                element={element}
+              ></RequestMap>
+            ))}
       </div>
     </>
   );
