@@ -3,9 +3,10 @@ import { View, FlatList } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 
 import CitationCard from "./CitationCard";
+import { CitationListQuery, CitationListQuery$data } from "./__generated__/CitationListQuery.graphql";
 
 const CitationList = () => {
-  const data_Citation_list: any = useLazyLoadQuery(
+  const data_Citation_list: CitationListQuery$data = useLazyLoadQuery<CitationListQuery>(
     graphql`
       query CitationListQuery {
         citationsActive {

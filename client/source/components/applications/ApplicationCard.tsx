@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { Text, View, Image, TouchableOpacity, Modal } from "react-native";
 
-import ApplicationStatusView from "./ApplicationStatusView";
 import { getRandomImage } from "../utils/imageHelper";
+import ApplicationStatusView from "./ApplicationStatusView";
 interface Props {
   title: string;
   status: {

@@ -1,7 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
-import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 
 interface Props {
   data_citation: {

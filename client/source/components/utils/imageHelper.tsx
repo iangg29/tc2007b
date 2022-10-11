@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 const poolImages = [
   "https://cdn.pixabay.com/photo/2015/11/05/23/02/chichen-itza-1025099_960_720.jpg",
   "https://cdn.pixabay.com/photo/2016/11/29/09/51/day-of-the-dead-1868836_960_720.jpg",

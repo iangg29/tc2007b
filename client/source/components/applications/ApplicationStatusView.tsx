@@ -66,13 +66,13 @@ const ApplicationStatusView = ({ status, title }: Props) => {
       },
       {
         label: "Evidencia del apoyo enviada",
-        isOn: num == 6,
+        isOn: num === 6,
         line: true,
-        disable: num == 4,
+        disable: num === 4,
       },
       {
         label: "Solicitud terminada",
-        isOn: num == 4 || num == 6,
+        isOn: num === 4 || num === 6,
         line: false,
       },
     ]);

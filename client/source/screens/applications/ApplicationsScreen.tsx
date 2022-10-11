@@ -1,8 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 
 import ApplicationList from "../../components/applications/ApplicationList";
@@ -13,7 +12,6 @@ import { ApplicationsScreenQuery, ApplicationsScreenQuery$data } from "./__gener
 const ApplicationsScreen = (): JSX.Element => {
   const user: any = useAppSelector(selectUser);
   const user_id = user.id;
-  const navigation = useNavigation();
 
   const data: ApplicationsScreenQuery$data = useLazyLoadQuery<ApplicationsScreenQuery>(
     graphql`
