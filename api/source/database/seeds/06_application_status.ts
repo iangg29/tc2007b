@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { Knex } from "knex";
 import { APPLICATION_STATUS_TABLE_NAME } from "../utils/database_constants";
 
@@ -14,4 +16,4 @@ export async function seed(knex: Knex): Promise<void> {
         { id: "5", name:"Aceptado", order:4 },
         { id: "6", name:"Finalizado", order:5 }
     ]);
-};
+}

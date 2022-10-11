@@ -1,6 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { Feather } from "@expo/vector-icons";
+import * as DocumentPicker from "expo-document-picker";
 import React from "react";
 import { FlatList, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -51,6 +52,12 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     //console.log("Redirect to apply route");
   };
 
+  const pickDocument = async () => {
+    let result = await DocumentPicker.getDocumentAsync({});
+    console.debug(result.uri);
+    console.debug(result);
+  };
+
   return (
     <SafeAreaView>
       <Text className="text-xl text-main-100 font-bold mx-2 mb-2">Completa lo siguiente</Text>
@@ -74,7 +81,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
                 <Text className="text-base text-gray-800 font-medium m-2"> Sube tu {item.type_name} </Text>
               </View>
               <View className="flex-1 space-y-2 py-2">
-                <Feather name="upload" size={24} color="black" onPress={handlePress} />
+                <Feather name="upload" size={24} color="black" onPress={pickDocument} />
               </View>
             </View>
           </>
