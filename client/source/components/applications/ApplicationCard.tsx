@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Text, View, Image, TouchableOpacity, Modal } from "react-native";
 
 import ApplicationStatusView from "./ApplicationStatusView";
-
+import { getRandomImage } from "../utils/imageHelper";
 interface Props {
   title: string;
   status: {
@@ -34,7 +34,7 @@ const ApplicationCard = ({ title, status, citation }: Props) => {
         <ApplicationStatusView status={status.name} title={title} />
       </Modal>
       <View>
-        <Image className="h-32 w-full object-cover" source={{ uri: "https://reactjs.org/logo-og.png" }} />
+        <Image className="h-32 w-full object-cover" source={{ uri: getRandomImage() }} />
       </View>
       <View className="p-4">
         <Text className=" tracking-wide text-md  dark:text-white">Solicitud:</Text>
