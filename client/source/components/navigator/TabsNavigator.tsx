@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import ApplicationsScreen from "../../screens/applications/ApplicationsScreen";
-import ChatScreen from "../../screens/chat/ChatScreen";
+import FAQs from "../../screens/faq/FAQs";
 import HomeScreen from "../../screens/home/HomeScreen";
 import ProfileScreen from "../../screens/profile/ProfileScreen";
 
@@ -38,7 +38,7 @@ const Tabs = (): JSX.Element => {
 
       <Tab.Screen
         name="ChatBot"
-        component={ChatScreen}
+        component={FAQs}
         options={{
           tabBarIcon: () => <Ionicons name="chatbubbles" size={30} color="#111932" />,
         }}

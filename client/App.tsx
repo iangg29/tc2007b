@@ -1,7 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { API_URL } from "@env";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import axios from "axios";
 import { StatusBar } from "expo-status-bar";
 import React, { Suspense } from "react";
@@ -9,12 +8,9 @@ import { Text } from "react-native";
 import { Provider } from "react-redux";
 import { RelayEnvironmentProvider } from "react-relay/hooks";
 import { PersistGate } from "redux-persist/integration/react";
-
 import { NavigatorHandler } from "./source/containers/NavigatorHandler";
 import relayEnvironment from "./source/relay/RelayEnvironment";
 import { persistor, store } from "./source/store/store";
-
-const Stack = createNativeStackNavigator();
 
 axios.defaults.baseURL = API_URL;
 
