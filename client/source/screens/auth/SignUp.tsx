@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import axios, { AxiosResponse } from "axios";
 import { useLayoutEffect, useState } from "react";
-import { Alert, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View, ScrollView, ImageBackground } from "react-native";
 
 import { useAppDispatch } from "../../store/hooks";
 import { setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
@@ -60,10 +60,13 @@ const SignUp = () => {
   };
 
   return (
+    <ScrollView>
     <KeyboardAvoidingView className="dark flex-1 bg-white dark:bg-gray-900 dark:text-gray-50" behavior="padding">
-      <View className="flex-1 items-center justify-center space-y-10 px-5">
-        <Text className="font-bold text-2xl">Secretaria de Cultura</Text>
-        <Text className="font-regular text-lg">Creación de cuenta</Text>
+    <ImageBackground className="flex-1 items-center justify-center space-y-10 px-8" 
+      source={require("../../assets/backSignUp.png")}>
+      <View className="flex-1 items-center justify-center px-5">
+        <Text className="py-10 font-bold text-2xl">Tramita La Cultura QRO</Text>
+        <Text className="py-0 font-semibold text-lg">Creación de cuenta</Text>
         <View className="space-y-5 text-left min-w-[95%]">
           <View className="space-y-2">
             <Text>Nombre</Text>
@@ -73,7 +76,7 @@ const SignUp = () => {
               keyboardType="default"
               autoComplete="name-given"
               spellCheck
-              className="bg-gray-100 px-5 py-4 rounded-lg"
+              className="bg-gray-100 px-5 py-2 rounded-lg border-2 border-indigo-500/100"
             />
           </View>
           <View className="flex-row content-between justify-between space-x-10">
@@ -85,7 +88,7 @@ const SignUp = () => {
                 keyboardType="default"
                 autoComplete="name-family"
                 spellCheck
-                className="bg-gray-100 px-5 py-4 rounded-lg"
+                className="bg-gray-100 px-5 py-1 rounded-lg border-2 border-indigo-500/100"
               />
             </View>
             <View className="flex-1 space-y-2">
@@ -96,7 +99,7 @@ const SignUp = () => {
                 keyboardType="default"
                 autoComplete="name-family"
                 spellCheck
-                className="bg-gray-100 px-5 py-4 rounded-lg"
+                className="bg-gray-100 px-5 py-1 rounded-lg border-2 border-indigo-500/100"
               />
             </View>
           </View>
@@ -109,7 +112,7 @@ const SignUp = () => {
               autoComplete="email"
               autoCapitalize="none"
               spellCheck={false}
-              className="bg-gray-100 px-5 py-4 rounded-lg"
+              className="bg-gray-100 px-5 py-2 rounded-lg border-2 border-indigo-500/100"
             />
           </View>
           <View className="space-y-2">
@@ -119,7 +122,7 @@ const SignUp = () => {
               textContentType="telephoneNumber"
               keyboardType="phone-pad"
               autoComplete="tel"
-              className="bg-gray-100 px-5 py-4 rounded-lg"
+              className="bg-gray-100 px-5 py-2 rounded-lg border-2 border-indigo-500/100"
             />
           </View>
           <View className="space-y-2">
@@ -128,7 +131,7 @@ const SignUp = () => {
               onChangeText={(text: string) => setGender(text)}
               keyboardType="default"
               autoComplete="gender"
-              className="bg-gray-100 px-5 py-4 rounded-lg"
+              className="bg-gray-100 px-5 py-2 rounded-lg border-2 border-indigo-500/100"
             />
           </View>
           <View className="flex-row content-between justify-between space-x-10">
@@ -142,11 +145,11 @@ const SignUp = () => {
                 autoComplete="password-new"
                 spellCheck={false}
                 secureTextEntry
-                className="bg-gray-100 px-5 py-4 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700"
+                className="bg-gray-100 px-5 py-1 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border-2 border-indigo-500/100"
               />
             </View>
             <View className="flex-1 space-y-2">
-              <Text>Confirmar contraseña</Text>
+              <Text className="text-xs">Confirmar contraseña</Text>
               <TextInput
                 onChangeText={(text: string) => setConfirmPassword(text)}
                 textContentType="newPassword"
@@ -155,16 +158,20 @@ const SignUp = () => {
                 autoComplete="password-new"
                 spellCheck={false}
                 secureTextEntry
-                className="bg-gray-100 px-5 py-4 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700"
+                className="bg-gray-100 px-5 py-1 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border-2 border-indigo-500/100"
               />
             </View>
           </View>
         </View>
+        <View className="py-5 pb-10">
         <TouchableOpacity className="rounded-lg bg-sky-800 px-8 py-3" onPress={signup}>
           <Text className="font-semibold text-sky-50">Crear cuenta</Text>
         </TouchableOpacity>
+        </View>
       </View>
+    </ImageBackground>
     </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
