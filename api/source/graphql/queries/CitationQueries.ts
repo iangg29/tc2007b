@@ -38,8 +38,6 @@ export default {
     resolve: async (_: any, { id }: any) => {
       const myCitationDocuments = await db.select().table(CITATION_DOCUMENTS_TABLE_NAME).where({ citation_id: id });
 
-      console.log(myCitationDocuments);
-
       const newCitationDocuments = await Promise.all(
         myCitationDocuments?.map(async (citation_documents) => {
           const { document_type_id } = citation_documents;
@@ -59,8 +57,6 @@ export default {
     type: GraphQLList(CitationType),
     resolve: async () => {
       const now = new Date().toISOString();
-      console.log("#####################");
-      console.log(now);
       const citationsActive = await db
         .select()
         .table(CITATION_TABLE_NAME)
