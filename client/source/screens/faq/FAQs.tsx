@@ -6,7 +6,6 @@ import { graphql } from "react-relay/hooks";
 
 import { FAQsQuery, FAQsQuery$data } from "./__generated__/FAQsQuery.graphql";
 
-
 const FAQs = (): JSX.Element => {
   const data: FAQsQuery$data = useLazyLoadQuery<FAQsQuery>(
     graphql`

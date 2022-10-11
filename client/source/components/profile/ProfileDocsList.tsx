@@ -1,16 +1,15 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import React from "react";
-import { View, Text, FlatList} from "react-native";
+import { View, Text } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 
 import UserDocs from "../../components/profile/UserDocs";
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { selectUser, setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
+import { useAppSelector } from "../../store/hooks";
+import { selectUser } from "../../store/slices/authSlice";
 import { ProfileDocsListQuery, ProfileDocsListQuery$data } from "./__generated__/ProfileDocsListQuery.graphql";
 
 const ProfileDocsListList = (): JSX.Element => {
- 
   const user: any = useAppSelector(selectUser);
 
   const userDocuments: ProfileDocsListQuery$data = useLazyLoadQuery<ProfileDocsListQuery>(
@@ -28,30 +27,24 @@ const ProfileDocsListList = (): JSX.Element => {
     { fetchPolicy: "network-only" },
   );
 
-  const mydata: any = userDocuments;
-
   const empty = userDocuments.findDocumentsByUserID?.length === 0;
 
-  console.log(userDocuments.findDocumentsByUserID?.length)
-
   return (
-       <View className="flex items-center">
-          {empty ? (
-            <Text className="text-blue-600 text-xl text-center font-semibold pt-10">
-              No existen documentos relacionados al usuario
-            </Text>
-          ) : (
-            <>
-              <Text className="text-blue-600 text-xl font-semibold pt-10">Documentos</Text>
-              {
-                userDocuments.findDocumentsByUserID.map(item => (
-                  <UserDocs key={item.id} filename={item.file_name} updated={item.updated_at} link={item.url} />
-                ))
-              }
-              <Text>{"\n"}</Text>
-            </>
-          )}
-        </View>
+    <View className="flex items-center">
+      {empty ? (
+        <Text className="text-blue-600 text-xl text-center font-semibold pt-10">
+          No existen documentos relacionados al usuario
+        </Text>
+      ) : (
+        <>
+          <Text className="text-blue-600 text-xl font-semibold pt-10">Documentos</Text>
+          {userDocuments.findDocumentsByUserID.map((item) => (
+            <UserDocs key={item.id} filename={item.file_name} updated={item.updated_at} link={item.url} />
+          ))}
+          <Text>{"\n"}</Text>
+        </>
+      )}
+    </View>
   );
 };
 
