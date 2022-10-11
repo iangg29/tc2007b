@@ -22,7 +22,7 @@ export default {
       await db(LABEL_TABLE_NAME)
         .insert({
           id,
-          name,
+          label_name: name,
           description,
         })
         .catch((error: Error) =>{

@@ -2,8 +2,8 @@
 
 import { Feather } from "@expo/vector-icons";
 import * as DocumentPicker from "expo-document-picker";
-import React from "react";
-import { FlatList, Text, TextInput, View } from "react-native";
+import React, { useState } from "react";
+import { FlatList, Text, TextInput, Touchable, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { graphql, useLazyLoadQuery } from "react-relay";
 
@@ -15,6 +15,12 @@ import {
   ApplicationFormScreenQuery,
   ApplicationFormScreenQuery$data,
 } from "./__generated__/ApplicationFormScreenQuery.graphql";
+
+interface labelsType {
+  id: string;
+  label_name: string;
+  color: string;
+}
 
 const ApplicationFormScreen = ({ route }: any): JSX.Element => {
   const { itemId } = route.params;
@@ -46,16 +52,40 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
   const { citationDocuments } = data;
   const { labels } = labelsData;
   console.debug(citationDocuments);
-  console.debug(labels);
+  //console.debug(labels);
 
   const handlePress = () => {
     //console.log("Redirect to apply route");
+    //setSelected(!selected);
   };
 
   const pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({});
-    console.debug(result.uri);
-    console.debug(result);
+  };
+
+  const selected: any = labels?.map((item: any): labelsType | undefined => {
+    const newItem: labelsType | undefined = {
+      ...item,
+      color: "#6b7280",
+    };
+    return newItem;
+  });
+
+  const [list, setList] = useState(selected);
+
+  const changeBackground = (item) => {
+    const myList = list;
+
+    for (let x = 0; x < myList.length; x++) {
+      if (myList[x].id === item.id) {
+        myList[x].color = "#d1d5db";
+        console.debug(myList);
+        setList([...myList]);
+      } else {
+        myList[x].color = "#6b7280";
+        setList([...myList]);
+      }
+    }
   };
 
   return (
@@ -92,14 +122,23 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
         <FlatList
           horizontal
           initialNumToRender={3}
-          data={labelsData?.labels}
+          data={list}
+          extraData={list}
           renderItem={({ item }) => (
-            <Text
-              className="bg-gray-500 text-gray-50 px-3 py-1 mx-5 border-gray-500"
-              style={{ borderRadius: 10, overflow: "hidden" }}
-              onPress={handlePress}>
-              {item.label_name}
-            </Text>
+            <>
+              <TouchableOpacity onPress={() => changeBackground(item)}>
+                <Text
+                  className="text-gray-50 px-3 py-1 mx-5 border-gray-500"
+                  style={{
+                    borderRadius: 10,
+                    overflow: "hidden",
+                    backgroundColor: item.color,
+                    // backgroundColor: selected ? "#6b7280" : "#d1d5db",
+                  }}>
+                  {item.label_name}
+                </Text>
+              </TouchableOpacity>
+            </>
           )}
         />
       </View>
