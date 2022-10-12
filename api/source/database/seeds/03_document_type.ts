@@ -7,7 +7,7 @@ export async function seed(knex: Knex): Promise<void> {
 
   // Inserts seed entries
   await knex(DOCUMENT_TYPE_TABLE_NAME).insert([
-    { id: "1", type_name: "Convocatoria" },
+    { id: "1", type_name: "Formate de convocatoria" },
     { id: "2", type_name: "INE" },
     { id: "3", type_name: "RFC" },
     { id: "4", type_name: "Acta de Nacimiento" },
