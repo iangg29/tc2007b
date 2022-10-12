@@ -10,8 +10,10 @@ import {
 } from "./__generated__/NewAnnouncementFormQuery.graphql";
 import { NewAnnouncementFormMutation } from "./__generated__/NewAnnouncementFormMutation.graphql";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import axios, { AxiosResponse } from "axios";
+import { useState } from "react";
 
 interface documentTypeType {
   id: string | undefined;
@@ -26,6 +28,34 @@ interface newCitation {
 }
 
 const NewAnnouncementForm = (): JSX.Element => {
+  // Todo adding file and images functions an
+  const [file, setFile] = useState<any>(null);
+
+  const sendFile = async (): Promise<any> => {
+    const formData = new FormData();
+    formData.append("doc", file);
+
+    try {
+      await axios
+        .post("/upload/files", formData, {
+          headers: {
+            "Content-type": "multipart/form-data",
+          },
+        })
+        .then((res: AxiosResponse<any>) => {
+          alert(JSON.stringify(res?.data));
+        })
+        .catch((error: any) => {
+          alert("Invalid extension document type.");
+          alert(JSON.stringify(error.message));
+        });
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
+
+  // Todo ----------------------------------------------------------------
+
   const today = new Date();
   const date =
     today.getFullYear().toString() +
@@ -34,7 +64,7 @@ const NewAnnouncementForm = (): JSX.Element => {
     "-" +
     today.getDate().toString().padStart(2, "0");
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { register, handleSubmit, getValues } = useForm<newCitation>();
 
@@ -98,7 +128,7 @@ const NewAnnouncementForm = (): JSX.Element => {
           document_types: docType as unknown as [string],
         },
         onCompleted: () => {
-          navigate("/app/home");
+          window.location.href = "/app/home";
         },
         onError: () => {
           console.log("error :(");
@@ -202,6 +232,8 @@ const NewAnnouncementForm = (): JSX.Element => {
                 className="block mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                 id="default_size"
                 type="file"
+                name="file"
+                onChange={(e: any): void => setFile(e.target.files[0])}
               ></input>
             </div>
             <div>
@@ -217,6 +249,13 @@ const NewAnnouncementForm = (): JSX.Element => {
             <button
               className="w-48 bg-main-500 hover:bg-main-500/70  hover:scale-105 transition-all ease-in-out duration-500 active:scale-95 font-bold text-white rounded-3xl py-2 text-sm mt-5"
               type="submit"
+              onClick={() => {
+                (async () => {
+                  await sendFile();
+                })()
+                  .then((r) => r)
+                  .catch((e) => e);
+              }}
             >
               Crear
             </button>

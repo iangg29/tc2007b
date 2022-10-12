@@ -10,6 +10,7 @@ interface params {
 
 const EditForm = ({ name, date, image }: params): JSX.Element => {
   const [file, setFile] = useState<any>(null);
+  // const [photo, setPhoto] = useState<any>(null);
 
   const sendFile = async (): Promise<any> => {
     const formData = new FormData();

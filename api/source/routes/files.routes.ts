@@ -18,6 +18,8 @@ router.post("/upload/files", async (req: Request, res: Response) => {
   const file = (req as FileRequest).files.doc;
   const file_extension = file.mimetype.split("/").pop();
 
+  console.log({ "El tipo de archivo que se paso es: ": file_extension });
+
   switch (file_extension) {
     case "pdf":
       break;
@@ -25,7 +27,7 @@ router.post("/upload/files", async (req: Request, res: Response) => {
       return res.status(400).send({ message: "Invalid extension document type." });
   }
 
-  const route = path.resolve(__dirname, "../../../public/upload/files/", file.name);
+  const route = path.resolve(__dirname, "../../public/uploads/files/", file.name);
 
   file.mv(route, (err: any) => {
     if (err) {
