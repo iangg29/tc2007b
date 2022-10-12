@@ -9,7 +9,7 @@ export async function seed(knex: Knex): Promise<void> {
   await knex(CITATION_TABLE_NAME).insert([
     {
       id: "1",
-      title: "La cultura esta en nosotros",
+      title: "Cultura para todos",
       image: "",
       end_date: "2024-12-30 00:00:00",
       description: "https://cdn.pixabay.com/photo/2015/11/05/23/02/chichen-itza-1025099_960_720.jpg",
