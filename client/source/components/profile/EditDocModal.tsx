@@ -1,9 +1,11 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import React, { useState } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 
 const EditDocModal = (): JSX.Element => {
   const [modalVisible, setModalVisible] = useState(false);
-  
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -13,24 +15,17 @@ const EditDocModal = (): JSX.Element => {
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
-        }}
-      >
+        }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Hello World!</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
+            <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
               <Text style={styles.textStyle}>Hide Modal</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
-      >
+      <Pressable style={[styles.button, styles.buttonOpen]} onPress={() => setModalVisible(true)}>
         <Text style={styles.textStyle}></Text>
       </Pressable>
     </View>
@@ -42,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
   modalView: {
     margin: 20,
@@ -53,16 +48,16 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   button: {
     borderRadius: 20,
     padding: 10,
-    elevation: 2
+    elevation: 2,
   },
   buttonOpen: {
     backgroundColor: "#F194FF",
@@ -73,12 +68,12 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
 
 export default EditDocModal;

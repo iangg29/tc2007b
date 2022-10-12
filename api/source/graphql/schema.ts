@@ -24,6 +24,7 @@ import DocumentMutations from "./mutations/DocumentMutations";
 import DocumentTypeMutations from "./mutations/DocumentTypeMutations";
 import EvidenceMutations from "./mutations/EvidenceMutations";
 import LabelMutations from "./mutations/LabelMutations";
+import UserMutation from "./mutations/UserMutation";
 
 /**
  * GraphQLObject that unifies every query that the application uses.
@@ -61,6 +62,7 @@ const RootMutation = new GraphQLObjectType({
     ...EvidenceMutations,
     ...DocumentMutations,
     ...LabelMutations,
+    ...UserMutation
   },
 });
 

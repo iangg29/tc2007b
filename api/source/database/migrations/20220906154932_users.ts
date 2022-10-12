@@ -15,6 +15,7 @@ export async function up(knex: Knex): Promise<void> {
       table.string("second_lastname")
       table.string("password").notNullable();
       table.string("cellphone").notNullable();
+      table.string("profile_img").defaultTo("")
       table.string("email").notNullable().unique();
       table.enum("gender", ["male", "female", "undefined"]).defaultTo("undefined");
       table.tinyint("status", 1).defaultTo(0);
