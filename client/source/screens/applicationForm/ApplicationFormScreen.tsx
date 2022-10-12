@@ -27,6 +27,7 @@ interface labelsType {
 
 const ApplicationFormScreen = ({ route }: any): JSX.Element => {
   const { itemId } = route.params;
+  console.debug(itemId);
 
   const user: any = useAppSelector(selectUser);
 
@@ -75,6 +76,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     //console.debug(result);
     const idx = documents.findIndex((x) => x.id === id);
     documents[idx].field = result.uri;
+    documents[idx].file_name = result.name;
     console.debug(documents);
     setDocuments([...documents]);
   };
