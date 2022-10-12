@@ -4,6 +4,7 @@ import DocumentList from "../DocumentList/DocumentList";
 import { useLazyLoadQuery, useMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import useChecked from "../../hooks/useChecked";
+import Cookies from "js-cookie";
 import {
   NewAnnouncementFormQuery,
   NewAnnouncementFormQuery$data,
@@ -13,8 +14,6 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
-import { useAppSelector } from "../../store/hooks";
-import { selectUser } from "../../store/slices/authSlice";
 interface documentTypeType {
   id: string | undefined;
   name: string | undefined;
@@ -31,18 +30,19 @@ const NewAnnouncementForm = (): JSX.Element => {
   // Todo adding file and images functions an ----
 
   const [file, setFile] = useState<any>(null);
-  const user: any = useAppSelector(selectUser);
+  // const user: any = useAppSelector(selectUser);
 
   const sendFile = async (): Promise<any> => {
     const formData = new FormData();
-    formData.append("1", file);
-    formData.append("id_user", user.id);
+    formData.append("file", file);
+    formData.append("file2", file);
 
     try {
       await axios
         .post("/upload/files", formData, {
           headers: {
             "Content-type": "multipart/form-data",
+            Authorization: Cookies.get("token") as string,
           },
         })
         .then((res: AxiosResponse<any>) => {

@@ -34,7 +34,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   "/graphql",
-  validateToken,
   graphqlHTTP({
     schema,
     graphiql: process.env.NODE_ENV !== "production",

@@ -1,19 +1,19 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { Request, Response, Router } from "express";
 import path from "path";
+import { validateToken } from "../utils/authentication";
 const multer = require("multer");
 const upload = multer();
 
 const router = Router();
-interface DataForm extends Request {
-  form: any;
-  get: any;
-}
 
-router.post("/upload/files", upload.any(), async (req: Request, res: Response) => {
-  const formData = req.body;
-  console.log({ one: formData[0] });
-  return res.send("recieved your request!");
+router.post("/upload/files", validateToken, upload.any(), async (req: Request, res: Response) => {
+  const formData = req.files;
+  const id = (req as any).user.id;
+  console.log({ formData });
+  console.log({ id });
+  // return res.send("recieved your request!");
+
   console.log({ req: (req as DataForm).form });
 
   if (!(req as DataForm).form) {
