@@ -83,7 +83,7 @@ const ReqDetail = (): JSX.Element => {
           </h1>
           <img className="w-[800px] py-4 pr-8 lg:pr-16" src={applicationByID?.image} alt="art" />
           <p className="text-lg font-semibold tracking-tight text-gray-900">
-            Realizado por: {user?.name} {user?.first_lastname} {user?.second_lastname}
+            Solicitante: {user?.name} {user?.first_lastname} {user?.second_lastname}
           </p>
           <div className="w-[450px] md:w-[500px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>

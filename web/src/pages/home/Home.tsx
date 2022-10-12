@@ -57,7 +57,7 @@ const Home = (): JSX.Element => {
             </div>
           </div>
           <div className="flex flex-row-reverse">
-            <label className="text-sm"> Selecciona Convocatoria</label>
+            <label className="text-sm"> Filtrar convocatorias</label>
           </div>
           <div className="flex flex-row-reverse">
             <button

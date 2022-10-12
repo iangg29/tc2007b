@@ -46,7 +46,7 @@ const RequestCard = ({
               <h5 className="text-l font-semibold tracking-tight text-gray-900 dark:text-white">{announcement}</h5>
               <br />
               <h5 className="text-xs font-semibold tracking-tight text-gray-900 dark:text-white">
-                Realizado por: {user}
+                Solicitante: {user}
               </h5>
             </div>
 
