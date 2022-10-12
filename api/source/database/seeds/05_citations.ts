@@ -9,31 +9,31 @@ export async function seed(knex: Knex): Promise<void> {
   await knex(CITATION_TABLE_NAME).insert([
     {
       id: "1",
-      title: "Cultura para todos",
+      citation_title: "Cultura para todos",
       image: "",
       end_date: "2024-12-30 00:00:00",
-      description: "https://cdn.pixabay.com/photo/2015/11/05/23/02/chichen-itza-1025099_960_720.jpg",
+      citation_description: "https://cdn.pixabay.com/photo/2015/11/05/23/02/chichen-itza-1025099_960_720.jpg",
     },
     {
       id: "2",
-      title: "Pintando Querétaro",
+      citation_title: "Pintando Querétaro",
       image: "",
       end_date: "2024-12-30 00:00:00",
-      description: "https://cdn.pixabay.com/photo/2016/11/29/09/51/day-of-the-dead-1868836_960_720.jpg",
+      citation_description: "https://cdn.pixabay.com/photo/2016/11/29/09/51/day-of-the-dead-1868836_960_720.jpg",
     },
     {
       id: "3",
-      title: "QueretaRock",
+      citation_title: "QueretaRock",
       image: "",
       end_date: "2024-12-30 00:00:00",
-      description: "https://cdn.pixabay.com/photo/2022/07/21/18/15/queretaro-7336721__340.jpg",
+      citation_description: "https://cdn.pixabay.com/photo/2022/07/21/18/15/queretaro-7336721__340.jpg",
     },
     {
       id: "4",
-      title: "Invierno 2020",
+      citation_title: "Invierno 2020",
       image: "",
       end_date: "2020-12-30 00:00:00",
-      description: "https://cdn.pixabay.com/photo/2021/10/19/17/54/queretaro-6724217__340.jpg",
+      citation_description: "https://cdn.pixabay.com/photo/2021/10/19/17/54/queretaro-6724217__340.jpg",
     },
   ]);
 }

@@ -10,10 +10,10 @@ export default {
   createCitation: {
     type: CitationType,
     args: {
-      title: {
+      citation_title: {
         type: GraphQLNonNull(GraphQLString),
       },
-      description: {
+      citation_description: {
         type: GraphQLNonNull(GraphQLString),
       },
       end_date: {
@@ -23,15 +23,15 @@ export default {
         type: GraphQLList(GraphQLID),
       },
     },
-    resolve: async (_: any, { title, description, end_date, document_types }: any) => {
+    resolve: async (_: any, { citation_title, citation_description, end_date, document_types }: any) => {
       const id = uuid();
 
       await db
         .transaction(async (trx) => {
           await trx(CITATION_TABLE_NAME).insert({
             id,
-            title,
-            description,
+            citation_title,
+            citation_description,
             end_date,
           });
 
@@ -66,10 +66,10 @@ export default {
       id: {
         type: GraphQLNonNull(GraphQLID),
       },
-      title: {
+      citation_title: {
         type: GraphQLNonNull(GraphQLString),
       },
-      description: {
+      citation_description: {
         type: GraphQLNonNull(GraphQLString),
       },
       end_date: {
@@ -79,27 +79,30 @@ export default {
         type: GraphQLList(GraphQLID),
       },
     },
-    resolve: async (_: any, { id, title, description, end_date, document_types }: any) => {
-
+    resolve: async (_: any, { id, citation_title, citation_description, end_date, document_types }: any) => {
       const citationDocuments = await db.select().table(CITATION_DOCUMENTS_TABLE_NAME).where({ citation_id: id });
-      const listCitationDocuments = citationDocuments.map((element: any) => { const newElement: any = element.document_type_id; return newElement });
+      const listCitationDocuments = citationDocuments.map((element: any) => {
+        const newElement: any = element.document_type_id;
+        return newElement;
+      });
 
       await db
         .transaction(async (trx) => {
-          await trx(CITATION_TABLE_NAME).where({ id }).update({ title, description, end_date });
+          await trx(CITATION_TABLE_NAME).where({ id }).update({ citation_title, citation_description, end_date });
 
-          const docsToBeDeleted = listCitationDocuments.filter((element: any) => !document_types.includes(element)).map((filteredElement: any) => {
+          const docsToBeDeleted = listCitationDocuments
+            .filter((element: any) => !document_types.includes(element))
+            .map((filteredElement: any) => {
               const newElement: string = filteredElement;
               return newElement;
-            }
-          );
-          
+            });
 
-          const docsToBeAdded = document_types.filter((element: any) => !listCitationDocuments.includes(element)).map((filteredElement: any) => {
+          const docsToBeAdded = document_types
+            .filter((element: any) => !listCitationDocuments.includes(element))
+            .map((filteredElement: any) => {
               const newElement: string = filteredElement;
               return newElement;
-            }
-          );
+            });
 
           await Promise.all(
             docsToBeAdded.map(
@@ -114,11 +117,12 @@ export default {
           await Promise.all(
             docsToBeDeleted.map(
               async (element: any) =>
-                await trx(CITATION_DOCUMENTS_TABLE_NAME).where({document_type_id: element}).andWhere({citation_id: id}).delete()
+                await trx(CITATION_DOCUMENTS_TABLE_NAME)
+                  .where({ document_type_id: element })
+                  .andWhere({ citation_id: id })
+                  .delete(),
             ),
           );
-
-          
         })
         .catch((error: Error) => {
           console.error(error);
@@ -138,10 +142,9 @@ export default {
         type: GraphQLNonNull(GraphQLID),
       },
     },
-    resolve: async (_: any, { id }: any) => { 
-
+    resolve: async (_: any, { id }: any) => {
       await db
-        .transaction(async (trx) => { 
+        .transaction(async (trx) => {
           await trx(CITATION_TABLE_NAME).where({ id }).delete();
           await trx(CITATION_DOCUMENTS_TABLE_NAME).where({ citation_id: id }).delete();
         })
@@ -149,7 +152,7 @@ export default {
           console.error(error);
           throw new GraphQLError(error.name);
         });
-      
+
       return true;
     },
   },

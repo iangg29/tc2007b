@@ -71,19 +71,19 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
     graphql`
       mutation EditModalMutation(
         $id: ID!
-        $title: String!
-        $description: String!
+        $citation_title: String!
+        $citation_description: String!
         $end_date: String!
         $document_types: [ID]!
       ) {
         updateCitation(
           id: $id
-          title: $title
-          description: $description
+          citation_title: $citation_title
+          citation_description: $citation_description
           end_date: $end_date
           document_types: $document_types
         ) {
-          title
+          citation_title
         }
       }
     `,
@@ -136,8 +136,8 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
       commitMutation({
         variables: {
           id: citationId as unknown as string,
-          title: myTitle as unknown as string,
-          description: myDescription as unknown as string,
+          citation_title: myTitle as unknown as string,
+          citation_description: myDescription as unknown as string,
           end_date: myDate as unknown as string,
           document_types: docType as unknown as [string],
         },

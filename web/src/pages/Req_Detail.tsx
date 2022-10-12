@@ -27,9 +27,9 @@ const ReqDetail = (): JSX.Element => {
     graphql`
       query ReqDetailQuery($application_id: ID!) {
         applicationByID(id: $application_id) {
-          title
+          application_title
           image
-          description
+          application_description
           support
           user {
             name
@@ -37,7 +37,7 @@ const ReqDetail = (): JSX.Element => {
             second_lastname
           }
           applicationStatus {
-            name
+            status_name
             order
           }
           applicationDocuments {
@@ -79,7 +79,7 @@ const ReqDetail = (): JSX.Element => {
         {/* REQUEST - BASIC INFO */}
         <div className="w-full pt-2">
           <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">
-            Proyecto: {applicationByID?.title}
+            Proyecto: {applicationByID?.application_title}
           </h1>
           <img className="w-[800px] py-4 pr-8 lg:pr-16" src={applicationByID?.image} alt="art" />
           <p className="text-lg font-semibold tracking-tight text-gray-900">
@@ -88,7 +88,7 @@ const ReqDetail = (): JSX.Element => {
           <div className="w-[450px] md:w-[500px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
             {labels?.map((elem: any) => {
-              return <Label key={elem.id} label={elem.name} />;
+              return <Label key={elem.id} label={elem.label_name} />;
             })}
           </div>
         </div>
@@ -96,7 +96,7 @@ const ReqDetail = (): JSX.Element => {
         <div className="w-full pt-8 pr-8 md:pr-0 lg:pr-8 md:pt-2 lg:pl-12">
           <div className="w-fit">
             <h2 className="text-xl text-[#396FB1] font-bold pb-2">Descripción</h2>
-            <p className="text-justify">{applicationByID?.description}</p>
+            <p className="text-justify">{applicationByID?.application_description}</p>
 
             <div className="flex pb-2 pt-8">
               <h2 className="text-xl text-[#396FB1] font-bold">Documentos&nbsp;</h2>

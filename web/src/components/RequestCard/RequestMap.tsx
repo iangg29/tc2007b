@@ -5,7 +5,7 @@ import back from "../../assets/background/login.png";
 
 interface citation {
   id: string;
-  title: string;
+  citation_title: string;
 }
 
 interface user {
@@ -25,7 +25,7 @@ interface Props {
   color: string;
   link: string;
   element: {
-    title: string;
+    application_title: string;
     citation: citation;
     user: user;
     labels: [label];
@@ -37,8 +37,8 @@ const RequestMap = ({ element, text, color, link }: Props): JSX.Element => {
     <>
       <RequestCard
         image={back}
-        proyectTile={element.title}
-        announcement={element.citation.title}
+        proyectTile={element.application_title}
+        announcement={element.citation.citation_title}
         userName={element.user.name}
         userFirstName={element.user.first_lastname}
         userLastName={element.user.second_lastname}

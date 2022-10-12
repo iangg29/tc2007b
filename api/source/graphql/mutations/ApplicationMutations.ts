@@ -25,13 +25,13 @@ export default {
       user_id: {
         type: GraphQLNonNull(GraphQLID),
       },
-      title: {
+      application_title: {
         type: GraphQLNonNull(GraphQLString),
       },
       image: {
         type: GraphQLNonNull(GraphQLString),
       },
-      description: {
+      application_description: {
         type: GraphQLNonNull(GraphQLString),
       },
       support: {
@@ -60,9 +60,9 @@ export default {
       _: any,
       {
         user_id,
-        title,
+        application_title,
         image,
-        description,
+        application_description,
         support,
         deadline,
         start_time,
@@ -96,9 +96,9 @@ export default {
       await db(APPLICATION_TABLE_NAME)
         .insert({
           id,
-          title,
+          application_title,
           image,
-          description,
+          application_description,
           support,
           deadline,
           start_time,

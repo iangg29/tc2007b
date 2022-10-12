@@ -14,7 +14,7 @@ const ApplicationFinalized = (): JSX.Element => {
     graphql`
       query ApplicationFinalizedQuery($application_status_id: ID!) {
         applicationByStatusID(application_status_id: $application_status_id) {
-          title
+          application_title
           id
           user {
             id
@@ -24,7 +24,7 @@ const ApplicationFinalized = (): JSX.Element => {
           }
           citation {
             id
-            title
+            citation_title
           }
           labels {
             id

@@ -10,7 +10,7 @@ export const ApplicationStatusType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLID),
       description: "ApplicationStatus ID",
     },
-    name: {
+    status_name: {
       type: GraphQLNonNull(GraphQLString),
       description: "ApplicationStatus name",
     },

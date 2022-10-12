@@ -11,7 +11,7 @@ const ApproveDoc = (): JSX.Element => {
     graphql`
       query ApproveDocQuery($application_status_id: ID!) {
         applicationByStatusID(application_status_id: $application_status_id) {
-          title
+          application_title
           id
           user {
             id
@@ -21,7 +21,7 @@ const ApproveDoc = (): JSX.Element => {
           }
           citation {
             id
-            title
+            citation_title
           }
           labels {
             id

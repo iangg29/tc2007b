@@ -15,9 +15,9 @@ export async function up(knex: Knex): Promise<void> {
       // COLUMNS
       table.string("id").primary().unique();
       table.string("user_id").notNullable();
-      table.string("title").notNullable();
+      table.string("application_title").notNullable();
       table.string("image").notNullable();
-      table.string("description").notNullable();
+      table.string("application_description").notNullable();
       table.string("support").notNullable();
       table.date("deadline");
       table.timestamp("start_time").defaultTo(knex.fn.now());

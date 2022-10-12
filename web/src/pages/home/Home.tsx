@@ -25,8 +25,8 @@ const Home = (): JSX.Element => {
       query HomeQuery {
         citations {
           id
-          title
-          description
+          citation_title
+          citation_description
           end_date
         }
       }
@@ -81,8 +81,8 @@ const Home = (): JSX.Element => {
                   .map((filteredElement: any) => (
                     <div className="flex flex-col basis-1/3" key={filteredElement.id}>
                       <NoticeCard
-                        img={filteredElement.description}
-                        name={filteredElement.title}
+                        img={filteredElement.citation_description}
+                        name={filteredElement.citation_title}
                         date={filteredElement.end_date}
                         id={filteredElement.id}
                       />

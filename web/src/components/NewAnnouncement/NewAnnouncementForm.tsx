@@ -53,14 +53,14 @@ const NewAnnouncementForm = (): JSX.Element => {
   const [commitMutation] = useMutation<NewAnnouncementFormMutation>(
     graphql`
       mutation NewAnnouncementFormMutation(
-        $title: String!
-        $description: String!
+        $citation_title: String!
+        $citation_description: String!
         $end_date: String!
         $document_types: [ID]!
       ) {
-        createCitation(title: $title, description: $description, end_date: $end_date, document_types: $document_types) {
-          title
-          description
+        createCitation(citation_title: $citation_title, citation_description: $citation_description, end_date: $end_date, document_types: $document_types) {
+          citation_title
+          citation_description
           end_date
         }
       }
@@ -92,8 +92,8 @@ const NewAnnouncementForm = (): JSX.Element => {
     if (docType?.length !== 0) {
       commitMutation({
         variables: {
-          title: myTitle as unknown as string,
-          description: myDescription as unknown as string,
+          citation_title: myTitle as unknown as string,
+          citation_description: myDescription as unknown as string,
           end_date: myDate as unknown as string,
           document_types: docType as unknown as [string],
         },
