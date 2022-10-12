@@ -4,9 +4,10 @@ import { Feather, AntDesign } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as DocumentPicker from "expo-document-picker";
 import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { graphql, useLazyLoadQuery } from "react-relay";
+import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
 
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/slices/authSlice";
@@ -14,6 +15,7 @@ import {
   ApplicationFormScreen2Query,
   ApplicationFormScreen2Query$data,
 } from "./__generated__/ApplicationFormScreen2Query.graphql";
+import { ApplicationFormScreenMutation } from "./__generated__/ApplicationFormScreenMutation.graphql";
 import {
   ApplicationFormScreenQuery,
   ApplicationFormScreenQuery$data,
@@ -24,6 +26,13 @@ interface labelsType {
   label_name: string;
   color: string;
 }
+
+type documentsInfo = {
+  field?: string | null;
+  file_name?: string | null;
+  id?: string | null;
+  type_name?: string | null;
+};
 
 const ApplicationFormScreen = ({ route }: any): JSX.Element => {
   const { itemId } = route.params;
@@ -53,6 +62,35 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
       }
     `,
     {},
+  );
+
+  const [commitMutation] = useMutation<ApplicationFormScreenMutation>(
+    graphql`
+      mutation ApplicationFormScreenMutation(
+        $user_id: ID!
+        $title: String!
+        $description: String!
+        $support: String!
+        $deadline: String!
+        $citation_id: ID!
+        $documents: [documentsInfo]!
+        $labels: [ID]!
+      ) {
+        createNewApplication(
+          user_id: $user_id
+          title: $title
+          description: $description
+          support: $support
+          deadline: $deadline
+          citation_id: $citation_id
+          documents: $documents
+          labels: $labels
+        ) {
+          id
+          title
+        }
+      }
+    `,
   );
 
   const { citationDocuments } = data;
@@ -113,6 +151,21 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     setDate(currentDate);
   };
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: "",
+      description: "",
+      support: "",
+      deadline: "",
+    },
+  });
+
+  const onSubmitForm = (data) => console.debug(data);
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -120,12 +173,21 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
         <Text className="text-base text-gray-800 font-medium m-2">Título del proyecto</Text>
         <TextInput className="bg-gray-200 px-5 py-4 mx-2 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border border-gray-300" />
         <Text className="text-base text-gray-800 font-medium m-2">Descripción</Text>
-        <TextInput
-          multiline
-          numberOfLines={3}
-          className="bg-gray-200 px-5 py-4 mx-2 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border border-gray-300"
-          style={{ height: 80 }}
+        <Controller
+          control={control}
+          name="title"
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              multiline
+              numberOfLines={3}
+              className="bg-gray-200 px-5 py-4 mx-2 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border border-gray-300"
+              style={{ height: 80 }}
+              onChangeText={(value) => onChange(value)}
+              value={value}
+            />
+          )}
         />
+        {errors.title && <Text>This is required.</Text>}
         <Text className="text-base text-gray-800 font-medium m-2">Apoyo Requerido</Text>
         <TextInput className="bg-gray-200 px-5 py-4 mx-2 mb-3 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border border-gray-300" />
         <Text className="text-base text-gray-800 font-medium m-2">Fecha límite</Text>

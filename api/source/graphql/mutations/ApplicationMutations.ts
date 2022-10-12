@@ -55,9 +55,6 @@ export default {
       deadline: {
         type: GraphQLString,
       },
-      end_time: {
-        type: GraphQLString,
-      },
       citation_id: {
         type: GraphQLNonNull(GraphQLID),
       },
@@ -70,7 +67,7 @@ export default {
     },
     resolve: async (
       _: any,
-      { user_id, title, description, support, deadline, end_time, citation_id, documents, labels }: any,
+      { user_id, title, description, support, deadline, citation_id, documents, labels }: any,
     ) => {
       const applicationId = uuid();
 
@@ -94,7 +91,7 @@ export default {
             description,
             support,
             deadline,
-            end_time,
+            end_time: deadline,
             user_id,
             application_status_id: defaultStatus[0].id,
             citation_id,

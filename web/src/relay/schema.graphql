@@ -136,12 +136,10 @@ type Document {
 }
 
 input documentsInfo {
-  doctype_id: ID
-  docType_name: String
+  id: ID
+  type_name: String
   field: String
   file_name: String
-  user_id: ID
-  citation_id: ID
 }
 
 """Type of document uploaded"""
@@ -248,7 +246,8 @@ type Role {
 """Application's GraphQL root mutations"""
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
-  createApplication(user_id: ID!, title: String!, image: String!, description: String!, support: String!, deadline: String, end_time: String, emission_date: String!, response_date: String!, application_status_id: ID!, citation_id: ID!, documents: [documentsInfo], labels: [ID]): Application
+  createNewApplication(user_id: ID!, title: String!, description: String!, support: String!, deadline: String, end_time: String, citation_id: ID!, documents: [documentsInfo], labels: [ID]): Application
+  createApplication(user_id: ID!, title: String!, image: String!, description: String!, support: String!, deadline: String, end_time: String, emission_date: String!, response_date: String!, application_status_id: ID!, citation_id: ID!): Application
   updateApplicationStatus(application_id: ID!, next_status: Int!): String
   attachApplicationDocument(application_id: ID!, document_id: ID!): Application
   deleteApplication(id: ID!): Boolean
