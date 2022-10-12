@@ -10,11 +10,11 @@ import {
 } from "./__generated__/NewAnnouncementFormQuery.graphql";
 import { NewAnnouncementFormMutation } from "./__generated__/NewAnnouncementFormMutation.graphql";
 import { useForm } from "react-hook-form";
-// import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
-
+import { useAppSelector } from "../../store/hooks";
+import { selectUser } from "../../store/slices/authSlice";
 interface documentTypeType {
   id: string | undefined;
   name: string | undefined;
@@ -28,12 +28,15 @@ interface newCitation {
 }
 
 const NewAnnouncementForm = (): JSX.Element => {
-  // Todo adding file and images functions an
+  // Todo adding file and images functions an ----
+
   const [file, setFile] = useState<any>(null);
+  const user: any = useAppSelector(selectUser);
 
   const sendFile = async (): Promise<any> => {
     const formData = new FormData();
-    formData.append("doc", file);
+    formData.append("1", file);
+    formData.append("id_user", user.id);
 
     try {
       await axios
@@ -63,8 +66,6 @@ const NewAnnouncementForm = (): JSX.Element => {
     (today.getMonth() + 1).toString().padStart(2, "0") +
     "-" +
     today.getDate().toString().padStart(2, "0");
-
-  // const navigate = useNavigate();
 
   const { register, handleSubmit, getValues } = useForm<newCitation>();
 
@@ -203,6 +204,21 @@ const NewAnnouncementForm = (): JSX.Element => {
                   })}
                 />
               </div>
+
+              {/* <div className="mb-6">
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" htmlFor="file_input">
+                  Imagen
+                </label>
+                <input
+                  className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  aria-describedby="file_input_help"
+                  id="file_input"
+                  type="file"
+                />
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
+                  JPEG, PNG, JPG.
+                </p>
+              </div> */}
 
               <div className="mb-6">
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">

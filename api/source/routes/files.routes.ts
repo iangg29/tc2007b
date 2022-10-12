@@ -1,24 +1,31 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import Express from "express";
 import { Request, Response, Router } from "express";
 import path from "path";
+const multer = require("multer");
+const upload = multer();
 
 const router = Router();
-interface FileRequest extends Request {
-  files: any;
+interface DataForm extends Request {
+  form: any;
+  get: any;
 }
 
-router.post("/upload/files", async (req: Request, res: Response) => {
-  console.log({ req: (req as FileRequest).files });
+router.post("/upload/files", upload.any(), async (req: Request, res: Response) => {
+  const formData = req.body;
+  console.log({ one: formData[0] });
+  return res.send("recieved your request!");
+  console.log({ req: (req as DataForm).form });
 
-  if (!(req as FileRequest).files) {
+  if (!(req as DataForm).form) {
     return res.status(400).send("No files were uploaded.");
   }
 
-  const file = (req as FileRequest).files.doc;
+  console.log({ "El id que le está llegando a esta madre es ": "xd", id: (req as DataForm).get("id_user") });
+
+  const file = (req as DataForm).form["1"];
   const file_extension = file.mimetype.split("/").pop();
 
-  console.log({ "El tipo de archivo que se paso es: ": file_extension });
+  console.log({ "El tipo de archivo que se pasa es: ": file_extension });
 
   switch (file_extension) {
     case "pdf":

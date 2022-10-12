@@ -20,7 +20,6 @@ import authRoutes from "./routes/auth.routes";
 
 import filesRoutes from "./routes/files.routes";
 import photosRoutes from "./routes/photos.routes";
-const fileupload = require("express-fileupload");
 
 const xss = require("xss-clean");
 const app = express();
@@ -79,7 +78,6 @@ const limiter = rateLimit({
 
 app.use("/auth", limiter);
 
-app.use(fileupload());
 app.use(photosRoutes);
 
 app.use(filesRoutes);
