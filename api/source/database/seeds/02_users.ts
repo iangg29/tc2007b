@@ -93,5 +93,15 @@ export async function seed(knex: Knex): Promise<void> {
       cellphone: "461 4321 23 32",
       email: "angel@tec.mx",
     },
+    {
+      id: "9",
+      role_id: "1",
+      name: "Verónica",
+      first_lastname: "Martínez",
+      second_lastname: "Cruz",
+      password,
+      cellphone: "442 2255 55 32",
+      email: "admin@gob.mx",
+    },
   ]);
 }
