@@ -10,7 +10,6 @@ import {
 } from "./__generated__/NewAnnouncementFormQuery.graphql";
 import { NewAnnouncementFormMutation } from "./__generated__/NewAnnouncementFormMutation.graphql";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 interface documentTypeType {
@@ -33,8 +32,6 @@ const NewAnnouncementForm = (): JSX.Element => {
     (today.getMonth() + 1).toString().padStart(2, "0") +
     "-" +
     today.getDate().toString().padStart(2, "0");
-
-  const navigate = useNavigate();
 
   const { register, handleSubmit, getValues } = useForm<newCitation>();
 
@@ -98,7 +95,7 @@ const NewAnnouncementForm = (): JSX.Element => {
           document_types: docType as unknown as [string],
         },
         onCompleted: () => {
-          navigate("/app/home");
+          window.location.href = "/app/home";
         },
         onError: () => {
           console.log("error :(");
