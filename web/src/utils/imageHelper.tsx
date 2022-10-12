@@ -12,6 +12,6 @@ const poolImages = [
   "https://cdn.pixabay.com/photo/2022/05/12/03/46/tequisquiapan-7190653__340.jpg",
 ];
 
-export const getRandomImage = () => {
+export const getRandomImage = (): string => {
   return poolImages[Math.floor(Math.random() * poolImages.length)];
 };
