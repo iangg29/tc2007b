@@ -6,7 +6,7 @@ const ArrowDrop = (): JSX.Element => {
   return (
     <>
       <Navbar.Link>
-        <div className="flex md:order-2 text-2xl">
+        <div className="flex md:order-2 text-xl">
           <Dropdown arrowIcon={true} inline={true} label="Solicitudes">
             <Dropdown.Divider />
 

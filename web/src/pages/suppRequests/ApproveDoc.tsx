@@ -39,25 +39,27 @@ const ApproveDoc = (): JSX.Element => {
 
   return (
     <>
-      <h5 className=" py-5 text-2xl text-main-100">Solicitudes para revisión de documentos</h5>
+      <div className="px-10">
+        <h5 className=" py-5 text-2xl text-main-100  font-semibold">Solicitudes para revisión de documentos</h5>
 
-      <div className="grid grid-cols-3">
-        {empty ? (
-          <h1 className="col-span-3 text-center">
-            <br />
-            No hay solicitudes pendientes de revisión de documentos.
-          </h1>
-        ) : (
-          applicationByStatusID?.map((element: any) => (
-            <RequestMap
-              key={element.id}
-              element={element}
-              text={"Revisar documentos"}
-              color={"#244B5C"}
-              link={`/app/applications/reviewdocuments/${String(element.id)}`}
-            ></RequestMap>
-          ))
-        )}
+        <div className="grid grid-cols-3">
+          {empty ? (
+            <h1 className="col-span-3 text-center">
+              <br />
+              No hay solicitudes pendientes de revisión de documentos.
+            </h1>
+          ) : (
+            applicationByStatusID?.map((element: any) => (
+              <RequestMap
+                key={element.id}
+                element={element}
+                text={"Revisar documentos"}
+                color={"#244B5C"}
+                link={`/app/applications/reviewdocuments/${String(element.id)}`}
+              ></RequestMap>
+            ))
+          )}
+        </div>
       </div>
     </>
   );

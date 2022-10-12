@@ -42,25 +42,27 @@ const ApplicationAccepted = (): JSX.Element => {
 
   return (
     <>
-      <h5 className=" py-5 text-2xl text-main-100">Solicitudes aceptadas</h5>
+      <div className="px-10">
+        <h5 className=" py-5 text-2xl text-main-100 font-semibold">Solicitudes aceptadas</h5>
 
-      <div className="grid grid-cols-3">
-        {empty ? (
-          <h1 className="col-span-3 text-center">
-            <br />
-            No hay solicitudes aprobadas.
-          </h1>
-        ) : (
-          applicationByStatusID?.map((element: any) => (
-            <RequestMap
-              key={element.id}
-              element={element}
-              text={"Dar seguimiento"}
-              color={"#50245C"}
-              link={`/app/applications/reviewapproved/${String(element.id)}`}
-            ></RequestMap>
-          ))
-        )}
+        <div className="grid grid-cols-3">
+          {empty ? (
+            <h1 className="col-span-3 text-center">
+              <br />
+              No hay solicitudes aprobadas.
+            </h1>
+          ) : (
+            applicationByStatusID?.map((element: any) => (
+              <RequestMap
+                key={element.id}
+                element={element}
+                text={"Dar seguimiento"}
+                color={"#50245C"}
+                link={`/app/applications/reviewapproved/${String(element.id)}`}
+              ></RequestMap>
+            ))
+          )}
+        </div>
       </div>
     </>
   );

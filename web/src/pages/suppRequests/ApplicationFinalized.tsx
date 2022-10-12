@@ -42,25 +42,27 @@ const ApplicationFinalized = (): JSX.Element => {
 
   return (
     <>
-      <h5 className=" py-5 text-2xl text-main-100">Solicitudes finalizadas</h5>
+      <div className="px-10">
+        <h5 className=" py-5 text-2xl text-main-100 font-semibold">Solicitudes finalizadas</h5>
 
-      <div className="grid grid-cols-3">
-        {empty ? (
-          <h1 className="col-span-3 text-center">
-            <br />
-            No hay solicitudes finalizadas.
-          </h1>
-        ) : (
-          applicationByStatusID?.map((element: any) => (
-            <RequestMap
-              key={element.id}
-              element={element}
-              text={"Ver"}
-              color={"#D0A52A"}
-              link={`/app/applications/reviewfinished/${String(element.id)}`}
-            ></RequestMap>
-          ))
-        )}
+        <div className="grid grid-cols-3">
+          {empty ? (
+            <h1 className="col-span-3 text-center">
+              <br />
+              No hay solicitudes finalizadas.
+            </h1>
+          ) : (
+            applicationByStatusID?.map((element: any) => (
+              <RequestMap
+                key={element.id}
+                element={element}
+                text={"Ver"}
+                color={"#D0A52A"}
+                link={`/app/applications/reviewfinished/${String(element.id)}`}
+              ></RequestMap>
+            ))
+          )}
+        </div>
       </div>
     </>
   );
