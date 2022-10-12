@@ -1,9 +1,9 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { Feather } from "@expo/vector-icons";
+import { Feather, AntDesign } from "@expo/vector-icons";
 import * as DocumentPicker from "expo-document-picker";
 import React, { useState } from "react";
-import { FlatList, Text, TextInput, Touchable, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { graphql, useLazyLoadQuery } from "react-relay";
 
@@ -59,8 +59,20 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     //setSelected(!selected);
   };
 
-  const pickDocument = async () => {
+  const docTypes: any = citationDocuments?.map((item: any): any => {
+    const newItem: any = { ...item, field: null, id: item.id };
+    return newItem;
+  });
+  console.debug(docTypes);
+  const [documents, setDocuments] = useState(docTypes);
+
+  const pickDocument = async (id) => {
     let result = await DocumentPicker.getDocumentAsync({});
+    //console.debug(result);
+    const idx = documents.findIndex((x) => x.id === id);
+    documents[idx].field = result.uri;
+    console.debug(documents);
+    setDocuments([...documents]);
   };
 
   const selected: any = labels?.map((item: any): labelsType | undefined => {
@@ -103,15 +115,19 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
       <Text className="text-base text-gray-800 font-medium m-2">Apoyo Requerido</Text>
       <TextInput className="bg-gray-200 px-5 py-4 mx-2 mb-3 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border border-gray-300" />
       <FlatList
-        data={data?.citationDocuments}
-        renderItem={({ item }) => (
+        data={documents}
+        extraData={documents}
+        renderItem={({ item, index }) => (
           <>
-            <View className="flex-row content-between justify-between space-x-10">
-              <View className="flex-1 space-y-2 mb-2">
+            <View className="flex flex-row flex-wrap content-between justify-between space-x-10">
+              <View className="flex flex-col basis-1/3">
                 <Text className="text-base text-gray-800 font-medium m-2"> Sube tu {item.type_name} </Text>
               </View>
-              <View className="flex-1 space-y-2 py-2">
-                <Feather name="upload" size={24} color="black" onPress={pickDocument} />
+              <View className="flex flex-col basis-1/5">
+                <Feather name="upload" size={24} color="black" onPress={() => pickDocument(item.id)} />
+              </View>
+              <View className="flex flex-col basis-1/5">
+                {documents[index].field != null && <AntDesign name="check" size={24} color="green" />}
               </View>
             </View>
           </>
@@ -142,14 +158,14 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
           )}
         />
       </View>
-      <View className="flex-row mx-4 mt-6 content-center justify-center space-x-10">
+      <TouchableOpacity className="flex-row mx-4 mt-6 content-center justify-center space-x-10">
         <Text
           className="text-lg bg-main-100 text-gray-50 px-5 py-1 mx-2 border-gray-500"
           style={{ borderRadius: 20, overflow: "hidden" }}
           onPress={handlePress}>
           Enviar
         </Text>
-      </View>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
