@@ -43,16 +43,17 @@ const Login = (): JSX.Element => {
 
   return (
     <SafeAreaView className="dark flex-1 text-gray-900 dark:bg-gray-900 dark:text-gray-50">
-      <ImageBackground className="flex-1 items-center justify-center space-y-10 px-10" 
-      source={require("../../assets/clientBack.png")}>
+      <ImageBackground
+        className="flex-1 items-center justify-center space-y-10 px-10"
+        source={require("../../assets/clientBack.png")}>
         <View className="space-y-5 text-left min-w-[90%]">
-        <Image source={require("../../assets/logoColorSC.png")} className= "w-80 h-40"></Image>
-        <Text className="text-center font-bold text-2xl text-gray-900 dark:text-white">Tramita La Cultura QRO</Text>
+          <Image source={require("../../assets/logoColorSC.png")} className="w-80 h-40"></Image>
+          <Text className="text-center font-bold text-2xl text-gray-900 dark:text-white">Tramita La Cultura QRO</Text>
           <Text className="text-gray-900 dark:text-white">Correo electronico:</Text>
           <TextInput
             onChangeText={(text: string) => setEmail(text)}
             textContentType="emailAddress"
-            keyboardType="email-address" 
+            keyboardType="email-address"
             autoComplete="email"
             autoCapitalize="none"
             spellCheck={false}

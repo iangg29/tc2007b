@@ -2,6 +2,7 @@
 
 import React from "react";
 import { View, Text, Image, ScrollView } from "react-native";
+import EditDocModal from "../../components/profile/EditDocModal";
 
 import { Logout } from "../../components/profile/Logout";
 import ProfileDocsList from "../../components/profile/ProfileDocsList";
@@ -14,7 +15,7 @@ const ProfileScreen = (): JSX.Element => {
   return (
     <ScrollView>
       <View className="flex-1 bg-white">
-        <View>
+        <View className="bg-white">
           <View className="flex items-end px-8 py-2">
             {/* Logout */}
             <Logout />

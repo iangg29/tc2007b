@@ -1,7 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { Ionicons } from "@expo/vector-icons";
 import { View, Text, Linking } from "react-native";
-
 interface Props {
   filename: string;
   updated: string;
@@ -21,13 +20,6 @@ const UserDocs = ({ filename, updated, link }: Props): JSX.Element => {
           size={30}
           color="#252d53"
           onPress={() => Linking.openURL(link)}
-        />
-        <Ionicons
-          className="place-items-end"
-          name="create"
-          size={30}
-          color="#252d53"
-          onPress={() => Linking.openURL(updated)}
         />
       </View>
     </View>

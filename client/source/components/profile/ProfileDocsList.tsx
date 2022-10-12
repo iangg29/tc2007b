@@ -3,7 +3,6 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
-
 import UserDocs from "../../components/profile/UserDocs";
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/slices/authSlice";
