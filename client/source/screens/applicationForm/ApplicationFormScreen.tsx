@@ -36,7 +36,6 @@ type documentsInfo = {
 
 const ApplicationFormScreen = ({ route }: any): JSX.Element => {
   const { itemId } = route.params;
-  // console.debug(itemId);
 
   const user: any = useAppSelector(selectUser);
 
@@ -95,13 +94,6 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
 
   const { citationDocuments } = data;
   const { labels } = labelsData;
-  //console.debug(citationDocuments);
-  //console.debug(labels);
-
-  const handlePress = () => {
-    //console.log("Redirect to apply route");
-    //setSelected(!selected);
-  };
 
   const docTypes: any = citationDocuments?.map((item: any): any => {
     const newItem: any = { ...item, field: null, file_name: null };
@@ -111,7 +103,6 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
 
   const pickDocument = async (id) => {
     let result = await DocumentPicker.getDocumentAsync({});
-    //console.debug(result);
     const idx = documents.findIndex((x) => x.id === id);
     documents[idx].field = result.uri;
     documents[idx].file_name = result.name;
@@ -151,14 +142,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
       return newElement;
     });
 
-  console.debug(myLabels);
-
   const [date, setDate] = useState(new Date());
-
-  // const onChangeDate = (event, selectedDate) => {
-  //   const currentDate = selectedDate;
-  //   setDate(currentDate);
-  // };
 
   const today = new Date();
   const todayDate =
@@ -171,6 +155,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
   const {
     control,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -181,7 +166,43 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     },
   });
 
-  const onSubmitForm = (data) => console.debug(data);
+  const onSubmitForm = () => {
+    console.debug("pasa");
+    const myLabels = list
+      ?.filter((element: any) => element.color === "#d1d5db")
+      .map((filteredElement: any) => {
+        const newElement: any = filteredElement.id;
+        return newElement;
+      });
+
+    const myTitle = getValues("title");
+    const myDescription = getValues("description");
+    const mySupport = getValues("support");
+    const myDeadline = getValues("deadline");
+
+    if (myLabels?.length !== 0 && documents.length !== 0) {
+      commitMutation({
+        variables: {
+          title: myTitle as unknown as string,
+          description: myDescription as unknown as string,
+          support: mySupport as unknown as string,
+          deadline: myDeadline as unknown as string,
+          user_id: user.id as unknown as string,
+          citation_id: itemId as unknown as string,
+          documents: documents as unknown as [documentsInfo],
+          labels: myLabels as unknown as [string],
+        },
+        onCompleted: () => {
+          console.debug(data);
+        },
+        onError: () => {
+          console.debug("error :(");
+        },
+      });
+    } else {
+      console.debug("error :( x2");
+    }
+  };
 
   return (
     <SafeAreaView>
@@ -335,7 +356,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
           />
         </View>
         <View className="px-3 py-2">
-          {myLabels.length < 1 && <Text className="text-red-500">Selecciona una label.</Text>}
+          {myLabels.length < 1 && <Text className="text-red-500">Selecciona una etiqueta.</Text>}
         </View>
         <View className="pb-2">
           <TouchableOpacity

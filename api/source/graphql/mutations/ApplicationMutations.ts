@@ -23,8 +23,6 @@ import {
   LABEL_TABLE_NAME,
 } from "../../database/utils/database_constants";
 import { db } from "../../database/database";
-import { LabelType } from "../../types/LabelType";
-import errorController from "../../controllers/errorController";
 
 const documentsInfo = new GraphQLInputObjectType({
   name: "documentsInfo",
@@ -80,7 +78,7 @@ export default {
           throw new GraphQLError(error.name);
         });
       
-      console.log("defaultStatus", defaultStatus);
+      //console.log("defaultStatus", defaultStatus);
 
       await db
         .transaction(async (trx) => {
