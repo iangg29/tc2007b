@@ -10,6 +10,7 @@ interface Props {
 }
 
 const FilterByLabels = ({ label }: Props): JSX.Element => {
+  
   return (
     <>
       {label?.map((element: any) => (
