@@ -12,7 +12,7 @@ interface iAuthState {
     second_lastname: string;
     email: string;
     cellphone: string;
-    profile_img: string
+    profile_img: string;
   };
   isLoggedIn: boolean;
   token: string;
