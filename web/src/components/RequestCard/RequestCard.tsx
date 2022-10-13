@@ -6,7 +6,7 @@ import SingleTag from "./SingleTag";
 
 interface labels {
   id: string;
-  name: String;
+  label_name: String;
 }
 
 interface Props {

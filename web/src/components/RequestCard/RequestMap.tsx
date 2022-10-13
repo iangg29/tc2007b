@@ -17,7 +17,7 @@ interface user {
 
 interface label {
   id: string;
-  name: string;
+  label_name: string;
 }
 
 interface Props {
