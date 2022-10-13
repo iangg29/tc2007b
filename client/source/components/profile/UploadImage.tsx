@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import React, { useState } from "react";
 import { Image, View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
@@ -33,7 +35,7 @@ const UploadImage = ({ profileImg }: Props): JSX.Element => {
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(JSON.stringify(_image));
+
     if (!_image.cancelled) {
       setImage(_image.uri);
       //Upload Profile Image
