@@ -2,10 +2,11 @@
 
 import { Feather, AntDesign } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useNavigation } from "@react-navigation/native";
 import * as DocumentPicker from "expo-document-picker";
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
 
@@ -106,7 +107,6 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     const idx = documents.findIndex((x) => x.id === id);
     documents[idx].field = result.uri;
     documents[idx].file_name = result.name;
-    console.debug(documents);
     setDocuments([...documents]);
   };
 
@@ -126,7 +126,6 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     for (let x = 0; x < myList.length; x++) {
       if (myList[x].id === item.id) {
         myList[x].color = "#d1d5db";
-        console.debug(myList);
         setList([...myList]);
       } else {
         myList[x].color = "#6b7280";
@@ -166,8 +165,9 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     },
   });
 
+  const navigation = useNavigation();
+
   const onSubmitForm = () => {
-    console.debug("pasa");
     const myLabels = list
       ?.filter((element: any) => element.color === "#d1d5db")
       .map((filteredElement: any) => {
@@ -193,7 +193,15 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
           labels: myLabels as unknown as [string],
         },
         onCompleted: () => {
-          console.debug(data);
+          Alert.alert("Creación de solicitud", "Tu solicitud fue creada con éxito", [
+            {
+              text: "Cerrar",
+              onPress: () => console.debug("Cancel Pressed"),
+              style: "cancel",
+            },
+            { text: "Aceptar", onPress: () => console.debug("OK Pressed") },
+          ]);
+          navigation.goBack();
         },
         onError: () => {
           console.debug("error :(");
@@ -214,6 +222,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
           name="title"
           rules={{
             required: true,
+            pattern: { value: /^\S+[a-zA-Z\s]*/, message: "error message" },
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
@@ -232,6 +241,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
           name="description"
           rules={{
             required: true,
+            pattern: { value: /^\S+[a-zA-Z\s]*/, message: "error message" },
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
@@ -253,6 +263,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
           name="support"
           rules={{
             required: true,
+            pattern: { value: /^\S+[a-zA-Z\s]*/, message: "error message" },
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
@@ -294,8 +305,6 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
 
                   value = myDate;
                   onChange(value);
-                  console.debug("today", todayDate);
-                  console.debug("selected", value);
                 }}
               />
             )}
@@ -303,7 +312,6 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
           <View className="px-3 py-2">
             {errors.deadline && <Text className="text-red-500">Ingresa una fecha válida.</Text>}
           </View>
-          {/* <DateTimePicker testID="dateTimePicker" mode="date" value={date} onChange={onChangeDate} /> */}
         </View>
         <FlatList
           scrollEnabled={false}
@@ -346,7 +354,6 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
                       borderRadius: 10,
                       overflow: "hidden",
                       backgroundColor: item.color,
-                      // backgroundColor: selected ? "#6b7280" : "#d1d5db",
                     }}>
                     {item.label_name}
                   </Text>

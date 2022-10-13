@@ -77,8 +77,6 @@ export default {
           console.error(error);
           throw new GraphQLError(error.name);
         });
-      
-      //console.log("defaultStatus", defaultStatus);
 
       await db
         .transaction(async (trx) => {
