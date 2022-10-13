@@ -1,6 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import FilterByLabels from "./FilterByLabels";
+import { useMemo } from "react";
 
 interface label {
   id: string;
@@ -16,7 +17,12 @@ interface Props {
 const FilterByLabelsMap = ({ element }: Props): JSX.Element => {
   return (
     <>
-      <FilterByLabels label={element.labels} />
+      {useMemo(
+        () => (
+          <FilterByLabels label={element.labels} />
+        ),
+        [element],
+      )}
     </>
   );
 };
