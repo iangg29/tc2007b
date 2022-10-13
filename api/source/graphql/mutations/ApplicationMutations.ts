@@ -1,7 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { ApplicationType } from "../../types/ApplicationType";
-import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLInt } from "graphql";
+import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLNonNull, GraphQLString, GraphQLInt, GraphQLList } from "graphql";
 import { v4 as uuid } from "uuid";
 import {
   APPLICATION_LABEL_TABLE_NAME,
@@ -293,6 +293,99 @@ export default {
         });
 
       return myApplication[0];
+    },
+  },
+
+  // Update an application
+  updateApplication: {
+    type: GraphQLString,
+    args: {
+      applicationID: {
+        type: GraphQLNonNull(GraphQLID)
+      },
+      description: {
+        type: GraphQLNonNull(GraphQLString)
+      },
+      support: {
+        type: GraphQLNonNull(GraphQLString)
+      },
+      deadline: {
+        type: GraphQLNonNull(GraphQLString)
+      },
+      start_time: {
+        type: GraphQLNonNull(GraphQLString)
+      },
+      end_time: {
+        type: GraphQLNonNull(GraphQLString)
+      },
+      labels: {
+        type: GraphQLList(GraphQLID)
+      }
+    },
+    resolve: async (_: any, { application_id, description, support, deadline, start_time, end_time, labels }: any) => {
+      // Application - Before update 
+      const myApplication = await db
+        .select()
+        .from(APPLICATION_TABLE_NAME)
+        .where({ id: application_id })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      // Application - New Data [updated_at]
+      const new_date = new Date().toISOString().split(/[T.]+/, 2).join(' ');
+
+      const newStatusID = await db
+        .select("id")
+        .table(APPLICATION_STATUS_TABLE_NAME)
+        .where({ order: 0 })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      // Application - New Status, Description, Support, etc.
+      await db
+        .table(APPLICATION_TABLE_NAME)
+        .update({updated_at: new_date, application_status_id: newStatusID[0].id, description: description, support: support, deadline: deadline, start_time: start_time, end_time: end_time})
+        .where({id: application_id})
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      // Application - New Documents [Draft]
+      // Recupero todos los documentos - old
+      // Identifico type de los nuevos docs
+      // Comparación de documentos si hay cambios en type específico
+      // Hacer el update por archivos cambiados
+
+      // Application - New Labels [Draft]
+      // OLD LABELS - DELETE
+      await db
+        .table(APPLICATION_LABEL_TABLE_NAME)
+        .where({ application_id: application_id })
+        .del()
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      labels.map((elem: any) => {
+        // NEW LABELS - INSERT
+          await db(APPLICATION_LABEL_TABLE_NAME)
+          .insert({
+            application_id,
+            elem.label_id
+          })
+          .catch((error: Error) => {
+            console.error(error);
+            throw  new GraphQLError(error.name);
+          });
+      })
+
+      return "Succesful application update";
     },
   },
 };
