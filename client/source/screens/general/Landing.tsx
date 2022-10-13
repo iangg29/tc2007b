@@ -1,11 +1,13 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+
+import Tabs from "../../components/navigator/TabsNavigator";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { selectUser, setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Landing = () => {
   const navigation = useNavigation();
@@ -21,7 +23,7 @@ const Landing = () => {
     try {
       (async () => {
         dispatch(setToken(""));
-        dispatch(setUser({ name: "", first_lastname: "", second_lastname: "", cellphone: "", email: "" }));
+        dispatch(setUser({ id: "", name: "", first_lastname: "", second_lastname: "", cellphone: "", email: "" }));
         dispatch(setIsLoggedIn(false));
         await removeToken();
       })();
@@ -31,16 +33,17 @@ const Landing = () => {
   };
 
   return (
-    <View>
-      <Text>This is the landing page</Text>
-      <View className="text-center mx-10 ">
-        <Text>Your user is </Text>
-        <Text>{`${user?.name}`}</Text>
-      </View>
-      <TouchableOpacity onPress={logout}>
-        <Text>Logout</Text>
-      </TouchableOpacity>
-    </View>
+    <Tabs />
+    // <View>
+    //   <Text>This is the landing page</Text>
+    //   <View className="text-center mx-10 ">
+    //     <Text>Your user is </Text>
+    //     <Text>{`${user?.name}`}</Text>
+    //   </View>
+    //   <TouchableOpacity onPress={logout}>
+    //     <Text>Logout</Text>
+    //   </TouchableOpacity>
+    // </View>
   );
 };
 

@@ -3,11 +3,7 @@
 import { GraphQLError, GraphQLID, GraphQLList, GraphQLNonNull } from "graphql";
 import { ApplicationType } from "../../types/ApplicationType";
 import { db } from "../../database/database";
-import {
-  APPLICATION_TABLE_NAME,
-  LABEL_TABLE_NAME,
-  APPLICATION_LABEL_TABLE_NAME,
-} from "../../database/utils/database_constants";
+import { APPLICATION_TABLE_NAME } from "../../database/utils/database_constants";
 import { LabelType } from "../../types/LabelType";
 
 export default {
@@ -24,7 +20,7 @@ export default {
           throw new GraphQLError(error.name);
         });
 
-      return [... Applications];
+      return [...Applications];
     },
   },
 
@@ -63,12 +59,33 @@ export default {
       const Applications = await db
         .select()
         .table(APPLICATION_TABLE_NAME)
-        .where({  application_status_id })
+        .where({ application_status_id })
         .catch((error: Error) => {
           console.error(error);
           throw new GraphQLError(error.name);
         });
       return [...Applications];
+    },
+  },
+
+  applicationByUserID: {
+    type: GraphQLList(ApplicationType),
+    args: {
+      user_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+    },
+    resolve: async (_: any, { user_id }: any) => {
+      const applicationByUser = await db
+        .select()
+        .table(APPLICATION_TABLE_NAME)
+        .where("user_id", user_id)
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      return applicationByUser;
     },
   },
 };

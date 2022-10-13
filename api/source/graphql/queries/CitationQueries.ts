@@ -2,9 +2,13 @@
 
 import { GraphQLID, GraphQLList, GraphQLNonNull } from "graphql";
 import { db } from "../../database/database";
-import { CITATION_DOCUMENTS_TABLE_NAME, CITATION_TABLE_NAME, DOCUMENT_TYPE_TABLE_NAME } from "../../database/utils/database_constants";
+import {
+  CITATION_DOCUMENTS_TABLE_NAME,
+  CITATION_TABLE_NAME,
+  DOCUMENT_TYPE_TABLE_NAME,
+} from "../../database/utils/database_constants";
 import { CitationType } from "../../types/CitationType";
-import {DocumentTypeType} from "../../types/DocumentTypeType"
+import { DocumentTypeType } from "../../types/DocumentTypeType";
 
 export default {
   citations: {
@@ -48,6 +52,21 @@ export default {
       );
 
       return [...newCitationDocuments];
+    },
+  },
+
+  citationsActive: {
+    type: GraphQLList(CitationType),
+    resolve: async () => {
+      const now = new Date().toISOString();
+      console.log("#####################");
+      console.log(now);
+      const citationsActive = await db
+        .select()
+        .table(CITATION_TABLE_NAME)
+        .where("end_date", ">=", now)
+        .orderBy("title", "asc");
+      return [...citationsActive];
     },
   },
 };

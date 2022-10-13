@@ -92,7 +92,7 @@ const ReqDocumentation = (): JSX.Element => {
           <div className="w-[450px] md:w-[500px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
             {labels?.map((elem: any) => {
-              return <Label key={elem.id} label={elem.name} />;
+              return <Label key={elem.id} label={elem.label_name} />;
             })}
           </div>
         </div>

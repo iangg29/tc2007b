@@ -3,26 +3,15 @@ schema {
   mutation: RootMutation
 }
 
-"""Exposes a URL that specifies the behaviour of this scalar."""
+"""
+Exposes a URL that specifies the behaviour of this scalar.
+"""
 directive @specifiedBy(
-  """The URL that specifies the behaviour of this scalar."""
+  """
+  The URL that specifies the behaviour of this scalar.
+  """
   url: String!
 ) on SCALAR
-
-"""Assignable Application Status"""
-type ApplicationStatus {
-  """ApplicationStatus ID"""
-  id: ID!
-
-  """ApplicationStatus name"""
-  name: String!
-
-  """ApplicationStatus creation date"""
-  created_at: String!
-
-  """Last time applicationStatus was updated."""
-  updated_at: String!
-}
 
 """
 Main application model, contains all the information related with the applications of the users into the system
@@ -36,12 +25,27 @@ type Application {
   """
   User that uploaded the request
   """
-  user: User!
+  user: User
 
   """
   Application title
   """
   title: String!
+
+  """
+  Application image
+  """
+  image: String!
+
+  """
+  Application description
+  """
+  description: String!
+
+  """
+  Application requested support
+  """
+  support: String!
 
   """
   Date at which the project will be erased from consideration
@@ -71,12 +75,22 @@ type Application {
   """
   Application status
   """
-  applicationStatus: ApplicationStatus!
+  applicationStatus: ApplicationStatus
 
   """
   Citation of the application
   """
-  citation: Citation!
+  citation: Citation
+
+  """
+  Labels attached to the application
+  """
+  labels: [Label]
+
+  """
+  Application documents
+  """
+  applicationDocuments: [Document]
 
   """
   Application creation date
@@ -104,6 +118,11 @@ type ApplicationStatus {
   name: String!
 
   """
+  ApplicationStatus order
+  """
+  order: Int!
+
+  """
   ApplicationStatus creation date
   """
   created_at: String!
@@ -115,7 +134,7 @@ type ApplicationStatus {
 }
 
 """
-Citation model that contains the document and information the users has to follow in order to get their scholarship
+Citation type that contains the document and information the users has to follow in order to get their scholarship
 """
 type Citation {
   """
@@ -139,6 +158,11 @@ type Citation {
   document: Document!
 
   """
+  Citation's end date
+  """
+  end_date: String!
+
+  """
   Citation's creation date
   """
   created_at: String!
@@ -147,15 +171,10 @@ type Citation {
   Last time citation was updated
   """
   updated_at: String!
-
-  """
-  Citation's end date
-  """
-  end_date: String!
 }
 
 """
-Document model, contains all the specifications of the documents uploaded by the users
+Document type, contains all the specifications of the documents uploaded by the users
 """
 type Document {
   """
@@ -171,12 +190,17 @@ type Document {
   """
   Document's name
   """
-  name: String!
+  file_name: String!
 
   """
   Document's type
   """
   documentType: DocumentType!
+
+  """
+  Document's URL
+  """
+  url: ID!
 
   """
   Document's creation date
@@ -187,6 +211,13 @@ type Document {
   Last time document got updated
   """
   updated_at: String!
+}
+
+input documentsInfo {
+  id: ID
+  type_name: String
+  field: String
+  file_name: String
 }
 
 """
@@ -201,7 +232,7 @@ type DocumentType {
   """
   Document Type name
   """
-  name: String!
+  type_name: String!
 
   """
   Document Type creation date
@@ -210,6 +241,41 @@ type DocumentType {
 
   """
   Last time Document Type was updated
+  """
+  updated_at: String!
+}
+
+"""
+Evidence model, contains all the specifications of the evidence of an application
+"""
+type Evidence {
+  """
+  Evidence's ID
+  """
+  id: ID!
+
+  """
+  Application's impact
+  """
+  impact: String!
+
+  """
+  Application associated to the evidence
+  """
+  application: Application!
+
+  """
+  Evidence's document
+  """
+  document: Document!
+
+  """
+  Evidence's creation date
+  """
+  created_at: String!
+
+  """
+  Last time evidence got updated
   """
   updated_at: String!
 }
@@ -261,12 +327,17 @@ type Label {
   """
   Label's name
   """
-  name: String!
+  label_name: String!
 
   """
   Label's description
   """
   description: String!
+
+  """
+  Application where the labels are linked
+  """
+  applications: [Application]
 
   """
   Label's creation date
@@ -282,106 +353,59 @@ type Label {
 """
 Assignable role to users.
 """
-type Citation {
-  """Citation's ID"""
-  id: ID!
-
-  """Citation's title"""
-  title: String!
-
-  """Citation's description"""
-  description: String!
-
-  """Citation's document"""
-  document: Document!
-
-  """Citation's creation date"""
-  created_at: String!
-
-  """Last time citation was updated"""
-  updated_at: String!
-}
-
-"""
-Document model, contains all the specifications of the documents uploaded by the users
-"""
-type Document {
-  """Document's ID"""
-  id: ID!
-
-  """User that uploaded the document"""
-  user: User!
-
-  """Document's name"""
-  name: String!
-
-  """Document's type"""
-  documentType: DocumentType!
-
-  """Document's creation date"""
-  created_at: String!
-
-  """Last time document got updated"""
-  updated_at: String!
-}
-
-"""Type of document uploaded"""
-type DocumentType {
-  """Document Type ID"""
-  id: ID!
-
-  """Document Type name"""
-  name: String!
-
-  """Document Type creation date"""
-  created_at: String!
-
-  """Last time Document Type was updated"""
-  updated_at: String!
-}
-
-"""Label assigned to each application"""
-type Label {
-  """Label's ID"""
-  id: ID!
-
-  """Label's name"""
-  name: String!
-
-  """Label's description"""
-  description: String!
-
-  """Label's creation date"""
-  created_at: String!
-
-  """Last time label was updated"""
-  updated_at: String!
-}
-
-"""Assignable role to users."""
 type Role {
-  """Role ID"""
+  """
+  Role ID
+  """
   id: ID!
 
-  """Role name"""
+  """
+  Role name
+  """
   name: String!
 
-  """Role description"""
+  """
+  Role description
+  """
   description: String!
 
-  """Role creation date"""
+  """
+  Is role default.
+  """
+  default: Boolean!
+
+  """
+  Role creation date
+  """
   created_at: String!
 
-  """Last time role was updated."""
+  """
+  Last time role was updated.
+  """
   updated_at: String!
 }
 
-"""Application's GraphQL root mutations"""
+"""
+Application's GraphQL root mutations
+"""
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
+  createNewApplication(
+    user_id: ID!
+    title: String!
+    description: String!
+    support: String!
+    deadline: String
+    citation_id: ID!
+    documents: [documentsInfo]
+    labels: [ID]
+  ): Application
   createApplication(
     user_id: ID!
     title: String!
+    image: String!
+    description: String!
+    support: String!
     deadline: String
     end_time: String
     emission_date: String!
@@ -389,47 +413,65 @@ type RootMutation {
     application_status_id: ID!
     citation_id: ID!
   ): Application
-  updateApplicationStatus(id: ID!, application_status_id: ID!): Application
+  updateApplicationStatus(application_id: ID!, next_status: Int!): String
+  attachApplicationDocument(application_id: ID!, document_id: ID!): Application
   deleteApplication(id: ID!): Boolean
+  updateAplicationLabels(application_id: ID!, label_id: ID!): Application
   createStatus(
     """
     ApplicationStatus name
     """
     name: String!
+
+    """
+    ApplicationStatus order
+    """
+    order: Int!
   ): ApplicationStatus
   deleteStatus(id: ID!): Boolean
-  createCitation(title: String!, description: String!, document_id: ID!): Citation
-  createDocumentType(name: String!): DocumentType
   createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
   deleteFAQ(id: ID!): Boolean
+  createCitation(title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
+  updateCitation(id: ID!, title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
+  deleteCitation(id: ID!): Boolean
+  createDocumentType(name: String!): DocumentType
+  uploadEvidence(impact: String!, application_id: ID!, document_id: ID!): Evidence
+  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
+  createLabel(name: String!, description: String!): Label
 }
 
-"""Application's GraphQL root query."""
+"""
+Application's GraphQL root query.
+"""
 type RootQuery {
   users: [User]
   user(id: String!): User
   roles: [Role]
+  applications: [Application]
+  applicationByID(id: ID!): Application
+  applicationByStatusID(application_status_id: ID!): [Application]
+  applicationByUserID(user_id: ID!): [Application]
   applicationStatus: [ApplicationStatus]
-  documentTypes: [DocumentType]
-  documents: [Document]
-  citations: [Citation]
-  labels: [Label]
   faqs: [FAQ]
   documentTypes: [DocumentType]
-  documents: [Document]
   citations: [Citation]
+  citationDocuments(id: ID!): [DocumentType]
+  citationsActive: [Citation]
+  documents: [Document]
+  findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
-  applications: [Application]
-  applicationByStatusID(application_status_id: ID!): [Application]
+  evidenceByApplicationID(application_id: ID!): Evidence
 }
 
 """
 Main application user model, contains all user information w/it's relations.
 """
 type User {
-  """User's ID"""
+  """
+  User's ID
+  """
   id: ID!
 
   """
@@ -442,34 +484,43 @@ type User {
   """
   name: String!
 
-  """User's id rol"""
-  role_id: ID!
-
-  """User's password"""
-  password: String!
-
-  """User's first lastname"""
+  """
+  User's first lastname
+  """
   first_lastname: String!
 
-  """User's second lastname"""
-  second_lastname: String!
+  """
+  User's second lastname
+  """
+  second_lastname: String
 
-  """User's phone"""
+  """
+  User's phone
+  """
   cellphone: String!
 
-  """User's email"""
+  """
+  User's email
+  """
   email: String!
 
-  """User status"""
+  """
+  User status
+  """
   status: Int!
 
-  """User's active status"""
+  """
+  User's active status
+  """
   active: Boolean!
 
-  """User's profile creation date."""
+  """
+  User's profile creation date.
+  """
   created_at: String!
 
-  """Last time user profile got updated"""
+  """
+  Last time user profile got updated
+  """
   updated_at: String!
 }
-
