@@ -34,8 +34,7 @@ const NewAnnouncementForm = (): JSX.Element => {
 
   const sendFile = async (): Promise<any> => {
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("file2", file);
+    formData.append("1", file);
 
     try {
       await axios
@@ -47,6 +46,7 @@ const NewAnnouncementForm = (): JSX.Element => {
         })
         .then((res: AxiosResponse<any>) => {
           alert(JSON.stringify(res?.data));
+          // handleSubmit(onSubmitForm, onError)().catch(() => {});
         })
         .catch((error: any) => {
           alert("Invalid extension document type.");
@@ -108,7 +108,9 @@ const NewAnnouncementForm = (): JSX.Element => {
 
   const [list, handleclickCheckbox] = useChecked(initialState);
 
-  const onSubmitForm = (): void => {
+  const onSubmitForm = async (): Promise<void> => {
+    const url = await sendFile();
+
     const docType = list
       ?.filter((element: any) => element.isChecked === true)
       .map((filteredElement: any) => {
@@ -265,13 +267,13 @@ const NewAnnouncementForm = (): JSX.Element => {
             <button
               className="w-48 bg-main-500 hover:bg-main-500/70  hover:scale-105 transition-all ease-in-out duration-500 active:scale-95 font-bold text-white rounded-3xl py-2 text-sm mt-5"
               type="submit"
-              onClick={() => {
-                (async () => {
-                  await sendFile();
-                })()
-                  .then((r) => r)
-                  .catch((e) => e);
-              }}
+              // onClick={() => {
+              //   (async () => {
+              //     await sendFile();
+              //   })()
+              //     .then((r) => r)
+              //     .catch((e) => e);
+              // }}
             >
               Crear
             </button>
