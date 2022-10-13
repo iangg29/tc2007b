@@ -3,9 +3,9 @@
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import RequestMap from "../../components/RequestCard/RequestMap";
-import FilterByLabelsMap from "../../components/Filter/FilterByLabelsMap";
 import { ApplicationsQuery, ApplicationsQuery$data } from "./__generated__/ApplicationsQuery.graphql";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import FilterByLabels from "../../components/Filter/FilterByLabels";
 
 const Applications = (): JSX.Element => {
   const data: ApplicationsQuery$data = useLazyLoadQuery<ApplicationsQuery>(
@@ -29,22 +29,28 @@ const Applications = (): JSX.Element => {
             label_name
           }
         }
+        labels {
+          id
+          label_name
+        }
       }
     `,
     {},
     { fetchPolicy: "network-only" },
   );
-  const { applications } = data;
+  const { applications, labels } = data;
   const empty: boolean = applications?.length === 0;
   const [selected, setSelected] = useState<string>("");
+  console.log(labels);
 
-  const updateApplications = applications?.filter((application: any) =>
-    new Set(application.labels.map((label: any) => label.id)).has(selected),
-  );
+  const updateApplications = useMemo(() => {
+    return applications?.filter((application: any) =>
+      new Set(application.labels.map((label: any) => label.id)).has(selected),
+    );
+  }, [applications, selected]);
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const handleChange = (event: any) => {
-    setSelected(event.target.value);
+  const handleChange: any = (event: any) => {
+    return setSelected(event.target.value);
   };
   return (
     <>
@@ -66,8 +72,8 @@ const Applications = (): JSX.Element => {
           <option selected={true} value={""}>
             Todos
           </option>
-          {applications?.map((element: any) => (
-            <FilterByLabelsMap element={element} key={element.labels.id}></FilterByLabelsMap>
+          {labels?.map((element: any) => (
+            <FilterByLabels label={element} key={element.id}></FilterByLabels>
           ))}
         </select>
       )}

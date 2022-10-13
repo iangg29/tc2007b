@@ -9,7 +9,7 @@ import {
 } from "./__generated__/ApplicationFinalizedQuery.graphql";
 import RequestMap from "../../components/RequestCard/RequestMap";
 import { useState } from "react";
-import FilterByLabelsMap from "../../components/Filter/FilterByLabelsMap";
+import FilterByLabels from "../../components/Filter/FilterByLabels";
 
 const ApplicationFinalized = (): JSX.Element => {
   const data: ApplicationFinalizedQuery$data = useLazyLoadQuery<ApplicationFinalizedQuery>(
@@ -33,13 +33,17 @@ const ApplicationFinalized = (): JSX.Element => {
             label_name
           }
         }
+        labels {
+          id
+          label_name
+        }
       }
     `,
     { application_status_id: "6" },
     { fetchPolicy: "network-only" },
   );
 
-  const { applicationByStatusID } = data;
+  const { applicationByStatusID, labels } = data;
   const empty: boolean = applicationByStatusID?.length === 0;
   const [selected, setSelected] = useState<string>("");
 
@@ -72,8 +76,8 @@ const ApplicationFinalized = (): JSX.Element => {
           <option selected={true} value={""}>
             Todos
           </option>
-          {applicationByStatusID?.map((element: any) => (
-            <FilterByLabelsMap element={element} key={element.labels.id}></FilterByLabelsMap>
+          {labels?.map((element: any) => (
+            <FilterByLabels label={element} key={element.id}></FilterByLabels>
           ))}
         </select>
       )}

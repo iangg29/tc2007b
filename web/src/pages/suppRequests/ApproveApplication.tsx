@@ -6,7 +6,7 @@ import graphql from "babel-plugin-relay/macro";
 import { ApproveApplicationQuery, ApproveApplicationQuery$data } from "./__generated__/ApproveApplicationQuery.graphql";
 import RequestMap from "../../components/RequestCard/RequestMap";
 import { useState } from "react";
-import FilterByLabelsMap from "../../components/Filter/FilterByLabelsMap";
+import FilterByLabels from "../../components/Filter/FilterByLabels";
 
 const ApproveApplication = (): JSX.Element => {
   const data: ApproveApplicationQuery$data = useLazyLoadQuery<ApproveApplicationQuery>(
@@ -30,13 +30,17 @@ const ApproveApplication = (): JSX.Element => {
             label_name
           }
         }
+        labels {
+          id
+          label_name
+        }
       }
     `,
     { application_status_id: "3" },
     { fetchPolicy: "network-only" },
   );
 
-  const { applicationByStatusID } = data;
+  const { applicationByStatusID, labels } = data;
   const empty: boolean = applicationByStatusID?.length === 0;
   const [selected, setSelected] = useState<string>("");
 
@@ -69,8 +73,8 @@ const ApproveApplication = (): JSX.Element => {
           <option selected={true} value={""}>
             Todos
           </option>
-          {applicationByStatusID?.map((element: any) => (
-            <FilterByLabelsMap element={element} key={element.labels.id}></FilterByLabelsMap>
+          {labels?.map((element: any) => (
+            <FilterByLabels label={element} key={element.id}></FilterByLabels>
           ))}
         </select>
       )}
