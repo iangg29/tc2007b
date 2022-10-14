@@ -23,7 +23,7 @@ export async function seed(knex: Knex): Promise<void> {
       id: "2",
       user_id: "2",
       title: "Obra de arte2",
-      image: "https://www.artistasdelatierra.com/obras/foto104185.jpg",
+      image: "https://cdn.pixabay.com/photo/2022/05/23/23/02/street-7217339__340.jpg",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit sapien nisi, eget faucibus magna lobortis eu. Sed arcu nibh, varius eu finibus in, tincidunt nec tellus. Nullam suscipit mi libero, posuere sodales nunc congue quis. Cras rhoncus malesuada posuere. In sed velit at ex tincidunt sodales quis sit amet neque. Duis sodales libero at accumsan convallis. Curabitur feugiat justo a tellus tempor, at egestas ante mattis. Ut sagittis rhoncus iaculis.",
       support:

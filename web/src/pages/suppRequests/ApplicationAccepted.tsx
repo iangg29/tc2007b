@@ -16,6 +16,7 @@ const ApplicationAccepted = (): JSX.Element => {
         applicationByStatusID(application_status_id: $application_status_id) {
           title
           id
+          image
           user {
             id
             name
