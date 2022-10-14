@@ -4,7 +4,7 @@ import { CitationType } from "../../types/CitationType";
 import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
 import { db } from "../../database/database";
-import { CITATION_DOCUMENTS_TABLE_NAME, CITATION_TABLE_NAME, DOCUMENT_TYPE_TABLE_NAME } from "../../database/utils/database_constants";
+import { CITATION_DOCUMENTS_TABLE_NAME, CITATION_TABLE_NAME} from "../../database/utils/database_constants";
 
 export default {
   createCitation: {
