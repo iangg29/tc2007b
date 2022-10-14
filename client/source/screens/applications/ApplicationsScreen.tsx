@@ -23,11 +23,13 @@ const ApplicationsScreen = (): JSX.Element => {
           title
           applicationStatus {
             name
+            order
           }
         }
       }
     `,
     { user_id },
+    { fetchPolicy: "network-only" },
   );
   const { applicationByUserID } = data;
 

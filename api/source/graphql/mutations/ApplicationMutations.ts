@@ -479,11 +479,21 @@ export default {
           throw new GraphQLError(error.name);
         });
 
-      // Application - New Status, Description, Support, etc.
+        
+      // Application - Update [Labels, Documents, Status, etc.]
       await db
-        .table(APPLICATION_TABLE_NAME)
-        .update({updated_at: new_date, application_status_id: newStatusID[0].id, description: description, support: support, deadline: deadline, start_time: start_time, end_time: end_time})
-        .where({id: application_id})
+        .transaction(async (trx) => {
+
+          // Application - New Status, Description, Support, etc.
+          await trx
+            .table(APPLICATION_TABLE_NAME)
+            .update({updated_at: new_date, application_status_id: newStatusID[0].id, description: description, support: support, deadline: deadline, start_time: start_time, end_time: end_time})
+            .where({id: application_id})
+            .catch((error: Error) => {
+              console.error(error);
+              throw new GraphQLError(error.name);
+            });
+        })
         .catch((error: Error) => {
           console.error(error);
           throw new GraphQLError(error.name);
@@ -497,27 +507,29 @@ export default {
 
       // Application - New Labels [Draft]
       // OLD LABELS - DELETE
-      await db
-        .table(APPLICATION_LABEL_TABLE_NAME)
-        .where({ application_id: application_id })
-        .del()
-        .catch((error: Error) => {
-          console.error(error);
-          throw new GraphQLError(error.name);
-        });
+      // await db
+      //   .table(APPLICATION_LABEL_TABLE_NAME)
+      //   .where({ application_id: application_id })
+      //   .del()
+      //   .catch((error: Error) => {
+      //     console.error(error);
+      //     throw new GraphQLError(error.name);
+      //   });
 
-      labels.map((elem: any) => {
-        // NEW LABELS - INSERT
-          await db(APPLICATION_LABEL_TABLE_NAME)
-          .insert({
-            application_id,
-            elem.label_id
-          })
-          .catch((error: Error) => {
-            console.error(error);
-            throw  new GraphQLError(error.name);
-          });
-      })
+      // NEW LABELS - INSERT
+      // await Promise.all(
+      //   labels.map(async (elem: any) => {
+      //       await db(APPLICATION_LABEL_TABLE_NAME)
+      //       .insert({
+      //         application_id,
+      //         elem.label_id
+      //       })
+      //       .catch((error: Error) => {
+      //         console.error(error);
+      //         throw  new GraphQLError(error.name);
+      //       });
+      //   })
+      // );
 
       return "Succesful application update";
     },
