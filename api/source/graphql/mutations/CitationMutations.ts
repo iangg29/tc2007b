@@ -16,6 +16,9 @@ export default {
       description: {
         type: GraphQLNonNull(GraphQLString),
       },
+      citation_document: {
+        type: GraphQLNonNull(GraphQLString),
+      },
       end_date: {
         type: GraphQLNonNull(GraphQLString),
       },
@@ -23,7 +26,7 @@ export default {
         type: GraphQLList(GraphQLID),
       },
     },
-    resolve: async (_: any, { title, description, end_date, document_types }: any) => {
+    resolve: async (_: any, { title, description, end_date, document_types, citation_document }: any) => {
       const id = uuid();
 
       await db
@@ -32,6 +35,7 @@ export default {
             id,
             title,
             description,
+            citation_document,
             end_date,
           });
 

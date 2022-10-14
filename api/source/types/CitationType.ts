@@ -20,8 +20,8 @@ export const CitationType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "Citation's description",
     },
-    document: {
-      type: GraphQLNonNull(DocumentType),
+    citation_document: {
+      type: GraphQLNonNull(GraphQLString),
       description: "Citation's document",
     },
     end_date: {

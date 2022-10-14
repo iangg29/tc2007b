@@ -31,12 +31,14 @@ router.post("/upload/files", validateToken, async (req: Request, res: Response) 
         // An unknown error occurred when uploading.
       }
       const files = req.files;
-      const id = (req as any).user.id;
       console.log({ files });
-      console.log({ id });
-      return res.send("recieved your request!");
+      const paths = (files as any).map((el: any) => {
+        return { id: el.fieldname, path: `${process.env.BASE_URL}uploads/files/${el.filename}` };
+      });
+      return res.send({ paths });
     } catch (err) {
       console.log({ err });
+      return res.status(500).send({ err });
     }
   });
 });
