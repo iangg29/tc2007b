@@ -2,35 +2,53 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
-import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 
 interface Props {
-  id: string;
-  title: string;
+  data_citation: {
+    id: string;
+    title: string;
+    description: string;
+    end_date: string;
+  };
 }
 
-const CitationCard = ({ id, title }: Props) => {
+const CitationCard = ({ data_citation }: Props) => {
   const navigation = useNavigation();
+  const handleClick = () => {
+    console.debug("click");
+  };
   const handleApply = () => {
     //console.log("Redirect to apply route");
-    navigation.navigate("ApplicationForm", { itemId: id });
+    navigation.navigate("ApplicationForm", { itemId: data_citation.id });
   };
 
   return (
-    <View className="max-w mb-4 bg-white rounded-xl shadow-md overflow-hidden ">
+    <View className="max-w my-2 mx-4 bg-white rounded-xl overflow-hidden border border-gray-300">
       <View>
-        <Image className="h-32 w-full object-cover" source={{ uri: "https://reactjs.org/logo-og.png" }} />
+        <Image
+          className="h-32 w-full object-cover"
+          source={{
+            // uri: `${data_citation.description ? data_citation.description : "https://reactjs.org/logo-og.png"}`,
+            uri: "https://reactjs.org/logo-og.png",
+          }}
+        />
       </View>
-      <View className="p-4">
-        <Text className=" tracking-wide text-lg text-indigo-500 font-semibold">Convocatoria: </Text>
-        <View className="flex flex-row justify-between ">
-          <Text className="text-lg mt-1 text-slate-500">{title}</Text>
-          <TouchableOpacity onPress={handleApply}>
-            <Text className="text-lg mt-1 bg-white hover:bg-gray-100 text-gray-800 font-semibold  px-4 border border-gray-400 rounded shadow">
-              Aplicar
-            </Text>
-          </TouchableOpacity>
+      <View className="m-2 flex-row justify-between space-x-2">
+        <View className="text-left">
+          <Text className="tracking-wide text-xs text-gray-600  dark:text-gray-100">Convocatoria: </Text>
+          <Text className="text-lg font-semibold text-gray-700 mb-2">{data_citation.title}</Text>
+          <Text className="tracking-wide text-xs text-gray-600 dark:text-gray-100">Fecha límite: </Text>
+          <Text className="text-base font-semibold text-gray-700">{data_citation.end_date.split(" ")[0]}</Text>
         </View>
+      </View>
+
+      <View className="mx-2 flex-row content-center justify-center space-x-5 mb-5">
+        <TouchableOpacity className="bg-white border border-gray-200 rounded-lg shadow-sm" onPress={handleClick}>
+          <Text className="text-lg text-gray-800 font-semibold px-4 py-1">Ver documento</Text>
+        </TouchableOpacity>
+        <TouchableOpacity className="bg-main-100 border border-gray-200 rounded-lg shadow-sm" onPress={handleApply}>
+          <Text className="text-lg text-gray-100 font-semibold px-4 py-1">Aplicar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

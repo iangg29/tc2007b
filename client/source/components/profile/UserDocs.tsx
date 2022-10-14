@@ -1,6 +1,6 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { Ionicons } from "@expo/vector-icons";
-import { View, Text, Image, TouchableOpacity, Linking } from "react-native";
+import { View, Text, Linking } from "react-native";
 
 interface Props {
   filename: string;

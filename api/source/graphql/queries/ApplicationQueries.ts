@@ -4,7 +4,6 @@ import { GraphQLError, GraphQLID, GraphQLList, GraphQLNonNull } from "graphql";
 import { ApplicationType } from "../../types/ApplicationType";
 import { db } from "../../database/database";
 import { APPLICATION_TABLE_NAME } from "../../database/utils/database_constants";
-import { LabelType } from "../../types/LabelType";
 
 export default {
   // Get all aplications
