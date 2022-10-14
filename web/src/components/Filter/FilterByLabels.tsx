@@ -8,7 +8,6 @@ interface Props {
 }
 
 const FilterByLabels = ({ label }: Props): JSX.Element => {
-  console.debug(label);
   return (
     <>
       <option value={label.id} key={label.id}>
