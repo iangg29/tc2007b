@@ -13,7 +13,16 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage }).any();
+const fileFilter = (req: any, file: any, cb: any) => {
+  if (file.mimetype === "image/jpg" || file.mimetype === "image/png" || file.mimetype === "image/jpeg") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+    console.log("invalid document type!");
+  }
+};
+
+const upload = multer({ storage }, { fileFilter }).any();
 // const route = path.resolve(__dirname, "../../public/uploads/files/", file.name);
 
 const router = Router();
