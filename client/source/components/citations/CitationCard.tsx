@@ -12,7 +12,9 @@ interface Props {
 }
 
 const CitationCard = ({ data_citation }: Props) => {
-  const handleApply = () => {};
+  const handleApply = () => {
+    "Hi";
+  };
 
   return (
     <View className="max-w my-2 mx-4 bg-white rounded-xl shadow-md overflow-hidden border ">
