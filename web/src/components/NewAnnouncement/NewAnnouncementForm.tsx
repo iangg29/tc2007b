@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import axios, { AxiosResponse } from "axios";
 import { useState } from "react";
+import { AiTwotoneFileAdd } from "react-icons/ai";
 interface documentTypeType {
   id: string | undefined;
   name: string | undefined;
@@ -39,6 +40,36 @@ const NewAnnouncementForm = (): JSX.Element => {
     try {
       await axios
         .post("/upload/files", formData, {
+          headers: {
+            "Content-type": "multipart/form-data",
+            Authorization: Cookies.get("token") as string,
+          },
+        })
+        .then((res: AxiosResponse<any>) => {
+          alert(JSON.stringify(res?.data));
+          // handleSubmit(onSubmitForm, onError)().catch(() => {});
+        })
+        .catch((error: any) => {
+          alert("Invalid extension document type.");
+          alert(JSON.stringify(error.message));
+        });
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
+
+  // Todo ----------------------------------------------------------------
+
+  const [image, setImage] = useState<any>(null);
+  // const user: any = useAppSelector(selectUser);
+
+  const sendImage = async (): Promise<any> => {
+    const formData = new FormData();
+    formData.append("1", image);
+
+    try {
+      await axios
+        .post("/upload/photos", formData, {
           headers: {
             "Content-type": "multipart/form-data",
             Authorization: Cookies.get("token") as string,
@@ -110,6 +141,7 @@ const NewAnnouncementForm = (): JSX.Element => {
 
   const onSubmitForm = async (): Promise<void> => {
     const url = await sendFile();
+    const url2 = await sendImage();
 
     const docType = list
       ?.filter((element: any) => element.isChecked === true)
@@ -207,20 +239,25 @@ const NewAnnouncementForm = (): JSX.Element => {
                 />
               </div>
 
-              {/* <div className="mb-6">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" htmlFor="file_input">
+              <div className="mb-6">
+                <label
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  htmlFor="image_fileinput"
+                >
                   Imagen
                 </label>
                 <input
                   className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                  aria-describedby="file_input_help"
-                  id="file_input"
+                  aria-describedby="image_file_help"
+                  id="image_file"
                   type="file"
+                  name="image_file"
+                  onChange={(e: any): void => setImage(e.target.files[0])}
                 />
-                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="image_file_help">
                   JPEG, PNG, JPG.
                 </p>
-              </div> */}
+              </div>
 
               <div className="mb-6">
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -255,9 +292,15 @@ const NewAnnouncementForm = (): JSX.Element => {
               ></input>
             </div>
             <div>
-              <div className="mx-7 my-5 flex flex-col px-52 ">
+              <div className="mx-7 my-5 flex  flex-col  px-52">
                 <h1 className="text-2xl font-semibold text-main-500">Documentos Necesarios</h1>
                 <DocumentList list={list} handleclickCheckbox={handleclickCheckbox} docTypes={[]} />
+                <button
+                  type="button"
+                  className="my-8 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-1 py-1 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  <AiTwotoneFileAdd size={30} /> Nuevo Documento
+                </button>
               </div>
             </div>
           </div>
