@@ -22,7 +22,7 @@ const fileFilter = (req: any, file: any, cb: any) => {
   }
 };
 
-const upload = multer({ storage }, { fileFilter }).any();
+const upload = multer({ storage, fileFilter }).any();
 // const route = path.resolve(__dirname, "../../public/uploads/files/", file.name);
 
 const router = Router();
@@ -41,6 +41,8 @@ router.post("/upload/photos", validateToken, async (req: Request, res: Response)
       }
       const files = req.files;
       const id = (req as any).user.id;
+      // const announcemet_picture = req.files?.path;
+      // console.log(announcemet_picture);
       console.log("El archivo que se esta pasando es: ", { files });
       console.log({ id });
       return res.send("recieved your request!");
