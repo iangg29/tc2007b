@@ -12,7 +12,7 @@ import {
 import { NewAnnouncementFormMutation } from "./__generated__/NewAnnouncementFormMutation.graphql";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { useState } from "react";
 import { AiTwotoneFileAdd } from "react-icons/ai";
 interface documentTypeType {
@@ -38,21 +38,13 @@ const NewAnnouncementForm = (): JSX.Element => {
     formData.append("1", file);
 
     try {
-      await axios
-        .post("/upload/files", formData, {
-          headers: {
-            "Content-type": "multipart/form-data",
-            Authorization: Cookies.get("token") as string,
-          },
-        })
-        .then((res: AxiosResponse<any>) => {
-          alert(JSON.stringify(res?.data));
-          // handleSubmit(onSubmitForm, onError)().catch(() => {});
-        })
-        .catch((error: any) => {
-          alert("Invalid extension document type.");
-          alert(JSON.stringify(error.message));
-        });
+      const res = await axios.post("/upload/files", formData, {
+        headers: {
+          "Content-type": "multipart/form-data",
+          Authorization: Cookies.get("token") as string,
+        },
+      });
+      return res.data.paths[0];
     } catch (error: any) {
       console.error(error);
     }
@@ -117,10 +109,17 @@ const NewAnnouncementForm = (): JSX.Element => {
       mutation NewAnnouncementFormMutation(
         $title: String!
         $description: String!
+        $citation_document: String!
         $end_date: String!
         $document_types: [ID]!
       ) {
-        createCitation(title: $title, description: $description, end_date: $end_date, document_types: $document_types) {
+        createCitation(
+          title: $title
+          description: $description
+          citation_document: $citation_document
+          end_date: $end_date
+          document_types: $document_types
+        ) {
           title
           description
           end_date
@@ -140,9 +139,6 @@ const NewAnnouncementForm = (): JSX.Element => {
   const [list, handleclickCheckbox] = useChecked(initialState);
 
   const onSubmitForm = async (): Promise<void> => {
-    const url = await sendFile();
-    const url2 = await sendImage();
-
     const docType = list
       ?.filter((element: any) => element.isChecked === true)
       .map((filteredElement: any) => {
@@ -154,11 +150,14 @@ const NewAnnouncementForm = (): JSX.Element => {
     const myDescription = getValues("description");
     const myDate = getValues("date");
 
-    if (docType?.length !== 0) {
+    if (docType?.length !== 0 && file != null) {
+      const files = await sendFile();
+
       commitMutation({
         variables: {
           title: myTitle as unknown as string,
           description: myDescription as unknown as string,
+          citation_document: files.path as unknown as string,
           end_date: myDate as unknown as string,
           document_types: docType as unknown as [string],
         },

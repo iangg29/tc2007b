@@ -97,7 +97,7 @@ type Citation {
   description: String!
 
   """Citation's document"""
-  document: Document!
+  citation_document: String!
 
   """Citation's end date"""
   end_date: String!
@@ -256,7 +256,7 @@ type RootMutation {
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
   deleteFAQ(id: ID!): Boolean
-  createCitation(title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
+  createCitation(title: String!, description: String!, citation_document: String!, end_date: String!, document_types: [ID]): Citation
   updateCitation(id: ID!, title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
   deleteCitation(id: ID!): Boolean
   createDocumentType(name: String!): DocumentType
