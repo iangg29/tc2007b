@@ -58,7 +58,12 @@ const NewAnnouncementForm = (): JSX.Element => {
         $end_date: String!
         $document_types: [ID]!
       ) {
-        createCitation(citation_title: $citation_title, citation_description: $citation_description, end_date: $end_date, document_types: $document_types) {
+        createCitation(
+          citation_title: $citation_title
+          citation_description: $citation_description
+          end_date: $end_date
+          document_types: $document_types
+        ) {
           citation_title
           citation_description
           end_date
