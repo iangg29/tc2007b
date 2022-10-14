@@ -26,6 +26,7 @@ interface Props {
   link: string;
   element: {
     application_title: string;
+    image: string;
     citation: citation;
     user: user;
     labels: [label];
@@ -36,7 +37,7 @@ const RequestMap = ({ element, text, color, link }: Props): JSX.Element => {
   return (
     <>
       <RequestCard
-        image={back}
+        image={element.image === null ? back : element.image}
         proyectTile={element.application_title}
         announcement={element.citation.citation_title}
         userName={element.user.name}
