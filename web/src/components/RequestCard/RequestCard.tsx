@@ -36,6 +36,8 @@ const RequestCard = ({
 }: Props): JSX.Element => {
   const user = `${userName} ${userFirstName} ${userLastName}`;
 
+  const empty = label?.length === 0;
+
   return (
     <>
       <div className="max-w-sm py-5">
@@ -58,10 +60,11 @@ const RequestCard = ({
 
             <div className="flex flex-row space-y-2 items-center justify-between ">
               <h5 className="text-md tracking-tight text-gray-900 dark:text-white">{"Categorías:"}</h5>
-              {label?.map((element: any) => (
-                <SingleTag key={element.id} element={element.label_name} />
-              ))}
-
+              {empty ? (
+                <p className="text-sm tracking-tight text-gray-900 dark:text-white">Sin categorías relacionadas</p>
+              ) : (
+                label?.map((element: any) => <SingleTag key={element.id} element={element.label_name} />)
+              )}
               <br />
             </div>
             <div>

@@ -3,24 +3,38 @@ schema {
   mutation: RootMutation
 }
 
-"""Exposes a URL that specifies the behaviour of this scalar."""
+"""
+Exposes a URL that specifies the behaviour of this scalar.
+"""
 directive @specifiedBy(
-  """The URL that specifies the behaviour of this scalar."""
+  """
+  The URL that specifies the behaviour of this scalar.
+  """
   url: String!
 ) on SCALAR
 
-"""Assignable Application Status"""
+"""
+Assignable Application Status
+"""
 type ApplicationStatus {
-  """ApplicationStatus ID"""
+  """
+  ApplicationStatus ID
+  """
   id: ID!
 
-  """ApplicationStatus name"""
+  """
+  ApplicationStatus name
+  """
   name: String!
 
-  """ApplicationStatus creation date"""
+  """
+  ApplicationStatus creation date
+  """
   created_at: String!
 
-  """Last time applicationStatus was updated."""
+  """
+  Last time applicationStatus was updated.
+  """
   updated_at: String!
 }
 
@@ -283,22 +297,34 @@ type Label {
 Assignable role to users.
 """
 type Citation {
-  """Citation's ID"""
+  """
+  Citation's ID
+  """
   id: ID!
 
-  """Citation's title"""
+  """
+  Citation's title
+  """
   title: String!
 
-  """Citation's description"""
+  """
+  Citation's description
+  """
   description: String!
 
-  """Citation's document"""
+  """
+  Citation's document
+  """
   document: Document!
 
-  """Citation's creation date"""
+  """
+  Citation's creation date
+  """
   created_at: String!
 
-  """Last time citation was updated"""
+  """
+  Last time citation was updated
+  """
   updated_at: String!
 }
 
@@ -306,77 +332,125 @@ type Citation {
 Document model, contains all the specifications of the documents uploaded by the users
 """
 type Document {
-  """Document's ID"""
+  """
+  Document's ID
+  """
   id: ID!
 
-  """User that uploaded the document"""
+  """
+  User that uploaded the document
+  """
   user: User!
 
-  """Document's name"""
+  """
+  Document's name
+  """
   name: String!
 
-  """Document's type"""
+  """
+  Document's type
+  """
   documentType: DocumentType!
 
-  """Document's creation date"""
+  """
+  Document's creation date
+  """
   created_at: String!
 
-  """Last time document got updated"""
+  """
+  Last time document got updated
+  """
   updated_at: String!
 }
 
-"""Type of document uploaded"""
+"""
+Type of document uploaded
+"""
 type DocumentType {
-  """Document Type ID"""
+  """
+  Document Type ID
+  """
   id: ID!
 
-  """Document Type name"""
+  """
+  Document Type name
+  """
   name: String!
 
-  """Document Type creation date"""
+  """
+  Document Type creation date
+  """
   created_at: String!
 
-  """Last time Document Type was updated"""
+  """
+  Last time Document Type was updated
+  """
   updated_at: String!
 }
 
-"""Label assigned to each application"""
+"""
+Label assigned to each application
+"""
 type Label {
-  """Label's ID"""
+  """
+  Label's ID
+  """
   id: ID!
 
-  """Label's name"""
+  """
+  Label's name
+  """
   name: String!
 
-  """Label's description"""
+  """
+  Label's description
+  """
   description: String!
 
-  """Label's creation date"""
+  """
+  Label's creation date
+  """
   created_at: String!
 
-  """Last time label was updated"""
+  """
+  Last time label was updated
+  """
   updated_at: String!
 }
 
-"""Assignable role to users."""
+"""
+Assignable role to users.
+"""
 type Role {
-  """Role ID"""
+  """
+  Role ID
+  """
   id: ID!
 
-  """Role name"""
+  """
+  Role name
+  """
   name: String!
 
-  """Role description"""
+  """
+  Role description
+  """
   description: String!
 
-  """Role creation date"""
+  """
+  Role creation date
+  """
   created_at: String!
 
-  """Last time role was updated."""
+  """
+  Last time role was updated.
+  """
   updated_at: String!
 }
 
-"""Application's GraphQL root mutations"""
+"""
+Application's GraphQL root mutations
+"""
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
   createApplication(
@@ -406,7 +480,9 @@ type RootMutation {
   deleteFAQ(id: ID!): Boolean
 }
 
-"""Application's GraphQL root query."""
+"""
+Application's GraphQL root query.
+"""
 type RootQuery {
   users: [User]
   user(id: String!): User
@@ -429,7 +505,9 @@ type RootQuery {
 Main application user model, contains all user information w/it's relations.
 """
 type User {
-  """User's ID"""
+  """
+  User's ID
+  """
   id: ID!
 
   """
@@ -442,34 +520,53 @@ type User {
   """
   name: String!
 
-  """User's id rol"""
+  """
+  User's id rol
+  """
   role_id: ID!
 
-  """User's password"""
+  """
+  User's password
+  """
   password: String!
 
-  """User's first lastname"""
+  """
+  User's first lastname
+  """
   first_lastname: String!
 
-  """User's second lastname"""
+  """
+  User's second lastname
+  """
   second_lastname: String!
 
-  """User's phone"""
+  """
+  User's phone
+  """
   cellphone: String!
 
-  """User's email"""
+  """
+  User's email
+  """
   email: String!
 
-  """User status"""
+  """
+  User status
+  """
   status: Int!
 
-  """User's active status"""
+  """
+  User's active status
+  """
   active: Boolean!
 
-  """User's profile creation date."""
+  """
+  User's profile creation date.
+  """
   created_at: String!
 
-  """Last time user profile got updated"""
+  """
+  Last time user profile got updated
+  """
   updated_at: String!
 }
-
