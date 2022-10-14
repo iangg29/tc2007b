@@ -400,6 +400,7 @@ type RootMutation {
   attachApplicationDocument(application_id: ID!, document_id: ID!): Application
   deleteApplication(id: ID!): Boolean
   updateAplicationLabels(application_id: ID!, label_id: ID!): Application
+  deleteApplicationLabels(application_id: ID!, label_id: ID!): Boolean
   createStatus(
     """
     ApplicationStatus name
@@ -435,13 +436,11 @@ type RootQuery {
   applications: [Application]
   applicationByID(id: ID!): Application
   applicationByStatusID(application_status_id: ID!): [Application]
-  applicationByUserID(user_id: ID!): [Application]
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]
   documentTypes: [DocumentType]
   citations: [Citation]
   citationDocuments(id: ID!): [DocumentType]
-  citationsActive: [Citation]
   documents: [Document]
   findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]

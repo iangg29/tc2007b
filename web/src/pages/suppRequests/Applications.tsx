@@ -2,17 +2,16 @@
 
 import { useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
-
-import { ApproveDocQuery, ApproveDocQuery$data } from "./__generated__/ApproveDocQuery.graphql";
 import RequestMap from "../../components/RequestCard/RequestMap";
+import { ApplicationsQuery, ApplicationsQuery$data } from "./__generated__/ApplicationsQuery.graphql";
 import { useState } from "react";
 import FilterByLabels from "../../components/Filter/FilterByLabels";
 
-const ApproveDoc = (): JSX.Element => {
-  const data: ApproveDocQuery$data = useLazyLoadQuery<ApproveDocQuery>(
+const Applications = (): JSX.Element => {
+  const data: ApplicationsQuery$data = useLazyLoadQuery<ApplicationsQuery>(
     graphql`
-      query ApproveDocQuery($application_status_id: ID!) {
-        applicationByStatusID(application_status_id: $application_status_id) {
+      query ApplicationsQuery {
+        applications {
           title
           id
           user {
@@ -36,20 +35,19 @@ const ApproveDoc = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "2" },
+    {},
     { fetchPolicy: "network-only" },
   );
-
-  const { applicationByStatusID, labels } = data;
-  const empty: boolean = applicationByStatusID?.length === 0;
+  const { applications, labels } = data;
+  const empty: boolean = applications?.length === 0;
   const [selected, setSelected] = useState<string>("");
 
-  const updateApplications = applicationByStatusID?.filter((application: any) =>
+  const updateApplications = applications?.filter((application: any) =>
     new Set(application.labels.map((label: any) => label.id)).has(selected),
   );
 
   const labelExists = new Set(
-    applicationByStatusID?.flatMap((element: any) => element.labels?.map((label: any) => label.id)),
+    applications?.flatMap((element: any) => element.labels?.map((label: any) => label.id)),
   )?.has(selected);
 
   const handleChange: any = (event: any) => {
@@ -87,7 +85,7 @@ const ApproveDoc = (): JSX.Element => {
           </select>
         }
         <div className="grid grid-cols-3">
-          {applicationByStatusID?.map((element: any) => (
+          {applications?.map((element: any) => (
             <RequestMap
               key={element.id}
               text={"Revisar documentos"}
@@ -167,4 +165,4 @@ const ApproveDoc = (): JSX.Element => {
   }
 };
 
-export default ApproveDoc;
+export default Applications;
