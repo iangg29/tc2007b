@@ -4,7 +4,7 @@ import path from "path";
 import { validateToken } from "../utils/authentication";
 const multer = require("multer");
 // const upload = multer();
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req: any, file: any, cb: any) {
     cb(null, "public/uploads/files");
   },
@@ -13,7 +13,16 @@ var storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage }).any();
+const fileFilter = (req: any, file: any, cb: any) => {
+  if (file.mimetype === "application/pdf") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+    console.log("invalid document type!");
+  }
+};
+
+const upload = multer({ storage, fileFilter }).any();
 // const route = path.resolve(__dirname, "../../public/uploads/files/", file.name);
 
 const router = Router();
