@@ -37,7 +37,7 @@ const ApproveDoc = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "2" },
+    { application_status_id: "" },
     { fetchPolicy: "network-only" },
   );
 

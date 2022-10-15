@@ -371,7 +371,6 @@ type Label {
 """
 Assignable role to users.
 """
-
 type Role {
   """
   Role ID
@@ -389,7 +388,6 @@ type Role {
   description: String!
 
   """
-
   Is role default.
   """
   default: Boolean!
@@ -400,7 +398,6 @@ type Role {
   created_at: String!
 
   """
-
   Last time role was updated.
   """
   updated_at: String!
@@ -529,7 +526,6 @@ type Role {
 """
 Application's GraphQL root mutations
 """
-
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
   createApplication(
@@ -633,7 +629,6 @@ type User {
   """
   User's second lastname
   """
-
   second_lastname: String!
   """
   User's phone
