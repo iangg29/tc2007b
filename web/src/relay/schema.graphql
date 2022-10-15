@@ -1,0 +1,325 @@
+schema {
+  query: RootQuery
+  mutation: RootMutation
+}
+
+"""Exposes a URL that specifies the behaviour of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behaviour of this scalar."""
+  url: String!
+) on SCALAR
+
+"""
+Main application model, contains all the information related with the applications of the users into the system
+"""
+type Application {
+  """Application ID"""
+  id: ID!
+
+  """User that uploaded the request"""
+  user: User
+
+  """Application title"""
+  application_title: String!
+
+  """Application image"""
+  image: String!
+
+  """Application description"""
+  application_description: String!
+
+  """Application requested support"""
+  support: String!
+
+  """Date at which the project will be erased from consideration"""
+  deadline: String
+
+  """Date at which the user compromises to start their project"""
+  start_time: String
+
+  """Date at which the user compromises to finish their project"""
+  end_time: String
+
+  """Application emission date"""
+  emission_date: String!
+
+  """Application response date"""
+  response_date: String!
+
+  """Application status"""
+  applicationStatus: ApplicationStatus
+
+  """Citation of the application"""
+  citation: Citation
+
+  """Labels attached to the application"""
+  labels: [Label]
+
+  """Application documents"""
+  applicationDocuments: [Document]
+
+  """Application creation date"""
+  created_at: String!
+
+  """Last time application was updated"""
+  updated_at: String!
+}
+
+"""Assignable Application Status"""
+type ApplicationStatus {
+  """ApplicationStatus ID"""
+  id: ID!
+
+  """ApplicationStatus name"""
+  status_name: String!
+
+  """ApplicationStatus order"""
+  order: Int!
+
+  """ApplicationStatus creation date"""
+  created_at: String!
+
+  """Last time applicationStatus was updated."""
+  updated_at: String!
+}
+
+"""
+Citation model that contains the document and information the users has to follow in order to get their scholarship
+"""
+type Citation {
+  """Citation's ID"""
+  id: ID!
+
+  """Citation's title"""
+  citation_title: String!
+
+  """Citation's description"""
+  citation_description: String!
+
+  """Citation's document"""
+  document: Document!
+
+  """Citation's end date"""
+  end_date: String!
+
+  """Citation's creation date"""
+  created_at: String!
+
+  """Last time citation was updated"""
+  updated_at: String!
+}
+
+"""
+Document model, contains all the specifications of the documents uploaded by the users
+"""
+type Document {
+  """Document's ID"""
+  id: ID!
+
+  """User that uploaded the document"""
+  user: User!
+
+  """Document's name"""
+  file_name: String!
+
+  """Document's type"""
+  documentType: DocumentType!
+
+  """Document's URL"""
+  url: ID!
+
+  """Document's creation date"""
+  created_at: String!
+
+  """Last time document got updated"""
+  updated_at: String!
+}
+
+"""Type of document uploaded"""
+type DocumentType {
+  """Document Type ID"""
+  id: ID!
+
+  """Document Type name"""
+  type_name: String!
+
+  """Document Type creation date"""
+  created_at: String!
+
+  """Last time Document Type was updated"""
+  updated_at: String!
+}
+
+"""
+Evidence model, contains all the specifications of the evidence of an application
+"""
+type Evidence {
+  """Evidence's ID"""
+  id: ID!
+
+  """Application's impact"""
+  impact: String!
+
+  """Application associated to the evidence"""
+  application: Application!
+
+  """Evidence's document"""
+  document: Document!
+
+  """Evidence's creation date"""
+  created_at: String!
+
+  """Last time evidence got updated"""
+  updated_at: String!
+}
+
+"""Frequent question & answer."""
+type FAQ {
+  """FAQ ID"""
+  id: ID!
+
+  """FAQ Question"""
+  question: String!
+
+  """FAQ Answer"""
+  answer: String!
+
+  """FAQ visibility"""
+  visible: Boolean!
+
+  """FAQ creation date"""
+  created_at: String!
+
+  """Last time FAQ was updated."""
+  updated_at: String!
+}
+
+"""Label assigned to each application"""
+type Label {
+  """Label's ID"""
+  id: ID!
+
+  """Label's name"""
+  label_name: String!
+
+  """Label's description"""
+  description: String!
+
+  """Application where the labels are linked"""
+  applications: [Application]
+
+  """Label's creation date"""
+  created_at: String!
+
+  """Last time label was updated"""
+  updated_at: String!
+}
+
+"""Assignable role to users."""
+type Role {
+  """Role ID"""
+  id: ID!
+
+  """Role name"""
+  name: String!
+
+  """Role description"""
+  description: String!
+
+  """Is role default."""
+  default: Boolean!
+
+  """Role creation date"""
+  created_at: String!
+
+  """Last time role was updated."""
+  updated_at: String!
+}
+
+"""Application's GraphQL root mutations"""
+type RootMutation {
+  createRole(name: String!, description: String!, is_default: Boolean): Role
+  createApplication(user_id: ID!, application_title: String!, image: String!, application_description: String!, support: String!, deadline: String, end_time: String, emission_date: String!, response_date: String!, application_status_id: ID!, citation_id: ID!): Application
+  updateApplicationStatus(application_id: ID!, next_status: Int!): String
+  attachApplicationDocument(application_id: ID!, document_id: ID!): Application
+  deleteApplication(id: ID!): Boolean
+  updateAplicationLabels(application_id: ID!, label_id: ID!): Application
+  deleteApplicationLabels(application_id: ID!, label_id: ID!): Boolean
+  createStatus(
+    """ApplicationStatus name"""
+    status_name: String!
+
+    """ApplicationStatus order"""
+    order: Int!
+  ): ApplicationStatus
+  deleteStatus(id: ID!): Boolean
+  createFAQ(question: String!, answer: String!, visible: Boolean): FAQ
+  toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
+  updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
+  deleteFAQ(id: ID!): Boolean
+  createCitation(citation_title: String!, citation_description: String!, end_date: String!, document_types: [ID]): Citation
+  updateCitation(id: ID!, citation_title: String!, citation_description: String!, end_date: String!, document_types: [ID]): Citation
+  deleteCitation(id: ID!): Boolean
+  createDocumentType(type_name: String!): DocumentType
+  uploadEvidence(impact: String!, application_id: ID!, document_id: ID!): Evidence
+  createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
+  createLabel(label_name: String!, description: String!): Label
+}
+
+"""Application's GraphQL root query."""
+type RootQuery {
+  users: [User]
+  user(id: String!): User
+  roles: [Role]
+  applications: [Application]
+  applicationByID(id: ID!): Application
+  applicationByStatusID(application_status_id: ID!): [Application]
+  applicationStatus: [ApplicationStatus]
+  faqs: [FAQ]
+  documentTypes: [DocumentType]
+  citations: [Citation]
+  citationDocuments(id: ID!): [DocumentType]
+  documents: [Document]
+  findDocumentsByUserID(user_id: ID): [Document]
+  labels: [Label]
+  evidenceByApplicationID(application_id: ID!): Evidence
+}
+
+"""
+Main application user model, contains all user information w/it's relations.
+"""
+type User {
+  """User's ID"""
+  id: ID!
+
+  """User's role"""
+  role: Role
+
+  """User's name"""
+  name: String!
+
+  """User's first lastname"""
+  first_lastname: String!
+
+  """User's second lastname"""
+  second_lastname: String
+
+  """User's phone"""
+  cellphone: String!
+
+  """User's email"""
+  email: String!
+
+  """User status"""
+  status: Int!
+
+  """User's active status"""
+  active: Boolean!
+
+  """User's profile creation date."""
+  created_at: String!
+
+  """Last time user profile got updated"""
+  updated_at: String!
+}
+

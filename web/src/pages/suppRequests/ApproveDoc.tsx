@@ -13,8 +13,9 @@ const ApproveDoc = (): JSX.Element => {
     graphql`
       query ApproveDocQuery($application_status_id: ID!) {
         applicationByStatusID(application_status_id: $application_status_id) {
-          title
+          application_title
           id
+          image
           user {
             id
             name
@@ -23,7 +24,7 @@ const ApproveDoc = (): JSX.Element => {
           }
           citation {
             id
-            title
+            citation_title
           }
           labels {
             id
@@ -36,7 +37,7 @@ const ApproveDoc = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "2" },
+    { application_status_id: "" },
     { fetchPolicy: "network-only" },
   );
 

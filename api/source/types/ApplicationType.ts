@@ -41,7 +41,7 @@ export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
         return { ...myUser[0] };
       },
     },
-    title: {
+    application_title: {
       type: GraphQLNonNull(GraphQLString),
       description: "Application title",
     },
@@ -49,7 +49,7 @@ export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "Application image",
     },
-    description: {
+    application_description: {
       type: GraphQLNonNull(GraphQLString),
       description: "Application description",
     },

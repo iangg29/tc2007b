@@ -8,7 +8,7 @@ export async function seed(knex: Knex): Promise<void> {
   // Inserts seed entries
   await knex(APPLICATION_DOCUMENTS_TABLE_NAME).insert([
     { id: "1", application_id: "1", document_id: "2" },
-    { id: "2", application_id: "2", document_id: "3" },
+    { id: "2", application_id: "1", document_id: "4" },
     { id: "3", application_id: "3", document_id: "2" },
   ]);
 }
