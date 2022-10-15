@@ -260,10 +260,10 @@ type RootMutation {
   createCitation(citation_title: String!, citation_description: String!, end_date: String!, document_types: [ID]): Citation
   updateCitation(id: ID!, citation_title: String!, citation_description: String!, end_date: String!, document_types: [ID]): Citation
   deleteCitation(id: ID!): Boolean
-  createDocumentType(name: String!): DocumentType
+  createDocumentType(type_name: String!): DocumentType
   uploadEvidence(impact: String!, application_id: ID!, document_id: ID!): Evidence
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
-  createLabel(name: String!, description: String!): Label
+  createLabel(label_name: String!, description: String!): Label
 }
 
 """Application's GraphQL root query."""

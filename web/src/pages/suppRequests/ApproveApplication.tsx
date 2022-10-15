@@ -44,7 +44,7 @@ const ApproveApplication = (): JSX.Element => {
   const { applicationByStatusID, labels } = data;
   const empty: boolean = applicationByStatusID?.length === 0;
   const [selected, setSelected] = useState<string>("");
-  
+
   const updateApplications = applicationByStatusID?.filter((application: any) =>
     new Set(application.labels.map((label: any) => label.id)).has(selected),
   );
