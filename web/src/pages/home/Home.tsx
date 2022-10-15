@@ -25,9 +25,10 @@ const Home = (): JSX.Element => {
       query HomeQuery {
         citations {
           id
-          title
-          description
+          citation_title
+          citation_description
           citation_document
+
           end_date
         }
       }
@@ -43,7 +44,36 @@ const Home = (): JSX.Element => {
 
   return (
     <>
-      <div>
+      <div className="px-10">
+        <div className="flex row-span-1">
+          <div className="my-5 flex flex-col">
+            <h1 className="text-4xl font-semibold text-main-500">Convocatorias</h1>
+          </div>
+          <div className="mx-7 my-1 flex flex-col">
+            <Link to={"/app/newannouncement"} className="navBarLink">
+              <button className="bg-main-500 hover:bg-main-500/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm mt-5">
+                + Nueva Convocatoria
+              </button>
+            </Link>
+          </div>
+        </div>
+        <div className="flex flex-row-reverse">
+          <label className="text-sm"> Filtrar convocatorias</label>
+        </div>
+        <div className="flex flex-row-reverse">
+          <button
+            onClick={handleAllCitations}
+            className="bg-white hover:bg-gray-300/70 ease-in-out duration-500 font-bold text-gray-500 rounded-md py-2 px-2 text-sm shadow-sm shadow-slate-300/75 border border-b-slate-300 m-1"
+          >
+            Todas
+          </button>
+          <button
+            onClick={handleCitations}
+            className="bg-main-500 hover:bg-main-500/70 ease-in-out duration-500 font-bold text-white rounded-md py-2 px-2 text-sm shadow-sm shadow-slate-300/75 border border-b-slate-300 m-1"
+          >
+            Activas
+          </button>
+        </div>
         <div>
           <div className="flex row-span-1">
             <div className="my-5 flex flex-col">
@@ -83,8 +113,8 @@ const Home = (): JSX.Element => {
                     .map((filteredElement: any) => (
                       <div className="flex flex-col basis-1/3" key={filteredElement.id}>
                         <NoticeCard
-                          img={filteredElement.description}
-                          name={filteredElement.title}
+                          img={filteredElement.citation_description}
+                          name={filteredElement.citation_title}
                           pdf={filteredElement.citation_document}
                           date={filteredElement.end_date}
                           id={filteredElement.id}
@@ -100,8 +130,8 @@ const Home = (): JSX.Element => {
                     <div className="flex flex-col basis-1/3" key={element.id}>
                       <NoticeCard
                         pdf={element.citation_document}
-                        img={element.description}
-                        name={element.title}
+                        img={element.citation_description}
+                        name={element.citation_title}
                         date={element.end_date}
                         id={element.id}
                       />

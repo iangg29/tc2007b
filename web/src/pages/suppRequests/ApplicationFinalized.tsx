@@ -16,8 +16,9 @@ const ApplicationFinalized = (): JSX.Element => {
     graphql`
       query ApplicationFinalizedQuery($application_status_id: ID!) {
         applicationByStatusID(application_status_id: $application_status_id) {
-          title
+          application_title
           id
+          image
           user {
             id
             name
@@ -26,7 +27,7 @@ const ApplicationFinalized = (): JSX.Element => {
           }
           citation {
             id
-            title
+            citation_title
           }
           labels {
             id
@@ -39,7 +40,7 @@ const ApplicationFinalized = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "6" },
+    { application_status_id: "" },
     { fetchPolicy: "network-only" },
   );
 

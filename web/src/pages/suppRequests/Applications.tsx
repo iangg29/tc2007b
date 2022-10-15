@@ -12,8 +12,9 @@ const Applications = (): JSX.Element => {
     graphql`
       query ApplicationsQuery {
         applications {
-          title
+          application_title
           id
+          image
           user {
             id
             name
@@ -22,7 +23,7 @@ const Applications = (): JSX.Element => {
           }
           citation {
             id
-            title
+            citation_title
           }
           labels {
             id

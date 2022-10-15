@@ -12,9 +12,10 @@ import {
 import { NewAnnouncementFormMutation } from "./__generated__/NewAnnouncementFormMutation.graphql";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import axios from "axios";
-import { useState } from "react";
 import { AiTwotoneFileAdd } from "react-icons/ai";
+import { useState } from "react";
+import axios from "axios";
+
 interface documentTypeType {
   id: string | undefined;
   name: string | undefined;
@@ -28,10 +29,7 @@ interface newCitation {
 }
 
 const NewAnnouncementForm = (): JSX.Element => {
-  // Todo adding file and images functions an ----
-
   const [file, setFile] = useState<any>(null);
-  // const user: any = useAppSelector(selectUser);
 
   const sendFile = async (): Promise<any> => {
     const formData = new FormData();
@@ -50,34 +48,11 @@ const NewAnnouncementForm = (): JSX.Element => {
     }
   };
 
-  // Todo ----------------------------------------------------------------
-
   const [image, setImage] = useState<any>(null);
-  // const user: any = useAppSelector(selectUser);
 
   const sendImage = async (): Promise<any> => {
     const formData = new FormData();
     formData.append("1", image);
-
-    // try {
-    //   await axios
-    //     .post("/upload/photos", formData, {
-    //       headers: {
-    //         "Content-type": "multipart/form-data",
-    //         Authorization: Cookies.get("token") as string,
-    //       },
-    //     })
-    //     .then((res: AxiosResponse<any>) => {
-    //       alert(JSON.stringify(res?.data));
-    //    // handleSubmit(onSubmitForm, onError)().catch(() => {});
-    //     })
-    //     .catch((error: any) => {
-    //       alert("Invalid extension document type.");
-    //       alert(JSON.stringify(error.message));
-    //     });
-    // } catch (error: any) {
-    //   console.error(error);
-    // }
 
     try {
       const res = await axios.post("/upload/photos", formData, {
@@ -91,9 +66,6 @@ const NewAnnouncementForm = (): JSX.Element => {
       console.error(error);
     }
   };
-
-  // Todo ----------------------------------------------------------------
-
   const today = new Date();
   const date =
     today.getFullYear().toString() +
@@ -119,21 +91,22 @@ const NewAnnouncementForm = (): JSX.Element => {
   const [commitMutation] = useMutation<NewAnnouncementFormMutation>(
     graphql`
       mutation NewAnnouncementFormMutation(
-        $title: String!
-        $description: String!
+        $citation_title: String!
+        $citation_description: String!
         $citation_document: String!
         $end_date: String!
         $document_types: [ID]!
       ) {
         createCitation(
-          title: $title
-          description: $description
+          citation_title: $citation_title
+          citation_description: $citation_description
           citation_document: $citation_document
           end_date: $end_date
           document_types: $document_types
         ) {
-          title
-          description
+          citation_title
+          citation_description
+          citation_document
           end_date
         }
       }
@@ -159,7 +132,6 @@ const NewAnnouncementForm = (): JSX.Element => {
       });
 
     const myTitle = getValues("title");
-    // const myDescription = getValues("description");
     const myDate = getValues("date");
 
     if (docType?.length !== 0 && file != null) {
@@ -168,20 +140,24 @@ const NewAnnouncementForm = (): JSX.Element => {
 
       commitMutation({
         variables: {
-          title: myTitle as unknown as string,
-          description: images.path as unknown as string,
-          // description: myDescription as unknown as string,
+          citation_title: myTitle as unknown as string,
+          citation_description: images.path as unknown as string,
           citation_document: files.path as unknown as string,
           end_date: myDate as unknown as string,
           document_types: docType as unknown as [string],
         },
         onCompleted: () => {
           window.location.href = "/app/home";
-          console.log("El path que se paso por la imagen fue:", images.path);
         },
         onError: () => {
-          console.log("error :(");
-          console.log(docType);
+          void Swal.fire({
+            title: "Error",
+            icon: "error",
+            text: "Hubo un error :(",
+            customClass: {
+              container: "swal2-container",
+            },
+          });
         },
       });
     } else {

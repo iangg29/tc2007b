@@ -12,7 +12,7 @@ function App(): JSX.Element {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route path="/download" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/app/*" element={<Layout />} />

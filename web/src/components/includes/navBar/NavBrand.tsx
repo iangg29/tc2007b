@@ -8,7 +8,7 @@ const NavBrand = (): JSX.Element => {
     <>
       <Navbar.Brand>
         <img src={logoQRO} className="mr-3 h-20 sm:h-28" alt="Foto perfil" />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
           Tramita La Cultura Qro
         </span>
       </Navbar.Brand>

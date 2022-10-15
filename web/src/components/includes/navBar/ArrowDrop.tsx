@@ -6,7 +6,7 @@ const ArrowDrop = (): JSX.Element => {
   return (
     <>
       <Navbar.Link>
-        <div className="flex md:order-2">
+        <div className="flex md:order-2 text-xl">
           <Dropdown arrowIcon={true} inline={true} label="Solicitudes">
             <Dropdown.Divider />
 
@@ -18,13 +18,13 @@ const ArrowDrop = (): JSX.Element => {
 
             <Dropdown.Item>
               <Link to={"applications/reviewdocuments"} className="navBarLink">
-                Pendientes sin documentos aprobados
+                Por revisar documentos
               </Link>
             </Dropdown.Item>
 
             <Dropdown.Item>
               <Link to={"applications/reviewproposals"} className="navBarLink">
-                Pendientes a revisión de propuesta
+                Por aprobar
               </Link>
             </Dropdown.Item>
 

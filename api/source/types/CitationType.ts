@@ -12,11 +12,11 @@ export const CitationType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLID),
       description: "Citation's ID",
     },
-    title: {
+    citation_title: {
       type: GraphQLNonNull(GraphQLString),
       description: "Citation's title",
     },
-    description: {
+    citation_description: {
       type: GraphQLNonNull(GraphQLString),
       description: "Citation's description",
     },

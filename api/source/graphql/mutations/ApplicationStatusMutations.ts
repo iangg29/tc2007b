@@ -10,7 +10,7 @@ export default {
   createStatus: {
     type: ApplicationStatusType,
     args: {
-          name: {
+          status_name: {
             type: GraphQLNonNull(GraphQLString),
             description: "ApplicationStatus name",
           },
@@ -19,12 +19,12 @@ export default {
             description: "ApplicationStatus order",
           },
     },
-    resolve: async (_: any, { name, order }: any) => {
+    resolve: async (_: any, { status_name, order }: any) => {
       const id = uuid();
       await db(APPLICATION_STATUS_TABLE_NAME)
         .insert({
           id,
-          name,
+          status_name,
           order,
         })
         .catch((error: Error) => {
