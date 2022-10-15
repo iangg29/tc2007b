@@ -12,6 +12,9 @@ import { NewAnnouncementFormMutation } from "./__generated__/NewAnnouncementForm
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AiTwotoneFileAdd } from "react-icons/ai";
+import { useState } from "react";
+import DocumentTypeModal from "../DocumentType/DocumentTypeModal";
 
 interface documentTypeType {
   id: string | undefined;
@@ -26,6 +29,9 @@ interface newCitation {
 }
 
 const NewAnnouncementForm = (): JSX.Element => {
+  const [show, setShow] = useState<boolean>(false);
+  const onClose = (): void => setShow(false);
+  const handleShow = (): void => setShow(true);
   const today = new Date();
   const date =
     today.getFullYear().toString() +
@@ -208,6 +214,15 @@ const NewAnnouncementForm = (): JSX.Element => {
               <div className="mx-7 my-5 flex flex-col px-52 ">
                 <h1 className="text-2xl font-semibold text-main-500">Documentos Necesarios</h1>
                 <DocumentList list={list} handleclickCheckbox={handleclickCheckbox} docTypes={[]} />
+                <DocumentTypeModal show={show} onClose={onClose} />
+
+                <button
+                  type="button"
+                  className="my-8 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-1 py-1 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "
+                  onClick={handleShow}
+                >
+                  <AiTwotoneFileAdd size={30} /> Nuevo Documento
+                </button>
               </div>
             </div>
           </div>
