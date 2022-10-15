@@ -15,10 +15,10 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req: any, file: any, cb: any) => {
   if (file.mimetype === "image/jpg" || file.mimetype === "image/png" || file.mimetype === "image/jpeg") {
-    cb(null, true);
+    return cb(null, true);
   } else {
     cb(null, false);
-    console.log("invalid document type!");
+    return cb(new Error("Tipo de documento invalido, por favor verifique, solo PNG, JPEG o JPG"));
   }
 };
 
@@ -27,54 +27,33 @@ const upload = multer({ storage, fileFilter }).any();
 
 const router = Router();
 
-// // router.post("/upload/photos", validateToken, async (req: Request, res: Response) => {
-// //   upload(req, res, function (err: any) {
-// //     try {
-// //       if (err instanceof multer.MulterError) {
-// //         console.log({ err });
-// //         // A Multer error occurred when uploading.
-// //         return res.status(500).send({ err });
-// //       } else if (err) {
-// //         console.log({ err });
-// //         return res.status(500).send({ err });
-// //         // An unknown error occurred when uploading.
-// //       }
-// //       const files = req.files;
-// //       const id = (req as any).user.id;
-// //       const announcemet_picture = req.path;
-// //       console.log("El path de donde se esta sacando el archivo es: ", announcemet_picture);
-// //       console.log("El archivo que se esta pasando es: ", { files });
-// //       console.log({ id });
-// //       return res.send("recieved your request!");
-// //     } catch (err) {
-// //       console.log({ err });
-// //     }
-// //   });
-// // });
-
 router.post("/upload/photos", validateToken, async (req: Request, res: Response) => {
-  upload(req, res, function (err: any) {
-    try {
-      if (err instanceof multer.MulterError) {
+  try {
+    upload(req, res, function (err: any) {
+      try {
+        if (err instanceof multer.MulterError) {
+          console.log({ err });
+          // A Multer error occurred when uploading.
+          return res.status(500).send({ err });
+        } else if (err) {
+          console.log({ err });
+          return res.status(500).send({ err });
+          // An unknown error occurred when uploading.
+        }
+        const files = req.files;
+        console.log({ files });
+        const paths = (files as any).map((el: any) => {
+          return { id: el.fieldname, path: `${process.env.BASE_URL}uploads/photos/${el.filename}` };
+        });
+        return res.send({ paths });
+      } catch (err) {
         console.log({ err });
-        // A Multer error occurred when uploading.
         return res.status(500).send({ err });
-      } else if (err) {
-        console.log({ err });
-        return res.status(500).send({ err });
-        // An unknown error occurred when uploading.
       }
-      const files = req.files;
-      console.log({ files });
-      const paths = (files as any).map((el: any) => {
-        return { id: el.fieldname, path: `${process.env.BASE_URL}uploads/photos/${el.filename}` };
-      });
-      return res.send({ paths });
-    } catch (err) {
-      console.log({ err });
-      return res.status(500).send({ err });
-    }
-  });
+    });
+  } catch (err) {
+    return res.status(500).send({ err });
+  }
 });
 
 export default router;
