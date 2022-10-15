@@ -295,4 +295,24 @@ export default {
       return myApplication[0];
     },
   },
+
+  deleteApplicationLabels: {
+    type: GraphQLBoolean,
+    args: {
+      application_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+      label_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+    },
+    resolve: async (_: any, { application_id, label_id }: any) => {
+      await db
+      (APPLICATION_LABEL_TABLE_NAME)
+        .where("application_id", application_id)
+        .where("label_id", label_id)
+        .del();
+      return true;
+    },
+  },
 };

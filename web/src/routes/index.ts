@@ -7,6 +7,7 @@ const Dashboard = lazy(async () => await import("../pages/Dashboard"));
 const NewAnnouncement = lazy(async () => await import("../pages/NewAnnouncement"));
 const Home = lazy(async () => await import("../pages/home/Home"));
 const ApproveDocs = lazy(async () => await import("../pages/suppRequests/ApproveDoc"));
+const Applications = lazy(async () => await import("../pages/suppRequests/Applications"));
 const ApproveApplications = lazy(async () => await import("../pages/suppRequests/ApproveApplication"));
 const ApplicationAccepted = lazy(async () => await import("../pages/suppRequests/ApplicationAccepted"));
 const ApplicationFinalized = lazy(async () => await import("../pages/suppRequests/ApplicationFinalized"));
@@ -32,6 +33,10 @@ const routes: iRoute[] = [
   {
     path: "/applications/reviewdocuments",
     components: ApproveDocs,
+  },
+  {
+    path: "/applications",
+    components: Applications,
   },
   {
     path: "/applications/reviewdocuments/:applicationId",
