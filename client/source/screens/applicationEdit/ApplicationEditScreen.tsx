@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { Feather, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as DocumentPicker from "expo-document-picker";
 import { useForm, Controller } from "react-hook-form";
-import { Alert, FlatList, ScrollView, Text, TextInput, TouchableOpacity, View, Button } from "react-native";
+import { Alert, FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/slices/authSlice";
@@ -13,6 +14,19 @@ import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
 
 import { ApplicationEditScreenQuery, ApplicationEditScreenQuery$data} from "./__generated__/ApplicationEditScreenQuery.graphql";
 import { ApplicationEditScreen2Query, ApplicationEditScreen2Query$data} from "./__generated__/ApplicationEditScreen2Query.graphql";
+
+interface labelsType {
+  id: string;
+  label_name: string;
+  color: string;
+}
+
+type documentsInfo = {
+  field?: string | null;
+  file_name?: string | null;
+  id?: string | null;
+  type_name?: string | null;
+};
 
 // Screen to edit an application [send to corrections]
 const ApplicationEditScreen = ({route}: any): JSX.Element => {
@@ -28,15 +42,19 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
           description
           support
           deadline
-          citation{
+          citation {
             id
           }
           applicationDocuments {
             id
             file_name
             url
+            documentType {
+              id
+              type_name
+            }
           }
-          labels{
+          labels {
             id
           }
         }
@@ -44,37 +62,95 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
     `,
     { id: itemId },
   );
+  
   const { applicationByID } = data;
+  const appLabelsID: Array<string> = applicationByID.labels.map((l) => l.id);
+  const appDocuments = applicationByID.applicationDocuments;
+  const appDocumentsTypeID: Array<string> = appDocuments.map((d) => d.documentType.id);
 
-  // Data of Labels
-  const labelsData: ApplicationEditScreen2Query$data = useLazyLoadQuery<ApplicationEditScreen2Query>(
+  // Data of [ALL] Labels and Citations Documents
+  const info: ApplicationEditScreen2Query$data = useLazyLoadQuery<ApplicationEditScreen2Query>(
     graphql`
-      query ApplicationEditScreen2Query {
+      query ApplicationEditScreen2Query ($id: ID!) {
+        citationDocuments(id: $id) {
+          id
+          type_name
+        }
+
         labels {
           id
           label_name
         }
       }
     `,
-    {},
+    { id: applicationByID.citation.id },
   );
-  const { labels } = labelsData;
-
-  // Data of Citations Documents
-  // const CitationDocumentsData: ApplicationEditScreen3Query$data = useLazyLoadQuery<ApplicationEditScreen3Query>(
-  //   graphql`
-  //     query ApplicationEditScreen3Query {
-  //       labels {
-  //         id
-  //         label_name
-  //       }
-  //     }
-  //   `,
-  //   {},
-  // );
-  // const { labels } = CitationDocumentsData;
   
+  const { citationDocuments, labels } = info;
 
+  // SeT Citation Documents
+  const docTypes: any = citationDocuments?.map((item: any): any => {
+    const flag = appDocumentsTypeID.indexOf(item.id);
+
+    // No document
+    let Field = null; let File_name = null;
+
+    if (flag > -1) {
+      // User has the document
+      const document = appDocuments[flag];
+      Field = document.url; File_name = document.file_name;
+    }
+
+    const newItem: any = { ...item, field: Field, file_name: File_name };
+    return newItem;
+  });
+
+  const [documents, setDocuments] = useState(docTypes);
+
+  const pickDocument = async (id) => {
+    let result = await DocumentPicker.getDocumentAsync({});
+    const idx = documents.findIndex((x) => x.id === id);
+    documents[idx].field = result.uri;
+    documents[idx].file_name = result.name;
+    setDocuments([...documents]);
+  };
+
+  // SeT Labels
+  const selected: any = labels?.map((item: any): labelsType | undefined => {
+    let mycolor = "#6b7280";
+    if(appLabelsID.indexOf(item.id) > -1) {
+      mycolor = "#d1d5db";
+    }
+    const newItem: labelsType | undefined = {
+      ...item,
+      color: mycolor,
+    };
+    return newItem;
+  });
+
+  const [list, setList] = useState(selected);
+
+  const changeBackground = (item) => {
+    const myList = list;
+
+    for (let x = 0; x < myList.length; x++) {
+      if (myList[x].id === item.id) {
+        myList[x].color = "#d1d5db";
+        setList([...myList]);
+      } else {
+        myList[x].color = "#6b7280";
+        setList([...myList]);
+      }
+    }
+  };
+
+  const myLabels = list
+    ?.filter((element: any) => element.color === "#d1d5db")
+    .map((filteredElement: any) => {
+      const newElement: any = filteredElement.id;
+      return newElement;
+    });
+  
   // Today'S Date / SET Date
   const [date, setDate] = useState(new Date()); // Date
   const [deadline, setDeadline] = useState(applicationByID.deadline); // String
@@ -110,7 +186,7 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
   const navigation = useNavigation();
 
   const onSubmitForm = () => {
-    // FOR LATER
+    // IN PROGRESS
   };
   // ------------------------------------------
 
@@ -218,6 +294,61 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
             {errors.deadline && <Text className="text-red-500">Ingresa una fecha válida.</Text>}
           </View>
         </View>
+        {/* Documents */}
+        <FlatList
+          scrollEnabled={false}
+          data={documents}
+          extraData={documents}
+          className="px-3"
+          renderItem={({ item, index }) => (
+            <>
+              <View className="flex flex-row flex-wrap content-start justify-start space-x-3 mb-1">
+                <View className="flex flex-col basis-1/2">
+                  <Text className="text-start text-base text-gray-800 font-medium m-2">Sube tu {item.type_name}</Text>
+                </View>
+                <View className="flex flex-col basis-1/12 mx-4 my-2">
+                  <Feather name="upload" size={24} color="black" onPress={() => pickDocument(item.id)} />
+                </View>
+                <View className="flex flex-col basis-1/12 my-2">
+                  {documents[index].field != null ? (
+                    <AntDesign name="check" size={24} color="green" />
+                  ) : (
+                    <AntDesign name="exclamationcircleo" size={24} color="#f5cb42" />
+                  )}
+                </View>
+              </View>
+            </>
+          )}
+        />
+        {/* Labels */}
+        <Text className="text-base text-gray-800 font-medium m-3"> Agrega etiquetas</Text>
+        <View className="flex-row mx-4 pb-2 content-center justify-center">
+          <FlatList
+            horizontal
+            initialNumToRender={3}
+            data={list}
+            extraData={list}
+            renderItem={({ item }) => (
+              <>
+                <TouchableOpacity onPress={() => changeBackground(item)}>
+                  <Text
+                    className="text-gray-50 px-3 py-1 mx-5 border-gray-500"
+                    style={{
+                      borderRadius: 10,
+                      overflow: "hidden",
+                      backgroundColor: item.color,
+                    }}>
+                    {item.label_name}
+                  </Text>
+                </TouchableOpacity>
+              </>
+            )}
+          />
+        </View>
+        <View className="px-3 py-2">
+          {myLabels.length < 1 && <Text className="text-red-500">Selecciona una etiqueta.</Text>}
+        </View>
+        {/* Accept changes */}
         <View className="pb-6">
           <TouchableOpacity
             className="flex-row mx-4 mt-2 content-center justify-center space-x-10"
@@ -229,7 +360,6 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
             </Text>
           </TouchableOpacity>
         </View>
-
       </ScrollView>
     </SafeAreaView>
   );
