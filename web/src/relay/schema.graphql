@@ -244,6 +244,7 @@ type RootMutation {
   attachApplicationDocument(application_id: ID!, document_id: ID!): Application
   deleteApplication(id: ID!): Boolean
   updateAplicationLabels(application_id: ID!, label_id: ID!): Application
+  deleteApplicationLabels(application_id: ID!, label_id: ID!): Boolean
   createStatus(
     """ApplicationStatus name"""
     name: String!

@@ -22,6 +22,7 @@
     "@react-navigation/native-stack": "^6.8.0",
     "@reduxjs/toolkit": "^1.8.5",
     "@types/react-native": "~0.69.1",
+    "@xmldom/xmldom": "^0.8.3",
     "axios": "^0.27.2",
     "eslint-plugin-notice": "^0.9.10",
     "expo": "~46.0.9",

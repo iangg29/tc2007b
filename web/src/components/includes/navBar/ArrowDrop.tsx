@@ -11,6 +11,12 @@ const ArrowDrop = (): JSX.Element => {
             <Dropdown.Divider />
 
             <Dropdown.Item>
+              <Link to={"applications"} className="navBarLink">
+                Todas
+              </Link>
+            </Dropdown.Item>
+
+            <Dropdown.Item>
               <Link to={"applications/reviewdocuments"} className="navBarLink">
                 Pendientes sin documentos aprobados
               </Link>
