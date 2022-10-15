@@ -11,13 +11,16 @@ const Landing = (): JSX.Element => {
           <h1 className="rounded-xl text-center text-black text-4xl font-bold">Tramita La Cultura QRO</h1>
           <br></br>
         </div>
-        <div className="bg-white bg-opacity-70 rounded-xl p-2 text-center">¡Descarga la aplicación móvil aquí!</div>
-        <a
-          href="https://culturaqueretaro.gob.mx/iqca/sitio/Servicioscontroller/lineamientosDescargas"
-          className="text-sky-900 text-sm font-semibold"
-        >
-          © Consulta términos y condiciones
-        </a>
+        <div className="bg-white bg-opacity-60 rounded-xl p-2 text-center">¡Descarga la aplicación móvil aquí!</div>
+        <div className="text-center">
+          <a
+            href="https://culturaqueretaro.gob.mx/iqca/sitio/Servicioscontroller/lineamientosDescargas"
+            target="noopener"
+            className="text-sky-900 text-sm font-semibold text-center"
+          >
+            © Consulta términos y condiciones.
+          </a>
+        </div>
       </div>
       <video autoPlay loop muted className="absolute w-auto min-w-full min-h-full max-w-none">
         <source src={blueLoop} type="video/mp4" />
