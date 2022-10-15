@@ -59,22 +59,34 @@ const NewAnnouncementForm = (): JSX.Element => {
     const formData = new FormData();
     formData.append("1", image);
 
+    // try {
+    //   await axios
+    //     .post("/upload/photos", formData, {
+    //       headers: {
+    //         "Content-type": "multipart/form-data",
+    //         Authorization: Cookies.get("token") as string,
+    //       },
+    //     })
+    //     .then((res: AxiosResponse<any>) => {
+    //       alert(JSON.stringify(res?.data));
+    //    // handleSubmit(onSubmitForm, onError)().catch(() => {});
+    //     })
+    //     .catch((error: any) => {
+    //       alert("Invalid extension document type.");
+    //       alert(JSON.stringify(error.message));
+    //     });
+    // } catch (error: any) {
+    //   console.error(error);
+    // }
+
     try {
-      await axios
-        .post("/upload/photos", formData, {
-          headers: {
-            "Content-type": "multipart/form-data",
-            Authorization: Cookies.get("token") as string,
-          },
-        })
-        .then((res: AxiosResponse<any>) => {
-          alert(JSON.stringify(res?.data));
-          // handleSubmit(onSubmitForm, onError)().catch(() => {});
-        })
-        .catch((error: any) => {
-          alert("Invalid extension document type.");
-          alert(JSON.stringify(error.message));
-        });
+      const res = await axios.post("/upload/photos", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: Cookies.get("token") as string,
+        },
+      });
+      return res.data.paths[0];
     } catch (error: any) {
       console.error(error);
     }
@@ -147,22 +159,25 @@ const NewAnnouncementForm = (): JSX.Element => {
       });
 
     const myTitle = getValues("title");
-    const myDescription = getValues("description");
+    // const myDescription = getValues("description");
     const myDate = getValues("date");
 
     if (docType?.length !== 0 && file != null) {
       const files = await sendFile();
+      const images = await sendImage();
 
       commitMutation({
         variables: {
           title: myTitle as unknown as string,
-          description: myDescription as unknown as string,
+          description: images.path as unknown as string,
+          // description: myDescription as unknown as string,
           citation_document: files.path as unknown as string,
           end_date: myDate as unknown as string,
           document_types: docType as unknown as [string],
         },
         onCompleted: () => {
           window.location.href = "/app/home";
+          console.log("El path que se paso por la imagen fue:", images.path);
         },
         onError: () => {
           console.log("error :(");
@@ -224,21 +239,6 @@ const NewAnnouncementForm = (): JSX.Element => {
               </div>
 
               <div className="mb-6">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Imagen</label>
-
-                <input
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  type="text"
-                  id="description"
-                  autoComplete="off"
-                  {...register("description", {
-                    required: true,
-                    pattern: { value: /^\S+[a-zA-Z\s]*/, message: "error message" },
-                  })}
-                />
-              </div>
-
-              <div className="mb-6">
                 <label
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   htmlFor="image_fileinput"
@@ -248,7 +248,7 @@ const NewAnnouncementForm = (): JSX.Element => {
                 <input
                   className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                   aria-describedby="image_file_help"
-                  id="image_file"
+                  id="description"
                   type="file"
                   name="image_file"
                   onChange={(e: any): void => setImage(e.target.files[0])}
@@ -309,13 +309,6 @@ const NewAnnouncementForm = (): JSX.Element => {
             <button
               className="w-48 bg-main-500 hover:bg-main-500/70  hover:scale-105 transition-all ease-in-out duration-500 active:scale-95 font-bold text-white rounded-3xl py-2 text-sm mt-5"
               type="submit"
-              // onClick={() => {
-              //   (async () => {
-              //     await sendFile();
-              //   })()
-              //     .then((r) => r)
-              //     .catch((e) => e);
-              // }}
             >
               Crear
             </button>
