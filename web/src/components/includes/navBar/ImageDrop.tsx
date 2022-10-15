@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { useAppDispatch } from "../../../store/hooks";
-import { setToken } from "../../../store/slices/authSlice";
+import { setIsLoggedIn, setToken } from "../../../store/slices/authSlice";
 
 interface Props {
   image: string;
@@ -25,8 +25,9 @@ const ImageDrop = ({ image, userName, email }: Props): JSX.Element => {
         if (success as boolean) {
           alert(message);
           dispatch(setToken(""));
+          dispatch(setIsLoggedIn(false));
           Cookies.remove("token");
-          navigate("/");
+          navigate("/login");
         }
       })
       .catch((e) => console.error(e));

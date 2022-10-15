@@ -112,7 +112,6 @@ const Home = (): JSX.Element => {
           )}
         </div>
       </div>
-      {/* </div> */}
     </>
   );
 };
