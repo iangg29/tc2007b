@@ -24,7 +24,7 @@ const ApplicationCard = ({ id, title, status }: Props) => {
   };
 
   const handleEdit = () => {
-    navigation.navigate("ApplicationEdit", { itemId: id });
+    navigation.navigate("Editar solicitud" as never, { itemId: id } as never);
   };
 
   return (
