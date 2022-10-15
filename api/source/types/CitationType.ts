@@ -6,7 +6,7 @@ import { DocumentType } from "./DocumentType";
 export const CitationType = new GraphQLObjectType({
   name: "Citation",
   description:
-    "Citation model that contains the document and information the users has to follow in order to get their scholarship",
+    "Citation type that contains the document and information the users has to follow in order to get their scholarship",
   fields: {
     id: {
       type: GraphQLNonNull(GraphQLID),

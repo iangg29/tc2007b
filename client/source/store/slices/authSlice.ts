@@ -6,6 +6,7 @@ import { RootState } from "../store";
 
 interface iAuthState {
   user: {
+    id: string;
     name: string;
     first_lastname: string;
     second_lastname: string;
@@ -18,6 +19,7 @@ interface iAuthState {
 
 const initialState: iAuthState = {
   user: {
+    id: "",
     name: "",
     first_lastname: "",
     second_lastname: "",
