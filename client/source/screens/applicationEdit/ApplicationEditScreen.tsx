@@ -12,11 +12,13 @@ import { selectUser } from "../../store/slices/authSlice";
 import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
 
 import { ApplicationEditScreenQuery, ApplicationEditScreenQuery$data} from "./__generated__/ApplicationEditScreenQuery.graphql";
+import { ApplicationEditScreen2Query, ApplicationEditScreen2Query$data} from "./__generated__/ApplicationEditScreen2Query.graphql";
 
 // Screen to edit an application [send to corrections]
 const ApplicationEditScreen = ({route}: any): JSX.Element => {
   const { itemId } = route.params;
-  
+
+  // Data of the Application  
   const data: ApplicationEditScreenQuery$data = useLazyLoadQuery<ApplicationEditScreenQuery>(
     graphql`
       query ApplicationEditScreenQuery($id: ID!) {
@@ -26,13 +28,52 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
           description
           support
           deadline
+          citation{
+            id
+          }
+          applicationDocuments {
+            id
+            file_name
+            url
+          }
+          labels{
+            id
+          }
         }
       }
     `,
     { id: itemId },
   );
-
   const { applicationByID } = data;
+
+  // Data of Labels
+  const labelsData: ApplicationEditScreen2Query$data = useLazyLoadQuery<ApplicationEditScreen2Query>(
+    graphql`
+      query ApplicationEditScreen2Query {
+        labels {
+          id
+          label_name
+        }
+      }
+    `,
+    {},
+  );
+  const { labels } = labelsData;
+
+  // Data of Citations Documents
+  // const CitationDocumentsData: ApplicationEditScreen3Query$data = useLazyLoadQuery<ApplicationEditScreen3Query>(
+  //   graphql`
+  //     query ApplicationEditScreen3Query {
+  //       labels {
+  //         id
+  //         label_name
+  //       }
+  //     }
+  //   `,
+  //   {},
+  // );
+  // const { labels } = CitationDocumentsData;
+  
 
   // Today'S Date / SET Date
   const [date, setDate] = useState(new Date()); // Date
@@ -71,6 +112,7 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
   const onSubmitForm = () => {
     // FOR LATER
   };
+  // ------------------------------------------
 
   return (
     <SafeAreaView>
