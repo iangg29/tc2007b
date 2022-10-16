@@ -1,22 +1,25 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-
-import { Feather, AntDesign } from "@expo/vector-icons";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { useNavigation } from "@react-navigation/native";
-import * as DocumentPicker from "expo-document-picker";
 import React, { useState } from "react";
+import { Feather, AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import * as DocumentPicker from "expo-document-picker";
 import { useForm, Controller } from "react-hook-form";
 import { Alert, FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
 
-import { useAppSelector } from "../../store/hooks";
-import { selectUser } from "../../store/slices/authSlice";
-import { ApplicationFormScreenMutation } from "./__generated__/ApplicationFormScreenMutation.graphql";
 import {
-  ApplicationFormScreenQuery,
-  ApplicationFormScreenQuery$data,
-} from "./__generated__/ApplicationFormScreenQuery.graphql";
+  ApplicationEditScreenQuery,
+  ApplicationEditScreenQuery$data,
+} from "./__generated__/ApplicationEditScreenQuery.graphql";
+import {
+  ApplicationEditScreen2Query,
+  ApplicationEditScreen2Query$data,
+} from "./__generated__/ApplicationEditScreen2Query.graphql";
+
+import { ApplicationEditScreenMutation } from "./__generated__/ApplicationEditScreenMutation.graphql";
 
 interface labelsType {
   id: string;
@@ -31,76 +34,93 @@ type documentsInfo = {
   type_name?: string | null;
 };
 
-const ApplicationFormScreen = ({ route }: any): JSX.Element => {
+// Screen to edit an application [send to corrections]
+const ApplicationEditScreen = ({ route }: any): JSX.Element => {
   const { itemId } = route.params;
 
-  const user: any = useAppSelector(selectUser);
-  const user_id = user.id;
-
-  const data: ApplicationFormScreenQuery$data = useLazyLoadQuery<ApplicationFormScreenQuery>(
+  // Data of the Application
+  const data: ApplicationEditScreenQuery$data = useLazyLoadQuery<ApplicationEditScreenQuery>(
     graphql`
-      query ApplicationFormScreenQuery($id: ID!, $user_id: ID!) {
-        findDocumentsByUserID(user_id: $user_id) {
+      query ApplicationEditScreenQuery($id: ID!) {
+        applicationByID(id: $id) {
           id
-          file_name
-          url
-          documentType {
+          title
+          description
+          support
+          deadline
+          citation {
             id
-            type_name
           }
+          applicationDocuments {
+            id
+            file_name
+            url
+            documentType {
+              id
+              type_name
+            }
+          }
+          labels {
+            id
+          }
+        }
+      }
+    `,
+    { id: itemId },
+    { fetchPolicy: "network-only" },
+  );
+
+  const { applicationByID } = data;
+  const appLabelsID: Array<string> = applicationByID.labels.map((l) => l.id);
+  const appDocuments = applicationByID.applicationDocuments;
+  const appDocumentsTypeID: Array<string> = appDocuments.map((d) => d.documentType.id);
+
+  // Data of [ALL] Labels and Citations Documents
+  const info: ApplicationEditScreen2Query$data = useLazyLoadQuery<ApplicationEditScreen2Query>(
+    graphql`
+      query ApplicationEditScreen2Query($id: ID!) {
+        citationDocuments(id: $id) {
+          id
+          type_name
         }
 
         labels {
           id
           label_name
         }
-
-        citationDocuments(id: $id) {
-          id
-          type_name
-        }
       }
     `,
-    { id: itemId, user_id: user_id },
-    { fetchPolicy: "network-only" },
+    { id: applicationByID.citation.id },
   );
 
-  const [commitMutation] = useMutation<ApplicationFormScreenMutation>(
+  const { citationDocuments, labels } = info;
+
+  // Update Application
+  const [commitMutation] = useMutation<ApplicationEditScreenMutation>(
     graphql`
-      mutation ApplicationFormScreenMutation(
-        $user_id: ID!
-        $title: String!
+      mutation ApplicationEditScreenMutation(
+        $applicationID: ID!
         $description: String!
         $support: String!
         $deadline: String!
-        $citation_id: ID!
         $documents: [documentsInfo]!
         $labels: [ID]!
       ) {
-        createNewApplication(
-          user_id: $user_id
-          title: $title
+        updateApplication(
+          applicationID: $applicationID
           description: $description
           support: $support
           deadline: $deadline
-          citation_id: $citation_id
           documents: $documents
           labels: $labels
-        ) {
-          id
-          title
-        }
+        )
       }
     `,
   );
 
-  const { citationDocuments, labels, findDocumentsByUserID } = data;
-  const UserDocuments = findDocumentsByUserID;
-  const UserDocumentsTypeID: Array<string> = findDocumentsByUserID.map((d) => d.documentType.id);
-  console.debug(UserDocumentsTypeID);
-
+  // SeT Citation Documents
   const docTypes: any = citationDocuments?.map((item: any): any => {
-    const flag = UserDocumentsTypeID.indexOf(item.id);
+    const flag = appDocumentsTypeID.indexOf(item.id);
 
     // No document
     let Field = null;
@@ -108,7 +128,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
 
     if (flag > -1) {
       // User has the document
-      const document = UserDocuments[flag];
+      const document = appDocuments[flag];
       Field = document.url;
       File_name = document.file_name;
     }
@@ -127,10 +147,15 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     setDocuments([...documents]);
   };
 
+  // SeT Labels
   const selected: any = labels?.map((item: any): labelsType | undefined => {
+    let mycolor = "#6b7280";
+    if (appLabelsID.indexOf(item.id) > -1) {
+      mycolor = "#d1d5db";
+    }
     const newItem: labelsType | undefined = {
       ...item,
-      color: "#6b7280",
+      color: mycolor,
     };
     return newItem;
   });
@@ -158,7 +183,9 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
       return newElement;
     });
 
-  const [date, setDate] = useState(new Date());
+  // Today'S Date / SET Date
+  const [date, setDate] = useState(new Date()); // Date
+  const [deadline, setDeadline] = useState(applicationByID.deadline); // String
 
   const today = new Date();
   const todayDate =
@@ -169,12 +196,12 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     today.getDate().toString().padStart(2, "0");
 
   // Show / Hide DatePicker
-  const [deadline, setDeadline] = useState(todayDate);
   const [show, setShow] = useState(false);
   const showDatePicker = () => {
     setShow(true);
   };
 
+  // Default Values
   const {
     control,
     handleSubmit,
@@ -182,15 +209,15 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title: "",
-      description: "",
-      support: "",
-      deadline: todayDate,
+      description: applicationByID.description,
+      support: applicationByID.support,
+      deadline: applicationByID.deadline,
     },
   });
 
   const navigation = useNavigation();
 
+  // Submit Changes
   const onSubmitForm = () => {
     const myLabels = list
       ?.filter((element: any) => element.color === "#d1d5db")
@@ -199,25 +226,22 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
         return newElement;
       });
 
-    const myTitle = getValues("title");
     const myDescription = getValues("description");
     const mySupport = getValues("support");
     const myDeadline = getValues("deadline");
 
-    if (myLabels?.length !== 0 && documents.length !== 0) {
+    if (myLabels?.length !== 0 && documents.length < citationDocuments.length) {
       commitMutation({
         variables: {
-          title: myTitle as unknown as string,
+          applicationID: itemId as unknown as string,
           description: myDescription as unknown as string,
           support: mySupport as unknown as string,
           deadline: myDeadline as unknown as string,
-          user_id: user.id as unknown as string,
-          citation_id: itemId as unknown as string,
           documents: documents as unknown as [documentsInfo],
           labels: myLabels as unknown as [string],
         },
         onCompleted: () => {
-          Alert.alert("Creación de solicitud", "Tu solicitud fue creada con éxito", [
+          Alert.alert("Editar solicitud", "Se guardaron los cambios exitosamente", [
             {
               text: "Cerrar",
               onPress: () => console.debug("Cancel Pressed"),
@@ -228,37 +252,32 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
           navigation.goBack();
         },
         onError: () => {
-          console.debug("error :(");
+          console.debug("Error");
         },
       });
     } else {
-      console.debug("error :( x2");
+      console.debug("Missing documents and/or labels");
     }
   };
 
   return (
     <SafeAreaView>
       <ScrollView>
-        <Text className="text-xl text-main-100 font-bold mx-2 mb-2">Completa lo siguiente</Text>
+        {/* Editable attributes of the application */}
+        <Text className="text-xl text-main-100 font-bold mx-2 mb-2">Edita tu solicitud</Text>
+        <Text className="text-base text-gray-600 text-sm text-justify pr-4 pl-2">
+          Tu solicitud fue enviada a correciones. Revisa y haz los cambios que consideres necesarios. Y,{" "}
+          <Text className="font-bold">asegúrate que la información de tus documentos esté actualizada</Text> o sea la
+          correcta.
+        </Text>
+        {/* Title */}
         <Text className="text-base text-gray-800 font-medium m-3">Título del proyecto</Text>
-        <Controller
-          control={control}
-          name="title"
-          rules={{
-            required: true,
-            pattern: { value: /^\S+[a-zA-Z\s]*/, message: "error message" },
-          }}
-          render={({ field: { onChange, value } }) => (
-            <TextInput
-              className="bg-gray-200 px-5 py-4 mx-3 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border border-gray-300"
-              onChangeText={(value) => onChange(value)}
-              value={value}
-            />
-          )}
+        <TextInput
+          className="bg-gray-200 px-5 py-4 mx-3 rounded-lg text-gray-500 dark:text-gray-50 dark:bg-gray-700 border border-gray-300"
+          value={applicationByID.title}
+          editable={false}
         />
-        <View className="px-3 py-2">
-          {errors.title && <Text className="text-red-500">Es necesario llenar este campo.</Text>}
-        </View>
+        {/* Description */}
         <Text className="text-base text-gray-800 font-medium m-3">Descripción</Text>
         <Controller
           control={control}
@@ -272,7 +291,6 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
               multiline
               numberOfLines={3}
               className="bg-gray-200 px-5 py-4 mx-3 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border border-gray-300"
-              style={{ height: 80 }}
               onChangeText={(value) => onChange(value)}
               value={value}
             />
@@ -281,6 +299,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
         <View className="px-3 py-2">
           {errors.description && <Text className="text-red-500">Es necesario llenar este campo.</Text>}
         </View>
+        {/* Support */}
         <Text className="text-base text-gray-800 font-medium m-3">Apoyo Requerido</Text>
         <Controller
           control={control}
@@ -291,6 +310,8 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
+              multiline
+              numberOfLines={3}
               className="bg-gray-200 px-5 py-4 mx-3 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border border-gray-300"
               onChangeText={(value) => onChange(value)}
               value={value}
@@ -300,8 +321,9 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
         <View className="px-3 py-2">
           {errors.support && <Text className="text-red-500">Es necesario llenar este campo.</Text>}
         </View>
+        {/* Deadline */}
         <Text className="text-base text-gray-800 font-medium m-3 mt-3">Fecha límite</Text>
-        <View className="px-3 pb-4">
+        <View className="px-3 pb-2">
           <Controller
             control={control}
             name="deadline"
@@ -314,13 +336,15 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
             render={({ field: { onChange, value } }) => (
               <View className="bg-gray-200 px-5 py-4 rounded-lg border border-gray-300">
                 <TouchableOpacity onPress={showDatePicker}>
-                  <Text className="text-gray-900 dark:text-gray-50 dark:bg-gray-700">{deadline}</Text>
+                  <Text className="text-gray-900 dark:text-gray-50 dark:bg-gray-700">
+                    {deadline ? deadline : "Sin fecha límite"}
+                  </Text>
                 </TouchableOpacity>
                 {show && (
                   <DateTimePicker
                     testID="dateTimePicker"
                     mode="date"
-                    value={date}
+                    value={new Date(value)}
                     onChange={(event, selectedDate) => {
                       setShow(false);
 
@@ -335,7 +359,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
                         currentDate.getDate().toString().padStart(2, "0");
 
                       value = myDate;
-                      setDeadline(value);
+                      setDeadline(myDate);
                       onChange(value);
                     }}
                   />
@@ -347,6 +371,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
             {errors.deadline && <Text className="text-red-500">Ingresa una fecha válida.</Text>}
           </View>
         </View>
+        {/* Documents */}
         <FlatList
           scrollEnabled={false}
           data={documents}
@@ -372,7 +397,8 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
             </>
           )}
         />
-        <Text className="text-base text-gray-800 font-medium m-3 mt-5"> Agrega etiquetas</Text>
+        {/* Labels */}
+        <Text className="text-base text-gray-800 font-medium m-3"> Agrega etiquetas</Text>
         <View className="flex-row mx-4 pb-2 content-center justify-center">
           <FlatList
             horizontal
@@ -399,14 +425,15 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
         <View className="px-3 py-2">
           {myLabels.length < 1 && <Text className="text-red-500">Selecciona una etiqueta.</Text>}
         </View>
-        <View className="pb-2">
+        {/* Accept changes */}
+        <View className="pb-6">
           <TouchableOpacity
-            className="flex-row mx-4 mt-6 content-center justify-center space-x-10"
+            className="flex-row mx-4 mt-2 content-center justify-center space-x-10"
             onPress={handleSubmit(onSubmitForm)}>
             <Text
               className="text-lg bg-main-100 text-gray-50 px-5 py-1 mx-2 border-gray-500"
               style={{ borderRadius: 20, overflow: "hidden" }}>
-              Enviar
+              Guardar cambios
             </Text>
           </TouchableOpacity>
         </View>
@@ -415,4 +442,4 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
   );
 };
 
-export default ApplicationFormScreen;
+export default ApplicationEditScreen;

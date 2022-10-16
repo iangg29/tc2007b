@@ -21,6 +21,7 @@ const ApplicationsScreen = (): JSX.Element => {
           title
           applicationStatus {
             name
+            order
           }
           citation {
             title
@@ -29,6 +30,7 @@ const ApplicationsScreen = (): JSX.Element => {
       }
     `,
     { user_id },
+    { fetchPolicy: "network-only" },
   );
   const { applicationByUserID } = data;
 

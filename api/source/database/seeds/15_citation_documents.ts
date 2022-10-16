@@ -17,6 +17,6 @@ export async function seed(knex: Knex): Promise<void> {
     { citation_id: "2", document_type_id: "3" },
     { citation_id: "3", document_type_id: "4" },
     { citation_id: "3", document_type_id: "2" },
-    { citation_id: "3", document_type_id: "3" },
+    { citation_id: "3", document_type_id: "5" },
   ]);
 }

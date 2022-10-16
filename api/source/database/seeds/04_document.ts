@@ -32,7 +32,7 @@ export async function seed(knex: Knex): Promise<void> {
     },
     {
       id: "2",
-      user_id: "1",
+      user_id: "3",
       file_name: "example2.pdf",
       file_type_id: "2",
       url: "https://www.usebeq.edu.mx/PaginaWEB/Content/USICAMM/CE22-23/CONVOCATORIA%20PROMOCI%C3%93N%20HORIZONTAL%202022%20vf.pdf",

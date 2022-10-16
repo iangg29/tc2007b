@@ -1,26 +1,32 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Text, View, Image, TouchableOpacity, Modal, Pressable } from "react-native";
 
 import { getRandomImage } from "../utils/imageHelper";
 import ApplicationStatusView from "./ApplicationStatusView";
 interface Props {
+  id: string;
   title: string;
   status: {
     name;
-  };
-  citation: {
-    title;
+    order;
   };
 }
 
-const ApplicationCard = ({ title, status, citation }: Props) => {
+const ApplicationCard = ({ id, title, status }: Props) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation();
 
   const handleStatus = () => {
     setModalVisible(!modalVisible);
   };
+
+  const handleEdit = () => {
+    navigation.navigate("Editar solicitud" as never, { itemId: id } as never);
+  };
+
   return (
     <View className="max-w my-2 mx-4 bg-white rounded-xl overflow-hidden border border-gray-300 shadow">
       <Modal
@@ -44,12 +50,19 @@ const ApplicationCard = ({ title, status, citation }: Props) => {
       <View className="p-4">
         <Text className="tracking-wide text-xs text-gray-600  dark:text-gray-100">Solicitud:</Text>
         <Text className="text-lg font-semibold text-gray-700 mb-2">{title}</Text>
-        <Text className="tracking-wide text-xs text-gray-600  dark:text-gray-100">Convocatoria</Text>
-        <Text className="text-base font-semibold text-gray-700 mb-2">{citation.title}</Text>
         <View className="flex flex-row content-center justify-center mt-1">
-          <TouchableOpacity className="bg-main-100 border border-gray-200 rounded-lg shadow-sm" onPress={handleStatus}>
-            <Text className="text-lg text-gray-100 font-semibold px-4 py-1">Dar seguimiento </Text>
-          </TouchableOpacity>
+          {/* Si está en correciones mostrar forma para editar */}
+          {status.order == 0 ? (
+            <TouchableOpacity className="bg-main-100 border border-gray-200 rounded-lg shadow-sm" onPress={handleEdit}>
+              <Text className="text-lg text-gray-100 font-semibold px-4 py-1">Editar</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              className="bg-main-100 border border-gray-200 rounded-lg shadow-sm"
+              onPress={handleStatus}>
+              <Text className="text-lg text-gray-100 font-semibold px-4 py-1">Dar seguimiento </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>

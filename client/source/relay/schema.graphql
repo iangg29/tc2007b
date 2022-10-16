@@ -252,6 +252,7 @@ type RootMutation {
   attachApplicationDocument(application_id: ID!, document_id: ID!): Application
   deleteApplication(id: ID!): Boolean
   updateAplicationLabels(application_id: ID!, label_id: ID!): Application
+  updateApplication(applicationID: ID!, description: String!, support: String!, deadline: String!, documents: [documentsInfo], labels: [ID]): String
   createStatus(
     """ApplicationStatus name"""
     name: String!
@@ -270,6 +271,7 @@ type RootMutation {
   createDocumentType(name: String!): DocumentType
   uploadEvidence(impact: String!, application_id: ID!, document_id: ID!): Evidence
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
+  deleteDocument(id: ID!): Boolean
   createLabel(name: String!, description: String!): Label
 }
 

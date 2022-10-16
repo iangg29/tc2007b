@@ -17,12 +17,13 @@ const CitationList = () => {
         }
       }
     `,
-    {},
+    { fetchPolicy: "network-only" },
   );
   return (
     <View className="pt-2">
       <FlatList
         data={data_Citation_list?.citationsActive}
+        extraData={data_Citation_list?.citationsActive}
         renderItem={({ item }) => <CitationCard data_citation={item} />}
         keyExtractor={(item) => item.id}
       />
