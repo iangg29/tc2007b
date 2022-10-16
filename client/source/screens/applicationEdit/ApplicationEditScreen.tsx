@@ -12,8 +12,14 @@ import { selectUser } from "../../store/slices/authSlice";
 
 import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
 
-import { ApplicationEditScreenQuery, ApplicationEditScreenQuery$data} from "./__generated__/ApplicationEditScreenQuery.graphql";
-import { ApplicationEditScreen2Query, ApplicationEditScreen2Query$data} from "./__generated__/ApplicationEditScreen2Query.graphql";
+import {
+  ApplicationEditScreenQuery,
+  ApplicationEditScreenQuery$data,
+} from "./__generated__/ApplicationEditScreenQuery.graphql";
+import {
+  ApplicationEditScreen2Query,
+  ApplicationEditScreen2Query$data,
+} from "./__generated__/ApplicationEditScreen2Query.graphql";
 
 interface labelsType {
   id: string;
@@ -29,10 +35,10 @@ type documentsInfo = {
 };
 
 // Screen to edit an application [send to corrections]
-const ApplicationEditScreen = ({route}: any): JSX.Element => {
+const ApplicationEditScreen = ({ route }: any): JSX.Element => {
   const { itemId } = route.params;
 
-  // Data of the Application  
+  // Data of the Application
   const data: ApplicationEditScreenQuery$data = useLazyLoadQuery<ApplicationEditScreenQuery>(
     graphql`
       query ApplicationEditScreenQuery($id: ID!) {
@@ -62,7 +68,7 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
     `,
     { id: itemId },
   );
-  
+
   const { applicationByID } = data;
   const appLabelsID: Array<string> = applicationByID.labels.map((l) => l.id);
   const appDocuments = applicationByID.applicationDocuments;
@@ -71,7 +77,7 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
   // Data of [ALL] Labels and Citations Documents
   const info: ApplicationEditScreen2Query$data = useLazyLoadQuery<ApplicationEditScreen2Query>(
     graphql`
-      query ApplicationEditScreen2Query ($id: ID!) {
+      query ApplicationEditScreen2Query($id: ID!) {
         citationDocuments(id: $id) {
           id
           type_name
@@ -85,7 +91,7 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
     `,
     { id: applicationByID.citation.id },
   );
-  
+
   const { citationDocuments, labels } = info;
 
   // SeT Citation Documents
@@ -93,12 +99,14 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
     const flag = appDocumentsTypeID.indexOf(item.id);
 
     // No document
-    let Field = null; let File_name = null;
+    let Field = null;
+    let File_name = null;
 
     if (flag > -1) {
       // User has the document
       const document = appDocuments[flag];
-      Field = document.url; File_name = document.file_name;
+      Field = document.url;
+      File_name = document.file_name;
     }
 
     const newItem: any = { ...item, field: Field, file_name: File_name };
@@ -118,7 +126,7 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
   // SeT Labels
   const selected: any = labels?.map((item: any): labelsType | undefined => {
     let mycolor = "#6b7280";
-    if(appLabelsID.indexOf(item.id) > -1) {
+    if (appLabelsID.indexOf(item.id) > -1) {
       mycolor = "#d1d5db";
     }
     const newItem: labelsType | undefined = {
@@ -150,11 +158,11 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
       const newElement: any = filteredElement.id;
       return newElement;
     });
-  
+
   // Today'S Date / SET Date
   const [date, setDate] = useState(new Date()); // Date
   const [deadline, setDeadline] = useState(applicationByID.deadline); // String
-  
+
   const today = new Date();
   const todayDate =
     today.getFullYear().toString() +
@@ -162,7 +170,7 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
     (today.getMonth() + 1).toString().padStart(2, "0") +
     "-" +
     today.getDate().toString().padStart(2, "0");
-  
+
   // Show / Hide DatePicker
   const [show, setShow] = useState(false);
   const showDatePicker = () => {
@@ -195,12 +203,17 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
       <ScrollView>
         {/* Editable attributes of the application */}
         <Text className="text-xl text-main-100 font-bold mx-2 mb-2">Edita tu solicitud</Text>
-        <Text className="text-base text-gray-600 text-sm text-justify pr-4 pl-2">Tu solicitud fue enviada a correciones. Revisa y haz los cambios que consideres necesarios. Y, <Text className="font-bold">asegúrate que la información de tus documentos esté actualizada</Text> o sea la correcta.</Text>
+        <Text className="text-base text-gray-600 text-sm text-justify pr-4 pl-2">
+          Tu solicitud fue enviada a correciones. Revisa y haz los cambios que consideres necesarios. Y,{" "}
+          <Text className="font-bold">asegúrate que la información de tus documentos esté actualizada</Text> o sea la
+          correcta.
+        </Text>
         {/* Title */}
         <Text className="text-base text-gray-800 font-medium m-3">Título del proyecto</Text>
         <TextInput
           className="bg-gray-200 px-5 py-4 mx-3 rounded-lg text-gray-500 dark:text-gray-50 dark:bg-gray-700 border border-gray-300"
-          value={applicationByID.title} editable={false}
+          value={applicationByID.title}
+          editable={false}
         />
         {/* Description */}
         <Text className="text-base text-gray-800 font-medium m-3">Descripción</Text>
@@ -263,30 +276,34 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
             render={({ field: { onChange, value } }) => (
               <View className="bg-gray-200 px-5 py-4 rounded-lg border border-gray-300">
                 <TouchableOpacity onPress={showDatePicker}>
-                  <Text className="text-gray-900 dark:text-gray-50 dark:bg-gray-700">{deadline? deadline : "Sin fecha límite"}</Text>
+                  <Text className="text-gray-900 dark:text-gray-50 dark:bg-gray-700">
+                    {deadline ? deadline : "Sin fecha límite"}
+                  </Text>
                 </TouchableOpacity>
-                {show && <DateTimePicker
-                  testID="dateTimePicker"
-                  mode="date"
-                  value={new Date(value)}
-                  onChange={(event, selectedDate) => {
-                    setShow(false);
-                    
-                    const currentDate = selectedDate;
-                    setDate(currentDate);
-                    
-                    const myDate =
-                      currentDate.getFullYear().toString() +
-                      "-" +
-                      (currentDate.getMonth() + 1).toString().padStart(2, "0") +
-                      "-" +
-                      currentDate.getDate().toString().padStart(2, "0");
-                    
-                    value = myDate;
-                    setDeadline(myDate);
-                    onChange(value);
-                  }}
-                />}
+                {show && (
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    mode="date"
+                    value={new Date(value)}
+                    onChange={(event, selectedDate) => {
+                      setShow(false);
+
+                      const currentDate = selectedDate;
+                      setDate(currentDate);
+
+                      const myDate =
+                        currentDate.getFullYear().toString() +
+                        "-" +
+                        (currentDate.getMonth() + 1).toString().padStart(2, "0") +
+                        "-" +
+                        currentDate.getDate().toString().padStart(2, "0");
+
+                      value = myDate;
+                      setDeadline(myDate);
+                      onChange(value);
+                    }}
+                  />
+                )}
               </View>
             )}
           />
@@ -363,6 +380,6 @@ const ApplicationEditScreen = ({route}: any): JSX.Element => {
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
 
 export default ApplicationEditScreen;

@@ -48,12 +48,15 @@ const ApplicationCard = ({ id, title, status }: Props) => {
           <Text className="text-lg mt-1 text-slate-500">Convocatoria</Text>
 
           {/* Si está en correciones mostrar forma para editar */}
-          {status.order == 0? <TouchableOpacity onPress={handleEdit}>
-            <Text className="text-lg mt-1 text-slate-500">Editar</Text>
-          </TouchableOpacity>:<TouchableOpacity onPress={handleStatus}>
-            <Text className="text-lg mt-1 text-slate-500">Dar seguimiento </Text>
-          </TouchableOpacity>}
-
+          {status.order == 0 ? (
+            <TouchableOpacity onPress={handleEdit}>
+              <Text className="text-lg mt-1 text-slate-500">Editar</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={handleStatus}>
+              <Text className="text-lg mt-1 text-slate-500">Dar seguimiento </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>

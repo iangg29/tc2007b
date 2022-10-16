@@ -142,7 +142,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     });
 
   const [date, setDate] = useState(new Date());
- 
+
   const today = new Date();
   const todayDate =
     today.getFullYear().toString() +
@@ -151,7 +151,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     "-" +
     today.getDate().toString().padStart(2, "0");
 
-  // Show / Hide DatePicker 
+  // Show / Hide DatePicker
   const [deadline, setDeadline] = useState(todayDate);
   const [show, setShow] = useState(false);
   const showDatePicker = () => {
@@ -299,28 +299,30 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
                 <TouchableOpacity onPress={showDatePicker}>
                   <Text className="text-gray-900 dark:text-gray-50 dark:bg-gray-700">{deadline}</Text>
                 </TouchableOpacity>
-                {show && <DateTimePicker
-                  testID="dateTimePicker"
-                  mode="date"
-                  value={date}
-                  onChange={(event, selectedDate) => {
-                    setShow(false);
+                {show && (
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    mode="date"
+                    value={date}
+                    onChange={(event, selectedDate) => {
+                      setShow(false);
 
-                    const currentDate = selectedDate;
-                    setDate(currentDate);
+                      const currentDate = selectedDate;
+                      setDate(currentDate);
 
-                    const myDate =
-                      currentDate.getFullYear().toString() +
-                      "-" +
-                      (currentDate.getMonth() + 1).toString().padStart(2, "0") +
-                      "-" +
-                      currentDate.getDate().toString().padStart(2, "0");
+                      const myDate =
+                        currentDate.getFullYear().toString() +
+                        "-" +
+                        (currentDate.getMonth() + 1).toString().padStart(2, "0") +
+                        "-" +
+                        currentDate.getDate().toString().padStart(2, "0");
 
-                    value = myDate;
-                    setDeadline(value);
-                    onChange(value);
-                  }}
-                />}
+                      value = myDate;
+                      setDeadline(value);
+                      onChange(value);
+                    }}
+                  />
+                )}
               </View>
             )}
           />
