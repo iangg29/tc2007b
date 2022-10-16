@@ -100,19 +100,18 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
   console.debug(UserDocumentsTypeID);
 
   const docTypes: any = citationDocuments?.map((item: any): any => {
-
     const flag = UserDocumentsTypeID.indexOf(item.id);
 
-     // No document
-     let Field = null;
-     let File_name = null;
+    // No document
+    let Field = null;
+    let File_name = null;
 
-     if (flag > -1) {
-       // User has the document
-       const document = UserDocuments[flag];
-       Field = document.url;
-       File_name = document.file_name;
-     }
+    if (flag > -1) {
+      // User has the document
+      const document = UserDocuments[flag];
+      Field = document.url;
+      File_name = document.file_name;
+    }
 
     const newItem: any = { ...item, field: Field, file_name: File_name };
     return newItem;
