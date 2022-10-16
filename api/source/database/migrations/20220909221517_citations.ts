@@ -9,8 +9,8 @@ export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable(CITATION_TABLE_NAME, (table: CreateTableBuilder) => {
       // COLUMNS
       table.string("id").primary().unique();
-      table.string("title").notNullable();
-      table.text("description").notNullable();
+      table.string("citation_title").notNullable();
+      table.text("citation_description").notNullable();
       table.text("image");
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());

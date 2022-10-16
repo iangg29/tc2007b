@@ -2,8 +2,9 @@
 
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-import { AuthStack } from "../stacks/AuthStack";
+
 import { AppStack } from "../stacks/AppStack";
+import { AuthStack } from "../stacks/AuthStack";
 import { useAppSelector } from "../store/hooks";
 import { selectIsLoggedIn } from "../store/slices/authSlice";
 

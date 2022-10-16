@@ -20,13 +20,13 @@ type Application {
   user: User
 
   """Application title"""
-  title: String!
+  application_title: String!
 
   """Application image"""
   image: String!
 
   """Application description"""
-  description: String!
+  application_description: String!
 
   """Application requested support"""
   support: String!
@@ -71,7 +71,7 @@ type ApplicationStatus {
   id: ID!
 
   """ApplicationStatus name"""
-  name: String!
+  status_name: String!
 
   """ApplicationStatus order"""
   order: Int!
@@ -91,10 +91,10 @@ type Citation {
   id: ID!
 
   """Citation's title"""
-  title: String!
+  citation_title: String!
 
   """Citation's description"""
-  description: String!
+  citation_description: String!
 
   """Citation's document"""
   document: Document!
@@ -239,14 +239,15 @@ type Role {
 """Application's GraphQL root mutations"""
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
-  createApplication(user_id: ID!, title: String!, image: String!, description: String!, support: String!, deadline: String, end_time: String, emission_date: String!, response_date: String!, application_status_id: ID!, citation_id: ID!): Application
+  createApplication(user_id: ID!, application_title: String!, image: String!, application_description: String!, support: String!, deadline: String, end_time: String, emission_date: String!, response_date: String!, application_status_id: ID!, citation_id: ID!): Application
   updateApplicationStatus(application_id: ID!, next_status: Int!): String
   attachApplicationDocument(application_id: ID!, document_id: ID!): Application
   deleteApplication(id: ID!): Boolean
   updateAplicationLabels(application_id: ID!, label_id: ID!): Application
+  deleteApplicationLabels(application_id: ID!, label_id: ID!): Boolean
   createStatus(
     """ApplicationStatus name"""
-    name: String!
+    status_name: String!
 
     """ApplicationStatus order"""
     order: Int!
@@ -256,13 +257,13 @@ type RootMutation {
   toggleFAQVisibility(id: ID!, visible: Boolean!): FAQ
   updateFAQ(id: ID!, question: String!, answer: String!, visible: Boolean!): FAQ
   deleteFAQ(id: ID!): Boolean
-  createCitation(title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
-  updateCitation(id: ID!, title: String!, description: String!, end_date: String!, document_types: [ID]): Citation
+  createCitation(citation_title: String!, citation_description: String!, end_date: String!, document_types: [ID]): Citation
+  updateCitation(id: ID!, citation_title: String!, citation_description: String!, end_date: String!, document_types: [ID]): Citation
   deleteCitation(id: ID!): Boolean
-  createDocumentType(name: String!): DocumentType
+  createDocumentType(type_name: String!): DocumentType
   uploadEvidence(impact: String!, application_id: ID!, document_id: ID!): Evidence
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
-  createLabel(name: String!, description: String!): Label
+  createLabel(label_name: String!, description: String!): Label
 }
 
 """Application's GraphQL root query."""

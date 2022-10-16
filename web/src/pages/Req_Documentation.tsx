@@ -28,9 +28,9 @@ const ReqDocumentation = (): JSX.Element => {
       query ReqDocumentationQuery($application_id: ID!) {
         applicationByID(id: $application_id) {
           id
-          title
+          application_title
           image
-          description
+          application_description
           support
           user {
             name
@@ -38,7 +38,7 @@ const ReqDocumentation = (): JSX.Element => {
             second_lastname
           }
           applicationStatus {
-            name
+            status_name
             order
           }
           applicationDocuments {
@@ -83,16 +83,16 @@ const ReqDocumentation = (): JSX.Element => {
         {/* REQUEST - BASIC INFO */}
         <div className="w-full pt-2">
           <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">
-            Proyecto: {applicationByID?.title}
+            Proyecto: {applicationByID?.application_title}
           </h1>
           <img className="w-[800px] py-4 pr-8 lg:pr-16" src={applicationByID?.image} alt="art" />
           <p className="text-lg font-semibold tracking-tight text-gray-900">
-            Realizado por: {user?.name} {user?.first_lastname} {user?.second_lastname}
+            Solicitante: {user?.name} {user?.first_lastname} {user?.second_lastname}
           </p>
           <div className="w-[450px] md:w-[500px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
             {labels?.map((elem: any) => {
-              return <Label key={elem.id} label={elem.name} />;
+              return <Label key={elem.id} label={elem.label_name} />;
             })}
           </div>
         </div>

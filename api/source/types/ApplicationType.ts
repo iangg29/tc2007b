@@ -41,7 +41,7 @@ export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
         return { ...myUser[0] };
       },
     },
-    title: {
+    application_title: {
       type: GraphQLNonNull(GraphQLString),
       description: "Application title",
     },
@@ -49,7 +49,7 @@ export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "Application image",
     },
-    description: {
+    application_description: {
       type: GraphQLNonNull(GraphQLString),
       description: "Application description",
     },
@@ -132,34 +132,33 @@ export const ApplicationType: GraphQLObjectType = new GraphQLObjectType({
           });
 
         return [...labelsOfApplications];
-
       },
     },
     applicationDocuments: {
       type: GraphQLList(DocumentType),
       description: "Application documents",
-      async resolve({id}){
+      async resolve({ id }) {
         const myDocs = await db
-        .select()
-        .from(APPLICATION_DOCUMENTS_TABLE_NAME)
-        .where({ application_id: id })
-        .catch((error: Error) => {
-          console.error(error);
-          throw new GraphQLError(error.name);
-      });
+          .select()
+          .from(APPLICATION_DOCUMENTS_TABLE_NAME)
+          .where({ application_id: id })
+          .catch((error: Error) => {
+            console.error(error);
+            throw new GraphQLError(error.name);
+          });
 
-      const result = myDocs.map(a => a.document_id);
+        const result = myDocs.map((a) => a.document_id);
 
-      const myDocuments = await db
-        .select()
-        .from(DOCUMENT_TABLE_NAME)
-        .whereIn('id', result)
-        .catch((error: Error) => {
-          console.error(error);
-          throw new GraphQLError(error.name);
-      });
-      return [...myDocuments]
-      }
+        const myDocuments = await db
+          .select()
+          .from(DOCUMENT_TABLE_NAME)
+          .whereIn("id", result)
+          .catch((error: Error) => {
+            console.error(error);
+            throw new GraphQLError(error.name);
+          });
+        return [...myDocuments];
+      },
     },
     created_at: {
       type: GraphQLNonNull(GraphQLString),
