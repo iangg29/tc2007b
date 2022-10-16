@@ -211,9 +211,11 @@ const NewAnnouncementForm = (): JSX.Element => {
               ></input>
             </div>
             <div>
-              <div className="mx-7 my-5 flex flex-col px-52 ">
-                <h1 className="text-2xl font-semibold text-main-500">Documentos Necesarios</h1>
-                <DocumentList list={list} handleclickCheckbox={handleclickCheckbox} docTypes={[]} />
+              <div className="mx-7 my-5 flex flex-col pl-12 ">
+                <h1 className="text-2xl font-semibold text-main-500 mb-4">Documentos Necesarios</h1>
+                <div className="overflow-y-auto h-64">
+                  <DocumentList list={list} handleclickCheckbox={handleclickCheckbox} docTypes={[]} />
+                </div>
                 <DocumentTypeModal show={show} onClose={onClose} />
 
                 <button
