@@ -4,7 +4,6 @@ import graphql from "babel-plugin-relay/macro";
 
 import { Modal } from "flowbite-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface params {
   show: boolean;

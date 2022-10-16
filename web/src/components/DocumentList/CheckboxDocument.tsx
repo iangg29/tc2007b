@@ -1,10 +1,9 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import { useMutation } from "react-relay";
+import { useMutation, useLazyLoadQuery } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import { FiDelete } from "react-icons/fi";
 import { CheckboxDocumentMutation } from "./__generated__/CheckboxDocumentMutation.graphql";
 import { CheckboxDocumentQuery, CheckboxDocumentQuery$data } from "./__generated__/CheckboxDocumentQuery.graphql";
-import { useLazyLoadQuery } from "react-relay";
 
 interface params {
   id: string;
@@ -27,7 +26,7 @@ const CheckboxDocument = ({ name, isChecked, id, setChecked }: params): JSX.Elem
         countDocumetOfType(id: $id)
       }
     `,
-    { id: id },
+    { id },
     { fetchPolicy: "network-only" },
   );
   console.log("countDoc", countDoc);
