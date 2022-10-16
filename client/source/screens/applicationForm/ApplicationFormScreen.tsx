@@ -12,10 +12,6 @@ import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
 
 import { useAppSelector } from "../../store/hooks";
 import { selectUser } from "../../store/slices/authSlice";
-import {
-  ApplicationFormScreen2Query,
-  ApplicationFormScreen2Query$data,
-} from "./__generated__/ApplicationFormScreen2Query.graphql";
 import { ApplicationFormScreenMutation } from "./__generated__/ApplicationFormScreenMutation.graphql";
 import {
   ApplicationFormScreenQuery,
@@ -39,29 +35,34 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
   const { itemId } = route.params;
 
   const user: any = useAppSelector(selectUser);
+  const user_id = user.id;
 
   const data: ApplicationFormScreenQuery$data = useLazyLoadQuery<ApplicationFormScreenQuery>(
     graphql`
-      query ApplicationFormScreenQuery($id: ID!) {
+      query ApplicationFormScreenQuery($id: ID!, $user_id: ID!) {
+        findDocumentsByUserID(user_id: $user_id) {
+          id
+          file_name
+          url
+          documentType {
+            id
+            type_name
+          }
+        }
+
+        labels {
+          id
+          label_name
+        }
+
         citationDocuments(id: $id) {
           id
           type_name
         }
       }
     `,
-    { id: itemId },
-  );
-
-  const labelsData: ApplicationFormScreen2Query$data = useLazyLoadQuery<ApplicationFormScreen2Query>(
-    graphql`
-      query ApplicationFormScreen2Query {
-        labels {
-          id
-          label_name
-        }
-      }
-    `,
-    {},
+    { id: itemId, user_id: user_id },
+    { fetchPolicy: "network-only" },
   );
 
   const [commitMutation] = useMutation<ApplicationFormScreenMutation>(
@@ -93,13 +94,30 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     `,
   );
 
-  const { citationDocuments } = data;
-  const { labels } = labelsData;
+  const { citationDocuments, labels, findDocumentsByUserID } = data;
+  const UserDocuments = findDocumentsByUserID;
+  const UserDocumentsTypeID: Array<string> = findDocumentsByUserID.map((d) => d.documentType.id);
+  console.debug(UserDocumentsTypeID);
 
   const docTypes: any = citationDocuments?.map((item: any): any => {
-    const newItem: any = { ...item, field: null, file_name: null };
+
+    const flag = UserDocumentsTypeID.indexOf(item.id);
+
+     // No document
+     let Field = null;
+     let File_name = null;
+
+     if (flag > -1) {
+       // User has the document
+       const document = UserDocuments[flag];
+       Field = document.url;
+       File_name = document.file_name;
+     }
+
+    const newItem: any = { ...item, field: Field, file_name: File_name };
     return newItem;
   });
+
   const [documents, setDocuments] = useState(docTypes);
 
   const pickDocument = async (id) => {

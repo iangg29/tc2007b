@@ -69,6 +69,15 @@ export default {
     ) => {
       const applicationId = uuid();
 
+      const userDocuments = await db.select().table(DOCUMENT_TABLE_NAME).where({ user_id: user_id });
+      const listUserDocuments = userDocuments.map((element: any) => {
+        const newElement: any = {
+          document_type_id: element.documentType.id,
+          document_id: element.id,
+        };
+        return newElement;
+      });
+
       const defaultStatus = await db
         .select()
         .from(APPLICATION_STATUS_TABLE_NAME)
@@ -92,6 +101,12 @@ export default {
             application_status_id: defaultStatus[0].id,
             citation_id,
           });
+
+          // const docsToBeCreated = documents.filter((element: any) => !listUserDocumen.i.includes(element.id)).map((filteredElement: any) => {
+          //     const newElement: string = filteredElement;
+          //     return newElement;
+          //   }
+          // );
 
           await Promise.all(
             documents.map(async (element: any) => {
@@ -336,6 +351,7 @@ export default {
     resolve: async (_: any, { application_id, document_id }: any) => {
       const id = uuid();
 
+
       const myApplication = await db
         .select()
         .from(APPLICATION_TABLE_NAME)
@@ -446,92 +462,88 @@ export default {
       deadline: {
         type: GraphQLNonNull(GraphQLString)
       },
-      start_time: {
-        type: GraphQLNonNull(GraphQLString)
-      },
-      end_time: {
-        type: GraphQLNonNull(GraphQLString)
+      documents: {
+        type: GraphQLList(documentsInfo),
       },
       labels: {
-        type: GraphQLList(GraphQLID)
+        type: GraphQLList(GraphQLID),
       }
     },
-    resolve: async (_: any, { application_id, description, support, deadline, start_time, end_time, labels }: any) => {
-      // Application - Before update 
-      const myApplication = await db
-        .select()
-        .from(APPLICATION_TABLE_NAME)
-        .where({ id: application_id })
-        .catch((error: Error) => {
-          console.error(error);
-          throw new GraphQLError(error.name);
-        });
-
-      // Application - New Data [updated_at]
+    resolve: async (_: any, { applicationID, description, support, deadline, documents, labels }: any) => {
+      // Application - NEW DATE
       const new_date = new Date().toISOString().split(/[T.]+/, 2).join(' ');
 
+      // Application - NEW STATUS
       const newStatusID = await db
-        .select("id")
+        .select()
         .table(APPLICATION_STATUS_TABLE_NAME)
-        .where({ order: 0 })
+        .where({ order: 1 })
         .catch((error: Error) => {
           console.error(error);
           throw new GraphQLError(error.name);
         });
 
-        
-      // Application - Update [Labels, Documents, Status, etc.]
+      // Application - OLD DOCUMENTS
+      const oldDocuments = await db
+      .select()
+        .table(APPLICATION_DOCUMENTS_TABLE_NAME)
+        .where({ application_id: applicationID })
+        .catch((error: Error) => {
+          console.error(error);
+          throw new GraphQLError(error.name);
+        });
+
+      // Application - UPDATE
       await db
         .transaction(async (trx) => {
 
-          // Application - New Status, Description, Support, etc.
+          // Application - NEW Status, Description, Support, etc.
           await trx
             .table(APPLICATION_TABLE_NAME)
-            .update({updated_at: new_date, application_status_id: newStatusID[0].id, description: description, support: support, deadline: deadline, start_time: start_time, end_time: end_time})
-            .where({id: application_id})
+            .update({updated_at: new_date, application_status_id: newStatusID[0].id, description: description, support: support, deadline: deadline })
+            .where({id: applicationID})
             .catch((error: Error) => {
               console.error(error);
               throw new GraphQLError(error.name);
             });
+
+          // Application - NEW DOCUMENTS
+          // Recupero todos los documentos - old
+          // Identifico type de los nuevos docs
+          // Comparación de documentos si hay cambios en type específico
+          // Hacer el update por archivos cambiados
+
+          // Application - OLD LABELS
+          await trx
+            .table(APPLICATION_LABEL_TABLE_NAME)
+            .where({ application_id: applicationID })
+            .del()
+            .catch((error: Error) => {
+              console.error(error);
+              throw new GraphQLError(error.name);
+            });
+
+          // Application - NEW LABELS
+          await Promise.all(
+            labels.map(async (elem: any) => {
+                await db(APPLICATION_LABEL_TABLE_NAME)
+                .insert({
+                  application_id: applicationID,
+                  label_id: elem
+                })
+                .catch((error: Error) => {
+                  console.error(error);
+                  throw  new GraphQLError(error.name);
+                });
+            })
+          );
         })
         .catch((error: Error) => {
           console.error(error);
           throw new GraphQLError(error.name);
         });
 
-      // Application - New Documents [Draft]
-      // Recupero todos los documentos - old
-      // Identifico type de los nuevos docs
-      // Comparación de documentos si hay cambios en type específico
-      // Hacer el update por archivos cambiados
-
-      // Application - New Labels [Draft]
-      // OLD LABELS - DELETE
-      // await db
-      //   .table(APPLICATION_LABEL_TABLE_NAME)
-      //   .where({ application_id: application_id })
-      //   .del()
-      //   .catch((error: Error) => {
-      //     console.error(error);
-      //     throw new GraphQLError(error.name);
-      //   });
-
-      // NEW LABELS - INSERT
-      // await Promise.all(
-      //   labels.map(async (elem: any) => {
-      //       await db(APPLICATION_LABEL_TABLE_NAME)
-      //       .insert({
-      //         application_id,
-      //         elem.label_id
-      //       })
-      //       .catch((error: Error) => {
-      //         console.error(error);
-      //         throw  new GraphQLError(error.name);
-      //       });
-      //   })
-      // );
-
-      return "Succesful application update";
+        return "Succesful application update";
     },
   },
 };

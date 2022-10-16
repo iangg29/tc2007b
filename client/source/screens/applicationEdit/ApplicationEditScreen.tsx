@@ -7,8 +7,6 @@ import * as DocumentPicker from "expo-document-picker";
 import { useForm, Controller } from "react-hook-form";
 import { Alert, FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAppSelector } from "../../store/hooks";
-import { selectUser } from "../../store/slices/authSlice";
 
 import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
 
@@ -20,6 +18,8 @@ import {
   ApplicationEditScreen2Query,
   ApplicationEditScreen2Query$data,
 } from "./__generated__/ApplicationEditScreen2Query.graphql";
+
+import { ApplicationEditScreenMutation } from "./__generated__/ApplicationEditScreenMutation.graphql";
 
 interface labelsType {
   id: string;
@@ -67,6 +67,7 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
       }
     `,
     { id: itemId },
+    { fetchPolicy: "network-only" },
   );
 
   const { applicationByID } = data;
@@ -93,6 +94,29 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
   );
 
   const { citationDocuments, labels } = info;
+
+  // Update Application
+  const [commitMutation] = useMutation<ApplicationEditScreenMutation>(
+    graphql`
+      mutation ApplicationEditScreenMutation(
+        $applicationID: ID!
+        $description: String!
+        $support: String!
+        $deadline: String!
+        $documents: [documentsInfo]!
+        $labels: [ID]!
+      ) {
+        updateApplication(
+          applicationID: $applicationID
+          description: $description
+          support: $support
+          deadline: $deadline
+          documents: $documents
+          labels: $labels
+        )
+      }
+    `,
+  );
 
   // SeT Citation Documents
   const docTypes: any = citationDocuments?.map((item: any): any => {
@@ -177,7 +201,7 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
     setShow(true);
   };
 
-  // ------------------------------------------
+  // Default Values
   const {
     control,
     handleSubmit,
@@ -187,16 +211,54 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
     defaultValues: {
       description: applicationByID.description,
       support: applicationByID.support,
-      deadline: todayDate,
+      deadline: applicationByID.deadline,
     },
   });
 
   const navigation = useNavigation();
 
+  // Submit Changes
   const onSubmitForm = () => {
-    // IN PROGRESS
+    const myLabels = list
+      ?.filter((element: any) => element.color === "#d1d5db")
+      .map((filteredElement: any) => {
+        const newElement: any = filteredElement.id;
+        return newElement;
+      });
+
+    const myDescription = getValues("description");
+    const mySupport = getValues("support");
+    const myDeadline = getValues("deadline");
+
+    if (myLabels?.length !== 0 && documents.length < citationDocuments.length) {
+      commitMutation({
+        variables: {
+          applicationID: itemId as unknown as string,
+          description: myDescription as unknown as string,
+          support: mySupport as unknown as string,
+          deadline: myDeadline as unknown as string,
+          documents: documents as unknown as [documentsInfo],
+          labels: myLabels as unknown as [string],
+        },
+        onCompleted: () => {
+          Alert.alert("Editar solicitud", "Se guardaron los cambios exitosamente", [
+            {
+              text: "Cerrar",
+              onPress: () => console.debug("Cancel Pressed"),
+              style: "cancel",
+            },
+            { text: "Aceptar", onPress: () => console.debug("OK Pressed") },
+          ]);
+          navigation.goBack();
+        },
+        onError: () => {
+          console.debug("Error");
+        },
+      });
+    } else {
+      console.debug("Missing documents and/or labels");
+    }
   };
-  // ------------------------------------------
 
   return (
     <SafeAreaView>
@@ -229,7 +291,6 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
               multiline
               numberOfLines={3}
               className="bg-gray-200 px-5 py-4 mx-3 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border border-gray-300"
-              style={{ height: 100 }}
               onChangeText={(value) => onChange(value)}
               value={value}
             />
@@ -252,7 +313,6 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
               multiline
               numberOfLines={3}
               className="bg-gray-200 px-5 py-4 mx-3 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border border-gray-300"
-              style={{ height: 100 }}
               onChangeText={(value) => onChange(value)}
               value={value}
             />
