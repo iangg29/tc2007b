@@ -1,13 +1,14 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { Alert, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useAppDispatch } from "../../store/hooks";
-import axios, { AxiosResponse } from "axios";
 import { API_URL } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
-import { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import axios, { AxiosResponse } from "axios";
+import { useLayoutEffect, useState } from "react";
+import { Alert, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
+
+import { useAppDispatch } from "../../store/hooks";
+import { setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
 
 const SignUp = () => {
   const navigation = useNavigation();
@@ -71,7 +72,7 @@ const SignUp = () => {
               textContentType="name"
               keyboardType="default"
               autoComplete="name-given"
-              spellCheck={true}
+              spellCheck
               className="bg-gray-100 px-5 py-4 rounded-lg"
             />
           </View>
@@ -83,7 +84,7 @@ const SignUp = () => {
                 textContentType="familyName"
                 keyboardType="default"
                 autoComplete="name-family"
-                spellCheck={true}
+                spellCheck
                 className="bg-gray-100 px-5 py-4 rounded-lg"
               />
             </View>
@@ -94,7 +95,7 @@ const SignUp = () => {
                 textContentType="familyName"
                 keyboardType="default"
                 autoComplete="name-family"
-                spellCheck={true}
+                spellCheck
                 className="bg-gray-100 px-5 py-4 rounded-lg"
               />
             </View>

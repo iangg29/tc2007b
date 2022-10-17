@@ -6,7 +6,7 @@ import { DocumentTypeType } from "./DocumentTypeType";
 
 export const DocumentType = new GraphQLObjectType({
   name: "Document",
-  description: "Document model, contains all the specifications of the documents uploaded by the users",
+  description: "Document type, contains all the specifications of the documents uploaded by the users",
   fields: {
     id: {
       type: GraphQLNonNull(GraphQLID),

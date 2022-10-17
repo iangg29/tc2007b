@@ -1,13 +1,14 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
+import { API_URL } from "@env";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import axios, { AxiosResponse } from "axios";
 import { useLayoutEffect, useState } from "react";
 import { Alert, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+
 import { useAppDispatch } from "../../store/hooks";
 import { setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
-import axios, { AxiosResponse } from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from "@env";
-import { useNavigation } from "@react-navigation/native";
 
 const Login = (): JSX.Element => {
   const dispatch = useAppDispatch();

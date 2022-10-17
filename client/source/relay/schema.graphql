@@ -159,7 +159,7 @@ type ApplicationStatus {
 }
 
 """
-Citation model that contains the document and information the users has to follow in order to get their scholarship
+Citation type that contains the document and information the users has to follow in order to get their scholarship
 """
 type Citation {
   """
@@ -199,7 +199,7 @@ type Citation {
 }
 
 """
-Document model, contains all the specifications of the documents uploaded by the users
+Document type, contains all the specifications of the documents uploaded by the users
 """
 type Document {
   """

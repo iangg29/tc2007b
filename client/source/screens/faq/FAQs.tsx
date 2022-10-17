@@ -1,12 +1,12 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { FlatList, SafeAreaView, Text, View } from "react-native";
+import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { useLazyLoadQuery } from "react-relay";
 import { graphql } from "react-relay/hooks";
 
 import { FAQsQuery, FAQsQuery$data } from "./__generated__/FAQsQuery.graphql";
 
-export const FAQs = (): JSX.Element => {
+const FAQs = (): JSX.Element => {
   const data: FAQsQuery$data = useLazyLoadQuery<FAQsQuery>(
     graphql`
       query FAQsQuery {
@@ -22,28 +22,30 @@ export const FAQs = (): JSX.Element => {
     {},
   );
 
-  const { faqs } = data;
-
-  console.debug(faqs);
-
   return (
-    <SafeAreaView>
-      <FlatList
-        data={faqs}
-        renderItem={(faq: any) => (
-          <View>
-            <View>
-              <Text>Question:</Text>
-              <Text className="font-bold text-black">{faq.question}</Text>
+    <>
+      <SafeAreaView>
+        <FlatList
+          data={data?.faqs}
+          renderItem={({ item }) => (
+            <View className="p-2">
+              <View className="px-4">
+                <Text>Question:</Text>
+                <TouchableOpacity className="bg-blue-500 p-2 rounded-lg">
+                  <Text className="text-white text-lg text-center">{item.question}</Text>
+                </TouchableOpacity>
+              </View>
+              <View className="flex-row">
+                <Text>Answer:</Text>
+                <Text>{item.answer}</Text>
+              </View>
             </View>
-            <View className="flex-row">
-              <Text>Answer:</Text>
-              <Text>{faq.answer}</Text>
-            </View>
-          </View>
-        )}
-        keyExtractor={(faq) => faq.id}
-      />
-    </SafeAreaView>
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      </SafeAreaView>
+    </>
   );
 };
+
+export default FAQs;

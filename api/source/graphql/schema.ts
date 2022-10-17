@@ -41,7 +41,7 @@ const RootQuery = new GraphQLObjectType({
     ...CitationQueries,
     ...DocumentQueries,
     ...LabelQueries,
-    ...EvidenceQueries
+    ...EvidenceQueries,
   },
 });
 
@@ -60,7 +60,7 @@ const RootMutation = new GraphQLObjectType({
     ...DocumentTypeMutations,
     ...EvidenceMutations,
     ...DocumentMutations,
-    ...LabelMutations
+    ...LabelMutations,
   },
 });
 
