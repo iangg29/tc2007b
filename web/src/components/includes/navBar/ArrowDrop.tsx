@@ -17,25 +17,25 @@ const ArrowDrop = (): JSX.Element => {
             </Dropdown.Item>
 
             <Dropdown.Item>
-              <Link to={"applications/reviewdocuments"} className="navBarLink">
+              <Link to={"applications/reviewdocuments/2"} className="navBarLink">
                 Por revisar documentos
               </Link>
             </Dropdown.Item>
 
             <Dropdown.Item>
-              <Link to={"applications/reviewproposals"} className="navBarLink">
+              <Link to={"applications/reviewproposals/3"} className="navBarLink">
                 Por aprobar
               </Link>
             </Dropdown.Item>
 
             <Dropdown.Item>
-              <Link to={"applications/reviewapproved"} className="navBarLink">
+              <Link to={"applications/reviewapproved/5"} className="navBarLink">
                 Aprobadas
               </Link>
             </Dropdown.Item>
 
             <Dropdown.Item>
-              <Link to={"applications/reviewfinished"} className="navBarLink">
+              <Link to={"applications/reviewfinished/6"} className="navBarLink">
                 Finalizadas
               </Link>
             </Dropdown.Item>

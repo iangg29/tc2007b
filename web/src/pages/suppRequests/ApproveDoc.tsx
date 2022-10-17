@@ -7,8 +7,17 @@ import { ApproveDocQuery, ApproveDocQuery$data } from "./__generated__/ApproveDo
 import RequestMap from "../../components/RequestCard/RequestMap";
 import { useState } from "react";
 import FilterByLabels from "../../components/Filter/FilterByLabels";
+import { useParams } from "react-router-dom";
 
 const ApproveDoc = (): JSX.Element => {
+  // Params - ApplicationStatus
+  const params = useParams();
+  let applicationStatus = "";
+
+  if (params.status !== undefined) {
+    applicationStatus = params.status;
+  }
+
   const data: ApproveDocQuery$data = useLazyLoadQuery<ApproveDocQuery>(
     graphql`
       query ApproveDocQuery($application_status_id: ID!) {
@@ -37,7 +46,7 @@ const ApproveDoc = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "" },
+    { application_status_id: applicationStatus },
     { fetchPolicy: "network-only" },
   );
 
@@ -92,8 +101,8 @@ const ApproveDoc = (): JSX.Element => {
             <RequestMap
               key={element.id}
               text={"Revisar documentos"}
-              color={"#50245C"}
-              link={`/app/applications/reviewdocuments/${String(element.id)}`}
+              color={"#244B5C"}
+              link={`/app/applications/reviewdocuments/2/${String(element.id)}`}
               element={element}
             ></RequestMap>
           ))}
@@ -129,7 +138,7 @@ const ApproveDoc = (): JSX.Element => {
               key={element.id}
               text={"Revisar documentos"}
               color={"#50245C"}
-              link={`/app/applications/reviewdocuments/${String(element.id)}`}
+              link={`/app/applications/reviewdocuments/2/${String(element.id)}`}
               element={element}
             ></RequestMap>
           ))}
