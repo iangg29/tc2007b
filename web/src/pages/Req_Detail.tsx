@@ -121,14 +121,14 @@ const ReqDetail = (): JSX.Element => {
                 <Req_Button
                   key={1}
                   text="Aprobar"
-                  navigate="/app/applications/reviewproposals"
+                  navigate="/app/applications/reviewproposals/3"
                   next={4}
                   appID={params?.applicationId}
                 />
                 <Req_Button
                   key={2}
                   text="Rechazar"
-                  navigate="/app/applications/reviewproposals"
+                  navigate="/app/applications/reviewproposals/3"
                   next={3}
                   appID={params?.applicationId}
                 />

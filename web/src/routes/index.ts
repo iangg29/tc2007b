@@ -31,7 +31,7 @@ const routes: iRoute[] = [
     components: Analytic,
   },
   {
-    path: "/applications/reviewdocuments",
+    path: "/applications/reviewdocuments/:status",
     components: ApproveDocs,
   },
   {
@@ -39,31 +39,31 @@ const routes: iRoute[] = [
     components: Applications,
   },
   {
-    path: "/applications/reviewdocuments/:applicationId",
+    path: "/applications/reviewdocuments/2/:applicationId",
     components: Documentation,
   },
   {
-    path: "/applications/reviewproposals",
+    path: "/applications/reviewproposals/:status",
     components: ApproveApplications,
   },
   {
-    path: "/applications/reviewproposals/:applicationId",
+    path: "/applications/reviewproposals/3/:applicationId",
     components: Detail,
   },
   {
-    path: "/applications/reviewapproved",
+    path: "/applications/reviewapproved/:status",
     components: ApplicationAccepted,
   },
   {
-    path: "/applications/reviewapproved/:applicationId",
+    path: "/applications/reviewapproved/5/:applicationId",
     components: Detail,
   },
   {
-    path: "/applications/reviewfinished",
+    path: "/applications/reviewfinished/:status",
     components: ApplicationFinalized,
   },
   {
-    path: "/applications/reviewfinished/:applicationId",
+    path: "/applications/reviewfinished/6/:applicationId",
     components: Evidence,
   },
   {

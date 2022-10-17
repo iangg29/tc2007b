@@ -10,8 +10,17 @@ import {
 import RequestMap from "../../components/RequestCard/RequestMap";
 import { useState } from "react";
 import FilterByLabels from "../../components/Filter/FilterByLabels";
+import { useParams } from "react-router-dom";
 
 const ApplicationFinalized = (): JSX.Element => {
+  // Params - ApplicationStatus
+  const params = useParams();
+  let applicationStatus = "";
+
+  if (params.status !== undefined) {
+    applicationStatus = params.status;
+  }
+
   const data: ApplicationFinalizedQuery$data = useLazyLoadQuery<ApplicationFinalizedQuery>(
     graphql`
       query ApplicationFinalizedQuery($application_status_id: ID!) {
@@ -40,7 +49,7 @@ const ApplicationFinalized = (): JSX.Element => {
         }
       }
     `,
-    { application_status_id: "" },
+    { application_status_id: applicationStatus },
     { fetchPolicy: "network-only" },
   );
 
@@ -94,9 +103,9 @@ const ApplicationFinalized = (): JSX.Element => {
           {applicationByStatusID?.map((element: any) => (
             <RequestMap
               key={element.id}
-              text={"Revisar documentos"}
-              color={"#50245C"}
-              link={`/app/applications/reviewdocuments/${String(element.id)}`}
+              text={"Ver"}
+              color={"#D0A52A"}
+              link={`/app/applications/reviewfinished/6/${String(element.id)}`}
               element={element}
             ></RequestMap>
           ))}
@@ -132,7 +141,7 @@ const ApplicationFinalized = (): JSX.Element => {
               key={element.id}
               text={"Revisar documentos"}
               color={"#50245C"}
-              link={`/app/applications/reviewdocuments/${String(element.id)}`}
+              link={`/app/applications/reviewfinished/5/${String(element.id)}`}
               element={element}
             ></RequestMap>
           ))}
