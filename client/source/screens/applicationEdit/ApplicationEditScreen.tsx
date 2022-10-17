@@ -7,6 +7,8 @@ import * as DocumentPicker from "expo-document-picker";
 import { useForm, Controller } from "react-hook-form";
 import { Alert, FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAppSelector } from "../../store/hooks";
+import { selectUser } from "../../store/slices/authSlice";
 
 import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
 
@@ -37,6 +39,9 @@ type documentsInfo = {
 // Screen to edit an application [send to corrections]
 const ApplicationEditScreen = ({ route }: any): JSX.Element => {
   const { itemId } = route.params;
+
+  const user: any = useAppSelector(selectUser);
+  const user_id = user.id;
 
   // Data of the Application
   const data: ApplicationEditScreenQuery$data = useLazyLoadQuery<ApplicationEditScreenQuery>(
@@ -99,6 +104,7 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
   const [commitMutation] = useMutation<ApplicationEditScreenMutation>(
     graphql`
       mutation ApplicationEditScreenMutation(
+        $user_id: ID!
         $applicationID: ID!
         $description: String!
         $support: String!
@@ -107,6 +113,7 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
         $labels: [ID]!
       ) {
         updateApplication(
+          user_id: $user_id
           applicationID: $applicationID
           description: $description
           support: $support
@@ -230,9 +237,10 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
     const mySupport = getValues("support");
     const myDeadline = getValues("deadline");
 
-    if (myLabels?.length !== 0 && documents.length < citationDocuments.length) {
+    if (myLabels?.length !== 0 && documents.length !== 0) {
       commitMutation({
         variables: {
+          user_id: user_id as unknown as string,
           applicationID: itemId as unknown as string,
           description: myDescription as unknown as string,
           support: mySupport as unknown as string,
@@ -344,7 +352,7 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
                   <DateTimePicker
                     testID="dateTimePicker"
                     mode="date"
-                    value={new Date(value)}
+                    value={new Date(todayDate)}
                     onChange={(event, selectedDate) => {
                       setShow(false);
 

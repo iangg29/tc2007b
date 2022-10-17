@@ -475,6 +475,9 @@ export default {
   updateApplication: {
     type: GraphQLString,
     args: {
+      user_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
       applicationID: {
         type: GraphQLNonNull(GraphQLID)
       },
@@ -494,7 +497,7 @@ export default {
         type: GraphQLList(GraphQLID),
       }
     },
-    resolve: async (_: any, { applicationID, description, support, deadline, documents, labels }: any) => {
+    resolve: async (_: any, { user_id, applicationID, description, support, deadline, documents, labels }: any) => {
       // Application - NEW DATE
       const new_date = new Date().toISOString().split(/[T.]+/, 2).join(' ');
 
@@ -502,41 +505,59 @@ export default {
       const newStatusID = await db
         .select()
         .table(APPLICATION_STATUS_TABLE_NAME)
-        .where({ order: 1 })
+        .where({ order:1 })
         .catch((error: Error) => {
           console.error(error);
           throw new GraphQLError(error.name);
         });
 
       // Application - OLD DOCUMENTS
-      const oldDocuments = await db
-      .select()
-        .table(APPLICATION_DOCUMENTS_TABLE_NAME)
-        .where({ application_id: applicationID })
-        .catch((error: Error) => {
-          console.error(error);
-          throw new GraphQLError(error.name);
-        });
+      const userDocuments = await db.select().table(DOCUMENT_TABLE_NAME).where({ user_id: user_id });
+
+      const listUserDocumentTypes = userDocuments.map((element: any) => {
+        const newElement: any = element.file_type_id;
+        return newElement;
+      });
+
+      const listUserDocumentsIDs = userDocuments.map((element: any) => {
+        const newElement: any = element.id;
+        return newElement;
+      });
 
       // Application - UPDATE
       await db
         .transaction(async (trx) => {
 
           // Application - NEW Status, Description, Support, etc.
-          await trx
-            .table(APPLICATION_TABLE_NAME)
-            .update({updated_at: new_date, application_status_id: newStatusID[0].id, description: description, support: support, deadline: deadline })
-            .where({id: applicationID})
-            .catch((error: Error) => {
-              console.error(error);
-              throw new GraphQLError(error.name);
-            });
+          await trx(APPLICATION_TABLE_NAME).update({
+              updated_at: new_date, 
+              application_status_id: newStatusID[0].id, 
+              description: description, 
+              support: support, 
+              deadline: deadline 
+            }).where({id: applicationID});
 
           // Application - NEW DOCUMENTS
-          // Recupero todos los documentos - old
-          // Identifico type de los nuevos docs
-          // Comparación de documentos si hay cambios en type específico
-          // Hacer el update por archivos cambiados
+          const docsToBeUpdated = documents.filter((element: any) => listUserDocumentTypes.includes(element.id)).map((filteredElement: any) => {
+            const idx = userDocuments.findIndex((x) => x.file_type_id === filteredElement.id)
+            const newElement: any = {
+              type_name: filteredElement.type_name,
+              field: filteredElement.field,
+              file_name: filteredElement.file_name,
+              document_id: listUserDocumentsIDs[idx],
+            };
+              return newElement;
+            }
+          );
+
+          await Promise.all(
+            docsToBeUpdated.map(async (element: any) => {
+              await trx(DOCUMENT_TABLE_NAME).update({
+                file_name: element.file_name,
+                url: element.field,
+              }).where({ id: element.document_id });
+            }),
+          );
 
           // Application - OLD LABELS
           await trx
@@ -551,16 +572,12 @@ export default {
           // Application - NEW LABELS
           await Promise.all(
             labels.map(async (elem: any) => {
-                await db(APPLICATION_LABEL_TABLE_NAME)
+                await trx(APPLICATION_LABEL_TABLE_NAME)
                 .insert({
                   application_id: applicationID,
-                  label_id: elem
-                })
-                .catch((error: Error) => {
-                  console.error(error);
-                  throw  new GraphQLError(error.name);
+                  label_id: elem,
                 });
-            })
+            }),
           );
         })
         .catch((error: Error) => {
