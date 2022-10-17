@@ -62,7 +62,6 @@ export default {
     },
     resolve: async (_: any, { id }: any) => {
       const countDocs = await db(DOCUMENT_TABLE_NAME).where("id", id).count({ numDoc: "file_type_id" }).first();
-      console.log("countDocs", countDocs);
       if (countDocs?.numDoc === 0) {
         await db(DOCUMENT_TYPE_TABLE_NAME).where("id", id).del();
         return true;

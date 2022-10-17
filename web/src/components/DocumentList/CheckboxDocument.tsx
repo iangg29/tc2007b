@@ -29,7 +29,6 @@ const CheckboxDocument = ({ name, isChecked, id, setChecked }: params): JSX.Elem
     { id },
     { fetchPolicy: "network-only" },
   );
-  console.log("countDoc", countDoc);
   const handleDelete = (): void => {
     if (countDoc.countDocumetOfType === 0) {
       commitMutation({

@@ -25,10 +25,6 @@ const DocumentTypeModal = ({ show, onClose }: params): JSX.Element => {
   );
 
   const handleSubmit = (): void => {
-    console.log("Submit");
-    console.log("########################");
-    console.log(docTypeNameVariable);
-
     commitMutation({
       variables: {
         type_name: docTypeNameVariable as unknown as string,
