@@ -32,10 +32,11 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.disable('x-powered-by');
+app.disable("x-powered-by");
 
 app.use(
   "/graphql",
+  validateToken,
   graphqlHTTP({
     schema,
     graphiql: process.env.NODE_ENV !== "production",
