@@ -139,7 +139,7 @@ const ApplicationAccepted = (): JSX.Element => {
           {updateApplications?.map((element: any) => (
             <RequestMap
               key={element.id}
-              text={"Revisar documentos"}
+              text={"Dar seguimiento"}
               color={"#50245C"}
               link={`/app/applications/reviewapproved/5/${String(element.id)}`}
               element={element}

@@ -137,7 +137,7 @@ const ApproveDoc = (): JSX.Element => {
             <RequestMap
               key={element.id}
               text={"Revisar documentos"}
-              color={"#50245C"}
+              color={"#244B5C"}
               link={`/app/applications/reviewdocuments/2/${String(element.id)}`}
               element={element}
             ></RequestMap>
