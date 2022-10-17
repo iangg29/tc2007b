@@ -139,9 +139,9 @@ const ApplicationFinalized = (): JSX.Element => {
           {updateApplications?.map((element: any) => (
             <RequestMap
               key={element.id}
-              text={"Revisar documentos"}
-              color={"#50245C"}
-              link={`/app/applications/reviewfinished/5/${String(element.id)}`}
+              text={"Ver"}
+              color={"#D0A52A"}
+              link={`/app/applications/reviewfinished/6/${String(element.id)}`}
               element={element}
             ></RequestMap>
           ))}

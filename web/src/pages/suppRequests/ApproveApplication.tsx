@@ -136,8 +136,8 @@ const ApproveApplication = (): JSX.Element => {
           {updateApplications?.map((element: any) => (
             <RequestMap
               key={element.id}
-              text={"Revisar documentos"}
-              color={"#50245C"}
+              text={"Revisar Propuesta"}
+              color={"#252d53"}
               link={`/app/applications/reviewproposals/3/${String(element.id)}`}
               element={element}
             ></RequestMap>
