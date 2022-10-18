@@ -22,7 +22,7 @@ export async function up(knex: Knex): Promise<void> {
       table.date("deadline");
       table.timestamp("start_time").defaultTo(knex.fn.now());
       table.timestamp("end_time");
-      table.date("emission_date").defaultTo(knex.fn.now());
+      table.timestamp("emission_date").defaultTo(knex.fn.now());
       table.date("response_date");
       table.string("application_status_id").notNullable();
       table.string("citation_id").notNullable();
