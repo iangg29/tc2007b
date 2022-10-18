@@ -34,22 +34,19 @@ export async function up(knex: Knex): Promise<void> {
         .references("id")
         .inTable(USER_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+        .onDelete("CASCADE");
       table
         .foreign("application_status_id")
         .references("id")
         .inTable(APPLICATION_STATUS_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+        .onDelete("CASCADE");
       table
         .foreign("citation_id")
         .references("id")
         .inTable(CITATION_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+        .onDelete("CASCADE");
     });
   }
 }

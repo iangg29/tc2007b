@@ -23,15 +23,13 @@ export async function up(knex: Knex): Promise<void> {
         .references("id")
         .inTable(USER_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+        .onDelete("CASCADE");
       table
         .foreign("file_type_id", "id")
         .references("id")
         .inTable(DOCUMENT_TYPE_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+        .onDelete("CASCADE");
     });
   }
 }
