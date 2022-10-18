@@ -20,16 +20,16 @@ const ApplicationStatusView = ({ status, title }: Props) => {
       case "Pendiente de revisión":
         setNum(1);
         setMessage(
-          "Tus documentación se ha enviado con éxito.\nEstamos revisando que correspondan con su descripción.",
+          "¡Tus documentación se han enviado con éxito! \n\nNos encontramos validando que los datos sean correctos.",
         );
         break;
       case "En corrección":
         setNum(2);
-        setMessage("Algo salió mal con alguno de tus documentos. Te pedimos los vuelvas a subir.");
+        setMessage("Algo salió mal con alguno de tus documentos.\n\nTe pedimos los vuelvas a subir.");
         break;
       case "Documentos aceptados":
         setNum(3);
-        setMessage("Tus documentos parecen en orden. Estamos evaluando tu solicitud.");
+        setMessage("Tus documentos parecen en orden. \nEstamos evaluando tu solicitud.");
         break;
       case "Rechazado":
         setNum(4);
@@ -37,7 +37,9 @@ const ApplicationStatusView = ({ status, title }: Props) => {
         break;
       case "Aceptado":
         setNum(5);
-        setMessage("Feliciades, tus solicitud a sido aceptada. Recuerda subir la evidencia para justificar el apoyo.");
+        setMessage(
+          "Felicidades, tus solicitud ha sido aceptada. \nRecuerda subir la evidencia para justificar el apoyo.",
+        );
         break;
       case "Finalizado":
         setNum(6);
@@ -86,9 +88,8 @@ const ApplicationStatusView = ({ status, title }: Props) => {
   return (
     <View>
       <View className="flex flex-col pl-4 justify-start">
-        <Text className="pt-4 tracking-wide text-xl   text-slate-600 dark:text-white">Mi solicitud:</Text>
-        <Text className=" text-2xl font-semibold text-slate-600">{title}</Text>
-
+        <Text className="pt-2 tracking-wide text-base text-gray-500 dark:text-white">Mi solicitud:</Text>
+        <Text className="text-2xl font-semibold text-main-100">{title}</Text>
         <FlatList
           className="pt-4"
           data={myData}
@@ -104,8 +105,8 @@ const ApplicationStatusView = ({ status, title }: Props) => {
         />
       </View>
 
-      <View className="bg-blue-100  shadow-lg mx-auto rounded-xl m-6 ">
-        <Text className="font-semibold text-cyan-800	 text-lg m-4 ">{message}</Text>
+      <View className="flex flex-row content-center justify-center bg-blue-100 shadow-sm mx-auto rounded-xl mt-6 p-4">
+        <Text className="font-medium text-cyan-900 text-md">{message}</Text>
       </View>
     </View>
   );

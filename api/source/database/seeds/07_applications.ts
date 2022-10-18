@@ -29,10 +29,58 @@ export async function seed(knex: Knex): Promise<void> {
         "Soy Mariana, represento a la compañia de danza DanceTech, el día 28 de Diciembre nos gustaría abrir al público el espetaculo de la danza de los cisnes que hemos ensayado. Para esto solicitamos el teatro de la ciudad.",
       support: "Teatro de la ciudad 28 de Diciembre de 15:00-22:00 hrs",
       application_status_id: "2",
-      citation_id: "1",
+      citation_id: "4",
     },
     {
       id: "3",
+      user_id: "3",
+      application_title: "Solicitud para auditorio",
+      image: "https://www.artistasdelatierra.com/obras/foto104185.jpg",
+      application_description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit sapien nisi, eget faucibus magna lobortis eu. Sed arcu nibh, varius eu finibus in, tincidunt nec tellus. Nullam suscipit mi libero, posuere sodales nunc congue quis. Cras rhoncus malesuada posuere. In sed velit at ex tincidunt sodales quis sit amet neque. Duis sodales libero at accumsan convallis. Curabitur feugiat justo a tellus tempor, at egestas ante mattis. Ut sagittis rhoncus iaculis.",
+      support:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit sapien nisi, eget faucibus magna lobortis eu. Sed arcu nibh, varius eu finibus in, tincidunt nec tellus. Nullam suscipit mi libero, posuere sodales nunc congue quis. Cras rhoncus malesuada posuere. In sed velit at ex tincidunt sodales quis sit amet neque. Duis sodales libero at accumsan convallis. Curabitur feugiat justo a tellus tempor, at egestas ante mattis. Ut sagittis rhoncus iaculis.",
+      application_status_id: "1",
+      citation_id: "1",
+    },
+    {
+      id: "8",
+      user_id: "8",
+      application_title: "Solicitud 7",
+      image: "https://www.artistasdelatierra.com/obras/foto104185.jpg",
+      application_description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit sapien nisi, eget faucibus magna lobortis eu. Sed arcu nibh, varius eu finibus in, tincidunt nec tellus. Nullam suscipit mi libero, posuere sodales nunc congue quis. Cras rhoncus malesuada posuere. In sed velit at ex tincidunt sodales quis sit amet neque. Duis sodales libero at accumsan convallis. Curabitur feugiat justo a tellus tempor, at egestas ante mattis. Ut sagittis rhoncus iaculis.",
+      support:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit sapien nisi, eget faucibus magna lobortis eu. Sed arcu nibh, varius eu finibus in, tincidunt nec tellus. Nullam suscipit mi libero, posuere sodales nunc congue quis. Cras rhoncus malesuada posuere. In sed velit at ex tincidunt sodales quis sit amet neque. Duis sodales libero at accumsan convallis. Curabitur feugiat justo a tellus tempor, at egestas ante mattis. Ut sagittis rhoncus iaculis.",
+      application_status_id: "1",
+      citation_id: "1",
+    },
+    {
+      id: "9",
+      user_id: "5",
+      application_title: "Solicitud 8",
+      image: "https://www.artistasdelatierra.com/obras/foto104185.jpg",
+      application_description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit sapien nisi, eget faucibus magna lobortis eu. Sed arcu nibh, varius eu finibus in, tincidunt nec tellus. Nullam suscipit mi libero, posuere sodales nunc congue quis. Cras rhoncus malesuada posuere. In sed velit at ex tincidunt sodales quis sit amet neque. Duis sodales libero at accumsan convallis. Curabitur feugiat justo a tellus tempor, at egestas ante mattis. Ut sagittis rhoncus iaculis.",
+      support:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit sapien nisi, eget faucibus magna lobortis eu. Sed arcu nibh, varius eu finibus in, tincidunt nec tellus. Nullam suscipit mi libero, posuere sodales nunc congue quis. Cras rhoncus malesuada posuere. In sed velit at ex tincidunt sodales quis sit amet neque. Duis sodales libero at accumsan convallis. Curabitur feugiat justo a tellus tempor, at egestas ante mattis. Ut sagittis rhoncus iaculis.",
+      application_status_id: "3",
+      citation_id: "1",
+    },
+    {
+      id: "10",
+      user_id: "4",
+      application_title: "Solicitud 9",
+      image: "https://cdn.pixabay.com/photo/2022/05/06/03/09/queretaro-7177385__340.jpg",
+      application_description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit sapien nisi, eget faucibus magna lobortis eu. Sed arcu nibh, varius eu finibus in, tincidunt nec tellus. Nullam suscipit mi libero, posuere sodales nunc congue quis. Cras rhoncus malesuada posuere. In sed velit at ex tincidunt sodales quis sit amet neque. Duis sodales libero at accumsan convallis. Curabitur feugiat justo a tellus tempor, at egestas ante mattis. Ut sagittis rhoncus iaculis.",
+      support:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit sapien nisi, eget faucibus magna lobortis eu. Sed arcu nibh, varius eu finibus in, tincidunt nec tellus. Nullam suscipit mi libero, posuere sodales nunc congue quis. Cras rhoncus malesuada posuere. In sed velit at ex tincidunt sodales quis sit amet neque. Duis sodales libero at accumsan convallis. Curabitur feugiat justo a tellus tempor, at egestas ante mattis. Ut sagittis rhoncus iaculis.",
+      application_status_id: "5",
+      citation_id: "1",
+    },
+    {
+      id: "12",
       user_id: "7",
       application_title: "Presentación Jardín Zenea",
       image: "https://cdn.pixabay.com/photo/2017/11/07/00/18/guitar-2925274__340.jpg",

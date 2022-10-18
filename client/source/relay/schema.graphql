@@ -213,6 +213,13 @@ type Document {
   updated_at: String!
 }
 
+input documentsInfo {
+  id: ID
+  type_name: String
+  field: String
+  data: String
+}
+
 """
 Type of document uploaded
 """
@@ -383,6 +390,16 @@ Application's GraphQL root mutations
 """
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
+  createNewApplication(
+    user_id: ID!
+    title: String!
+    description: String!
+    support: String!
+    deadline: String
+    citation_id: ID!
+    documents: [documentsInfo]
+    labels: [ID]
+  ): Application
   createApplication(
     user_id: ID!
     application_title: String!
@@ -401,6 +418,15 @@ type RootMutation {
   deleteApplication(id: ID!): Boolean
   updateAplicationLabels(application_id: ID!, label_id: ID!): Application
   deleteApplicationLabels(application_id: ID!, label_id: ID!): Boolean
+  updateApplication(
+    user_id: ID!
+    applicationID: ID!
+    description: String!
+    support: String!
+    deadline: String!
+    documents: [documentsInfo]
+    labels: [ID]
+  ): String
   createStatus(
     """
     ApplicationStatus name
@@ -435,6 +461,7 @@ type RootMutation {
   createDocumentType(type_name: String!): DocumentType
   uploadEvidence(impact: String!, application_id: ID!, document_id: ID!): Evidence
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
+  deleteDocument(id: ID!): Boolean
   createLabel(label_name: String!, description: String!): Label
 }
 
