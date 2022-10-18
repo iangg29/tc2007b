@@ -1,10 +1,18 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
-import { useId, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 import logo from "../../assets/logos/logoColorSC.png";
 import { APP_NAME } from "../../utils/ApplicationConstants";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { selectIsLoggedIn, setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
+import Swal from "sweetalert2";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+
   const nameRef = useRef<HTMLInputElement>(null);
   const firstLastNameRef = useRef<HTMLInputElement>(null);
   const secondLastNameRef = useRef<HTMLInputElement>(null);
@@ -23,9 +31,96 @@ const SignUp = (): JSX.Element => {
   const passwordId = useId();
   const confirmPasswordId = useId();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const submitForm = (): void => {};
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      navigate("/app");
+    }
+  }, [isLoggedIn]);
+
+  const getData = (): object => {
+    return {
+      name: nameRef.current?.value,
+      first_lastname: firstLastNameRef.current?.value,
+      second_lastname: secondLastNameRef.current?.value,
+      email: emailRef.current?.value,
+      cellphone: cellphoneRef.current?.value,
+      gender: genderRef.current?.value,
+      password: passwordRef.current?.value,
+      confirm_password: confirmPasswordRef.current?.value,
+    };
+  };
+
+  const isDataValid = (): boolean => {
+    if (
+      nameRef.current?.value !== undefined &&
+      firstLastNameRef.current?.value !== undefined &&
+      secondLastNameRef.current?.value !== undefined &&
+      emailRef.current?.value !== undefined &&
+      cellphoneRef.current?.value !== undefined &&
+      genderRef.current?.value !== undefined &&
+      passwordRef.current?.value !== undefined &&
+      confirmPasswordRef.current?.value !== undefined
+    ) {
+      if (passwordRef.current?.value !== confirmPasswordRef.current.value) {
+        return false;
+      }
+      if (passwordRef.current?.value.length < 8) {
+        return false;
+      }
+      return true;
+    }
+    return false;
+  };
+
+  const submitForm = (): void => {
+    if (isDataValid()) {
+      (async () => {
+        await axios.post("/auth/signup", getData()).then((res) => {
+          const { status, token, user } = res.data;
+          if (status === "success") {
+            Cookies.set("token", `Bearer ${token as string}`);
+            dispatch(setUser(user));
+            dispatch(setToken(token));
+            dispatch(setIsLoggedIn(true));
+            navigate("/app/home");
+          } else {
+            void Swal.fire({
+              title: "Error",
+              icon: "error",
+              text: "Algo salió mal.",
+              customClass: {
+                container: "swal2-container",
+              },
+            });
+          }
+        });
+      })()
+        .then()
+        .catch((error) => {
+          void Swal.fire({
+            title: "Error",
+            icon: "error",
+            text: "Algo salió mal",
+            customClass: {
+              container: "swal2-container",
+            },
+          });
+        });
+    } else {
+      void Swal.fire({
+        title: "Error",
+        icon: "error",
+        text: "Verifica tus campos.",
+        customClass: {
+          container: "swal2-container",
+        },
+      });
+    }
+  };
 
   return (
     <div className="h-screen grid items-center justify-center">
