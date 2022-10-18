@@ -10,9 +10,9 @@ const CitationList = () => {
     graphql`
       query CitationListQuery {
         citationsActive {
-          title
+          citation_title
           id
-          description
+          citation_description
           end_date
         }
       }
