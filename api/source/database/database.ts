@@ -15,15 +15,14 @@ export const getConnectionConfig = () => {
     return {
       client: "mysql",
       connection: {
-        host: process.env.PG_HOST,
-        port: process.env.PG_PORT,
-        user: process.env.PG_USER,
-        password: process.env.PG_PASSWORD,
-        database: process.env.PG_DATABASE,
-        timezone: TIMEZONE,
-      },
-      ssl: {
-        ca: process.env.DB_CACERT,
+        server: process.env.DB_SERVER,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        options: {
+          port: 1433,
+          database: process.env.DB_DATABASE,
+          encrypt: true
+        }
       },
       debug: process.env.NODE_ENV === "development",
     };

@@ -1,25 +1,25 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import React, { useState } from "react";
 import { Feather, AntDesign } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useNavigation } from "@react-navigation/native";
 import * as DocumentPicker from "expo-document-picker";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Alert, FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
 
-import {
-  ApplicationEditScreenQuery,
-  ApplicationEditScreenQuery$data,
-} from "./__generated__/ApplicationEditScreenQuery.graphql";
+import { useAppSelector } from "../../store/hooks";
+import { selectUser } from "../../store/slices/authSlice";
 import {
   ApplicationEditScreen2Query,
   ApplicationEditScreen2Query$data,
 } from "./__generated__/ApplicationEditScreen2Query.graphql";
-
 import { ApplicationEditScreenMutation } from "./__generated__/ApplicationEditScreenMutation.graphql";
+import {
+  ApplicationEditScreenQuery,
+  ApplicationEditScreenQuery$data,
+} from "./__generated__/ApplicationEditScreenQuery.graphql";
 
 interface labelsType {
   id: string;
@@ -38,14 +38,17 @@ type documentsInfo = {
 const ApplicationEditScreen = ({ route }: any): JSX.Element => {
   const { itemId } = route.params;
 
+  const user: any = useAppSelector(selectUser);
+  const user_id = user.id;
+
   // Data of the Application
   const data: ApplicationEditScreenQuery$data = useLazyLoadQuery<ApplicationEditScreenQuery>(
     graphql`
       query ApplicationEditScreenQuery($id: ID!) {
         applicationByID(id: $id) {
           id
-          title
-          description
+          application_title
+          application_description
           support
           deadline
           citation {
@@ -83,7 +86,6 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
           id
           type_name
         }
-
         labels {
           id
           label_name
@@ -99,6 +101,7 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
   const [commitMutation] = useMutation<ApplicationEditScreenMutation>(
     graphql`
       mutation ApplicationEditScreenMutation(
+        $user_id: ID!
         $applicationID: ID!
         $description: String!
         $support: String!
@@ -107,6 +110,7 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
         $labels: [ID]!
       ) {
         updateApplication(
+          user_id: $user_id
           applicationID: $applicationID
           description: $description
           support: $support
@@ -209,7 +213,7 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      description: applicationByID.description,
+      description: applicationByID.application_description,
       support: applicationByID.support,
       deadline: applicationByID.deadline,
     },
@@ -230,9 +234,10 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
     const mySupport = getValues("support");
     const myDeadline = getValues("deadline");
 
-    if (myLabels?.length !== 0 && documents.length < citationDocuments.length) {
+    if (myLabels?.length !== 0 && documents.length !== 0) {
       commitMutation({
         variables: {
+          user_id: user_id as unknown as string,
           applicationID: itemId as unknown as string,
           description: myDescription as unknown as string,
           support: mySupport as unknown as string,
@@ -274,7 +279,7 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
         <Text className="text-base text-gray-800 font-medium m-3">Título del proyecto</Text>
         <TextInput
           className="bg-gray-200 px-5 py-4 mx-3 rounded-lg text-gray-500 dark:text-gray-50 dark:bg-gray-700 border border-gray-300"
-          value={applicationByID.title}
+          value={applicationByID.application_title}
           editable={false}
         />
         {/* Description */}
@@ -344,7 +349,7 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
                   <DateTimePicker
                     testID="dateTimePicker"
                     mode="date"
-                    value={new Date(value)}
+                    value={new Date(todayDate)}
                     onChange={(event, selectedDate) => {
                       setShow(false);
 

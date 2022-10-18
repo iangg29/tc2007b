@@ -6,8 +6,8 @@ import { Text, View, Image, TouchableOpacity } from "react-native";
 interface Props {
   data_citation: {
     id: string;
-    title: string;
-    description: string;
+    citation_title: string;
+    citation_description: string;
     end_date: string;
   };
 }
@@ -36,7 +36,7 @@ const CitationCard = ({ data_citation }: Props) => {
       <View className="m-2 flex-row justify-between space-x-2">
         <View className="text-left">
           <Text className="tracking-wide text-xs text-gray-600  dark:text-gray-100">Convocatoria: </Text>
-          <Text className="text-lg font-semibold text-gray-700 mb-2">{data_citation.title}</Text>
+          <Text className="text-lg font-semibold text-gray-700 mb-2">{data_citation.citation_title}</Text>
           <Text className="tracking-wide text-xs text-gray-600 dark:text-gray-100">Fecha límite: </Text>
           <Text className="text-base font-semibold text-gray-700">{data_citation.end_date.split(" ")[0]}</Text>
         </View>

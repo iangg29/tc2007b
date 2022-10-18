@@ -35,7 +35,7 @@ const NavBar = (): JSX.Element => {
           {/* NavBar normal items */}
           <Navbar.Collapse>
             <NavLink to={"/app/home"} className={({ isActive }) => (isActive ? "navBarActive" : "navBarLink ")}>
-              Home
+              <p className="text-xl">Home</p>
             </NavLink>
 
             {/* Arrow Dropdown  */}

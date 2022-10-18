@@ -17,6 +17,7 @@ interface params {
   title?: string;
   date?: string;
   image?: string | undefined;
+  pdf?: string;
   citationId: string;
 }
 
@@ -33,7 +34,7 @@ interface EditForm {
   doChangeProps: string;
 }
 
-const EditModal = ({ show, onClose, title, date, image, header, citationId }: params): JSX.Element => {
+const EditModal = ({ show, onClose, title, date, image, header, citationId, pdf }: params): JSX.Element => {
   const today = new Date();
   const todayDate =
     today.getFullYear().toString() +
@@ -71,19 +72,19 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
     graphql`
       mutation EditModalMutation(
         $id: ID!
-        $title: String!
-        $description: String!
+        $citation_title: String!
+        $citation_description: String!
         $end_date: String!
         $document_types: [ID]!
       ) {
         updateCitation(
           id: $id
-          title: $title
-          description: $description
+          citation_title: $citation_title
+          citation_description: $citation_description
           end_date: $end_date
           document_types: $document_types
         ) {
-          title
+          citation_title
         }
       }
     `,
@@ -136,8 +137,8 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
       commitMutation({
         variables: {
           id: citationId as unknown as string,
-          title: myTitle as unknown as string,
-          description: myDescription as unknown as string,
+          citation_title: myTitle as unknown as string,
+          citation_description: myDescription as unknown as string,
           end_date: myDate as unknown as string,
           document_types: docType as unknown as [string],
         },
@@ -240,6 +241,14 @@ const EditModal = ({ show, onClose, title, date, image, header, citationId }: pa
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                       Archivo .PDF
                     </label>
+                    <a
+                      href={pdf}
+                      target={"_blank"}
+                      rel={"noreferrer"}
+                      className="cursor_pointer text-blue-700 hover:underline my-2"
+                    >
+                      Convocatoria Actual
+                    </a>
                     <input
                       className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                       aria-describedby="file_input_help"

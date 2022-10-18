@@ -10,7 +10,7 @@ interface Props {
   id: string;
   title: string;
   status: {
-    name;
+    status_name;
     order;
   };
 }
@@ -42,7 +42,7 @@ const ApplicationCard = ({ id, title, status }: Props) => {
             <AntDesign name="close" size={24} color="gray" />
           </Pressable>
         </View>
-        <ApplicationStatusView status={status.name} title={title} />
+        <ApplicationStatusView status={status.status_name} title={title} />
       </Modal>
       <View>
         <Image className="h-32 w-full object-cover" source={{ uri: getRandomImage() }} />

@@ -10,16 +10,16 @@ export default {
   createDocumentType: {
     type: DocumentTypeType,
     args: {
-      name: {
+      type_name: {
         type: GraphQLNonNull(GraphQLString),
       },
     },
-    resolve: async (_: any, { name }: any) => {
+    resolve: async (_: any, { type_name}: any) => {
       const id = uuid();
       await db(DOCUMENT_TYPE_TABLE_NAME)
         .insert({
           id,
-          name
+          type_name,
         })
         .catch((error: Error) => {
           console.error(error);

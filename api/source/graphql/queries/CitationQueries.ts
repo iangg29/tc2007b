@@ -14,7 +14,7 @@ export default {
   citations: {
     type: GraphQLList(CitationType),
     resolve: async () => {
-      const mycitations = await db.select().table(CITATION_TABLE_NAME).orderBy("title", "asc");
+      const mycitations = await db.select().table(CITATION_TABLE_NAME).orderBy("citation_title", "asc");
 
       const citationsActive = await Promise.all(
         mycitations.map(async (citation) => {
@@ -61,7 +61,7 @@ export default {
         .select()
         .table(CITATION_TABLE_NAME)
         .where("end_date", ">=", now)
-        .orderBy("title", "asc");
+        .orderBy("citation_title", "asc");
       return [...citationsActive];
     },
   },
