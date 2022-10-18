@@ -273,7 +273,6 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
           let myNewDocuments: documentsInfo[] = res.map((element: any) => {
             return {
               field: element.path,
-              //file_name: "",
               id: element.id,
               type_name: "",
             };

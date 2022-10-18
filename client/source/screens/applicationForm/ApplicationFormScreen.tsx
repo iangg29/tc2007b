@@ -99,14 +99,12 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
   const { citationDocuments, labels, findDocumentsByUserID } = data;
   const UserDocuments = findDocumentsByUserID;
   const UserDocumentsTypeID: Array<string> = findDocumentsByUserID.map((d) => d.documentType.id);
-  console.debug(UserDocumentsTypeID);
 
   const docTypes: any = citationDocuments?.map((item: any): any => {
     const flag = UserDocumentsTypeID.indexOf(item.id);
 
     // No document
     let Field = null;
-    //let File_name = "Mi_" + item.type_name;
     let Data = null;
 
     if (flag > -1) {
@@ -125,8 +123,6 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
   const pickDocument = async (id) => {
     let result = await DocumentPicker.getDocumentAsync({});
     const idx = documents.findIndex((x) => x.id === id);
-    //documents[idx].field = result.uri;
-    //documents[idx].file_name = result.name;
     documents[idx].data = result;
     setDocuments([...documents]);
   };
@@ -238,14 +234,12 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
     let myDocuments: documentsInfo[];
 
     if (myLabels?.length !== 0 && documents.length !== 0) {
-      console.debug("suma", myDocumentsData.length + myDocumentsURL.length);
       if (myDocumentsData.length + myDocumentsURL.length >= documents.length) {
         if (myDocumentsData.length > 0) {
           res = await sendFiles(myDocumentsData);
           let myNewDocuments: documentsInfo[] = res.map((element: any) => {
             return {
               field: element.path,
-              //file_name: "",
               id: element.id,
               type_name: "",
             };
@@ -260,7 +254,6 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
                 .map((myElement: any) => {
                   return {
                     field: myElement.field,
-                    //file_name: myElement.file_name,
                     id: myElement.id,
                     type_name: myElement.type_name,
                   };
@@ -272,9 +265,6 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
         } else {
           myDocuments = [...documents];
         }
-        console.debug(myDocuments);
-
-        console.debug(res);
 
         commitMutation({
           variables: {
@@ -299,14 +289,14 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
             navigation.goBack();
           },
           onError: () => {
-            console.debug("error :(");
+            console.debug("Error on mutation");
           },
         });
       } else {
-        console.debug("error :( x2");
+        console.debug("Error 1");
       }
     } else {
-      console.debug("error 3 :c");
+      console.debug("Missing documents and/or labels");
     }
   };
 

@@ -10,7 +10,6 @@ import {
   GraphQLInt,
   GraphQLInputObjectType,
   GraphQLList,
-  GraphQLObjectType,
 } from "graphql";
 import { v4 as uuid } from "uuid";
 import {
@@ -135,8 +134,6 @@ export default {
                 .select()
                 .from(DOCUMENT_TYPE_TABLE_NAME)
                 .where({ id: element.id });
-
-              console.log("holiiis", myDocID[0].type_name);
               
               await trx(DOCUMENT_TABLE_NAME).insert({
                 id: myDocumentId,
@@ -185,7 +182,6 @@ export default {
               });
             }),
           );
-
 
         })
         .catch((error: Error) => {

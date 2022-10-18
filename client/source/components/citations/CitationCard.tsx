@@ -15,11 +15,8 @@ interface Props {
 
 const CitationCard = ({ data_citation }: Props) => {
   const navigation = useNavigation();
-  const handleClick = () => {
-    console.debug("click");
-  };
+
   const handleApply = () => {
-    //console.log("Redirect to apply route");
     navigation.navigate("ApplicationForm", { itemId: data_citation.id });
   };
 
@@ -29,9 +26,7 @@ const CitationCard = ({ data_citation }: Props) => {
         <Image
           className="h-32 w-full object-cover"
           source={{
-            // uri: `${data_citation.description ? data_citation.description : "https://reactjs.org/logo-og.png"}`,
             uri: data_citation.citation_description,
-            //uri: "https://reactjs.org/logo-og.png",
           }}
         />
       </View>
