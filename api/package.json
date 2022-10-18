@@ -57,6 +57,7 @@
     "knex-paginate": "^3.0.1",
     "lint-staged": "^13.0.3",
     "morgan": "^1.10.0",
+    "mssql": "^9.0.1",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "to-bool": "^0.0.1",

@@ -22,14 +22,16 @@ const builder = {
 };
 
 const defaults = {
-  client: "mysql",
+  client: "mssql",
   connection: {
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    user: process.env.PG_USER,
-    port: process.env.PG_PORT,
-    password: process.env.PG_PASSWORD,
-    timezone: TIMEZONE,
+    server: process.env.DB_SERVER,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    options: {
+      port: process.env.DB_PORT,
+      database: process.env.DB_DATABASE,
+      encrypt:  true,
+    },
   },
   ...builder,
 };
