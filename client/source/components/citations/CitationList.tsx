@@ -13,6 +13,7 @@ const CitationList = () => {
           citation_title
           id
           citation_description
+          citation_document
           end_date
         }
       }

@@ -38,7 +38,7 @@ const ApplicationStatusView = ({ status, title }: Props) => {
       case "Aceptado":
         setNum(5);
         setMessage(
-          "Felicidades, tus solicitud a sido aceptada. \nRecuerda subir la evidencia para justificar el apoyo.",
+          "Felicidades, tus solicitud ha sido aceptada. \nRecuerda subir la evidencia para justificar el apoyo.",
         );
         break;
       case "Finalizado":

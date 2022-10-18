@@ -1,13 +1,14 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity, Linking } from "react-native";
 
 interface Props {
   data_citation: {
     id: string;
     citation_title: string;
     citation_description: string;
+    citation_document: string;
     end_date: string;
   };
 }
@@ -43,7 +44,9 @@ const CitationCard = ({ data_citation }: Props) => {
       </View>
 
       <View className="mx-2 flex-row content-center justify-center space-x-5 mb-5">
-        <TouchableOpacity className="bg-white border border-gray-200 rounded-lg shadow-sm" onPress={handleClick}>
+        <TouchableOpacity
+          className="bg-white border border-gray-200 rounded-lg shadow-sm"
+          onPress={() => Linking.openURL(data_citation.citation_document)}>
           <Text className="text-lg text-gray-800 font-semibold px-4 py-1">Ver documento</Text>
         </TouchableOpacity>
         <TouchableOpacity className="bg-main-100 border border-gray-200 rounded-lg shadow-sm" onPress={handleApply}>

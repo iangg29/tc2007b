@@ -1,7 +1,9 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 import { Feather, AntDesign } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 import * as DocumentPicker from "expo-document-picker";
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
@@ -29,9 +31,9 @@ interface labelsType {
 
 type documentsInfo = {
   field?: string | null;
-  file_name?: string | null;
   id?: string | null;
   type_name?: string | null;
+  data?: any;
 };
 
 // Screen to edit an application [send to corrections]
@@ -128,16 +130,16 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
 
     // No document
     let Field = null;
-    let File_name = null;
+    let Data = null;
 
     if (flag > -1) {
       // User has the document
       const document = appDocuments[flag];
       Field = document.url;
-      File_name = document.file_name;
+      Data = null;
     }
 
-    const newItem: any = { ...item, field: Field, file_name: File_name };
+    const newItem: any = { ...item, field: Field, data: Data };
     return newItem;
   });
 
@@ -146,9 +148,26 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
   const pickDocument = async (id) => {
     let result = await DocumentPicker.getDocumentAsync({});
     const idx = documents.findIndex((x) => x.id === id);
-    documents[idx].field = result.uri;
-    documents[idx].file_name = result.name;
+    documents[idx].data = result;
     setDocuments([...documents]);
+  };
+
+  // Handle Documents
+  const sendFiles = async (files): Promise<any> => {
+    const formData = new FormData();
+    files.forEach((element): any => formData.append(element.id, element.data));
+
+    try {
+      const res = await axios.post("/upload/photos", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: AsyncStorage.getItem("token") as unknown as string,
+        },
+      });
+      return res.data.paths;
+    } catch (error: any) {
+      console.error(error);
+    }
   };
 
   // SeT Labels
@@ -222,7 +241,7 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
   const navigation = useNavigation();
 
   // Submit Changes
-  const onSubmitForm = () => {
+  const onSubmitForm = async () => {
     const myLabels = list
       ?.filter((element: any) => element.color === "#d1d5db")
       .map((filteredElement: any) => {
@@ -234,32 +253,82 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
     const mySupport = getValues("support");
     const myDeadline = getValues("deadline");
 
+    const myDocumentsData = documents
+      .map((element): any => {
+        return { data: element.data, id: element.id };
+      })
+      .filter((filteredElement: any) => filteredElement.data != null);
+
+    const myDocumentsURL = documents
+      .map((element): any => element.field)
+      .filter((filteredElement: any) => filteredElement != null);
+
+    let res;
+    let myDocuments: documentsInfo[];
+
     if (myLabels?.length !== 0 && documents.length !== 0) {
-      commitMutation({
-        variables: {
-          user_id: user_id as unknown as string,
-          applicationID: itemId as unknown as string,
-          description: myDescription as unknown as string,
-          support: mySupport as unknown as string,
-          deadline: myDeadline as unknown as string,
-          documents: documents as unknown as [documentsInfo],
-          labels: myLabels as unknown as [string],
-        },
-        onCompleted: () => {
-          Alert.alert("Editar solicitud", "Se guardaron los cambios exitosamente", [
-            {
-              text: "Cerrar",
-              onPress: () => console.debug("Cancel Pressed"),
-              style: "cancel",
-            },
-            { text: "Aceptar", onPress: () => console.debug("OK Pressed") },
-          ]);
-          navigation.goBack();
-        },
-        onError: () => {
-          console.debug("Error");
-        },
-      });
+      if (myDocumentsData.length + myDocumentsURL.length >= documents.length) {
+        if (myDocumentsData.length > 0) {
+          res = await sendFiles(myDocumentsData);
+          let myNewDocuments: documentsInfo[] = res.map((element: any) => {
+            return {
+              field: element.path,
+              //file_name: "",
+              id: element.id,
+              type_name: "",
+            };
+          });
+
+          const myDocumentsIDs = documents.map((element: any) => element.id);
+
+          if (res.length < documents.length) {
+            myNewDocuments = [
+              ...documents
+                .filter((element: any) => myDocumentsIDs.includes(element.id) && element.field != null)
+                .map((myElement: any) => {
+                  return {
+                    field: myElement.field,
+                    //file_name: myElement.file_name,
+                    id: myElement.id,
+                    type_name: myElement.type_name,
+                  };
+                }),
+              ...myNewDocuments,
+            ];
+          }
+          myDocuments = [...myNewDocuments];
+        } else {
+          myDocuments = [...documents];
+        }
+
+        commitMutation({
+          variables: {
+            user_id: user_id as unknown as string,
+            applicationID: itemId as unknown as string,
+            description: myDescription as unknown as string,
+            support: mySupport as unknown as string,
+            deadline: myDeadline as unknown as string,
+            documents: myDocuments as unknown as [documentsInfo],
+            labels: myLabels as unknown as [string],
+          },
+          onCompleted: () => {
+            Alert.alert("Editar solicitud", "Se guardaron los cambios exitosamente", [
+              {
+                text: "Cerrar",
+                onPress: () => console.debug("Cancel Pressed"),
+                style: "cancel",
+              },
+              { text: "Aceptar", onPress: () => console.debug("OK Pressed") },
+            ]);
+            navigation.goBack();
+          },
+          onError: () => {
+            console.debug("Error 1");
+          },
+        });
+      } else {
+        console.debug("Error 2");
+      }
     } else {
       console.debug("Missing documents and/or labels");
     }
@@ -392,7 +461,7 @@ const ApplicationEditScreen = ({ route }: any): JSX.Element => {
                   <Feather name="upload" size={24} color="black" onPress={() => pickDocument(item.id)} />
                 </View>
                 <View className="flex flex-col basis-1/12 my-2">
-                  {documents[index].field != null ? (
+                  {documents[index].field != null || documents[index].data != null ? (
                     <AntDesign name="check" size={24} color="green" />
                   ) : (
                     <AntDesign name="exclamationcircleo" size={24} color="#f5cb42" />

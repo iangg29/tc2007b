@@ -584,6 +584,7 @@ export default {
           const docsToBeUpdated = documents.filter((element: any) => listUserDocumentTypes.includes(element.id)).map((filteredElement: any) => {
             const idx = userDocuments.findIndex((x) => x.file_type_id === filteredElement.id)
             const newElement: any = {
+              id: filteredElement.id,
               type_name: filteredElement.type_name,
               field: filteredElement.field,
               file_name: filteredElement.file_name,
@@ -593,12 +594,15 @@ export default {
             }
           );
 
-          console.log("adios", docsToBeUpdated);
-
           await Promise.all(
             docsToBeUpdated.map(async (element: any) => {
+              const myDocID = await trx()
+                .select()
+                .from(DOCUMENT_TYPE_TABLE_NAME)
+                .where({ id: element.id });
+
               await trx(DOCUMENT_TABLE_NAME).update({
-                file_name: element.file_name,
+                file_name: "Mi_" + myDocID[0].type_name,
                 url: element.field,
               }).where({ id: element.document_id });
             }),

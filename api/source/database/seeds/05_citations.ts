@@ -15,6 +15,7 @@ export async function seed(knex: Knex): Promise<void> {
       image: "",
       end_date: "2024-12-30 00:00:00",
       citation_description: "https://cdn.pixabay.com/photo/2015/11/05/23/02/chichen-itza-1025099_960_720.jpg",
+      citation_document: "http://culturaqueretaro.gob.mx/iqca/admin/uploads/convocatorias/f4b4c4cb10c95a9c7112d2c3f94ef20e.pdf",
     },
     {
       id: "2",
@@ -22,6 +23,7 @@ export async function seed(knex: Knex): Promise<void> {
       image: "",
       end_date: "2024-12-30 00:00:00",
       citation_description: "https://cdn.pixabay.com/photo/2016/11/29/09/51/day-of-the-dead-1868836_960_720.jpg",
+      citation_document: "http://culturaqueretaro.gob.mx/iqca/admin/uploads/convocatorias/f4b4c4cb10c95a9c7112d2c3f94ef20e.pdf",
     },
     {
       id: "3",
@@ -29,6 +31,7 @@ export async function seed(knex: Knex): Promise<void> {
       image: "",
       end_date: "2024-12-30 00:00:00",
       citation_description: "https://cdn.pixabay.com/photo/2022/07/21/18/15/queretaro-7336721__340.jpg",
+      citation_document: "http://culturaqueretaro.gob.mx/iqca/admin/uploads/convocatorias/f4b4c4cb10c95a9c7112d2c3f94ef20e.pdf",
     },
     {
       id: "4",
@@ -36,6 +39,8 @@ export async function seed(knex: Knex): Promise<void> {
       image: "",
       end_date: "2020-12-30 00:00:00",
       citation_description: "https://cdn.pixabay.com/photo/2021/10/19/17/54/queretaro-6724217__340.jpg",
+      citation_document: "http://culturaqueretaro.gob.mx/iqca/admin/uploads/convocatorias/f4b4c4cb10c95a9c7112d2c3f94ef20e.pdf",
+
     },
   ]);
 }

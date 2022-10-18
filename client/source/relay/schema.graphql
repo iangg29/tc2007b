@@ -139,6 +139,7 @@ input documentsInfo {
   id: ID
   type_name: String
   field: String
+  data: String
 }
 
 """Type of document uploaded"""
