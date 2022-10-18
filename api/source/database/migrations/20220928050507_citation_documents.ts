@@ -12,6 +12,7 @@ export async function up(knex: Knex): Promise<void> {
   if (!(await knex.schema.hasTable(CITATION_DOCUMENTS_TABLE_NAME))) {
     await knex.schema.createTable(CITATION_DOCUMENTS_TABLE_NAME, (table: CreateTableBuilder) => {
       // COLUMNS
+      table.increments("id").primary().unsigned();
       table.string("citation_id").notNullable;
       table.string("document_type_id").notNullable;
       // RELATIONSHIPS
