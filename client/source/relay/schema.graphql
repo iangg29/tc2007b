@@ -139,7 +139,6 @@ input documentsInfo {
   id: ID
   type_name: String
   field: String
-  file_name: String
 }
 
 """Type of document uploaded"""

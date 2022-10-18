@@ -10,6 +10,7 @@ import {
   GraphQLInt,
   GraphQLInputObjectType,
   GraphQLList,
+  GraphQLObjectType,
 } from "graphql";
 import { v4 as uuid } from "uuid";
 import {
@@ -21,6 +22,7 @@ import {
   USER_TABLE_NAME,
   DOCUMENT_TABLE_NAME,
   LABEL_TABLE_NAME,
+  DOCUMENT_TYPE_TABLE_NAME,
 } from "../../database/utils/database_constants";
 import { db } from "../../database/database";
 
@@ -30,7 +32,7 @@ const documentsInfo = new GraphQLInputObjectType({
     id: { type: GraphQLID },
     type_name: { type: GraphQLString },
     field: { type: GraphQLString },
-    file_name: { type: GraphQLString },
+    data: {type: GraphQLString}
   },
 });
 
@@ -114,8 +116,8 @@ export default {
 
           const docsToBeUpdated = documents.filter((element: any) => listUserDocumentTypes.includes(element.id)).map((filteredElement: any) => {
             const idx = userDocuments.findIndex((x) => x.file_type_id === filteredElement.id);
-            console.log("¿llega?",idx);
             const newElement: any = {
+              id: filteredElement.id,
               type_name: filteredElement.type_name,
               field: filteredElement.field,
               file_name: filteredElement.file_name,
@@ -128,10 +130,18 @@ export default {
           await Promise.all(
             docsToBeCreated.map(async (element: any) => {
               const myDocumentId = uuid();
+
+              const myDocID = await trx()
+                .select()
+                .from(DOCUMENT_TYPE_TABLE_NAME)
+                .where({ id: element.id });
+
+              console.log("holiiis", myDocID[0].type_name);
+              
               await trx(DOCUMENT_TABLE_NAME).insert({
                 id: myDocumentId,
                 user_id,
-                file_name: element.file_name,
+                file_name: "Mi_" + myDocID[0].type_name,
                 file_type_id: element.id,
                 url: element.field,
               });
@@ -147,8 +157,14 @@ export default {
 
           await Promise.all(
             docsToBeUpdated.map(async (element: any) => {
+
+              const myDocID = await trx()
+                .select()
+                .from(DOCUMENT_TYPE_TABLE_NAME)
+                .where({ id: element.id });
+
               await trx(DOCUMENT_TABLE_NAME).update({
-                file_name: element.file_name,
+                file_name: "Mi_" + myDocID[0].type_name,
                 url: element.field,
               }).where({ id: element.document_id });
 

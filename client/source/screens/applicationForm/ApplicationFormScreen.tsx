@@ -28,9 +28,9 @@ interface labelsType {
 
 type documentsInfo = {
   field?: string | null;
-  file_name?: string | null;
   id?: string | null;
   type_name?: string | null;
+  data?: any;
 };
 
 const ApplicationFormScreen = ({ route }: any): JSX.Element => {
@@ -106,18 +106,17 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
 
     // No document
     let Field = null;
-    let File_name = null;
+    //let File_name = "Mi_" + item.type_name;
     let Data = null;
 
     if (flag > -1) {
       // User has the document
       const document = UserDocuments[flag];
       Field = document.url;
-      File_name = "Mi_" + document.documentType.type_name;
       Data = null;
     }
 
-    const newItem: any = { ...item, field: Field, file_name: File_name, data: Data };
+    const newItem: any = { ...item, field: Field, data: Data };
     return newItem;
   });
 
@@ -236,40 +235,46 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
       .filter((filteredElement: any) => filteredElement != null);
 
     let res;
+    let myDocuments: documentsInfo[];
 
     if (myLabels?.length !== 0 && documents.length !== 0) {
       console.debug("suma", myDocumentsData.length + myDocumentsURL.length);
       if (myDocumentsData.length + myDocumentsURL.length >= documents.length) {
-        res = await sendFiles(myDocumentsData);
+        if (myDocumentsData.length > 0) {
+          res = await sendFiles(myDocumentsData);
+          let myNewDocuments: documentsInfo[] = res.map((element: any) => {
+            return {
+              field: element.path,
+              //file_name: "",
+              id: element.id,
+              type_name: "",
+            };
+          });
+
+          const myDocumentsIDs = documents.map((element: any) => element.id);
+
+          if (res.length < documents.length) {
+            myNewDocuments = [
+              ...documents
+                .filter((element: any) => myDocumentsIDs.includes(element.id) && element.field != null)
+                .map((myElement: any) => {
+                  return {
+                    field: myElement.field,
+                    //file_name: myElement.file_name,
+                    id: myElement.id,
+                    type_name: myElement.type_name,
+                  };
+                }),
+              ...myNewDocuments,
+            ];
+          }
+          myDocuments = [...myNewDocuments];
+        } else {
+          myDocuments = [...documents];
+        }
+        console.debug(myDocuments);
 
         console.debug(res);
-
-        let myDocuments: documentsInfo[] = res.map((element: any) => {
-          return {
-            field: element.path,
-            file_name: "",
-            id: element.id,
-            type_name: "",
-          };
-        });
-
-        const myDocumentsIDs = documents.map((element: any) => element.id);
-
-        if (res.length < documents.length) {
-          myDocuments = [
-            ...documents
-              .filter((element: any) => myDocumentsIDs.includes(element.id))
-              .map((myElement: any) => {
-                return {
-                  field: myElement.field,
-                  file_name: myElement.file_name,
-                  id: myElement.id,
-                  type_name: myElement.type_name,
-                };
-              }),
-            ...myDocuments,
-          ];
-        }
 
         commitMutation({
           variables: {
@@ -431,7 +436,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
                   <Feather name="upload" size={24} color="black" onPress={() => pickDocument(item.id)} />
                 </View>
                 <View className="flex flex-col basis-1/12 my-2">
-                  {documents[index].field != null ? (
+                  {documents[index].field != null || documents[index].data != null ? (
                     <AntDesign name="check" size={24} color="green" />
                   ) : (
                     <AntDesign name="exclamationcircleo" size={24} color="#f5cb42" />
