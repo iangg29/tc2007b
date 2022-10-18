@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { AiTwotoneFileAdd } from "react-icons/ai";
 import { useState } from "react";
+import DocumentTypeModal from "../DocumentType/DocumentTypeModal";
 import axios from "axios";
 
 interface documentTypeType {
@@ -29,6 +30,9 @@ interface newCitation {
 }
 
 const NewAnnouncementForm = (): JSX.Element => {
+  const [show, setShow] = useState<boolean>(false);
+  const onClose = (): void => setShow(false);
+  const handleShow = (): void => setShow(true);
   const [file, setFile] = useState<any>(null);
 
   const sendFile = async (): Promise<any> => {
@@ -267,12 +271,17 @@ const NewAnnouncementForm = (): JSX.Element => {
               ></input>
             </div>
             <div>
-              <div className="mx-7 my-5 flex  flex-col  px-52">
-                <h1 className="text-2xl font-semibold text-main-500">Documentos Necesarios</h1>
-                <DocumentList list={list} handleclickCheckbox={handleclickCheckbox} docTypes={[]} />
+              <div className="mx-7 my-5 flex flex-col pl-12 ">
+                <h1 className="text-2xl font-semibold text-main-500 mb-4">Documentos Necesarios</h1>
+                <div className="overflow-y-auto h-64">
+                  <DocumentList list={list} handleclickCheckbox={handleclickCheckbox} docTypes={[]} />
+                </div>
+                <DocumentTypeModal show={show} onClose={onClose} />
+
                 <button
                   type="button"
-                  className="my-8 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-1 py-1 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="my-8 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-1 py-1 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "
+                  onClick={handleShow}
                 >
                   <AiTwotoneFileAdd size={30} /> Nuevo Documento
                 </button>

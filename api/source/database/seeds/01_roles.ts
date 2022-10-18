@@ -9,7 +9,17 @@ export async function seed(knex: Knex): Promise<void> {
 
   // Inserts seed entries
   await knex(ROLE_TABLE_NAME).insert([
-    { id: "1", name: "administrator", description: "Rol usuario del webapp", default: false },
-    { id: "2", name: "artist", description: "Rol usuario del app mobile", default: true },
+    {
+      id: "1",
+      name: "administrador",
+      description: "Usuario que administra las convocatorias y revisa las solicitudes",
+      default: false,
+    },
+    {
+      id: "2",
+      name: "solicitante",
+      description: "Usuario que envía una solicitud a una convocatoria activa",
+      default: true,
+    },
   ]);
 }
