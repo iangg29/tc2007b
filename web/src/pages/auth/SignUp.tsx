@@ -124,12 +124,13 @@ const SignUp = (): JSX.Element => {
   };
 
   return (
-    <div className="h-screen grid items-center justify-center">
+    <div className="w-full h-full grid items-center justify-center bg-gradient-to-r from-blue-500">
+      {/* <img src={back} className="w-full h-full object-cover object-center" alt="" /> */}
       <div className="text-center space-y-10">
         <div className="-my-20">
           <img src={logo} alt={APP_NAME} className="w-3/4 mx-auto" />
         </div>
-        <h2>Crear nuevo perfil</h2>
+        <h2 className="text-2xl font-semibold">Crear nuevo perfil</h2>
         <div className="space-y-5">
           <div className="text-left">
             <label htmlFor={nameId}>Ingresa tu nombre</label>
@@ -196,9 +197,11 @@ const SignUp = (): JSX.Element => {
             </div>
           </div>
         </div>
-        <button onClick={submitForm} className="bg-indigo-900 text-indigo-50 px-10 py-1 rounded-lg font-semibold">
-          Enviar
-        </button>
+        <div className="pb-10">
+          <button onClick={submitForm} className="bg-blue-900 text-indigo-50 px-10 py-2 rounded-lg font-semibold">
+            Enviar
+          </button>
+        </div>
       </div>
     </div>
   );
