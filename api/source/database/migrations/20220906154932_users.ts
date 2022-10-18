@@ -28,7 +28,8 @@ export async function up(knex: Knex): Promise<void> {
         .references("id")
         .inTable(ROLE_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE");
+        .onDelete("CASCADE")
+        .deferrable("deferred");
     });
   }
 }

@@ -20,13 +20,15 @@ export async function up(knex: Knex): Promise<void> {
         .references("id")
         .inTable(CITATION_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE");
+        .onDelete("CASCADE")
+        .deferrable("deferred");
       table
         .foreign("document_id")
         .references("id")
         .inTable(DOCUMENT_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE");
+        .onDelete("CASCADE")
+        .deferrable("deferred");
     });
   }
 }
