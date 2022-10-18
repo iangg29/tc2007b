@@ -62,7 +62,7 @@ const RootMutation = new GraphQLObjectType({
     ...EvidenceMutations,
     ...DocumentMutations,
     ...LabelMutations,
-    ...UserMutation
+    ...UserMutation,
   },
 });
 
