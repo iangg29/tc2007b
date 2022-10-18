@@ -30,7 +30,8 @@ const CitationCard = ({ data_citation }: Props) => {
           className="h-32 w-full object-cover"
           source={{
             // uri: `${data_citation.description ? data_citation.description : "https://reactjs.org/logo-og.png"}`,
-            uri: "https://reactjs.org/logo-og.png",
+            uri: data_citation.citation_description,
+            //uri: "https://reactjs.org/logo-og.png",
           }}
         />
       </View>

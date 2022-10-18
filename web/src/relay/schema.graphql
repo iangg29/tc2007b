@@ -139,7 +139,7 @@ input documentsInfo {
   id: ID
   type_name: String
   field: String
-  file_name: String
+  data: String
 }
 
 """Type of document uploaded"""
@@ -270,6 +270,8 @@ type RootMutation {
   updateCitation(id: ID!, citation_title: String!, citation_description: String!, end_date: String!, document_types: [ID]): Citation
   deleteCitation(id: ID!): Boolean
   createDocumentType(type_name: String!): DocumentType
+  updateDocumentType(id: ID!, type_name: String!): DocumentType
+  deleteDocumentType(id: ID!): Boolean
   uploadEvidence(impact: String!, application_id: ID!, document_id: ID!): Evidence
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
   deleteDocument(id: ID!): Boolean
@@ -288,6 +290,7 @@ type RootQuery {
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]
   documentTypes: [DocumentType]
+  countDocumetOfType(id: ID!): Int
   citations: [Citation]
   citationDocuments(id: ID!): [DocumentType]
   citationsActive: [Citation]

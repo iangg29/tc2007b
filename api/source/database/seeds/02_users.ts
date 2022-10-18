@@ -99,7 +99,7 @@ export async function seed(knex: Knex): Promise<void> {
       id: "9",
       role_id: "1",
       name: "Verónica",
-      first_lastname: "Gonzales",
+      first_lastname: "Gonzalez",
       second_lastname: "Aguirre",
       password,
       cellphone: "442 7321 23 32",
