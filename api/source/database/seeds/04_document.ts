@@ -26,14 +26,14 @@ export async function seed(knex: Knex): Promise<void> {
     {
       id: "5",
       user_id: "1",
-      file_name: "con3.pdf",
+      file_name: "con1.pdf",
       file_type_id: "1",
       url: "https://www.usebeq.edu.mx/PaginaWEB/Content/USICAMM/CE22-23/CONVOCATORIA%20PROMOCI%C3%93N%20HORIZONTAL%202022%20vf.pdf",
     },
     {
       id: "2",
-      user_id: "3",
-      file_name: "example2.pdf",
+      user_id: "1",
+      file_name: "doc.pdf",
       file_type_id: "2",
       url: "https://www.usebeq.edu.mx/PaginaWEB/Content/USICAMM/CE22-23/CONVOCATORIA%20PROMOCI%C3%93N%20HORIZONTAL%202022%20vf.pdf",
     },
@@ -70,21 +70,66 @@ export async function seed(knex: Knex): Promise<void> {
       user_id: "1",
       file_name: "Ine_Aris",
       file_type_id: "4",
-      url: "https://www.gob.mx/cms/uploads/attachment/file/398731/Ya_conoces_el_Formato__nico_del_Acta_de_Nacimiento.pdf",
+      url: "https://www.diputados.gob.mx/documentos/N_Acta_Nacimiento.pdf",
     },
     {
       id: "202",
       user_id: "2",
       file_name: "Ine_Jordana",
       file_type_id: "4",
-      url: "https://www.gob.mx/cms/uploads/attachment/file/398731/Ya_conoces_el_Formato__nico_del_Acta_de_Nacimiento.pdf",
+      url: "https://www.diputados.gob.mx/documentos/N_Acta_Nacimiento.pdf",
     },
     {
       id: "203",
       user_id: "3",
       file_name: "Ine_Karen",
       file_type_id: "4",
-      url: "https://www.gob.mx/cms/uploads/attachment/file/398731/Ya_conoces_el_Formato__nico_del_Acta_de_Nacimiento.pdf",
+      url: "https://www.diputados.gob.mx/documentos/N_Acta_Nacimiento.pdf",
+    },
+
+    {
+      id: "1101",
+      user_id: "f97b0215-ea36-4d8d-a3f1-458e640a21ba",
+      file_name: "INE_Hector",
+      file_type_id: "2",
+      url: "https://www.usebeq.edu.mx/PaginaWEB/Content/USICAMM/CE22-23/CONVOCATORIA%20PROMOCI%C3%93N%20HORIZONTAL%202022%20vf.pdf",
+    },
+    {
+      id: "1102",
+      user_id: "f97b0215-ea36-4d8d-a3f1-458e640a21ba",
+      file_name: "Acta_Hector",
+      file_type_id: "4",
+      url: "https://www.diputados.gob.mx/documentos/N_Acta_Nacimiento.pdf",
+    },
+
+    {
+      id: "1121",
+      user_id: "ab150595-11df-4a59-be35-fe09e05427e3",
+      file_name: "INE_Mariana",
+      file_type_id: "2",
+      url: "https://portalanterior.ine.mx/archivos2/portal/credencial/pdf-credencial/modeloactual2016-ine.pdf",
+    },
+    {
+      id: "1122",
+      user_id: "ab150595-11df-4a59-be35-fe09e05427e3",
+      file_name: "Acta_Mariana",
+      file_type_id: "4",
+      url: "https://www.diputados.gob.mx/documentos/N_Acta_Nacimiento.pdf",
+    },
+
+    {
+      id: "1131",
+      user_id: "7",
+      file_name: "INE_Alfredo",
+      file_type_id: "2",
+      url: "https://portalanterior.ine.mx/archivos2/portal/credencial/pdf-credencial/modeloactual2016-ine.pdf",
+    },
+    {
+      id: "1132",
+      user_id: "7",
+      file_name: "Acta_Alfredo",
+      file_type_id: "4",
+      url: "https://www.diputados.gob.mx/documentos/N_Acta_Nacimiento.pdf",
     },
   ]);
 }

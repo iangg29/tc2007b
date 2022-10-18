@@ -14,6 +14,6 @@ export async function seed(knex: Knex): Promise<void> {
     { id: "3", type_name: "RFC" },
     { id: "4", type_name: "Acta de Nacimiento" },
     { id: "5", type_name: "CURP" },
-    { id: "6", type_name: "Formulario" },
+    { id: "6", type_name: "Formato Pintando Querétaro" },
   ]);
 }

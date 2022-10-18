@@ -100,7 +100,6 @@ const ReqDetail = (): JSX.Element => {
 
             <div className="flex pb-2 pt-8">
               <h2 className="text-xl text-[#396FB1] font-bold">Documentos&nbsp;</h2>
-              <h2 className="text-md text-[#396FB1] font-bold"> [REVISADOS]</h2>
             </div>
             {documents?.map((elem: any, index) => {
               return (
