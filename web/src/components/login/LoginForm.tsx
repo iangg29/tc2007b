@@ -24,7 +24,6 @@ const LoginForm = (): JSX.Element => {
           password,
         })
         .then((res: AxiosResponse<any>) => {
-          console.log(res);
           const { status, token, message } = res.data;
           if (status === "success") {
             Cookies.set("token", `Bearer ${token as string}`);
