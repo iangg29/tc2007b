@@ -22,12 +22,13 @@ const builder = {
 };
 
 const defaults = {
-  client: "mysql",
+  client: "mysql2",
   connection: {
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    user: process.env.PG_USER,
-    password: process.env.PG_PASSWORD,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    port: process.env.DB_PORT as unknown as number,
     timezone: TIMEZONE,
   },
   ...builder,

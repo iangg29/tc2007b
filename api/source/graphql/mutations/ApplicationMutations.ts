@@ -25,13 +25,13 @@ export default {
       user_id: {
         type: GraphQLNonNull(GraphQLID),
       },
-      title: {
+      application_title: {
         type: GraphQLNonNull(GraphQLString),
       },
       image: {
         type: GraphQLNonNull(GraphQLString),
       },
-      description: {
+      application_description: {
         type: GraphQLNonNull(GraphQLString),
       },
       support: {
@@ -60,9 +60,9 @@ export default {
       _: any,
       {
         user_id,
-        title,
+        application_title,
         image,
-        description,
+        application_description,
         support,
         deadline,
         start_time,
@@ -96,9 +96,9 @@ export default {
       await db(APPLICATION_TABLE_NAME)
         .insert({
           id,
-          title,
+          application_title,
           image,
-          description,
+          application_description,
           support,
           deadline,
           start_time,
@@ -293,6 +293,26 @@ export default {
         });
 
       return myApplication[0];
+    },
+  },
+
+  deleteApplicationLabels: {
+    type: GraphQLBoolean,
+    args: {
+      application_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+      label_id: {
+        type: GraphQLNonNull(GraphQLID),
+      },
+    },
+    resolve: async (_: any, { application_id, label_id }: any) => {
+      await db
+      (APPLICATION_LABEL_TABLE_NAME)
+        .where("application_id", application_id)
+        .where("label_id", label_id)
+        .del();
+      return true;
     },
   },
 };

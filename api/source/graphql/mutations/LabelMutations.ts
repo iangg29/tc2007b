@@ -10,19 +10,19 @@ export default {
   createLabel: {
     type: LabelType,
     args: {
-      name: {
+      label_name: {
         type: GraphQLNonNull(GraphQLString),
       },
       description: {
         type: GraphQLNonNull(GraphQLString),
       },
     },
-    resolve: async  (_: any, { name, description }: any) => {
+    resolve: async  (_: any, { label_name, description }: any) => {
       const id = uuid();
       await db(LABEL_TABLE_NAME)
         .insert({
           id,
-          name,
+          label_name,
           description,
         })
         .catch((error: Error) =>{

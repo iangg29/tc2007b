@@ -2,15 +2,19 @@
 
 import { GraphQLID, GraphQLList, GraphQLNonNull } from "graphql";
 import { db } from "../../database/database";
-import { CITATION_DOCUMENTS_TABLE_NAME, CITATION_TABLE_NAME, DOCUMENT_TYPE_TABLE_NAME } from "../../database/utils/database_constants";
+import {
+  CITATION_DOCUMENTS_TABLE_NAME,
+  CITATION_TABLE_NAME,
+  DOCUMENT_TYPE_TABLE_NAME,
+} from "../../database/utils/database_constants";
 import { CitationType } from "../../types/CitationType";
-import {DocumentTypeType} from "../../types/DocumentTypeType"
+import { DocumentTypeType } from "../../types/DocumentTypeType";
 
 export default {
   citations: {
     type: GraphQLList(CitationType),
     resolve: async () => {
-      const mycitations = await db.select().table(CITATION_TABLE_NAME).orderBy("title", "asc");
+      const mycitations = await db.select().table(CITATION_TABLE_NAME).orderBy("citation_title", "asc");
 
       const citationsActive = await Promise.all(
         mycitations.map(async (citation) => {
@@ -34,8 +38,6 @@ export default {
     resolve: async (_: any, { id }: any) => {
       const myCitationDocuments = await db.select().table(CITATION_DOCUMENTS_TABLE_NAME).where({ citation_id: id });
 
-      console.log(myCitationDocuments);
-
       const newCitationDocuments = await Promise.all(
         myCitationDocuments?.map(async (citation_documents) => {
           const { document_type_id } = citation_documents;
@@ -48,6 +50,19 @@ export default {
       );
 
       return [...newCitationDocuments];
+    },
+  },
+
+  citationsActive: {
+    type: GraphQLList(CitationType),
+    resolve: async () => {
+      const now = new Date().toISOString();
+      const citationsActive = await db
+        .select()
+        .table(CITATION_TABLE_NAME)
+        .where("end_date", ">=", now)
+        .orderBy("title", "asc");
+      return [...citationsActive];
     },
   },
 };

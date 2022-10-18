@@ -1,39 +1,58 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
-import Express from "express";
 import { Request, Response, Router } from "express";
 import path from "path";
+import { validateToken } from "../utils/authentication";
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req: any, file: any, cb: any) {
+    cb(null, "public/uploads/files");
+  },
+  filename: function (req: any, file: any, cb: any) {
+    cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
+  },
+});
+
+const fileFilter = (req: any, file: any, cb: any) => {
+  if (file.mimetype === "application/pdf") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+    throw new Error("Tipo de documento invalido, por favor verifique, solo PDF's");
+  }
+};
+
+const upload = multer({ storage, fileFilter }).any();
 
 const router = Router();
-interface FileRequest extends Request {
-  files: any;
-}
 
-router.post("/upload/files", async (req: Request, res: Response) => {
-  console.log({ req: (req as FileRequest).files });
-
-  if (!(req as FileRequest).files) {
-    return res.status(400).send("No files were uploaded.");
+router.post("/upload/files", validateToken, async (req: Request, res: Response) => {
+  try {
+    upload(req, res, function (err: any) {
+      try {
+        if (err instanceof multer.MulterError) {
+          console.log({ err });
+          // A Multer error occurred when uploading.
+          return res.status(500).send({ err });
+        } else if (err) {
+          console.log({ err });
+          return res.status(500).send({ err });
+          // An unknown error occurred when uploading.
+        }
+        const files = req.files;
+        console.log({ files });
+        const paths = (files as any).map((el: any) => {
+          return { id: el.fieldname, path: `${process.env.BASE_URL}uploads/files/${el.filename}` };
+        });
+        return res.send({ paths });
+      } catch (err) {
+        console.log({ err });
+        return res.status(500).send({ err });
+      }
+    });
+  } catch (err) {
+    return res.status(500).send({ err });
   }
-
-  const file = (req as FileRequest).files.doc;
-  const file_extension = file.mimetype.split("/").pop();
-
-  switch (file_extension) {
-    case "pdf":
-      break;
-    default:
-      return res.status(400).send({ message: "Invalid extension document type." });
-  }
-
-  const route = path.resolve(__dirname, "../../../public/upload/files/", file.name);
-
-  file.mv(route, (err: any) => {
-    if (err) {
-      console.log({ err });
-      return res.status(500).send(err);
-    }
-    return res.send({ status: "success", route: route });
-  });
 });
 
 export default router;
