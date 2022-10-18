@@ -35,9 +35,9 @@ const ReqEvidence = (): JSX.Element => {
           }
           application {
             id
-            title
+            application_title
             image
-            description
+            application_description
             support
             user {
               name
@@ -45,7 +45,7 @@ const ReqEvidence = (): JSX.Element => {
               second_lastname
             }
             applicationStatus {
-              name
+              status_name
               order
             }
             applicationDocuments {
@@ -83,7 +83,9 @@ const ReqEvidence = (): JSX.Element => {
       <div className="w-full grid lg:grid-cols-2 pb-8 pl-8 pr-8 lg:pl-24 lg:pr-24">
         {/* REQUEST - BASIC INFO */}
         <div className="w-full pt-2">
-          <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">Proyecto: {application?.title}</h1>
+          <h1 className="text-3xl md:text-2xl lg:text-3xl text-[#396FB1] font-bold">
+            Proyecto: {application?.application_title}
+          </h1>
           <img className="w-[800px] py-4 pr-8 lg:pr-16" src={application?.image} alt="art" />
           <p className="text-lg font-semibold tracking-tight text-gray-900">
             Realizado por: {user?.name} {user?.first_lastname} {user?.second_lastname}
@@ -91,7 +93,7 @@ const ReqEvidence = (): JSX.Element => {
           <div className="w-[450px] md:w-[500px] lg:w-[400px] flex flex-wrap content-start pt-4 gap-2">
             <p className="text-medium">Categorías:</p>
             {labels?.map((elem: any) => {
-              return <Label key={elem.id} label={elem.name} />;
+              return <Label key={elem.id} label={elem.label_name} />;
             })}
           </div>
         </div>
@@ -99,7 +101,7 @@ const ReqEvidence = (): JSX.Element => {
         <div className="w-full pt-8 pr-8 md:pr-0 lg:pr-8 lg:pt-2 lg:pl-12">
           <div className="w-fit">
             <h2 className="text-xl text-[#396FB1] font-bold pb-2">Descripción</h2>
-            <p className="text-justify">{application?.description}</p>
+            <p className="text-justify">{application?.application_description}</p>
 
             <div className="w-fit flex gap-x-2 pb-2 pt-8">
               <h2 className="text-xl text-[#396FB1] font-bold">Documentación</h2>

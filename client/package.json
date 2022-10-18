@@ -6,7 +6,6 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web",
     "test": "jest --passWithNoTests",
     "prepare": "cd .. && husky install ./client/.husky",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
@@ -14,7 +13,7 @@
     "prettier-format": "prettier --write .",
     "build-relay": "relay-compiler relay.config.json",
     "relay:watch": "relay-compiler relay.config.json --watch",
-    "fetch-graphql": "npx get-graphql-schema http://localhost:5050/graphiql > source/relay/schema.graphql"
+    "fetch-graphql": "npx get-graphql-schema https://dev.api.tc2007b.iangarcia.cloud/graphiql > source/relay/schema.graphql"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "~1.17.3",
@@ -23,6 +22,7 @@
     "@react-navigation/native-stack": "^6.8.0",
     "@reduxjs/toolkit": "^1.8.5",
     "@types/react-native": "~0.69.1",
+    "@xmldom/xmldom": "^0.8.3",
     "axios": "^0.27.2",
     "eslint-plugin-notice": "^0.9.10",
     "expo": "~46.0.9",

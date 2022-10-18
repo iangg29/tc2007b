@@ -19,7 +19,6 @@ const ApplicationCard = ({ title, status, citation }: Props) => {
 
   const handleStatus = () => {
     setModalVisible(!modalVisible);
-    //console.log("OPEN MODAL");
   };
   return (
     <View className="max-w my-2 mx-4 bg-white rounded-xl shadow-md overflow-hidden border ">

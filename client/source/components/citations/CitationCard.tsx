@@ -13,7 +13,7 @@ interface Props {
 
 const CitationCard = ({ data_citation }: Props) => {
   const handleApply = () => {
-    //console.log("Redirect to apply route");
+    "Hi";
   };
 
   return (

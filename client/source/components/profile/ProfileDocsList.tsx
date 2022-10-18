@@ -1,7 +1,7 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import { graphql, useLazyLoadQuery } from "react-relay/hooks";
 import UserDocs from "../../components/profile/UserDocs";
 import { useAppSelector } from "../../store/hooks";
@@ -26,24 +26,28 @@ const ProfileDocsListList = (): JSX.Element => {
     { fetchPolicy: "network-only" },
   );
 
-  const empty = userDocuments.findDocumentsByUserID?.length === 0;
+  if (userDocuments.findDocumentsByUserID?.length === 0) {
+    return (
+      <SafeAreaView>
+        <View className="flex-1 h-full items-center">
+          <Text className="text-blue-600 text-xl text-center font-semibold pt-10">
+            No existen documentos relacionados al usuario
+          </Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
-    <View className="flex items-center">
-      {empty ? (
-        <Text className="text-blue-600 text-xl text-center font-semibold pt-10">
-          No existen documentos relacionados al usuario
-        </Text>
-      ) : (
-        <>
-          <Text className="text-blue-600 text-xl font-semibold pt-10">Documentos</Text>
-          {userDocuments.findDocumentsByUserID.map((item) => (
-            <UserDocs key={item.id} filename={item.file_name} updated={item.updated_at} link={item.url} />
-          ))}
-          <Text>{"\n"}</Text>
-        </>
-      )}
-    </View>
+    <SafeAreaView>
+      <View className="flex items-center">
+        <Text className="text-blue-600 text-xl font-semibold pt-10">Documentos</Text>
+        {userDocuments.findDocumentsByUserID.map((item) => (
+          <UserDocs key={item.id} filename={item.file_name} updated={item.updated_at} link={item.url} />
+        ))}
+        <Text>{"\n"}</Text>
+      </View>
+    </SafeAreaView>
   );
 };
 

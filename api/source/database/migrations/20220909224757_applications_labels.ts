@@ -19,15 +19,8 @@ export async function up(knex: Knex): Promise<void> {
         .references("id")
         .inTable(APPLICATION_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
-      table
-        .foreign("label_id")
-        .references("id")
-        .inTable(LABEL_TABLE_NAME)
-        .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+        .onDelete("CASCADE");
+      table.foreign("label_id").references("id").inTable(LABEL_TABLE_NAME).onUpdate("CASCADE").onDelete("CASCADE");
     });
   }
 }

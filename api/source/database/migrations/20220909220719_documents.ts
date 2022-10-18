@@ -18,20 +18,13 @@ export async function up(knex: Knex): Promise<void> {
 
       table.primary(["id", "user_id", "file_type_id"]);
       // RELATIONSHIPS
-      table
-        .foreign("user_id")
-        .references("id")
-        .inTable(USER_TABLE_NAME)
-        .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+      table.foreign("user_id").references("id").inTable(USER_TABLE_NAME).onUpdate("CASCADE").onDelete("CASCADE");
       table
         .foreign("file_type_id", "id")
         .references("id")
         .inTable(DOCUMENT_TYPE_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+        .onDelete("CASCADE");
     });
   }
 }

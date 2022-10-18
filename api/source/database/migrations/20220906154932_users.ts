@@ -12,7 +12,7 @@ export async function up(knex: Knex): Promise<void> {
       table.string("role_id").notNullable();
       table.string("name").notNullable();
       table.string("first_lastname").notNullable();
-      table.string("second_lastname")
+      table.string("second_lastname");
       table.string("password").notNullable();
       table.string("cellphone").notNullable();
       table.string("profile_img").defaultTo("")
@@ -22,15 +22,9 @@ export async function up(knex: Knex): Promise<void> {
       table.boolean("active").defaultTo(true);
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());
-      
+
       // RELATIONSHIPS
-      table
-        .foreign("role_id")
-        .references("id")
-        .inTable(ROLE_TABLE_NAME)
-        .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+      table.foreign("role_id").references("id").inTable(ROLE_TABLE_NAME).onUpdate("CASCADE").onDelete("CASCADE");
     });
   }
 }

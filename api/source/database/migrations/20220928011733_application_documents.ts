@@ -1,7 +1,11 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
 
 import { Knex } from "knex";
-import { APPLICATION_DOCUMENTS_TABLE_NAME, APPLICATION_TABLE_NAME, DOCUMENT_TABLE_NAME } from "../utils/database_constants";
+import {
+  APPLICATION_DOCUMENTS_TABLE_NAME,
+  APPLICATION_TABLE_NAME,
+  DOCUMENT_TABLE_NAME,
+} from "../utils/database_constants";
 import CreateTableBuilder = Knex.CreateTableBuilder;
 
 export async function up(knex: Knex): Promise<void> {
@@ -19,15 +23,13 @@ export async function up(knex: Knex): Promise<void> {
         .references("id")
         .inTable(APPLICATION_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+        .onDelete("CASCADE");
       table
         .foreign("document_id")
         .references("id")
         .inTable(DOCUMENT_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+        .onDelete("CASCADE");
     });
   }
 }
@@ -35,5 +37,3 @@ export async function up(knex: Knex): Promise<void> {
 export async function down(knex: Knex): Promise<void> {
   knex.schema.dropTable(APPLICATION_DOCUMENTS_TABLE_NAME);
 }
-
-

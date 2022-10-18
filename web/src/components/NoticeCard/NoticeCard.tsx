@@ -11,9 +11,10 @@ interface params {
   name: string;
   date: string;
   id: string;
+  pdf: string;
 }
 
-const NoticeCard = ({ img, name, date, id }: params): JSX.Element => {
+const NoticeCard = ({ img, name, date, id, pdf }: params): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const handleShow = (): void => setShow(true);
   const onClose = (): void => setShow(false);
@@ -32,7 +33,7 @@ const NoticeCard = ({ img, name, date, id }: params): JSX.Element => {
         <img className="aspect-video w-full rounded-t-2xl object-cover object-center" src={img} />
         <div className="p-4 border border-transparent border-t-slate-300/60">
           <h1 className="text-2xl font-medium text-slate-600 pb-2">{name}</h1>
-          <small className="text-gray-400 text-xs">Fecha fin: {date}</small>
+          <small className="text-gray-400 text-xs">Fecha fin: {date.split(" ")[0]}</small>
           <div className="flex justify-end">
             <SvgButton svgfile={<FiEdit />} method={handleShow} />
             <div className="mx-1 flex flex-col">
@@ -43,6 +44,7 @@ const NoticeCard = ({ img, name, date, id }: params): JSX.Element => {
       </div>
       <EditModal
         show={show}
+        pdf={pdf}
         onClose={onClose}
         header={"Editar Convocatoria"}
         title={name}
