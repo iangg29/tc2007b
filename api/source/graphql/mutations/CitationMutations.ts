@@ -4,7 +4,7 @@ import { CitationType } from "../../types/CitationType";
 import { GraphQLBoolean, GraphQLError, GraphQLID, GraphQLList, GraphQLNonNull, GraphQLString } from "graphql";
 import { v4 as uuid } from "uuid";
 import { db } from "../../database/database";
-import { CITATION_DOCUMENTS_TABLE_NAME, CITATION_TABLE_NAME} from "../../database/utils/database_constants";
+import { CITATION_DOCUMENTS_TABLE_NAME, CITATION_TABLE_NAME } from "../../database/utils/database_constants";
 
 export default {
   createCitation: {
@@ -16,6 +16,9 @@ export default {
       citation_description: {
         type: GraphQLNonNull(GraphQLString),
       },
+      citation_document: {
+        type: GraphQLNonNull(GraphQLString),
+      },
       end_date: {
         type: GraphQLNonNull(GraphQLString),
       },
@@ -23,7 +26,10 @@ export default {
         type: GraphQLList(GraphQLID),
       },
     },
-    resolve: async (_: any, { citation_title, citation_description, end_date, document_types }: any) => {
+    resolve: async (
+      _: any,
+      { citation_title, citation_description, end_date, document_types, citation_document }: any,
+    ) => {
       const id = uuid();
 
       await db
@@ -32,6 +38,7 @@ export default {
             id,
             citation_title,
             citation_description,
+            citation_document,
             end_date,
           });
 

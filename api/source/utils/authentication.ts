@@ -25,7 +25,7 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
     }
 
     if (!token) {
-      return next(new GraphQLError("No haz iniciado sesión."));
+      return next(new GraphQLError("No has iniciado sesión."));
     }
 
     // @ts-ignore

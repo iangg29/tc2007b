@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { Knex } from "knex";
 import { APPLICATION_LABEL_TABLE_NAME } from "../utils/database_constants";
 

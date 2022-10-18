@@ -18,12 +18,12 @@ const ApplicationsScreen = (): JSX.Element => {
       query ApplicationsScreenQuery($user_id: ID!) {
         applicationByUserID(user_id: $user_id) {
           id
-          title
+          application_title
           applicationStatus {
-            name
+            status_name
           }
           citation {
-            title
+            citation_title
           }
         }
       }

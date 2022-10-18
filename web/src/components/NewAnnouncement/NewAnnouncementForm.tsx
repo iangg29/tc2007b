@@ -4,6 +4,7 @@ import DocumentList from "../DocumentList/DocumentList";
 import { useLazyLoadQuery, useMutation } from "react-relay";
 import graphql from "babel-plugin-relay/macro";
 import useChecked from "../../hooks/useChecked";
+import Cookies from "js-cookie";
 import {
   NewAnnouncementFormQuery,
   NewAnnouncementFormQuery$data,
@@ -14,7 +15,7 @@ import Swal from "sweetalert2";
 import { AiTwotoneFileAdd } from "react-icons/ai";
 import { useState } from "react";
 import DocumentTypeModal from "../DocumentType/DocumentTypeModal";
-import { getRandomImage } from "../../utils/imageHelper";
+import axios from "axios";
 
 interface documentTypeType {
   id: string | undefined;
@@ -32,7 +33,43 @@ const NewAnnouncementForm = (): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const onClose = (): void => setShow(false);
   const handleShow = (): void => setShow(true);
-  const [autoImage, setAutoImage] = useState<boolean>(true);
+  const [file, setFile] = useState<any>(null);
+
+  const sendFile = async (): Promise<any> => {
+    const formData = new FormData();
+    formData.append("1", file);
+
+    try {
+      const res = await axios.post("/upload/files", formData, {
+        headers: {
+          "Content-type": "multipart/form-data",
+          Authorization: Cookies.get("token") as string,
+        },
+      });
+      return res.data.paths[0];
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
+
+  const [image, setImage] = useState<any>(null);
+
+  const sendImage = async (): Promise<any> => {
+    const formData = new FormData();
+    formData.append("1", image);
+
+    try {
+      const res = await axios.post("/upload/photos", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: Cookies.get("token") as string,
+        },
+      });
+      return res.data.paths[0];
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
   const today = new Date();
   const date =
     today.getFullYear().toString() +
@@ -60,17 +97,20 @@ const NewAnnouncementForm = (): JSX.Element => {
       mutation NewAnnouncementFormMutation(
         $citation_title: String!
         $citation_description: String!
+        $citation_document: String!
         $end_date: String!
         $document_types: [ID]!
       ) {
         createCitation(
           citation_title: $citation_title
           citation_description: $citation_description
+          citation_document: $citation_document
           end_date: $end_date
           document_types: $document_types
         ) {
           citation_title
           citation_description
+          citation_document
           end_date
         }
       }
@@ -87,7 +127,7 @@ const NewAnnouncementForm = (): JSX.Element => {
 
   const [list, handleclickCheckbox] = useChecked(initialState);
 
-  const onSubmitForm = (): void => {
+  const onSubmitForm = async (): Promise<void> => {
     const docType = list
       ?.filter((element: any) => element.isChecked === true)
       .map((filteredElement: any) => {
@@ -96,14 +136,17 @@ const NewAnnouncementForm = (): JSX.Element => {
       });
 
     const myTitle = getValues("title");
-    const myDescription = autoImage ? getRandomImage() : getValues("description");
     const myDate = getValues("date");
 
-    if (docType?.length !== 0) {
+    if (docType?.length !== 0 && file != null) {
+      const files = await sendFile();
+      const images = await sendImage();
+
       commitMutation({
         variables: {
           citation_title: myTitle as unknown as string,
-          citation_description: myDescription as unknown as string,
+          citation_description: images.path as unknown as string,
+          citation_document: files.path as unknown as string,
           end_date: myDate as unknown as string,
           document_types: docType as unknown as [string],
         },
@@ -111,8 +154,14 @@ const NewAnnouncementForm = (): JSX.Element => {
           window.location.href = "/app/home";
         },
         onError: () => {
-          console.log("error :(");
-          console.log(docType);
+          void Swal.fire({
+            title: "Error",
+            icon: "error",
+            text: "Hubo un error :(",
+            customClass: {
+              container: "swal2-container",
+            },
+          });
         },
       });
     } else {
@@ -170,37 +219,23 @@ const NewAnnouncementForm = (): JSX.Element => {
               </div>
 
               <div className="mb-6">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Imagen</label>
-                <div className="flex flex-row space-x-2">
-                  <input
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    type="text"
-                    id="description"
-                    autoComplete="off"
-                    defaultValue="url de la imagen"
-                    {...register("description", {
-                      required: true,
-                      pattern: { value: /^\S+[a-zA-Z\s]*/, message: "error message" },
-                    })}
-                  />
-                  <div className="flex items-center mt-3">
-                    <input
-                      type="checkbox"
-                      checked={autoImage}
-                      onChange={() => setAutoImage(!autoImage)}
-                      className="w-6 h-6 rounded-xl mb-1 text-blue-600 bg-gray-100 
-              border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2
-              dark:bg-gray-700 dark:border-gray-600"
-                    ></input>
-
-                    <label
-                      htmlFor="default-checkbox"
-                      className="ml-2 text- font-large text-gray-900 dark:text-gray-300"
-                    >
-                      {"Auto"}
-                    </label>
-                  </div>
-                </div>
+                <label
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  htmlFor="image_fileinput"
+                >
+                  Imagen
+                </label>
+                <input
+                  className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  aria-describedby="image_file_help"
+                  id="description"
+                  type="file"
+                  name="image_file"
+                  onChange={(e: any): void => setImage(e.target.files[0])}
+                />
+                <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="image_file_help">
+                  JPEG, PNG, JPG.
+                </p>
               </div>
 
               <div className="mb-6">
@@ -231,6 +266,8 @@ const NewAnnouncementForm = (): JSX.Element => {
                 className="block mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                 id="default_size"
                 type="file"
+                name="file"
+                onChange={(e: any): void => setFile(e.target.files[0])}
               ></input>
             </div>
             <div>

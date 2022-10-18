@@ -6,14 +6,16 @@ interface params {
   name?: string;
   date?: string;
   image?: string | undefined;
+  pdf?: string | undefined;
 }
 
-const EditForm = ({ name, date, image }: params): JSX.Element => {
+const EditForm = ({ name, date, image, pdf }: params): JSX.Element => {
   const [file, setFile] = useState<any>(null);
+  // const [photo, setPhoto] = useState<any>(null);
 
   const sendFile = async (): Promise<any> => {
     const formData = new FormData();
-    formData.append("doc", file);
+    formData.append("1", file);
 
     try {
       await axios
@@ -74,6 +76,9 @@ const EditForm = ({ name, date, image }: params): JSX.Element => {
 
         <div className="mb-6">
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Archivo .PDF</label>
+          <a href={pdf} className="text-blue-700 hover:underline">
+            Convocatoria Actual
+          </a>
           <input
             className="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             aria-describedby="file_input_help"

@@ -27,6 +27,8 @@ const Home = (): JSX.Element => {
           id
           citation_title
           citation_description
+          citation_document
+
           end_date
         }
       }
@@ -83,6 +85,7 @@ const Home = (): JSX.Element => {
                       <NoticeCard
                         img={filteredElement.citation_description}
                         name={filteredElement.citation_title}
+                        pdf={filteredElement.citation_document}
                         date={filteredElement.end_date}
                         id={filteredElement.id}
                       />
@@ -96,8 +99,9 @@ const Home = (): JSX.Element => {
                 {citations?.map((element: any) => (
                   <div className="flex flex-col basis-1/3" key={element.id}>
                     <NoticeCard
-                      img={element.description}
-                      name={element.title}
+                      pdf={element.citation_document}
+                      img={element.citation_description}
+                      name={element.citation_title}
                       date={element.end_date}
                       id={element.id}
                     />

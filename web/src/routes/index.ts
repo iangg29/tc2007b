@@ -7,7 +7,6 @@ const Dashboard = lazy(async () => await import("../pages/Dashboard"));
 const NewAnnouncement = lazy(async () => await import("../pages/NewAnnouncement"));
 const Home = lazy(async () => await import("../pages/home/Home"));
 const ApproveDocs = lazy(async () => await import("../pages/suppRequests/ApproveDoc"));
-const Applications = lazy(async () => await import("../pages/suppRequests/Applications"));
 const ApproveApplications = lazy(async () => await import("../pages/suppRequests/ApproveApplication"));
 const ApplicationAccepted = lazy(async () => await import("../pages/suppRequests/ApplicationAccepted"));
 const ApplicationFinalized = lazy(async () => await import("../pages/suppRequests/ApplicationFinalized"));
@@ -31,39 +30,35 @@ const routes: iRoute[] = [
     components: Analytic,
   },
   {
-    path: "/applications/reviewdocuments",
+    path: "/applications/reviewdocuments/:status",
     components: ApproveDocs,
   },
   {
-    path: "/applications",
-    components: Applications,
-  },
-  {
-    path: "/applications/reviewdocuments/:applicationId",
+    path: "/applications/reviewdocuments/2/:applicationId",
     components: Documentation,
   },
   {
-    path: "/applications/reviewproposals",
+    path: "/applications/reviewproposals/:status",
     components: ApproveApplications,
   },
   {
-    path: "/applications/reviewproposals/:applicationId",
+    path: "/applications/reviewproposals/3/:applicationId",
     components: Detail,
   },
   {
-    path: "/applications/reviewapproved",
+    path: "/applications/reviewapproved/:status",
     components: ApplicationAccepted,
   },
   {
-    path: "/applications/reviewapproved/:applicationId",
+    path: "/applications/reviewapproved/5/:applicationId",
     components: Detail,
   },
   {
-    path: "/applications/reviewfinished",
+    path: "/applications/reviewfinished/:status",
     components: ApplicationFinalized,
   },
   {
-    path: "/applications/reviewfinished/:applicationId",
+    path: "/applications/reviewfinished/6/:applicationId",
     components: Evidence,
   },
   {
