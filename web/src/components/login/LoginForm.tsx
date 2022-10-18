@@ -7,7 +7,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -109,7 +109,7 @@ const LoginForm = (): JSX.Element => {
                   ref={passwordRef}
                 />
                 <label className="self-end text-xs text-main-100 py-1 hover:underline">
-                  ¿Has olvidado la contraseña?
+                  <Link to={"/signup"}>Crear cuenta</Link>
                 </label>
                 <div className="flex flex-col mx-auto">
                   <button
