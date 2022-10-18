@@ -101,6 +101,7 @@ const SignUp = (): JSX.Element => {
       })()
         .then()
         .catch((error) => {
+          console.error(error);
           void Swal.fire({
             title: "Error",
             icon: "error",
