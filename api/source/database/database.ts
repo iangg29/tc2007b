@@ -19,7 +19,7 @@ export const getConnectionConfig = () => {
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         options: {
-          port: process.env.DB_PORT as unknown as number,
+          port: 1433,
           database: process.env.DB_DATABASE,
           encrypt: true
         }
