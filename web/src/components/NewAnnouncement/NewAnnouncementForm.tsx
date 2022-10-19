@@ -233,7 +233,6 @@ const NewAnnouncementForm = (): JSX.Element => {
                   name="image_file"
                   onChange={(e: any): void => {
                     setImage(e.target.files[0]);
-                    console.log(e.target.files[0]);
                   }}
                 />
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="image_file_help">
