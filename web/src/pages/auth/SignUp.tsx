@@ -125,7 +125,6 @@ const SignUp = (): JSX.Element => {
 
   return (
     <div className="w-full h-full grid items-center justify-center bg-gradient-to-r from-sky-600">
-      {/* <img src={back} className="w-full h-full object-cover object-center" alt="" /> */}
       <div className="text-center space-y-10">
         <div className="-my-20">
           <img src={logo} alt={APP_NAME} className="w-3/4 mx-auto" />
