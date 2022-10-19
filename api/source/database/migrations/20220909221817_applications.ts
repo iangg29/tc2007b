@@ -22,34 +22,26 @@ export async function up(knex: Knex): Promise<void> {
       table.date("deadline");
       table.timestamp("start_time").defaultTo(knex.fn.now());
       table.timestamp("end_time");
-      table.date("emission_date").defaultTo(knex.fn.now());
+      table.timestamp("emission_date").defaultTo(knex.fn.now());
       table.date("response_date");
       table.string("application_status_id").notNullable();
       table.string("citation_id").notNullable();
       table.timestamp("created_at").defaultTo(knex.fn.now());
       table.timestamp("updated_at").defaultTo(knex.fn.now());
       // RELATIONSHIPS
-      table
-        .foreign("user_id")
-        .references("id")
-        .inTable(USER_TABLE_NAME)
-        .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+      table.foreign("user_id").references("id").inTable(USER_TABLE_NAME).onUpdate("CASCADE").onDelete("CASCADE");
       table
         .foreign("application_status_id")
         .references("id")
         .inTable(APPLICATION_STATUS_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+        .onDelete("CASCADE");
       table
         .foreign("citation_id")
         .references("id")
         .inTable(CITATION_TABLE_NAME)
         .onUpdate("CASCADE")
-        .onDelete("CASCADE")
-        .deferrable("deferred");
+        .onDelete("CASCADE");
     });
   }
 }

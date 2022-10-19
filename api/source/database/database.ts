@@ -13,16 +13,14 @@ const TIMEZONE: string = "America/Mexico_City";
 export const getConnectionConfig = () => {
   if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "development") {
     return {
-      client: "mysql",
+      client: "mysql2",
       connection: {
-        server: process.env.DB_SERVER,
+        host: process.env.DB_HOST,
         user: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
-        options: {
-          port: 1433,
-          database: process.env.DB_DATABASE,
-          encrypt: true
-        }
+        port: process.env.DB_PORT as unknown as number,
+        database: process.env.DB_DATABASE,
+        timezone: TIMEZONE,
       },
       debug: process.env.NODE_ENV === "development",
     };
