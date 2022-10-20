@@ -9,8 +9,8 @@ export async function seed(knex: Knex): Promise<void> {
 
   // Inserts seed entries
   await knex(LABEL_TABLE_NAME).insert([
-    { id: "1", label_name: "pintura", description: "example1" },
-    { id: "2", label_name: "óleo", description: "example2" },
-    { id: "3", label_name: "escultura", description: "example3" },
+    { id: "1", label_name: "Pintura", description: "Proyectos relacionados con pintura" },
+    { id: "2", label_name: "Danza", description: "Proyectos relacionados con danza" },
+    { id: "3", label_name: "Musica", description: "Proyectos relacionados con música" },
   ]);
 }

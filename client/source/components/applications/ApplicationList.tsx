@@ -12,8 +12,9 @@ const ApplicationList = ({ applicationByUserID }: Props) => {
     <View>
       <FlatList
         data={applicationByUserID}
+        extraData={applicationByUserID}
         renderItem={({ item }) => (
-          <ApplicationCard title={item.title} status={item?.applicationStatus} citation={item?.citation} />
+          <ApplicationCard id={item.id} title={item.application_title} status={item?.applicationStatus} />
         )}
         keyExtractor={(item) => item.id}
       />

@@ -61,7 +61,7 @@ export default {
         .select()
         .table(CITATION_TABLE_NAME)
         .where("end_date", ">=", now)
-        .orderBy("title", "asc");
+        .orderBy("citation_title", "asc");
       return [...citationsActive];
     },
   },

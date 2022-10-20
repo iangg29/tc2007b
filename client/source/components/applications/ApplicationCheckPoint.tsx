@@ -25,7 +25,7 @@ const ApplicationCheckPoint = ({ isTurnOn, labelText, isLine, disable }: Props) 
             ✓
           </Text>
         </View>
-        <Text className=" tracking-wide text-lg font-semibold py-2 pl-2 text-blue-500">{labelText}</Text>
+        <Text className=" tracking-wide text-lg font-medium py-2 pl-2 text-slate-600">{labelText}</Text>
       </View>
       {!!isLine && (
         <View className={`flex-row border-l-8 ml-4 h-10 ${isTurnOn ? "border-green-300" : "border-slate-300 "}`} />

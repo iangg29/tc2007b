@@ -42,7 +42,7 @@ router.post("/upload/files", validateToken, async (req: Request, res: Response) 
         const files = req.files;
         console.log({ files });
         const paths = (files as any).map((el: any) => {
-          return { id: el.fieldname, path: `${process.env.BASE_URL}uploads/files/${el.filename}` };
+          return { id: el.fieldname, path: `${process.env.BASE_URL}/uploads/files/${el.filename}` };
         });
         return res.send({ paths });
       } catch (err) {
