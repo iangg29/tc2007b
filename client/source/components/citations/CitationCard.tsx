@@ -1,51 +1,53 @@
 // (c) Tecnologico de Monterrey 2022, rights reserved.
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image, TouchableOpacity, Linking } from "react-native";
 
 interface Props {
   data_citation: {
     id: string;
-    title: string;
-    description: string;
+    citation_title: string;
+    citation_description: string;
+    citation_document: string;
     end_date: string;
   };
 }
 
 const CitationCard = ({ data_citation }: Props) => {
+  const navigation = useNavigation();
+
   const handleApply = () => {
-    "Hi";
+    navigation.navigate("ApplicationForm", { itemId: data_citation.id });
   };
 
   return (
-    <View className="max-w my-2 mx-4 bg-white rounded-xl shadow-md overflow-hidden border ">
+    <View className="max-w my-2 mx-4 bg-white rounded-xl overflow-hidden border border-gray-300">
       <View>
         <Image
           className="h-32 w-full object-cover"
           source={{
-            uri: `${data_citation.description ? data_citation.description : "https://reactjs.org/logo-og.png"}`,
+            uri: data_citation.citation_description,
           }}
         />
       </View>
       <View className="m-2 flex-row justify-between space-x-2">
         <View className="text-left">
-          <Text className=" tracking-wide text-md  dark:text-white">Convocatoria: </Text>
-          <Text className="text-lg font-medium text-slate-600">{data_citation.title}</Text>
-          <Text className=" tracking-wide text-md  dark:text-white">Fecha límite: </Text>
-          <Text className="text-lg font-medium text-slate-600">{data_citation.end_date.split(" ")[0]}</Text>
+          <Text className="tracking-wide text-xs text-gray-600  dark:text-gray-100">Convocatoria: </Text>
+          <Text className="text-lg font-semibold text-gray-700 mb-2">{data_citation.citation_title}</Text>
+          <Text className="tracking-wide text-xs text-gray-600 dark:text-gray-100">Fecha límite: </Text>
+          <Text className="text-base font-semibold text-gray-700">{data_citation.end_date.split(" ")[0]}</Text>
         </View>
+      </View>
 
-        <View className="justify-end ">
-          <TouchableOpacity onPress={handleApply}>
-            <Text className="text-lg mt-1 bg-white hover:bg-gray-100 text-gray-800 font-semibold  px-4 border border-gray-400 rounded shadow">
-              Ver documento
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleApply}>
-            <Text className="text-lg mt-1 bg-white hover:bg-gray-100 text-gray-800 font-semibold  px-4 border border-gray-400 rounded shadow">
-              Aplicar
-            </Text>
-          </TouchableOpacity>
-        </View>
+      <View className="mx-2 flex-row content-center justify-center space-x-5 mb-5">
+        <TouchableOpacity
+          className="bg-white border border-gray-200 rounded-lg shadow-sm"
+          onPress={() => Linking.openURL(data_citation.citation_document)}>
+          <Text className="text-lg text-gray-800 font-semibold px-4 py-1">Ver documento</Text>
+        </TouchableOpacity>
+        <TouchableOpacity className="bg-main-100 border border-gray-200 rounded-lg shadow-sm" onPress={handleApply}>
+          <Text className="text-lg text-gray-100 font-semibold px-4 py-1">Aplicar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

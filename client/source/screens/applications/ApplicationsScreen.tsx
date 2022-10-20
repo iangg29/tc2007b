@@ -20,6 +20,7 @@ const ApplicationsScreen = (): JSX.Element => {
           id
           application_title
           applicationStatus {
+            order
             status_name
           }
           citation {
@@ -29,6 +30,7 @@ const ApplicationsScreen = (): JSX.Element => {
       }
     `,
     { user_id },
+    { fetchPolicy: "network-only" },
   );
   const { applicationByUserID } = data;
 

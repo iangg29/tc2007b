@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { GraphQLList, GraphQLID, GraphQLError } from "graphql";
 import { DocumentType } from "../../types/DocumentType";
 import { db } from "../../database/database";

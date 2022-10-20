@@ -84,7 +84,7 @@ type ApplicationStatus {
 }
 
 """
-Citation model that contains the document and information the users has to follow in order to get their scholarship
+Citation type that contains the document and information the users has to follow in order to get their scholarship
 """
 type Citation {
   """Citation's ID"""
@@ -110,7 +110,7 @@ type Citation {
 }
 
 """
-Document model, contains all the specifications of the documents uploaded by the users
+Document type, contains all the specifications of the documents uploaded by the users
 """
 type Document {
   """Document's ID"""
@@ -133,6 +133,13 @@ type Document {
 
   """Last time document got updated"""
   updated_at: String!
+}
+
+input documentsInfo {
+  id: ID
+  type_name: String
+  field: String
+  data: String
 }
 
 """Type of document uploaded"""
@@ -239,12 +246,14 @@ type Role {
 """Application's GraphQL root mutations"""
 type RootMutation {
   createRole(name: String!, description: String!, is_default: Boolean): Role
+  createNewApplication(user_id: ID!, title: String!, description: String!, support: String!, deadline: String, citation_id: ID!, documents: [documentsInfo], labels: [ID]): Application
   createApplication(user_id: ID!, application_title: String!, image: String!, application_description: String!, support: String!, deadline: String, end_time: String, emission_date: String!, response_date: String!, application_status_id: ID!, citation_id: ID!): Application
   updateApplicationStatus(application_id: ID!, next_status: Int!): String
   attachApplicationDocument(application_id: ID!, document_id: ID!): Application
   deleteApplication(id: ID!): Boolean
   updateAplicationLabels(application_id: ID!, label_id: ID!): Application
   deleteApplicationLabels(application_id: ID!, label_id: ID!): Boolean
+  updateApplication(user_id: ID!, applicationID: ID!, description: String!, support: String!, deadline: String!, documents: [documentsInfo], labels: [ID]): String
   createStatus(
     """ApplicationStatus name"""
     status_name: String!
@@ -261,8 +270,11 @@ type RootMutation {
   updateCitation(id: ID!, citation_title: String!, citation_description: String!, end_date: String!, document_types: [ID]): Citation
   deleteCitation(id: ID!): Boolean
   createDocumentType(type_name: String!): DocumentType
+  updateDocumentType(id: ID!, type_name: String!): DocumentType
+  deleteDocumentType(id: ID!): Boolean
   uploadEvidence(impact: String!, application_id: ID!, document_id: ID!): Evidence
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
+  deleteDocument(id: ID!): Boolean
   createLabel(label_name: String!, description: String!): Label
 }
 
@@ -274,11 +286,14 @@ type RootQuery {
   applications: [Application]
   applicationByID(id: ID!): Application
   applicationByStatusID(application_status_id: ID!): [Application]
+  applicationByUserID(user_id: ID!): [Application]
   applicationStatus: [ApplicationStatus]
   faqs: [FAQ]
   documentTypes: [DocumentType]
+  countDocumetOfType(id: ID!): Int
   citations: [Citation]
   citationDocuments(id: ID!): [DocumentType]
+  citationsActive: [Citation]
   documents: [Document]
   findDocumentsByUserID(user_id: ID): [Document]
   labels: [Label]
