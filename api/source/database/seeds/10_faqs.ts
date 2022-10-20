@@ -1,3 +1,5 @@
+// (c) Tecnologico de Monterrey 2022, rights reserved.
+
 import { Knex } from "knex";
 import { FAQ_TABLE_NAME } from "../utils/database_constants";
 
@@ -17,4 +19,4 @@ export async function seed(knex: Knex): Promise<void> {
         { id: 3, question: "Si tengo una duda específica que no esté en el ChatBot, ¿A dónde me comunico?",
          answer: "Puede enviar un correo a culturaqro@gob.mx o llamar al 4421232343 en un horario de 8 A.M. a 6 P.M" }
     ]);
-};
+}
