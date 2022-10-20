@@ -93,6 +93,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
         success: false,
         message: "El sistema no cuenta con ningún rol registrado.",
       });
+      return;
     } else {
       role = fallback[0];
     }
@@ -105,21 +106,26 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
       success: false,
       message: "Error cargando roles.",
     });
+    return;
   }
 
   const { name, first_lastname, second_lastname, email, cellphone, gender, password, confirm_password } = req.body;
 
-  if (password !== confirm_password)
+  if (password !== confirm_password){
     res.status(400).json({
       success: false,
       message: "Las contraseñas no coinciden.",
     });
+    return;
+  }
 
-  if (password.split("").length < 8)
+  if (password.split("").length < 8){
     res.status(400).json({
       success: false,
       message: "La contraseña debe de tener al menos 8 caracteres.",
     });
+    return;
+  }
 
   finalPassword = password;
 
@@ -157,6 +163,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
       success: false,
       message: "Es necesario un correo y contraseña.",
     });
+    return;
   }
 
   const users = await db.select().from(USER_TABLE_NAME).where("email", email);
@@ -165,6 +172,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
       success: false,
       message: "Usuario no encontrado.",
     });
+    return;
   }
   const user = users[0];
   try {
@@ -177,12 +185,13 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     }
 
     createSendToken(user, 201, req, res);
+    return;
   } catch (error: any) {
     console.log({error});
   }
 };
 
-export const logout = (req: Request, res: Response, next: NextFunction) => {
+export const logout = (req: Request, res: Response) => {
   res.cookie("token", "loggedout", {
     expires: new Date(Date.now() + 10 * 1000),
   });
@@ -192,6 +201,6 @@ export const logout = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export const token = async (req: any, res: Response, next: NextFunction) => {
+export const token = async (req: any, res: Response) => {
   await createSendToken(req.user, 200, req, res);
 };
