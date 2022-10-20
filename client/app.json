@@ -14,7 +14,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false
     },
@@ -22,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./source/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "cloud.iangarcia.tc2007b"
     },
     "web": {
       "favicon": "./source/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f66b125e-cb56-4c32-aa4a-97b378f7a3c3"
+      }
     }
   }
 }
