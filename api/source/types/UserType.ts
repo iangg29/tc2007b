@@ -37,6 +37,10 @@ export const UserType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLString),
       description: "User's phone",
     },
+    profile_img: {
+      type: GraphQLString,
+      description: "User's profile picture",
+    },
     email: {
       type: GraphQLNonNull(GraphQLString),
       description: "User's email",

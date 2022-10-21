@@ -5,7 +5,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import axios, { AxiosResponse } from "axios";
 import { useLayoutEffect, useState } from "react";
-import { Alert, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  ScrollView,
+  ImageBackground,
+  SafeAreaView,
+} from "react-native";
 
 import { useAppDispatch } from "../../store/hooks";
 import { setIsLoggedIn, setToken, setUser } from "../../store/slices/authSlice";
@@ -60,113 +70,121 @@ const SignUp = () => {
   };
 
   return (
-    <KeyboardAvoidingView className="dark flex-1 bg-white dark:bg-gray-900 dark:text-gray-50" behavior="padding">
+    <SafeAreaView className="dark flex-1 text-gray-900 dark:bg-gray-900 dark:text-gray-50">
       <ScrollView>
-        <View className="flex-1 items-center justify-center space-y-10 px-5">
-          <Text className="font-bold text-2xl">Secretaria de Cultura</Text>
-          <Text className="font-regular text-lg">Creación de cuenta</Text>
-          <View className="space-y-5 text-left min-w-[95%]">
-            <View className="space-y-2">
-              <Text>Nombre</Text>
-              <TextInput
-                onChangeText={(text: string) => setName(text)}
-                textContentType="name"
-                keyboardType="default"
-                autoComplete="name-given"
-                spellCheck
-                className="bg-gray-100 px-5 py-4 rounded-lg"
-              />
-            </View>
-            <View className="flex-row content-between justify-between space-x-10">
-              <View className="flex-1 space-y-2">
-                <Text>Apellido paterno</Text>
-                <TextInput
-                  onChangeText={(text: string) => setFirstLN(text)}
-                  textContentType="familyName"
-                  keyboardType="default"
-                  autoComplete="name-family"
-                  spellCheck
-                  className="bg-gray-100 px-5 py-4 rounded-lg"
-                />
+        <KeyboardAvoidingView className="dark flex-1 bg-white dark:bg-gray-900 dark:text-gray-50" behavior="padding">
+          <ImageBackground
+            className="flex-1 items-center justify-center space-y-10 px-8"
+            source={require("../../assets/backSignUp.png")}>
+            <View className="flex-1 items-center justify-center px-5">
+              <Text className="py-10 font-bold text-2xl">Tramita La Cultura QRO</Text>
+              <Text className="py-0 font-semibold text-lg">Creación de cuenta</Text>
+              <View className="space-y-5 text-left min-w-[95%]">
+                <View className="space-y-2">
+                  <Text>Nombre</Text>
+                  <TextInput
+                    onChangeText={(text: string) => setName(text)}
+                    textContentType="name"
+                    keyboardType="default"
+                    autoComplete="name-given"
+                    spellCheck
+                    className="bg-gray-100 px-5 py-2 rounded-lg border-2 border-indigo-500/100"
+                  />
+                </View>
+                <View className="flex-row content-between justify-between space-x-10">
+                  <View className="flex-1 space-y-2">
+                    <Text>Apellido paterno</Text>
+                    <TextInput
+                      onChangeText={(text: string) => setFirstLN(text)}
+                      textContentType="familyName"
+                      keyboardType="default"
+                      autoComplete="name-family"
+                      spellCheck
+                      className="bg-gray-100 px-5 py-1 rounded-lg border-2 border-indigo-500/100"
+                    />
+                  </View>
+                  <View className="flex-1 space-y-2">
+                    <Text>Apellido Materno</Text>
+                    <TextInput
+                      onChangeText={(text: string) => setSecondLN(text)}
+                      textContentType="familyName"
+                      keyboardType="default"
+                      autoComplete="name-family"
+                      spellCheck
+                      className="bg-gray-100 px-5 py-1 rounded-lg border-2 border-indigo-500/100"
+                    />
+                  </View>
+                </View>
+                <View className="space-y-2">
+                  <Text>Correo electrónico</Text>
+                  <TextInput
+                    onChangeText={(text: string) => setEmail(text)}
+                    textContentType="emailAddress"
+                    keyboardType="email-address"
+                    autoComplete="email"
+                    autoCapitalize="none"
+                    spellCheck={false}
+                    className="bg-gray-100 px-5 py-2 rounded-lg border-2 border-indigo-500/100"
+                  />
+                </View>
+                <View className="space-y-2">
+                  <Text>Celular</Text>
+                  <TextInput
+                    onChangeText={(text: string) => setCellphone(text)}
+                    textContentType="telephoneNumber"
+                    keyboardType="phone-pad"
+                    autoComplete="tel"
+                    className="bg-gray-100 px-5 py-2 rounded-lg border-2 border-indigo-500/100"
+                  />
+                </View>
+                <View className="space-y-2">
+                  <Text>Género</Text>
+                  <TextInput
+                    onChangeText={(text: string) => setGender(text)}
+                    keyboardType="default"
+                    autoComplete="gender"
+                    className="bg-gray-100 px-5 py-2 rounded-lg border-2 border-indigo-500/100"
+                  />
+                </View>
+                <View className="flex-row content-between justify-between space-x-10">
+                  <View className="flex-1 space-y-2">
+                    <Text>Contraseña</Text>
+                    <TextInput
+                      onChangeText={(text: string) => setPassword(text)}
+                      textContentType="newPassword"
+                      keyboardType="default"
+                      autoCapitalize="none"
+                      autoComplete="password-new"
+                      spellCheck={false}
+                      secureTextEntry
+                      className="bg-gray-100 px-5 py-1 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border-2 border-indigo-500/100"
+                    />
+                  </View>
+                  <View className="flex-1 space-y-2">
+                    <Text className="text-xs">Confirmar contraseña</Text>
+                    <TextInput
+                      onChangeText={(text: string) => setConfirmPassword(text)}
+                      textContentType="newPassword"
+                      keyboardType="default"
+                      autoCapitalize="none"
+                      autoComplete="password-new"
+                      spellCheck={false}
+                      secureTextEntry
+                      className="bg-gray-100 px-5 py-1 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700 border-2 border-indigo-500/100"
+                    />
+                  </View>
+                </View>
               </View>
-              <View className="flex-1 space-y-2">
-                <Text>Apellido Materno</Text>
-                <TextInput
-                  onChangeText={(text: string) => setSecondLN(text)}
-                  textContentType="familyName"
-                  keyboardType="default"
-                  autoComplete="name-family"
-                  spellCheck
-                  className="bg-gray-100 px-5 py-4 rounded-lg"
-                />
+              <View className="py-5 pb-10">
+                <TouchableOpacity className="rounded-lg bg-sky-800 px-8 py-3" onPress={signup}>
+                  <Text className="font-semibold text-sky-50">Crear cuenta</Text>
+                </TouchableOpacity>
               </View>
             </View>
-            <View className="space-y-2">
-              <Text>Correo electrónico</Text>
-              <TextInput
-                onChangeText={(text: string) => setEmail(text)}
-                textContentType="emailAddress"
-                keyboardType="email-address"
-                autoComplete="email"
-                autoCapitalize="none"
-                spellCheck={false}
-                className="bg-gray-100 px-5 py-4 rounded-lg"
-              />
-            </View>
-            <View className="space-y-2">
-              <Text>Celular</Text>
-              <TextInput
-                onChangeText={(text: string) => setCellphone(text)}
-                textContentType="telephoneNumber"
-                keyboardType="phone-pad"
-                autoComplete="tel"
-                className="bg-gray-100 px-5 py-4 rounded-lg"
-              />
-            </View>
-            <View className="space-y-2">
-              <Text>Género</Text>
-              <TextInput
-                onChangeText={(text: string) => setGender(text)}
-                keyboardType="default"
-                autoComplete="gender"
-                className="bg-gray-100 px-5 py-4 rounded-lg"
-              />
-            </View>
-            <View className="flex-row content-between justify-between space-x-10">
-              <View className="flex-1 space-y-2">
-                <Text>Contraseña</Text>
-                <TextInput
-                  onChangeText={(text: string) => setPassword(text)}
-                  textContentType="newPassword"
-                  keyboardType="default"
-                  autoCapitalize="none"
-                  autoComplete="password-new"
-                  spellCheck={false}
-                  secureTextEntry
-                  className="bg-gray-100 px-5 py-4 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700"
-                />
-              </View>
-              <View className="flex-1 space-y-2">
-                <Text>Confirmar contraseña</Text>
-                <TextInput
-                  onChangeText={(text: string) => setConfirmPassword(text)}
-                  textContentType="newPassword"
-                  keyboardType="default"
-                  autoCapitalize="none"
-                  autoComplete="password-new"
-                  spellCheck={false}
-                  secureTextEntry
-                  className="bg-gray-100 px-5 py-4 rounded-lg text-gray-900 dark:text-gray-50 dark:bg-gray-700"
-                />
-              </View>
-            </View>
-          </View>
-          <TouchableOpacity className="rounded-lg bg-sky-800 px-8 py-3" onPress={signup}>
-            <Text className="font-semibold text-sky-50">Crear cuenta</Text>
-          </TouchableOpacity>
-        </View>
+          </ImageBackground>
+        </KeyboardAvoidingView>
       </ScrollView>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 

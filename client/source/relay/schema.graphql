@@ -276,6 +276,7 @@ type RootMutation {
   createDocument(user_id: ID, file_name: String!, file_type_id: ID!): Document!
   deleteDocument(id: ID!): Boolean
   createLabel(label_name: String!, description: String!): Label
+  updateProfileImg(user_id: ID!, profile_img: String): User
 }
 
 """Application's GraphQL root query."""
@@ -321,6 +322,9 @@ type User {
 
   """User's phone"""
   cellphone: String!
+
+  """User's profile picture"""
+  profile_img: String
 
   """User's email"""
   email: String!

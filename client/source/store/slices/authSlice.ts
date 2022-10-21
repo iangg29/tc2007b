@@ -12,6 +12,7 @@ interface iAuthState {
     second_lastname: string;
     email: string;
     cellphone: string;
+    profile_img: string;
   };
   isLoggedIn: boolean;
   token: string;
@@ -25,6 +26,7 @@ const initialState: iAuthState = {
     second_lastname: "",
     email: "",
     cellphone: "",
+    profile_img: "",
   },
   isLoggedIn: false,
   token: "",

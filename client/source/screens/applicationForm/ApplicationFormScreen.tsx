@@ -416,6 +416,7 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
           data={documents}
           extraData={documents}
           className="px-3"
+          style={{ width: 500 }}
           renderItem={({ item, index }) => (
             <>
               <View className="flex flex-row flex-wrap content-start justify-start space-x-3 mb-1">
