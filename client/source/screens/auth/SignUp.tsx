@@ -8,13 +8,13 @@ import { useLayoutEffect, useState } from "react";
 import {
   Alert,
   KeyboardAvoidingView,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-  ScrollView,
-  ImageBackground,
   SafeAreaView,
+  ImageBackground,
 } from "react-native";
 
 import { useAppDispatch } from "../../store/hooks";
@@ -29,7 +29,6 @@ const SignUp = () => {
     });
   }, [navigation]);
 
-  // const { name, first_lastname, second_lastname, email, cellphone, gender, password, confirm_password } = req.body;
   const [name, setName] = useState<string>("");
   const [firstLN, setFirstLN] = useState<string>("");
   const [secondLN, setSecondLN] = useState<string>("");

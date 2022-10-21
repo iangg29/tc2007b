@@ -20,7 +20,6 @@ export const getConnectionConfig = () => {
         password: process.env.DB_PASSWORD,
         port: process.env.DB_PORT as unknown as number,
         database: process.env.DB_DATABASE,
-        timezone: TIMEZONE,
       },
       debug: process.env.NODE_ENV === "development",
     };
