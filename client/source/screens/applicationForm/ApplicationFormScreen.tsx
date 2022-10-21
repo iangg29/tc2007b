@@ -130,7 +130,6 @@ const ApplicationFormScreen = ({ route }: any): JSX.Element => {
   const sendFiles = async (files): Promise<any> => {
     const formData = new FormData();
     files.forEach((element): any => formData.append(element.id, element.data));
-
     try {
       const res = await axios.post("/upload/photos", formData, {
         headers: {

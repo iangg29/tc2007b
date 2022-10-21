@@ -3,9 +3,8 @@
 import { FlatList, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useLazyLoadQuery } from "react-relay";
 import { graphql } from "react-relay/hooks";
-import * as React from 'react';
-import { List } from 'react-native-paper';
-
+import * as React from "react";
+import { List } from "react-native-paper";
 
 import { FAQsQuery, FAQsQuery$data } from "./__generated__/FAQsQuery.graphql";
 import { fontScale } from "nativewind";
@@ -42,28 +41,31 @@ const FAQs = (): JSX.Element => {
                     textAlign: "justify",
                     fontSize: 18,
                   }}
-                  style={{ borderRadius: 20, 
-                    backgroundColor: '#6082B6',
-                     marginBottom:16, 
-                     justifyContent: "center", 
-                     alignItems: "center",}}
+                  style={{
+                    borderRadius: 20,
+                    backgroundColor: "#6082B6",
+                    marginBottom: 16,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                   titleNumberOfLines={10}
                   key={index}
                   title={<Text className="text-white">{item.question}</Text>}
-                  left={props => <List.Icon {...props} icon="frequently-asked-questions" color="white" />}>
+                  left={(props) => <List.Icon {...props} icon="frequently-asked-questions" color="white" />}>
                   <List.Item
                     titleStyle={{
                       textAlign: "justify",
                       fontSize: 15,
                     }}
-                    left={props => <List.Icon {...props} icon="" color="black" />}
-                    right={props => <List.Icon {...props} icon="" color="black" />}
-                    style={{ backgroundColor: 'white', alignItems: "center", justifyContent: "center" }}
+                    left={(props) => <List.Icon {...props} icon="" color="black" />}
+                    right={(props) => <List.Icon {...props} icon="" color="black" />}
+                    style={{ backgroundColor: "white", alignItems: "center", justifyContent: "center" }}
                     titleNumberOfLines={30}
-                    key={item.id} title={<Text className="italic">{item.answer}</Text>} />
+                    key={item.id}
+                    title={<Text className="italic">{item.answer}</Text>}
+                  />
                 </List.Accordion>
               ))}
-
             </List.Section>
           </View>
         </ScrollView>
