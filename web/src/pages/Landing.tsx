@@ -17,7 +17,14 @@ const Landing = (): JSX.Element => {
           <h1 className="rounded-xl text-center text-black text-4xl font-bold">Tramita La Cultura QRO</h1>
           <br></br>
         </div>
-        <div className="bg-white bg-opacity-60 rounded-xl p-2 text-center">¡Descarga la aplicación móvil aquí!</div>
+        <div className="flex flex-row content-center justify-center">
+          <a
+            className="bg-white bg-opacity-60 rounded-xl p-2 text-center content-center justify-center"
+            href="https://expo.dev/artifacts/eas/5gPBKLgts7x1GDozXd9V9w.ipa"
+          >
+            ¡Descarga la aplicación móvil aquí!
+          </a>
+        </div>
         <div className="text-center">
           <a
             href="https://culturaqueretaro.gob.mx/iqca/sitio/Servicioscontroller/lineamientosDescargas"

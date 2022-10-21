@@ -18,7 +18,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "cloud.iangarcia.tc2007b",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
@@ -32,7 +34,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "f66b125e-cb56-4c32-aa4a-97b378f7a3c3"
+        "projectId": "5ae19fc5-5d4a-4526-a708-8a17ddbda290"
       }
     }
   }
